@@ -1,0 +1,62 @@
+2.0-8 (October 18, 2004): Stable release for R 1.9.1 and R 2.0.0
+  (Linux only).  Revised Zelig for submission to CRAN.
+  
+2.0-7 (October 14, 2004): Stable release for R 1.9.1 \emph{and} R
+  2.0.0 (Linux only).  Fixed bugs in summary.zelig(), NAMESPACE, and
+  assorted bugs related to new R release.  Revised syntax for multiple
+  equation models.
+
+2.0-6 (October 4, 2004): Stable release for R 1.9.1. Fixed problem
+  with NAMESPACE.
+
+2.0-5 (September 25, 2004): Stable release for R 1.9.1.  Changed
+  installation procedure to source install.R from Zelig website.
+
+2.0-4 (September 22, 2004): Stable release for R 1.9.1.  Fixed typo in
+  installation directions, implemented NAMESPACE, rationalized
+  summary.zelig(), and tweaked documentation for least squares.
+
+2.0-3 (September 1, 2004): Stable release for R 1.9.1.  Fixed bug in
+  conditional prediction for survival models.
+
+2.0-2 (August 25, 2004): Stable release for R 1.9.1.  Removed
+  predicted values from ls.
+
+2.0-1b (July 16, 2004): Stable release for R 1.9.1.  MD5 checksum
+  problem fixed.  Revised plot.zelig() command to be a generic function
+  with methods assigned by the model.  Revised entire architecture to
+  accept multiply imputed data sets with strata.  Added functions to
+  simplify adding models.  Completely restructured reference manual.
+  Fixed bugs related to conditional prediction in setx and summarizing
+  strata in summary.zelig.
+
+1.1-2 (June 24, 2004): Stable release for R 1.9.1 (MD5
+  checksum problem not fixed, but does not seem to cause problems).
+  Fixed bug in help.zelig().  (reported by Michael L. Levitan)
+
+1.1-1 (June 14, 2004): Stable release for R 1.9.0.  Revised zelig()
+  procedure to use zelig2model() wrappers, revised help.zelig() to use a
+  data file with extension .url.tab, and revised setx() procedure to
+  take a list of fn to apply to variables, and such that fn = NULL
+  returns the entire model.matrix().
+
+1.0-8 (May 27, 2004): Stable release for R 1.9.0.  Fixed bug in
+  simulation procedure for survival models.  (reported by Elizabeth
+  Stuart)
+
+1.0-7 (May 26, 2004): Stable release for R 1.9.0. Fixed bug in relogit
+  simulation procedure.  (reported by Tom Vanwellingham)
+
+1.0-6 (May 11, 2004): Stable release for R 1.9.0.  Fixed bug in
+  setx.default, which had previously failed to ignore extraneous
+  variables in data frame.  (reported by Steve Purpura)
+
+1.0-5 (May 7, 2004): Replaced relogit procedure with memory-efficient
+  version. (reported by Tom Vanwellingham)
+
+1.0-4 (April 19, 2004): Stable release for R 1.9.0.  Added vcov.lm
+  method; changed print for summary.relogit.
+
+1.0-2 (April 16, 2004): Testing distribution for R 1.9.0. 
+
+1.0-1 (March, 23, 2004): Stable release for R 1.8.1. 
