@@ -1,0 +1,9 @@
+Zelig           "Zelig: Everyone's Statistical Software" package.  
+                   Refer to http://gking.harvard.edu/zelig for full 
+                   documentation. 
+zelig	        Estimate statistitcal models
+setx            Set values of explanatory variables
+sim             Simulate quantities of interest
+help.zelig      Get html help for functions and models in the  Zelig 
+                   package.  
+
