@@ -6,8 +6,10 @@ parse.par <- function(par, x, terms) {
   j <- 0
   if (!is.null(ancil.names)) {
     j <- length(ancil.names)
-    for (i in 1:j) 
-      assign(ancil.names[i], par[(k + i)], envir = parent.frame())
+    for (i in 1:j) {
+      tmp <- par[(k + i)]
+      assign(ancil.names[i], tmp, envir = parent.frame())
+    }
   }
   if (length(par) > (k + j)) 
     return(par[(k + j):length(par)])

@@ -1,3 +1,4 @@
+beta          Beta regression and simulation
 blogit        Bivariate Logit regression and simulation 
 bprobit       Bivariate Probit regression and simulation 
 conditional   Conditional prediction
@@ -9,7 +10,6 @@ ls            Least Squares regression and simulation
 match         Regression and simulation on a matched data set 
 mi            Regression and simulation on multiply imputed data sets
 mlogit        Multinomial Logit regression and simulation 
-multiple      Regression and simulation on subsetted data. 
 negbin        Negative Binomial regression and simulation
 normal        Normal (Gaussian) regression and simulation
 ologit        Ordinal Logit regression and simulation
@@ -17,6 +17,7 @@ oprobit       Ordinal Probit regression and simulation
 poisson       Poisson regression and simulation
 probit        Probit regression and simulation
 relogit       Rare events logit regression and simulation
+strata        Regression and simulation in a stratified model
 roc           ROC plot
 vertci        Vertical confidence interval plot
 weibull       Weibull regression and simulation

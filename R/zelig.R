@@ -61,7 +61,7 @@ zelig <- function(formula, model, data, by = NULL, ...) {
       object <- obj
   }
   if (N > 1) {
-    class(object) <- "multiple"
+    class(object) <- "strata"
     names(object) <- lev
   }
   object

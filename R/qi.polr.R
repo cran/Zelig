@@ -4,21 +4,17 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
   sim.zeta <- simpar[,(m+1):ncol(simpar)]
   k <- length(object$zeta) + 1
   lev <- object$lev
-  eta <- array()
-  if (ncol(x) == 1)
-    eta <- 0
-  else 
-    eta <- x[,-1] %*% t(sim.coef)
-  ev.polr <- function(ev, eta, sim.zeta, lev) {
+  eta <- x[,-1] %*% t(sim.coef)
+  ev.polr <- function(ev, eta, sim.zeta) {
     for (j in 1:ncol(sim.zeta)) 
-      ev[,j,] <- 1 / (1 + exp(-sim.zeta[,j] + eta))
-    for (j in 0:(ncol(sim.zeta)-1)) 
+      ev[,j,] <- exp(sim.zeta[,j] - t(eta)) / (1 + exp(sim.zeta[,j] - t(eta)))
+     for (j in 0:(ncol(sim.zeta)-1)) 
       ev[,dim(ev)[2]-j,] <- ev[,dim(ev)[2]-j,]-ev[,(dim(ev)[2]-j-1),]
     ev
   }
   ev <- array(1, dim = c(nrow(sim.coef), length(lev), nrow(x)),
               dimnames = list(NULL, lev, rownames(x)))
-  ev <- ev.polr(ev, eta, sim.zeta, lev)
+  ev <- ev.polr(ev, eta, sim.zeta)
   sim.cut <- Ipr <- array(1, dim = dim(ev), dimnames = dimnames(ev))
   pr <- matrix(NA, nrow = nrow(sim.coef), ncol = nrow(x))
   sim.cut[,1,] <- ev[,1,]
@@ -40,9 +36,9 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
     ev1 <- array(1, dim = c(nrow(sim.coef), length(lev), nrow(x)),
                  dimnames = list(NULL, lev, rownames(x)))
     eta1 <- x1[,-1] %*% t(sim.coef)
-    ev1 <- ev.polr(ev1, eta1, sim.zeta, lev)
-    qi$fd <- ev1-ev
-    qi$rr <- ev1/ev
+    ev1 <- ev.polr(ev1, eta1, sim.zeta)
+    qi$fd <- ev1 - ev
+    qi$rr <- ev1 / ev
     qi.name$fd <- "First Differences: P(Y=j|X1)-P(Y=j|X)"
     qi.name$rr <- "Risk Ratio: P(Y=j|X1)-P(Y=j|X)"
   }

@@ -1,4 +1,4 @@
-setx.multiple <- function(object, fn = list(numeric = mean, ordered =
+setx.strata <- function(object, fn = list(numeric = mean, ordered =
                                     median, other = mode), data =
                           NULL, cond = FALSE, counter = NULL, ...) {
   obj <- object[[1]]
@@ -38,7 +38,7 @@ setx.multiple <- function(object, fn = list(numeric = mean, ordered =
     }
   }
   names(x) <- names(object)
-  class(x) <- "setx.multiple"
+  class(x) <- "setx.strata"
   return(x) 
 }
 

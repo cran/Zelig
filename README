@@ -1,3 +1,19 @@
+2.0-13 (March 11, 2005): Stable release for R 1.9.1-2.0.1.  Fixed bugs in 
+  NAMESPACE and rocplot.Rd. 
+
+2.0-12 (February 20, 2005): Stable release for R 1.9.1-2.0.1.  Added plot 
+  = TRUE option to rocplot().  
+
+2.0-11 (January 14, 2005): Stable release for R 1.9.1-2.0.1.  Changed 
+  class name for subsettted models from "multiple" to "strata", and 
+  modified affected functions.
+
+2.0-10 (January 4, 2005): Stable release for R 1.9.1 and R 2.0.0.  Fixed 
+  bug in simulation procedure for ordinal logit.  (Reported by Ian Yohai.)
+
+2.0-9 (October 21, 2004): Stable release for R 1.9.1 and R 2.0.0 (Linux 
+  only).  Fixed bugs in NAMESPACE.
+
 2.0-8 (October 18, 2004): Stable release for R 1.9.1 and R 2.0.0
   (Linux only).  Revised Zelig for submission to CRAN.
   
