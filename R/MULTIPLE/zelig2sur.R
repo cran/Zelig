@@ -1,0 +1,15 @@
+zelig2sur <- function(formula, model, data, M,
+                          omit = NULL,...) {
+  check <- library()
+  if(any(check$results[,"Package"] == "systemfit")) 
+    require(systemfit)
+  else
+    stop("Please install systemfit using ....")
+  mf <- match.call(expand.dots = TRUE)
+  mf[[1]] <- as.name("callsystemfit")
+  tmp <- cmsystemfit(formula, omit)
+  mf$eqns <- tmp
+  mf$method<-"SUR"
+  mf$model<- mf$M<-NULL
+  as.call(mf)
+}

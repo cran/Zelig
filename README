@@ -1,3 +1,6 @@
+2.1-1 (April 7, 2005):  Stable release for R 1.9.1-2.1.  Fixed bugs in 
+  NAMESPACE and summary.vglm().  
+
 2.0-13 (March 11, 2005): Stable release for R 1.9.1-2.0.1.  Fixed bugs in 
   NAMESPACE and rocplot.Rd. 
 

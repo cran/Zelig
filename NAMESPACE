@@ -2,7 +2,7 @@ import(MASS)
 import(boot)
 
 export( dims, 
-        help.zelig,
+	help.zelig,
 	zelig,
 	help.zelig,
         gsource, 
@@ -69,6 +69,7 @@ S3method(summary, setx.cond)
 S3method(summary, setx)   
 S3method(summary, zelig.strata)   
 S3method(summary, zelig)   
+S3method(summary, vglm)
 S3method(terms, vglm)
 S3method(vcov, BetaReg)
 S3method(vcov, lm)
