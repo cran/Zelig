@@ -1,4 +1,4 @@
-summary.zelig.multiple <-function(object, subset = NULL, CI=95, 
+summary.zelig.strata <-function(object, subset = NULL, CI=95, 
                         stats=c("mean", "sd", "min", "max"), ...){
   m <- length(object)
   if(is.null(subset)) { # summary for all strata together
@@ -61,7 +61,7 @@ summary.zelig.multiple <-function(object, subset = NULL, CI=95,
       res[[i]] <- summary.zelig(object[[subset[i]]], subset=NULL, ...)
       names(res)[i] <- names(object)[i]
     }
-    class(res) <- "summary.zelig.multiple"
+    class(res) <- "summary.zelig.strata"
     return(res)
   }
 }

@@ -10,11 +10,11 @@ define.par <- function(object, coef.name = "beta",
   attr(object, "items")$coef <- coef.name
   assign(as.character(mc$object), object, envir = parent.frame())
   
-  if (is.null(start))
+  if (is.null(start)) 
     start.val <- vector(mode = "numeric", length = length(coef))
-  else
+  else 
     start.val <- start
-
+  
   names(start.val) <- coef
   start.val
 }

@@ -1,4 +1,4 @@
-sim.setx.multiple <- function(object, x, x1 = NULL, num = c(1000, 100),
+sim.setx.strata <- function(object, x, x1 = NULL, num = c(1000, 100),
                          bootstrap = FALSE, ...){
   if (any(class(object) == "MCMCZelig"))
     num <- nrow(object$coefficients)
@@ -27,7 +27,7 @@ sim.setx.multiple <- function(object, x, x1 = NULL, num = c(1000, 100),
                     bootstrap = bootstrap, ...)
     res[[i]]$nx <- nrow(dat)/nrow(dta)
   }
-  class(res) <- "zelig.multiple"
+  class(res) <- "zelig.strata"
   names(res) <- names(object)
   res
 }

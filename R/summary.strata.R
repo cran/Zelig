@@ -1,4 +1,4 @@
-summary.multiple <- function(object, subset = NULL, ...) {
+summary.strata <- function(object, subset = NULL, ...) {
   res <- list()
   if(is.null(subset))
     M <- 1:length(object)
@@ -19,7 +19,7 @@ summary.multiple <- function(object, subset = NULL, ...) {
   res$by <- by
   res$lev <- names(object)[M]
   res$M <- M
-  class(res) <- "summary.multiple"
+  class(res) <- "summary.strata"
   res
 }
 
