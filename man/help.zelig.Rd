@@ -11,24 +11,18 @@
   }
 
 \usage{
-help.zelig(object)
+help.zelig(...)
 }
 
 \arguments{
-  \item{object}{a character string representing a Zelig command or model. 
-    \code{help.zelig("command")} will take you to an index of Zelig
-    commands and \code{help.zelig("model")} will take you to a list of
+  \item{...}{a Zelig command or model. 
+    \code{help.zelig(command)} will take you to an index of Zelig
+    commands and \code{help.zelig(model)} will take you to a list of
     models. }
   }
 
 \seealso{The complete document is available online at
   \url{http://gking.harvard.edu/zelig}.  
-}
-
-\references{Gary King, Michael Tomz, and Jason Wittenberg (2000),
-``Making the Most of Statistical Analyses: Improving Interpretation and
-  Presentation,'' \emph{American Journal of Political Science}, vol. 44,
-  pp.347--355.
 }
 
 \author{

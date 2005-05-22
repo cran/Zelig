@@ -83,10 +83,10 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
       for (i in 1:2)
         index[,i] <- rbinom(length(mpr[,i]), 1, mpr[,i])
       pr <- matrix(NA, nrow(simpar), 4)
-      pr[,1] <- as.character(as.integer(index[,1] == 0 & index[,2] == 0))
-      pr[,2] <- as.character(as.integer(index[,1] == 0 & index[,2] == 1))
-      pr[,3] <- as.character(as.integer(index[,1] == 1 & index[,2] == 0))
-      pr[,4] <- as.character(as.integer(index[,1] == 1 & index[,2] == 1))
+      pr[,1] <- as.integer(index[,1] == 0 & index[,2] == 0)
+      pr[,2] <- as.integer(index[,1] == 0 & index[,2] == 1)
+      pr[,3] <- as.integer(index[,1] == 1 & index[,2] == 0)
+      pr[,4] <- as.integer(index[,1] == 1 & index[,2] == 1)
       colnames(pr) <- c("(Y1=0, Y2=0)", "(Y1=0, Y2=1)", "(Y1=1, Y2=0)",
                         "(Y1=1, Y2=1)")
     }

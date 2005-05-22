@@ -13,7 +13,7 @@ user.prompt()
 z.out1 <- zelig(cbind(import, export) ~ coop + cost + target, 
                   model = "bprobit", data = sanction)
 user.prompt()
-summary(z.out1)
+print(summary(z.out1))
 
 # Generate baseline values for the explanatory variables (with cost set
 # to 1, net gain to sender) and alternative values (with cost set to 4,
@@ -26,7 +26,7 @@ x.high <- setx(z.out1, cost = 4)
 user.prompt()
 s.out1 <- sim(z.out1, x = x.low, x1 = x.high)
 user.prompt()
-summary(s.out1)
+print(summary(s.out1))
 
 # Plot the s.out
 user.prompt()
@@ -44,7 +44,7 @@ z.out2 <- zelig(cbind(import, export) ~ coop + cost + target,
                   omit = list("1"="coop", "2"="cost", "3" = "target"), 
                   model = "bprobit", data = sanction)
 user.prompt()
-summary(z.out2)
+print(summary(z.out2))
 
 # Set the explanatory variables to their default values:
 user.prompt()
@@ -54,7 +54,7 @@ Xval2 <- setx(z.out2)
 user.prompt()
 s.out2 <- sim(z.out2, x = Xval2)
 user.prompt()
-summary(s.out2)
+print(summary(s.out2))
 
 # Plotting marginal densities:
 user.prompt()
@@ -72,7 +72,7 @@ z.out3 <- zelig(cbind(import, export) ~ coop + cost + target,
                     "2"=c("coop", "cost", "target")), 
                 model = "bprobit", data = sanction)
 user.prompt()
-summary(z.out3)
+print(summary(z.out3))
 
 # Note that this model only returns one parameter estimate for each of
 # coop, cost, and target.  Contrast this to Example 1 which returns two
@@ -86,7 +86,7 @@ x.out3 <- setx(z.out3, cost = 1:4)
 user.prompt()
 s.out3 <- sim(z.out3, x = x.out3)
 user.prompt()
-summary(s.out3)
+print(summary(s.out3))
 
 
 

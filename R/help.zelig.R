@@ -1,65 +1,53 @@
-help.zelig <- function(object) {
-  # Elements of this function use functions from the Hmisc library for
-  # R by Frank E Harrell Jr, distributed under the GNU GPL v.2.
-  under.unix   <- !(version$os=='Microsoft Windows' ||
-                    version$os=='Win32' || version$os=='mingw32')
-  sys <- function (command, text = NULL) {
-    cmd <- if (length(text)) 
-      paste(command, text)
-    else command
-    if (under.unix) 
-      system(cmd)
-    else shell(cmd, wait = TRUE)
-  }
-  browser <- .Options$help.browser
-  if(!length(browser)) browser <- .Options$browser
-  if(!length(browser)) browser <- getOption("browser")
-  url <- NULL
-  if (missing(object)) 
-    url <- c("http://gking.harvard.edu/zelig/docs/")
-  else if (is.character(object)) { 
-    z <- .libPaths()
-    n <- urls <- array()
-    for (i in 1:length(z))
-      n[i] <- file.path(z[i], "Zelig", fsep = .Platform$file.sep)
-    check <- file.exists(n)
-    if (sum(check) > 1) {
-      Zdir <- n[check][1]
-      warning(paste("library Zelig found in two locations.  Using", 
-Zdir))
-    }
-    else
-      Zdir <- n[which(check)]
-    Zdata <- file.path(Zdir, "data", fsep = .Platform$file.sep)
-    files <- list.files(Zdata, pattern = "url")
-    for (i in 1:length(files))
-      urls[i] <- file.path(Zdata, files[i], fsep = .Platform$file.sep)
-    data.path <- read.table(urls[1], header = FALSE)
-    if (length(urls) > 1) {
-      for (i in 2:length(urls)) { 
-        tmp <- read.table(urls[i], header = FALSE)
-        data.path <- rbind(data.path, tmp)
-      }
-    }
-    url <- data.path[which(as.character(data.path[,1]) == object), 2]
+help.zelig <- function (...)  {
+  zipped <- FALSE
+  loc <- NULL
+  name <- c(as.character(substitute(list(...))[-1]), list)[[1]]
+  if (length(name) == 0) 
+    loc <- "http://gking.harvard.edu/zelig"
+  paths <- .find.package("Zelig")
+  if (length(paths) > 1)
+    warning(paste("Zelig installed in", length(paths), "locations.  Using\n     ", paths[1]))
+  path <- paths[1]
+  path <- file.path(path, "data")
+  if (tools::file_test("-f", file.path(path, "Rdata.zip"))) {
+    zipped <- TRUE
+    if (tools::file_test("-f", fp <- file.path(path, "filelist"))) 
+      files <- file.path(path, scan(fp, what = "", quiet = TRUE))
+    else 
+      stop(gettextf("file 'filelist' is missing for directory '%s'", 
+                    path), domain = NA)
   }
   else 
-    stop("Please enclose the requested topic \n in quotes and try again.")
-  if (is.null(url)) {
+    files <- list.files(path, full = TRUE)
+  files <- files[which(regexpr("url", files) > 0)]
+  if (length(files) == 0)
+    loc <- "http://gking.harvard.edu/zelig"
+  else {
+    zfile <- array()
+    for (f in 1:length(files)) {
+      if (zipped) 
+        zfile[f] <- zip.file.extract(files[f], "Rdata.zip")
+      else
+        zfile <- files
+    }
+    tab <- read.table(zfile[1], header = FALSE, as.is = TRUE)
+    if (length(zfile) > 1) {
+      for (i in 2:length(zfile)) 
+        tab <- rbind(tab, read.table(zfile[i], header = FALSE, as.is = TRUE))
+    }
+    loc <- tab[which(as.character(tab[, 1]) == name), 2]
+  }
+  if (is.null(loc)) { 
     cat("Warning: Requested topic not found in Zelig help.  \n If you are sure the topic exists, please check \n the full documentation at http://gking.harvard.edu/zelig.  \n Now searching R-help.\n\n")
-    topic <- as.name(object)
+    topic <- as.name(name)
     do.call("help", list(topic, htmlhelp = TRUE))
   }
   else {
-    if (under.unix) {
-      sys(paste(browser, as.character(url), '&'))
-      invisible()
-    }
-    if (!under.unix) {
-      browseURL(as.character(url), browser = browser)
-      invisible("")
-    }
+    browseURL(loc)
+    invisible(name)
   }
-}  
-
-
+  if (zipped) {
+    for (i in 1:length(zfile))
+      on.exit(unlink(zfile[i]))
+  }
+}

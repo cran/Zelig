@@ -15,9 +15,11 @@ export( dims,
 	user.prompt
 )
 	
-
+S3method("$", vglm)
+S3method("$", summary.vglm)
+S3method("$<-", vglm)
+S3method("$<-", summary.vglm)
 S3method(names, relogit)
-S3method(names, summary.vglm) 
 S3method(names, summary.zelig.relogit)
 S3method(names, vglm)
 S3method(names, zelig)
@@ -69,10 +71,13 @@ S3method(summary, setx.cond)
 S3method(summary, setx)   
 S3method(summary, zelig.strata)   
 S3method(summary, zelig)   
-S3method(summary, vglm)
+S3method(summary, lm.robust)   
+S3method(summary, glm.robust)   
 S3method(terms, vglm)
 S3method(vcov, BetaReg)
 S3method(vcov, lm)
 S3method(vcov, relogit)
+S3method(vcov, lm.robust)
+S3method(vcov, glm.robust)
    
 
