@@ -1,8 +1,9 @@
-zelig <- function(formula, model, data, by = NULL, ...) {
+zelig <- function(formula, model, data, by = NULL, robust = FALSE, ...) {
   fn <- paste("zelig2", model, sep = "")
   if (!exists(fn))
     stop(model, "not supported. Type help.zelig(\"models\") to list supported models.")
   mf <- match.call(expand.dots = TRUE)
+  mf$robust <- NULL
   if (missing(by))
     by <- NULL
   N <- M <- 1
@@ -47,6 +48,29 @@ zelig <- function(formula, model, data, by = NULL, ...) {
         res$call <- match.call()
         res$data <- res$call$data
         res$zelig <- model
+        if (is.list(robust)) {
+          if (any(c("lm", "glm") %in% class(res)[1])) {
+            require(sandwich)
+            ctmp <- class(res)
+            class(res) <- c(paste(ctmp[1], ".robust", sep=""), ctmp)
+            if (!any(robust$method %in% c("vcovHC", "vcovHAC", "kernHAC")))
+              stop("such a robust option is not supported")
+            else if ((robust$method == "vcovHC") & ("lm" != class(res)[1]))
+              stop("vcovHC is supported only for ols")
+            res$robust <- robust
+          }
+          else
+            stop("robust option is not supported for this model.")
+        }
+        else if (robust) {
+          if (any(c("lm", "glm") %in% class(res)[1])) {
+            require(sandwich)
+            ctmp <- class(res)
+            class(res) <- c(paste(ctmp[1], ".robust", sep=""), ctmp)
+          }
+          else
+            stop("robust option is not supported for this model.")
+        }
         if (M > 1) 
           obj[[j]] <- res
         else

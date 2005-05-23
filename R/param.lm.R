@@ -1,5 +1,5 @@
 param.lm <-function(object, num, bootstrap = FALSE) {
-  if (num < 1) num <- 1
+#  if (num < 1) num <- 1
   if (!bootstrap) {
     coef <- mvrnorm(num, mu=coef(object), Sigma=vcov.lm(object))
     df <- object$df.residual

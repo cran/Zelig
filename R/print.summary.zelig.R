@@ -1,6 +1,6 @@
 print.summary.zelig <- function(x, digits=getOption("digits"),
                               print.x=FALSE, ...){
-  cat("\n  Model:", x$zelig, "\n")
+  cat("\n  Model:", x$model, "\n")
   if (!is.null(x$num))
       cat("  Number of simulations:", x$num, "\n")
   if (!is.null(x$x)) {
@@ -30,14 +30,14 @@ print.summary.zelig <- function(x, digits=getOption("digits"),
   for (i in 1:length(x$qi.name)){
     indx <- pmatch(names(x$qi.name[i]), names(x$qi.stats))
     tmp <- x$qi.stats[[indx]]
-    if (names(x$qi.name)[indx] == "pr" && colnames(tmp)[1] != "mean")
-      lab <- paste(x$qi.name[[i]], "(percentage of simulations)", sep = " ")
-    else
+#    if (names(x$qi.name)[indx] == "pr" && colnames(tmp)[1] != "mean")
+#      lab <- paste(x$qi.name[[i]], "(percentage of simulations)", sep = " ")
+#    else
       lab <- x$qi.name[[i]]
     cat("\n", lab, "\n", sep = "")
     if (length(dim(tmp)) == 3) {
         for (j in 1:dim(tmp)[3]){
-          cat("\n  Observation", dimnames(tmp)[[3]][j], "\n")
+          cat("\n  Observation", rownames(x$x)[j], "\n")
           if (is.null(rownames(tmp[,,j])))
             rownames(tmp[,,j]) <- 1:nrow(tmp[,,j])
           if (!is.null(names(tmp[,,j])))
@@ -46,11 +46,11 @@ print.summary.zelig <- function(x, digits=getOption("digits"),
         }
       }
     else {
-      if (is.null(rownames(tmp)))
+      if (is.matrix(tmp) & is.null(rownames(tmp)))
         rownames(tmp) <- 1:nrow(tmp)
-      if (!is.null(names(tmp)))
-        names(tmp) <- NULL
-      print.matrix(tmp, digits=digits, ...)
+#      if (!is.null(names(tmp)))
+#        names(tmp) <- NULL
+      print(tmp, digits=digits, ...)
     }
   }
 }

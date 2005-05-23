@@ -10,7 +10,7 @@
     slot(a, b)
 }
 
-"$<-.vglm"<-"$<-summary.vglm"<-function(a, b, value){
+"$<-.vglm"<-"$<-.summary.vglm"<-function(a, b, value){
   if(is.na(pmatch(b, slotNames(a)))){
     tmp<-class(a)
     class(a)<-NULL

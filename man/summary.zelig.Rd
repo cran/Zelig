@@ -10,7 +10,7 @@
   interst.} 
 
 \usage{
-\method{summary}{zelig}(object, subset = NULL, CI = 95, stats = c("mean", "sd", "min", "max"), \dots)
+\method{summary}{zelig}(object, subset = NULL, CI = 95, stats = c("mean", "sd"), \dots)
 }
 
 \arguments{

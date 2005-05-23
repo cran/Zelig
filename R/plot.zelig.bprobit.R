@@ -12,7 +12,7 @@ plot.zelig.bprobit <- function(x, xlab = "", user.par = FALSE, alt.col = "red", 
   par(mfrow = c(k, 1))
   for (i in 1:k) {
     qi <- as.matrix(x$qi[[i]])
-    if (is.character(qi[1])) {
+    if (names(x$qi)[i] == "pr") { 
       total <- sum(as.integer(qi))
       y00 <- 100 * sum(as.integer(qi[,1]))/total
       y01 <- 100 * sum(as.integer(qi[,2]))/total

@@ -3,7 +3,7 @@ user.prompt()
 z.out <- zelig(vote88 ~ pristr + othcok + othsocok, model = "mlogit", 
                data = mexico)
 user.prompt()
-summary(z.out)
+print(summary(z.out))
 
 user.prompt()
 x.weak <- setx(z.out, pristr = 1)
@@ -12,7 +12,7 @@ x.strong <- setx(z.out, pristr = 3)
 user.prompt()
 s.out <- sim(z.out, x = x.strong, x1 = x.weak)
 user.prompt()
-summary(s.out)
+print(summary(s.out))
 
 user.prompt()
 ev.weak <- s.out$qi$ev + s.out$qi$fd
