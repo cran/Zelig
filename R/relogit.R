@@ -6,8 +6,8 @@ relogit <- function(formula, data=sys.parent(), tau=NULL,
     tau <- unique(tau)
   if (length(tau) > 2)
     stop("tau must be a vector of length less than or equal to 2")
-  mf[[1]] <- as.name("glm")
-  mf$family <- as.name("binomial")
+  mf[[1]] <- glm
+  mf$family <- binomial(link="logit")
   res <- eval(as.call(mf))
   res$call <- match.call(expand.dots = TRUE)
   ## prior correction 

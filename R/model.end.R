@@ -1,24 +1,17 @@
-model.end <- function(Terms, res) {
+model.end <- function(res, D) {
 
-  variance <- -solve(res$hessian)
+  res$variance <- -solve(res$hessian)
+  res$hessian <- NULL
 
-  lev <- eval(as.name(attr(Terms, "items")$lev), envir = parent.frame())
-  kall <- eval(as.name("kall"), envir = parent.frame())   
-  xlev <- eval(as.name(attr(Terms, "items")$xlev), envir = parent.frame())
-  mf <- eval(as.name(attr(Terms, "items")$mf), envir = parent.frame())
-  x <- eval(as.name(attr(Terms, "items")$x), envir = parent.frame())
-  
-  names(res$par) <- c(colnames(x), attr(Terms, "items")$ancillary)
-  colnames(variance) <- rownames(variance) <- names(res$par)
+  colnames(res$variance) <- rownames(res$variance) <- names(res$par)
+  res$coefficients <- res$par
+  res$par <- NULL
 
-  fit <- list(coefficients = res$par, variance = variance, 
-              lev = lev, terms = Terms, call = kall, 
-              convergence = res$convergence, xlevels = xlev) 
+  res$terms <- attr(D, "terms")
 
-  attr(fit, "na.message") <- attr(mf, "na.message") 
+  attr(res, "na.message") <- attr(D, "na.message") 
+  if (!is.null(attr(D, "na.action"))) 
+    res$na.action <- attr(D, "na.action") 
 
-  if (!is.null(attr(mf, "na.action"))) 
-    fit$na.action <- attr(mf, "na.action") 
-
-  fit
+  res
 }

@@ -55,13 +55,13 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   else
     tt <- terms(object)
   if (is.null(data)) 
-    dta <- eval(object$call$data, sys.parent())
+    odta <- eval(object$call$data, sys.parent())
   else
-    dta <- data
-  data <- dta <- dta[complete.cases(model.frame(tt, dta)), ]
+    odta <- data
+  data <- dta <- model.frame(delete.response(tt), odta)
   vars <- names(dta)
   if (!is.null(counter)) {
-    if (!any(counter == names(model.frame(tt, dta))))
+    if (!any(counter == vars))
       stop(paste("the variable specified for counter is not used in the model"))
     treat <- data[, names(data)==counter]
     if(is.numeric(treat)) {
@@ -95,10 +95,6 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       warning(paste("when cond = TRUE, fn is coerced to NULL"))
       fn <- NULL
     }
-    if (class(object)[1] == "vglm")
-      Y <- model.response(model.frame(tt, data=dta), "any")
-    else
-      Y <- model.extract(model.frame(tt, data=dta), "response")
   }
   else  if (!is.null(fn)) {
     if (is.null(fn$numeric) || !is.function(fn$numeric)) {
@@ -120,17 +116,14 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       warning("the only available fn for other is mode.")
       fn$other <- mode
     }
-    for (i in 1:ncol(dta)) {
-      v <- na.omit(dta[,i])
-      if (any(vars[i] == names(model.frame(tt, dta)))) {
-        if (is.numeric(v))
-          value <- lapply(list(v), fn$numeric)[[1]]
-        else if (is.ordered(v)) 
-          value <- lapply(list(v), fn$ordered)[[1]]
-        else 
-          value <- lapply(list(v), fn$other)[[1]]
-        data[,i] <- value
-      }
+    for (i in 1:ncol(data)) {
+      if (is.numeric(data[,i]))
+        value <- lapply(list(data[,i]), fn$numeric)[[1]]
+      else if (is.ordered(data[,i])) 
+        value <- lapply(list(data[,i]), fn$ordered)[[1]]
+      else 
+        value <- lapply(list(data[,i]), fn$other)[[1]]
+      data[,i] <- value
     }
     opt <- vars[na.omit(pmatch(names(mf), vars))]
     maxl <- 1
@@ -146,7 +139,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
           else
             stop("vector inputs should have the same length.")
         if (is.factor(data[,opt[i]]))
-          data[,opt[i]] <- list(as.factor(value))
+          data[,opt[i]] <- list(factor(value, levels=levels(data[,opt[i]])))
         else if (is.numeric(data[,opt[i]]))
           data[,opt[i]] <- list(as.numeric(value))
         else if (is.logical(data[,opt[i]]))
@@ -156,21 +149,18 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       }
     data <- data[1:maxl,]
   }
-  X <- model.matrix(delete.response(tt), data = data, contrasts =
-                    if (length(object$contrasts)>0) object$contrasts
-                    else NULL, xlev = object$xlevels, ...)
-  row.names(X) <- 1:nrow(X)
-  X <- as.matrix(X)
-  class(X) <- "setx"
   if (cond) {
-    X <- cbind(Y, X)
+    X <- model.frame(tt, odta)
     if (!is.null(counter)) {
       X <- list(treat=X[treat==1,], control=X[treat==0,])
-      class(X$treat) <- class(X$control) <- c("setx", "cond")
+      class(X$treat) <- class(X$control) <- c("data.frame", "cond")
       class(X) <- "setx.counter"
     }
     else
-      class(X) <- c("setx", "cond")
+      class(X) <- c("data.frame", "cond")
   }
+  else
+    X <- as.data.frame(model.matrix(delete.response(tt), data = data))
+
   return(X)
 }

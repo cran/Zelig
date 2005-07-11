@@ -1,24 +1,34 @@
-import(MASS)
-import(boot)
+importFrom(MASS, mvrnorm)
+importFrom(boot, boot)
+importFrom(stats, glm)
+importFrom(stats, family)
+importFrom(stats, binomial)
+importFrom(stats, gaussian)
+importFrom(stats, Gamma)
+importFrom(stats, inverse.gaussian)
+importFrom(stats, poisson)
+importFrom(stats, quasi)
+importFrom(stats, quasibinomial)
+importFrom(stats, quasipoisson)
 
 export( dims, 
-	help.zelig,
-	zelig,
-	help.zelig,
-        gsource, 
+        gsource,
+        help.zelig, 
+        plot.ci,
+        plot.zelig,
+        rocplot, 
 	setx,
 	sim,
-	plot.ci,
-        plot.zelig, 
-	rocplot,
 	ternarypoints, 
-	user.prompt
+	user.prompt, 
+        zelig
 )
 	
 S3method("$", vglm)
 S3method("$", summary.vglm)
 S3method("$<-", vglm)
 S3method("$<-", summary.vglm)
+S3method(formula, vglm)
 S3method(names, relogit)
 S3method(names, summary.zelig.relogit)
 S3method(names, vglm)
@@ -46,10 +56,11 @@ S3method(print, BetaReg)
 S3method(print, names.relogit)
 S3method(print, names.zelig)
 S3method(print, relogit)
-S3method(print, setx)
 S3method(print, summary.MI)
 S3method(print, summary.strata)
 S3method(print, summary.zelig.strata)
+S3method(print, summary.lm.robust)
+S3method(print, summary.glm.robust)
 S3method(print, summary.zelig)
 S3method(print, zelig)
 S3method(repl, zelig)

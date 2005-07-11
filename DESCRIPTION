@@ -1,13 +1,13 @@
 Package: Zelig
-Version: 2.1-4
-Date: 2005-5-22
+Version: 2.2-1
+Date: 2005-7-11
 Title: Zelig: Everyone's Statistical Software
 Author: Kosuke Imai <kimai@Princeton.Edu>,
         Gary King <king@harvard.edu>,
         Olivia Lau <olau@fas.harvard.edu>
 Maintainer: Olivia Lau <olau@fas.harvard.edu>
-Depends: R (>= 1.9.1), MASS, boot
-Suggests: VGAM 
+Depends: R (>= 1.9.1), MASS, boot, 
+Suggests: VGAM, survival, sandwich
 Description: Zelig is an easy-to-use program that can estimate, and
         help interpret the results of, an enormous range of
         statistical models. It literally is ``everyone's statistical
@@ -23,4 +23,4 @@ Description: Zelig is an easy-to-use program that can estimate, and
         translates them into quantities of direct interest.
 License: GPL version 2 or newer
 URL: http://gking.harvard.edu/zelig
-Packaged: Mon May 23 00:28:41 2005; olau
+Packaged: Mon Jul 11 12:39:01 2005; olau

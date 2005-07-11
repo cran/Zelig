@@ -1,7 +1,7 @@
 zelig2logit <- function(formula, model, data, M, ...) {
   mf <- match.call(expand.dots = TRUE)
-  mf$model <- mf$M <- NULL
-  mf[[1]] <- as.name("glm")
-  mf$family <- as.name("binomial")
+  mf$model <- mf$M <- mf$robust <- NULL
+  mf[[1]] <- glm
+  mf$family <- binomial(link="logit")
   as.call(mf)
 }

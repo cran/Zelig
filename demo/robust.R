@@ -30,8 +30,37 @@ plot(s.out1)
 data(hoff)
 # Fit the model with robust standard error
 user.prompt()
-z.out1 <- zelig(L2SocSec ~ Just503D + Just503R + Just503D:RGovDumy +
+z.out2 <- zelig(L2SocSec ~ Just503D + Just503R + Just503D:RGovDumy +
                 Just503R:I(1-RGovDumy), model = "ls", data = hoff,
                 robust = list(method="vcovHAC", order.by=hoff$year, adjust=TRUE))
 user.prompt()
-print(summary(z.out1))
+print(summary(z.out2))
+
+#####  Example 3: weibull regression with
+#####             heteroskedasticity consistent standard errors
+#####             and using invest as a cluster
+
+# Attach sample data and variable names:
+data(coalition)
+# Fit the model with robust standard error
+user.prompt()
+z.out3 <- zelig(Surv(duration, ciep12) ~ polar + numst2 +
+                crisis, model = "weibull", data = coalition,
+                cluster = "invest", robust = TRUE)
+user.prompt()
+print(summary(z.out3))
+
+
+#####
+##### Example 4: logit regression with heteroskedasticity and
+#####            autocorrelation consistent standard errors
+
+# Attach sample data and variable names
+data(turnout)
+# Fit the model with robust standrad error
+user.prompt()
+z.out4 <- zelig(vote ~ race + educate, model = "logit",
+                data = turnout, robust=TRUE)
+user.prompt()
+print(summary(z.out4))
+ 

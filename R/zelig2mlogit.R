@@ -5,8 +5,8 @@ zelig2mlogit <- function(formula, model, data, M, ...) {
   else
     stop("Please install VGAM using \n     install.packages(\"VGAM\", CRAN = \"http://www.stat.auckland.ac.nz/~yee\")")
   mf <- match.call(expand.dots = TRUE)
-  mf[[1]] <- as.name("vglm") 
-  mf$family <- as.name("multinomial")
+  mf[[1]] <- VGAM::vglm 
+  mf$family <- VGAM::multinomial
   if (mf$M == 1)
     ndim <- length(unique(na.omit((eval(mf$formula[[2]], mf$data))))) - 1
   if (mf$M > 1) {
