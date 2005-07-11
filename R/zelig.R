@@ -1,9 +1,9 @@
-zelig <- function(formula, model, data, by = NULL, robust = FALSE, ...) {
-  fn <- paste("zelig2", model, sep = "")
-  if (!exists(fn))
+zelig <- function(formula, model, data, by = NULL, ...) {
+  fn1 <- paste("zelig2", model, sep = "")
+  fn2 <- paste("zelig3", model, sep = "")
+  if (!exists(fn1))
     stop(model, "not supported. Type help.zelig(\"models\") to list supported models.")
-  mf <- match.call(expand.dots = TRUE)
-  mf$robust <- NULL
+  mf <- zelig.call <- match.call(expand.dots = TRUE)
   if (missing(by))
     by <- NULL
   N <- M <- 1
@@ -22,7 +22,7 @@ zelig <- function(formula, model, data, by = NULL, robust = FALSE, ...) {
     lev <- sort(unique(idx))
     N <- length(lev)
   }
-  mf <- do.call(fn, list(formula, model, dat, N, ...))
+  mf <- do.call(fn1, list(formula, model, dat, N, ...))
   for (i in 1:N) {
     if (N > 1) {
       dat <- list()
@@ -45,32 +45,12 @@ zelig <- function(formula, model, data, by = NULL, robust = FALSE, ...) {
         d <- d[complete.cases(model.frame(as.formula(formula), d)),]
         mf$data <- d
         res <- eval(as.call(mf))
-        res$call <- match.call()
+        if (exists(fn2)) 
+          res <- do.call(fn2, list(res = res, fcall = as.list(mf),
+                                   zcall = as.list(zelig.call)))
+        res$call <- zelig.call
         res$data <- res$call$data
         res$zelig <- model
-        if (is.list(robust)) {
-          if (any(c("lm", "glm") %in% class(res)[1])) {
-            require(sandwich)
-            ctmp <- class(res)
-            class(res) <- c(paste(ctmp[1], ".robust", sep=""), ctmp)
-            if (!any(robust$method %in% c("vcovHC", "vcovHAC", "kernHAC")))
-              stop("such a robust option is not supported")
-            else if ((robust$method == "vcovHC") & ("lm" != class(res)[1]))
-              stop("vcovHC is supported only for ols")
-            res$robust <- robust
-          }
-          else
-            stop("robust option is not supported for this model.")
-        }
-        else if (robust) {
-          if (any(c("lm", "glm") %in% class(res)[1])) {
-            require(sandwich)
-            ctmp <- class(res)
-            class(res) <- c(paste(ctmp[1], ".robust", sep=""), ctmp)
-          }
-          else
-            stop("robust option is not supported for this model.")
-        }
         if (M > 1) 
           obj[[j]] <- res
         else

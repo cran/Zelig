@@ -1,8 +1,7 @@
 zelig2probit <- function(formula, model, data, M, ...) {
   mf <- match.call(expand.dots = TRUE)
-  mf$model <- mf$M <- NULL
-  mf[[1]] <- as.name("glm")
-  mf$family <- as.name("binomial.probit")
-  binomial.probit <<- function() binomial(link="probit")
+  mf$model <- mf$M <- mf$probit <- NULL
+  mf[[1]] <- stats::glm
+  mf$family <- binomial(link="probit")
   as.call(mf)
 }

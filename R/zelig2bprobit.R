@@ -6,7 +6,7 @@ zelig2bprobit <- function(formula, model, data, M, constrain = NULL,
   else
     stop("Please install VGAM using \n     install.packages(\"VGAM\", CRAN = \"http://www.stat.auckland.ac.nz/~yee\")")
   mf <- match.call(expand.dots = TRUE)
-  mf[[1]] <- as.name("vglm")
+  mf[[1]] <- VGAM::vglm
   mf$family <- as.name("bprobit")
   tmp <- cmvglm(formula, model, constrain, omit, constant, 3)
   mf$formula <- tmp$formula 

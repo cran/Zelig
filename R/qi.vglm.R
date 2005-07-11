@@ -1,12 +1,10 @@
 qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
   model <- object$zelig
   cm <- object@constraints
-  if (model=="mlogit" || model=="oprobit")
+  if (model=="mlogit")
     ndim <- (ncol(object@y)-1)
   else if (model=="blogit" || model=="bprobit")
     ndim <- 3
-  else if (model=="sur")
-    ndim <- ncol(object@y)
   v <- rep(list(NULL), ndim)
   for(i in 1:length(cm)) {
     if(ncol(cm[[i]])==1){
@@ -23,7 +21,7 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
   all.coef <- NULL
   for(i in 1:ndim)
     all.coef <- c(all.coef, list(simpar[,v[[i]]]))
-  if (model=="mlogit" || model=="oprobit"){
+  if (model=="mlogit"){
     if(is.null(colnames(object@y)))
       cnames <- ynames <- seq(1,ndim+1,1)
     else
@@ -34,14 +32,6 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
   else if(model=="blogit" || model=="bprobit") 
     cnames <- c("Pr(Y1=0, Y2=0)", "Pr(Y1=0, Y2=1)",
                 "Pr(Y1=1, Y2=0)", "Pr(Y1=1, Y2=1)")
-  else if(model=="sur"){
-    if(is.null(colnames(object@y)))
-      cnames <- ynames <- seq(1,ndim,1)
-    else
-      ynames <- cnames <- colnames(object@y)
-    for(i in 1:ndim)
-      cnames[i] <- paste("E(Y_", ynames[i],"|X)",sep="")
-  }
   else
     stop(paste(model, "is not supported"))
   pp.vglm <- function(object, cm, all.coef, x, ndim, cnames){
@@ -59,7 +49,7 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
   }
   pr.vglm <- function(object, ev, ynames) { # To assign predicted values.
     model <- object$zelig
-    if (model == "mlogit" || model == "oprobit") {
+    if (model == "mlogit") {
       k <- ncol(ev)
       Ipr <- sim.cut <- matrix(NA, nrow = nrow(ev), ncol = ncol(ev))
       colnames(Ipr) <- colnames(sim.cut) <- colnames(ev)
@@ -90,9 +80,6 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
       colnames(pr) <- c("(Y1=0, Y2=0)", "(Y1=0, Y2=1)", "(Y1=1, Y2=0)",
                         "(Y1=1, Y2=1)")
     }
-#    else if (model == "sur") { # Need to test/add pr.  
-#      pr[i,] <- mvrnorm(length(ev[i,], mu = ev[i,], vcov = vcov(object)))
-#    }
     pr
   }
   if (nrow(x) == 1) {
@@ -100,13 +87,11 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
     pr <- pr.vglm(object, ev, ynames)
   }
   else {
-    ev <- array(dim = c(nrow(simpar), if(model=="sur") ndim else (ndim+1), nrow(x)))
-    if (model == "mlogit" || model == "oprobit")
+    ev <- array(dim = c(nrow(simpar), ndim+1, nrow(x)))
+    if (model == "mlogit")
       pr <- matrix(nrow=nrow(simpar), ncol=nrow(x))
     else if (model == "blogit" || model == "bprobit")
       pr <- array(dim = c(nrow(simpar), 4, nrow(x)))
-    else if (model == "sur")   #### Need to change this
-      pr <- NULL  
     for (i in 1:nrow(x)){
       tmp <- matrix(x[i,], nrow=1)
       colnames(tmp) <- colnames(x)
@@ -116,20 +101,16 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
       ev[,,i] <- tmp.ev
       if (model == "blogit" || model == "bprobit")
         pr[,,i] <- tmp.pr
-      else if (model == "mlogit" || model == "oprobit")
+      else if (model == "mlogit")
         pr[,i] <- tmp.pr
-      else if (model == "sur") ##### Placeholder NEED TO FIX!!!!
-        pr <- NULL 
     }
     dimnames(ev) <- list(rownames(tmp.ev), colnames(tmp.ev), NULL)
     if (model == "blogit" || model == "bprobit")
       dimnames(pr) <- list(rownames(tmp.pr), colnames(tmp.pr), NULL)
-    else if (model == "mlogit" || model == "oprobit")
+    else if (model == "mlogit")
       dimnames(pr) <- list(c(1:nrow(simpar)), NULL)
-    else if (model == "sur")  ### Need to change.
-      dimnames(pr) <- NULL
   }
-  if (model=="mlogit" || model=="oprobit") {
+  if (model=="mlogit") {
     qi <- list(ev=ev, pr=pr)
     qi.name <- list(ev="Predicted Probabilities: Pr(Y=k|X)",
                     pr="Predicted Values: Y=k|X")
@@ -139,16 +120,11 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
     qi.name <- list(ev="Predicted Probabilities: Pr(Y1=k,Y2=l|X)",
                     pr="Predicted Values: (Y1,Y2)|X")
   }
-  else if (model=="sur") {
-    qi <- list(ev=ev, pr=pr)
-    qi.name <- list(ev="Expected Values: E(Yj|X)",
-                    pr="Predicted Values: Yj|X")
-  }
   if (!is.null(x1)) {
     if (nrow(x1) == 1)
       ev1 <- pp.vglm(object, cm, all.coef, x1, ndim, cnames)
     else {
-      ev1 <- array(dim = c(nrow(simpar), if(model=="sur") ndim else (ndim+1), nrow(x1)))
+      ev1 <- array(dim = c(nrow(simpar), ndim+1, nrow(x1)))
       for (i in 1:nrow(x1)) {
         tmp <- matrix(x1[i,], nrow=1)
         colnames(tmp) <- colnames(x1)
@@ -159,7 +135,7 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
       dimnames(ev1) <- list(rownames(tmp), colnames(tmp), NULL)
     }
     qi$fd <- ev1 - ev
-    if (model=="mlogit" || model=="oprobit") {
+    if (model=="mlogit") {
       qi$rr <- ev1 / ev
       qi.name$fd <- "First Differences: Pr(Y=k|X1) - Pr(Y=k|X)"
       qi.name$rr <- "Risk Ratios: Pr(Y=k|X1) / Pr(Y=k|X)"
@@ -169,8 +145,6 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
       qi.name$fd <- "First Differences: Pr(Y1=k,Y2=l|X1) - Pr(Y1=k,Y2=l|X)"
       qi.name$rr <- "Risk Ratios: Pr(Y1=k,Y2=l|X1) / Pr(Y1=k,Y2=l|X)"
     }
-    else if(model=="sur")
-      qi.name$fd <- "First Differences: E(Yj|X1j) - E(Yj|Xj)"
   }
   if (!is.null(y)) {
     tmp.ev <- tmp.pr <- array(NA, dim = dim(qi$ev))

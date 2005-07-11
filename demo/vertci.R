@@ -12,10 +12,8 @@ summary(z.out)
 ##  Creating setx structures with education set to high school and
 ##  post-college levels, for the whole range of the age variable.  
 user.prompt()
-age.range <- 18:95
-user.prompt()
-x.low <- setx(z.out, educate = 12, age = age.range)
-x.high <- setx(z.out, educate = 16, age = age.range)
+x.low <- setx(z.out, educate = 12, age = 18:95)
+x.high <- setx(z.out, educate = 16, age = 18:95)
 
 ##  Using sim to generate the simulated predicted probabilites:
 user.prompt()

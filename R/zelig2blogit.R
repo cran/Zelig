@@ -6,7 +6,7 @@ zelig2blogit <- function(formula, model, data, M, constrain = NULL,
   else
     stop("Please install VGAM using \n     install.packages(\"VGAM\", CRAN = \"http://www.stat.auckland.ac.nz/~yee\")")
   mf <- match.call(expand.dots = TRUE)
-  mf[[1]] <- as.name("vglm")
+  mf[[1]] <- VGAM::vglm
   mf$family <- as.name("blogit")
   mf$... <- NULL
   tmp <- cmvglm(formula, model, constrain, omit, constant, 3)
@@ -14,5 +14,6 @@ zelig2blogit <- function(formula, model, data, M, constrain = NULL,
   mf$constraints <- tmp$constraints
   blogit <<- function() binom2.or(zero=NULL)
   mf$model <- mf$constrain <- mf$omit <- mf$constant <- mf$M <- NULL
+  mf$robust <- NULL
   as.call(mf)
 }

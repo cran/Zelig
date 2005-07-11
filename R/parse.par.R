@@ -1,17 +1,7 @@
-parse.par <- function(par, x, terms) {
-  k <- ncol(x)
-  beta <- par[1:k]
-  assign(attr(terms, "items")$coef, beta, envir = parent.frame())
-  ancil.names <- attr(terms, "items")$ancillary
-  j <- 0
-  if (!is.null(ancil.names)) {
-    j <- length(ancil.names)
-    for (i in 1:j) {
-      tmp <- par[(k + i)]
-      assign(ancil.names[i], tmp, envir = parent.frame())
-    }
-  }
-  if (length(par) > (k + j)) 
-    return(par[(k + j):length(par)])
+parse.par <- function(par, idx, name) {
+  if (name %in% idx) 
+    return(par[which(idx == name)])
+  else 
+    return(par[which(idx != name)])
 }
 

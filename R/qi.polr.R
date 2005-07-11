@@ -1,42 +1,38 @@
 qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
+  num <- nrow(simpar)
   m <- length(coef(object))
   sim.coef <- simpar[,1:m]
   sim.zeta <- simpar[,(m+1):ncol(simpar)]
   k <- length(object$zeta) + 1
   lev <- object$lev
-  eta <- x[,-1] %*% t(sim.coef)
-  ev.polr <- function(ev, eta, sim.zeta) {
-    for (j in 1:ncol(sim.zeta)) 
-      ev[,j,] <- exp(sim.zeta[,j] - t(eta)) / (1 + exp(sim.zeta[,j] - t(eta)))
-     for (j in 0:(ncol(sim.zeta)-1)) 
-      ev[,dim(ev)[2]-j,] <- ev[,dim(ev)[2]-j,]-ev[,(dim(ev)[2]-j-1),]
-    ev
-  }
-  ev <- array(1, dim = c(nrow(sim.coef), length(lev), nrow(x)),
-              dimnames = list(NULL, lev, rownames(x)))
-  ev <- ev.polr(ev, eta, sim.zeta)
-  sim.cut <- Ipr <- array(1, dim = dim(ev), dimnames = dimnames(ev))
-  pr <- matrix(NA, nrow = nrow(sim.coef), ncol = nrow(x))
-  sim.cut[,1,] <- ev[,1,]
-  tmp <- matrix(runif(length(sim.cut[,1,]), 0, 1), nrow =
-                dim(sim.cut)[1], ncol = dim(sim.cut)[3])
-  for (j in 2:length(lev))   
-    sim.cut[,j,] <- sim.cut[,(j-1),] + ev[,j,]
-  for (k in 1:length(lev))
-    Ipr[,k,] <- as.integer(tmp > sim.cut[,k,])
-  for (n in 1:dim(Ipr)[3])
+  eta <- t(x[,-1] %*% t(sim.coef)) 
+  Ipr <- cuts <- tmp0 <- array(0, dim = c(num, k, nrow(x)),
+                        dimnames = list(1:num, lev, rownames(x)))
+  for (i in 1:num) 
+    cuts[i,,] <- t(object$inv.link(eta[i,], sim.zeta[i,]))
+  tmp0[,(2:k),] <- cuts[,(1:(k-1)),]
+  ev <- cuts - tmp0
+  pr <- matrix(NA, nrow = num, ncol = nrow(x))
+  tmp <- matrix(runif(length(cuts[,1,]), 0, 1),
+                nrow = num , ncol = nrow(x))
+  for (i in 1:k)
+    Ipr[,i,] <- as.integer(tmp > cuts[,i,])
+  for (n in 1:nrow(x))
     pr[,n] <- 1 + rowSums(Ipr[,,n])
   pr <- matrix(factor(pr, labels = lev, ordered = TRUE),
                nrow = nrow(sim.coef), ncol = nrow(x))
   colnames(pr) <- rownames(x)
-  qi <- list(ev=ev, pr=pr)
-  qi.name <- list(ev="Expected Values: P(Y=j|X)",
-                  pr="Predicted Values: Y|X")
+  qi <- list(ev = ev, pr = pr)
+  qi.name <- list(ev = "Expected Values: P(Y=j|X)",
+                  pr = "Predicted Values: Y|X")
   if(!is.null(x1)){
-    ev1 <- array(1, dim = c(nrow(sim.coef), length(lev), nrow(x)),
-                 dimnames = list(NULL, lev, rownames(x)))
-    eta1 <- x1[,-1] %*% t(sim.coef)
-    ev1 <- ev.polr(ev1, eta1, sim.zeta)
+    eta1 <- t(x1[,-1] %*% t(sim.coef))
+    Ipr <- cuts <- tmp0 <- array(0, dim = c(num, k, nrow(x)),
+                                 dimnames = list(1:num, lev, rownames(x)))
+    for (i in 1:num) 
+      cuts[i,,] <- t(object$inv.link(eta1[i,], sim.zeta[i,]))
+    tmp0[,(2:k),] <- cuts[,(1:(k-1)),]
+    ev1 <- cuts - tmp0
     qi$fd <- ev1 - ev
     qi$rr <- ev1 / ev
     qi.name$fd <- "First Differences: P(Y=j|X1)-P(Y=j|X)"

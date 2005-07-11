@@ -38,7 +38,7 @@ setx.strata <- function(object, fn = list(numeric = mean, ordered =
     }
   }
   names(x) <- names(object)
-  class(x) <- "setx.strata"
+  class(x) <- c("setx.strata", "data.frame")
   return(x) 
 }
 

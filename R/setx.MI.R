@@ -15,7 +15,7 @@ setx.MI <- function(object, fn = list(numeric = mean, ordered =
     }
     X <- setx(object[[1]], fn = fn, data = dta, cond = FALSE,
               counter = NULL, ...)
-    class(X) <- c("setx.MI", "setx")
+    class(X) <- c("setx.MI", "setx", "data.frame")
   }
   else { # conditional prediction
     X <- list()
@@ -24,7 +24,7 @@ setx.MI <- function(object, fn = list(numeric = mean, ordered =
     for (i in 1:M)
       X[[i]] <- setx(object[[i]], fn = NULL, data = data[[i]], cond = TRUE,
                               counter = counter, ...)
-    class(X) <- c("setx.MI", "cond")
+    class(X) <- c("setx.MI", "cond", "data.frame")
   }
   return(X)
 }

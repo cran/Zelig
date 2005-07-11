@@ -1,10 +1,13 @@
 summary.glm.robust <- function(object, ...) {
   class(object) <- "glm"
   res <- summary.glm(object, ...)
-  if (is.null(object$robust))
+  if (is.null(object$robust)) {
     res$cov.unscaled <- covmat.unscaled <- vcovHAC(object)
+    res$robust <- "vcovHAC"
+  }
   else {
     fn <- object$robust$method
+    res$robust <- object$robust$method
     object$robust$method <- NULL
     arg <- object$list
     arg$x <- object
@@ -25,5 +28,6 @@ summary.glm.robust <- function(object, ...) {
     else
       res$coefficients[,4] <- 2 * pt(-abs(tvalue), object$df.residual)
   }
+  class(res) <- c("summary.glm.robust","summary.glm")
   return(res)
 }

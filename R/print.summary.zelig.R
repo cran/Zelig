@@ -9,10 +9,10 @@ print.summary.zelig <- function(x, digits=getOption("digits"),
         cat("\nObserved Data \n")
       else
         cat("\nValues of X \n")
-      print.setx(x$x, digits=digits, ...)
+      print(x$x, digits=digits, ...)
       if(!is.null(x$x1)){
         cat("\nValues of X1 \n")
-        print.setx(x$x1, digits=digits, ...)
+        print(x$x1, digits=digits, ...)
       }
     }
     else {
@@ -20,10 +20,10 @@ print.summary.zelig <- function(x, digits=getOption("digits"),
         cat("\nMean Values of Observed Data (n = ", nrow(x$x), ") \n", sep = "")
       else
         cat("\nMean Values of X (n = ", nrow(x$x), ") \n", sep = "")
-      print.setx(apply(x$x, 2, mean), digits=digits, ...)
+      print(apply(x$x, 2, mean), digits=digits, ...)
       if (!is.null(x$x1)) {
         cat("\nMean Values of X1 (n = ", nrow(x$x1), ") \n", sep = "")
-        print.setx(apply(x$x1, 2, mean), digits=digits, ...) 
+        print(apply(x$x1, 2, mean), digits=digits, ...) 
       }
     }
   }
