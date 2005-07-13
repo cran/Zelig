@@ -1,3 +1,6 @@
+2.2-2 (July 13, 2005): Stable release for R 2.0.0-2.1.1.  Fixed bug in 
+  setx().  (reported by Ying Lu)
+
 2.2-1 (July 11, 2005):  Stable release for R 2.0.0-2.1.0.  Revised 
   ordinal probit to use MASS library.  Added robust standard errors 
   for the following regression models: exponential, gamma, logit, 

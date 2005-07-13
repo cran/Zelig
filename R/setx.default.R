@@ -149,6 +149,10 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       }
     data <- data[1:maxl,]
   }
+  if (!is.data.frame(data)) {
+    data <- data.frame(data)
+    names(data) <- vars
+  }
   if (cond) {
     X <- model.frame(tt, odta)
     if (!is.null(counter)) {
