@@ -46,7 +46,7 @@ zelig <- function(formula, model, data, by = NULL, ...) {
         mf$data <- d
         res <- eval(as.call(mf))
         if (exists(fn2)) 
-          res <- do.call(fn2, list(res = res, fcall = as.list(mf),
+          res <- do.call(fn2, list(res = res, fcall = mf,
                                    zcall = as.list(zelig.call)))
         res$call <- zelig.call
         res$data <- res$call$data

@@ -13,10 +13,10 @@ sim.default <- function(object, x, x1=NULL, num=c(1000, 100),
       num <- num[2]
   }
   if (is.null(prev)) {
-    if (!bootstrap & any(class(object) != "relogit"))
+    if (any(class(object) == "relogit")) 
+      simpar <- param.relogit(object, num=num, x=x, bootstrap=bootstrap) 
+    else if (!bootstrap)
       simpar <- param(object, num=num, bootstrap=bootstrap)
-    else if (any(class(object) == "relogit")) 
-      simpar <- param.relogit(object, num=num, x=x, bootstrap=bootstrap, bootfn=bootfn, ...) 
     else {
       tt <- terms(object)
       dta <- eval(object$data, sys.parent())

@@ -1,3 +1,15 @@
+2.3-1 (August 4, 2005): Stable release for R 2.0.0 - 2.1.1.
+  Fixed documentation errors related to model parameterization and code 
+  bugs related to first differences and conditional prediction for 
+  exponential, lognormal, and Weibull models.  (reported by Alison Post)
+
+2.2-4 (July 30, 2005): Stable release for R 2.0.0-2.1.1.  Revised 
+  relogit, additing options for weightig in addition to prior
+  correction.  (reported by Martin Plöderl)
+
+2.2-3 (July 24, 2005): Stable release for R 2.0.0-2.1.1.  Fixed bug 
+  associated with robust standard errors for negative binomial.
+
 2.2-2 (July 13, 2005): Stable release for R 2.0.0-2.1.1.  Fixed bug in 
   setx().  (reported by Ying Lu)
 

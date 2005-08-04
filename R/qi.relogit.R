@@ -1,14 +1,11 @@
 qi.relogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
-  tau <- eval(object$call$tau, sys.parent())
-  if (is.null(object$call$bias.correct))
-    object$call$bias.correct <- TRUE
-  num <- nrow(simpar$par0)
-  tmp0 <- tmp1 <- object
-  tmp0$coefficients["(Intercept)"] <- object$correct[1]
-  tmp1$coefficients["(Intercept)"] <- object$correct[2]
-  if (length(tau) == 2){
-    low <- qi.glm(tmp0, simpar$par0, x, x1)
-    up <- qi.glm(tmp1, simpar$par1, x, x1)
+  if ("relogit2" %in% class(object)) {
+    num <- nrow(simpar$par0)
+    tmp0 <- object$lower.estimate
+    tmp1 <- object$upper.estimate
+    
+    low <- qi.relogit(tmp0, simpar$par0, x, x1)
+    up <- qi.relogit(tmp1, simpar$par1, x, x1)
     PP <- PR <- array(NA, dim = c(num, 2, nrow(x)),
                       dimnames = list(NULL, c("Lower Bound", "Upper Bound"),
                         rownames(x)))
@@ -22,8 +19,8 @@ qi.relogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
                           rownames(x)))
       sim01 <- qi.glm(tmp0, par0, x = x1, x1 = NULL)
       sim11 <- qi.glm(tmp1, par1, x = x1, x1 = NULL)
-      tau0 <- object$call$tau[1]
-      tau1 <- object$call$tau[2]
+      tau0 <- object$lower.estimate$tau
+      tau1 <- object$upper.estimate$tau
       P01 <- as.matrix(sim01$qi$ev)
       P11 <- as.matrix(sim11$qi$ev)
       OR <- (P10/(1-P10)) / (P00/(1-P00))
@@ -34,8 +31,8 @@ qi.relogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
       RD <- as.matrix((sqrt(OR)-1) / (sqrt(OR)+1))
       ## checking monotonicity
       y.bar <- mean(object$y)
-      beta0.e <- tmp0$coefficients
-      beta1.e <- tmp1$coefficients
+      beta0.e <- coef(tmp0)
+      beta1.e <- coef(tmp1)
       ## evaluating RD at tau0 and tau1
       RD0.p <- 1/(1+exp(-t(beta0.e) %*% t(x1))) - 1/(1+exp(-t(beta0.e) %*% t(x)))
       RD1.p <- 1/(1+exp(-t(beta1.e) %*% t(x1))) - 1/(1+exp(-t(beta1.e) %*% t(x)))
@@ -71,9 +68,8 @@ qi.relogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
       qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
       qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
     }
-    out <- list(qi = qi, qi.name = qi.name)
+    return(list(qi = qi, qi.name = qi.name))
   }
-  else 
-    out <- qi.glm(object = object, simpar = simpar, x = x, x1 = x1, y = y)
-  out
+  else
+    return(qi.glm(object = object, simpar = simpar, x = x, x1 = x1, y = y))
 }

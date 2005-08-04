@@ -4,6 +4,8 @@ zelig2exp <- function(formula, model, data, M, ...) {
   require(survival)
   mf[[1]] <- survival::survreg
   mf$dist <- "exponential"
+  if (is.null(mf$robust))
+    mf$robust <- FALSE
   if (!is.null(mf$cluster) & !mf$robust) 
     stop("\nIf cluster is specified, robust must be TRUE.")
   if (!is.null(mf$cluster)) {
