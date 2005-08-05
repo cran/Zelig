@@ -231,8 +231,19 @@ zelig2MCMCoprobit <-  function(formula, model, data, M, ...) {
 zelig2MCMCfactanal <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
-  if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
-    else mf$verbose <- 500 
+ if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
+    else
+      {
+        if (is.null(mf$mcmc))  mcmc <- 20000
+           else mcmc <- mf$mcmc
+        if (is.null(mf$burnin)) burnin <- 1000
+           else burnin <- mf$burnin
+        mf$verbose <- round((mcmc+burnin)/10)
+      }
+
+  if (is.null(mf$factors)) mf$factors<-2
+    else if (mf$factors<2) stop("number of factors needs to be at
+    least 2")
   mf$model <- mf$M <- NULL
   mf$x <- as.matrix(model.frame(formula, data=data, na.action=NULL))
   mf[[1]] <- MCMCpack::MCMCfactanal
@@ -242,8 +253,18 @@ zelig2MCMCfactanal <- function(formula, model, data, M, ...) {
 zelig2MCMCordfactanal <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
-  if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
-    else mf$verbose <- 500 
+   if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
+    else
+      {
+        if (is.null(mf$mcmc))  mcmc <- 20000
+           else mcmc <- mf$mcmc
+        if (is.null(mf$burnin)) burnin <- 1000
+           else burnin <- mf$burnin
+        mf$verbose <- round((mcmc+burnin)/10)
+      }
+    if (is.null(mf$factors)) mf$factors<-2
+    else if (mf$factors<2) stop("number of factors needs to be at
+    least 2")
   mf$model <- mf$M <- NULL
   mf$x <- as.matrix(model.frame(formula, data=data, na.action=NULL))
   mf[[1]] <- MCMCpack::MCMCordfactanal
@@ -254,7 +275,18 @@ zelig2MCMCmixfactanal <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
-    else mf$verbose <- 500 
+    else
+      {
+        if (is.null(mf$mcmc))  mcmc <- 10000
+           else mcmc <- mf$mcmc
+        if (is.null(mf$burnin)) burnin <- 1000
+           else burnin <- mf$burnin
+        mf$verbose <- round((mcmc+burnin)/10)
+      }
+
+    if (is.null(mf$factors)) mf$factors<-2
+    else if (mf$factors<2) stop("number of factors needs to be at
+    least 2")
   mf$model <- mf$M <- NULL
   var <- model.response(model.frame(formula, data=data,
   na.action=NULL))

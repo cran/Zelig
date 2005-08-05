@@ -19,7 +19,7 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
     eta <- sim.coef %*% t(x)
     theta <- as.matrix(apply(eta, 2, link))
     if (model == "lognorm") {
-      ev <- exp(log(theta) + 0.5*(1/exp(sim.scale))^2)
+      ev <- exp(log(theta) + 0.5*(exp(sim.scale))^2)
       dimnames(ev) <- dimnames(theta)
     }
     else if (model == "weibull" || model == "Weibull") {
@@ -39,7 +39,7 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
                          scale=theta)
     else if (model == "lognorm") 
       pr <- rlnorm(length(ev), meanlog = log(theta),
-                       sdlog = 1/exp(sim.scale))
+                       sdlog = exp(sim.scale))
     pr
   }
   ev <- ev.surv(model, sim.coef, sim.scale, x, link)

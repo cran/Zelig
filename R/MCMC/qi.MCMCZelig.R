@@ -167,26 +167,35 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
   else if ((model =="MCMCoprobit") || (model == "MCMCmnl")) {
     if (model == "MCMCoprobit") {
       library(stats)
-      p <- dim(model.matrix(eval(object)))[2]
+      p <- dim(model.matrix(object, data=eval(object$data)))[2]
       coef <- object$coefficients[,1:p]
-      gamma <- object$coefficients[,-(1:p)]
-      level <- ncol(gamma)+2
-
       eta <- coef %*% t(x)
-      ev <- array(NA, c(nrow(eta), level, 1))
-      pr <- matrix(NA, nrow(eta), 1)
-      #dimnames(pr)[1] <- dimnames(ev)[1] <- dimnames(eta)[1]
       
-      ev[,1,1] <- pnorm(-eta)
-      ev[,2,1] <- pnorm(gamma[,1]-eta)-pnorm(-eta)
-      for (j in 3:(level-1))
-        ev[,j,1] <- pnorm(gamma[,(j-1)]-eta)-pnorm(gamma[,(j-2)]-eta)
-      ev[,level,1] <- 1-pnorm(gamma[,level-2]-eta)
+      level <- ncol(object$coefficients)-p+2
+      gamma<-matrix(NA, nrow(object$coefficients), level+1) 
 
-      probs <- as.matrix(ev[,,1])
-      pr <- apply(probs, 1, FUN=rmultinom, n=1, size=1)
-      pr <- t(pr)%*%(1:nrow(pr))
-      pr <- apply(pr,2,as.character)
+      gamma[,1] <- rep(-Inf, nrow(gamma))
+      gamma[,2] <- rep(0, nrow(gamma))
+      gamma[,ncol(gamma)]<-rep(Inf, nrow(gamma))
+
+      if (ncol(gamma)>3)
+        gamma[,3:(ncol(gamma)-1)] <- object$coefficients[,(p+1):ncol(object$coefficients)]
+ 
+
+      ev <- array(NA, c(nrow(eta), level, ncol(eta)))
+      pr <- matrix(NA, nrow(eta), ncol(eta))
+#      dimnames(pr)[1] <- dimnames(ev)[1] <- dimnames(eta)[1]
+#      dimnames(pr)[2] <- dimnames(ev)[3] <- dimnames(eta)[2]
+
+      for (j in 1:level)
+        ev[,j,] <- pnorm(gamma[,j+1]-eta) - pnorm(gamma[,j]-eta)
+
+      for (j in 1:nrow(pr)) {
+       mu <- eta[j,]
+       pr[j,]<-as.character(cut(mu, gamma[j,], labels=as.factor(1:level)))   
+     }
+       
+
       #        t(t(1:nrow(pr))%*%pr)
       qi$ev <- ev
       qi$pr <- pr
@@ -195,36 +204,40 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
     }
     else if (model == "MCMCmnl") {
       library(stats)
-      y <- model.response(model.frame(object))
-      level <- length(table(y))
+      resp <- model.response(model.frame(object))
+      level <- length(table(resp))
 
       p <- dim(model.matrix(eval(object),data=eval(object$data)))[2]
       
       coef <- object$coefficients
-      eta <- matrix(NA, nrow(coef),level)
 
 
+      eta <- array(NA, c(nrow(coef),level, nrow(x)))
       
-      eta[,1]<-rep(0, dim(eta)[1])
+      eta[,1,]<-matrix(0, dim(eta)[1],dim(eta)[3])
       for (j in 2:level) {
         ind <- (1:p)*(level-1)-(level-j)
-        eta[,j]<- coef[,ind]%*%t(x)
+        eta[,j,]<- coef[,ind]%*%t(x)
       }
 
       eta<-exp(eta)
                                       
-      ev <- array(NA, c(nrow(eta), level, 1))
-      pr <- matrix(NA, nrow(eta), 1)
+      ev <- array(NA, c(nrow(coef), level, nrow(x)))
+      pr <- matrix(NA, nrow(coef), nrow(x))
       #dimnames(pr)[1] <- dimnames(ev)[1] <- dimnames(eta)[1]
 
-      for (j in 1:level)
-        ev[,j,1] <- eta[,j]/rowSums(eta)
-          
-      probs <- as.matrix(ev[,,1])
-      pr <- apply(probs, 1, FUN=rmultinom, n=1, size=1)
-      pr <- t(pr)%*%(1:nrow(pr))
-      pr <- apply(pr,2,as.character)
+      for (k in 1:nrow(x))
+       for (j in 1:level)
+         {
+           ev[,j,k] <- eta[,j,k]/rowSums(eta[,,k])
+         }
 
+      for (k in 1:nrow(x)) {             
+        probs <- as.matrix(ev[,,k])
+        temp <- apply(probs, 1, FUN=rmultinom, n=1, size=1)
+        temp <- as.matrix(t(temp)%*%(1:nrow(temp)))
+        pr <- apply(temp,2,as.character)
+    }
       qi$ev <- ev
       qi$pr <- pr
       qi.name <- list(ev = "Expected Values: E(Y|X)", pr="Predicted
@@ -235,43 +248,85 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
     if (!is.null(x1)) {
 
       if (model == "MCMCoprobit") {
-      eta1 <- coef %*% t(x1)
-      ev1 <- array(NA, c(nrow(eta), level, 1))
-      ev1[,1,1] <- pnorm(-eta)
-      ev1[,2,1] <- pnorm(gamma[,1]-eta)-pnorm(-eta)
-      for (j in 3:(level-1))
-        ev1[,j,1] <- pnorm(gamma[,(j-1)]-eta)-pnorm(gamma[,(j-2)]-eta)
-      ev1[,level,1] <- 1-pnorm(gamma[,level-2]-eta)
+ 
+        eta1 <- coef %*% t(x1)
       
+      ev1 <- array(NA, c(nrow(eta), level, ncol(eta)))
+      
+      for (j in 1:level)
+        ev1[,j,] <- pnorm(gamma[,j+1]-eta1) - pnorm(gamma[,j]-eta1)
+
+        rr <-ev1/ev
         fd <-ev1-ev
 
         qi$fd <- fd
+        qi$rr <- rr
 
         qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
-    }
-      else if (model == "MCMCmnl") {
-      eta1 <- matrix(NA, nrow(coef),level)
 
-      eta1[,1]<-rep(0, dim(eta1)[1])
-      for (j in 2:level)
-        eta1[,j]<- coef[,((1:p)*(level-1)-(level-j))]%*%t(x1)
+        qi.name$rr <- "Risk Ratios: P(Y=1|X1)/P(Y=1|X)"
+        
+      }
+      else if (model == "MCMCmnl") {
+
+      eta1 <- array(NA, c(nrow(coef),level, nrow(x1)))
+      
+      eta1[,1,]<-matrix(0, dim(eta1)[1],dim(eta1)[3])
+      for (j in 2:level) {
+        ind <- (1:p)*(level-1)-(level-j)
+        eta1[,j,]<- coef[,ind]%*%t(x1)
+      }
 
       eta1<-exp(eta1)
-                                      
-      ev1 <- array(NA, c(nrow(eta1), level, 1))
+                                       
+      ev1 <- array(NA, c(nrow(eta1), level, nrow(x1)))
 
-      for (j in 1:level)
-        ev1[,j,1] <- eta1[,j]/rowSums(eta1)
+      for (k in 1:nrow(x))
+       for (j in 1:level)
+         {
+           ev1[,j,k] <- eta1[,j,k]/rowSums(eta1[,,k])
+         }
+
+              rr <-ev1/ev
+        fd <-ev1-ev
+
+        qi$fd <- fd
+        qi$rr <- rr
+
+        qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
+
+        qi.name$rr <- "Risk Ratios: P(Y=1|X1)/P(Y=1|X)"
       
-      fd <-ev1-ev
-
-      qi$fd <- fd
-
-      qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
     }
     }
 
+    if (!is.null(y)) {
+    yvar <- matrix(rep(y, nrow(simpar)), nrow = nrow(simpar), byrow =
+    TRUE)
 
+    levels.names<-levels(as.factor(y))
+    yvar1<- pr1 <-array(NA, c(nrow(yvar), level, ncol(yvar)))
+
+
+    for (j in 1:nrow(yvar))
+      {
+        yvar1[j,,]<-t(class.ind(yvar[j,], levels.names))
+        if (check)
+         pr1[j,,]<-t(class.ind(as.integer(qi$pr[j,]), levels.names))
+        else
+          pr1[j,,]<-t(class.ind(qi$pr[j,],levels.names))
+      }
+                        
+    tmp.ev <- yvar1 - qi$ev
+    tmp.pr <- yvar1 - pr1
+    qi$ate.ev <- matrix(apply(tmp.ev, 2, rowMeans), nrow = nrow(simpar))
+    qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
+    if (model %in% c("MCMCoprobit", "MCMCmnl"))
+      {
+        qi$ate.pr <- matrix(apply(tmp.pr, 2, rowMeans), nrow = nrow(simpar))
+        qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
+      }
+  }
 
     list(qi=qi, qi.name=qi.name)    
 
