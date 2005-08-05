@@ -1,4 +1,7 @@
-2.3-1 (August 4, 2005): Stable release for R 2.0.0 - 2.1.1.
+2.3-2 (August 5, 2005): Stable release for R 2.0.0-2.1.1.  Fixed bug in 
+  simulation procedure for lognormal model.
+
+2.3-1 (August 4, 2005): Stable release for R 2.0.0-2.1.1.
   Fixed documentation errors related to model parameterization and code 
   bugs related to first differences and conditional prediction for 
   exponential, lognormal, and Weibull models.  (reported by Alison Post)
