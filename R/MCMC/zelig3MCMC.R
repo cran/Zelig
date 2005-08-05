@@ -18,8 +18,7 @@
 }
 
 zelig3MCMClogit <- zelig3MCMCoprobit <- zelig3MCMCpoisson <-
-  zelig3MCMCmnl <- zelig3MCMCregress <-
-  zelig3MCMCtobit <- function(res, fcall=NULL, zcall=NULL) {
+  zelig3MCMCmnl <- zelig3MCMCregress <- function(res, fcall=NULL, zcall=NULL) {
 
   out <- list()
   out$coefficients <- res
@@ -60,7 +59,26 @@ zelig3MCMCprobit <- function(res, fcall=NULL, zcall=NULL) {
 
   }
 
+  zelig3MCMCtobit <- function(res, fcall=NULL, zcall=NULL) {
 
+  out <- list()
+  out$coefficients <- res
+  out$formula <- zcall$formula
+  if (!is.null(zcall$below)) out$below <- zcall$below
+  else out$below <- 0
+
+  if (!is.null(zcall$above)) out$above <- zcall$above
+  else out$above <- Inf 
+ 
+  out$data <- zcall$data
+
+  out$model <- model.frame(formula=eval(out$formula),
+  data=eval(out$data))
+  out$terms <- attr(out$model, "terms")
+  class(out) <- "MCMCZelig"
+
+ out
+}
 
   zelig3MCMCfactanal <- zelig3MCMCordfactanal <- zelig3MCMCmixfactanal <- function(res, fcall=NULL, zcall=NULL) {
 

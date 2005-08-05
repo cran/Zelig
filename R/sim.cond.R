@@ -1,7 +1,6 @@
 sim.cond <- function(object, x, x1=NULL, num=c(1000, 100),
                      qoi = c("ev", "pr"), prev = NULL,
-                     bootstrap = FALSE, bootfn=NULL,
-                     cond.data = NULL, ...) {
+                     bootstrap = FALSE, bootfn=NULL, ...) {
   if (!is.null(x1)) {
     warning("First Differences are not calculated in conditional prediction models.")
     x1 <- NULL
@@ -40,15 +39,11 @@ sim.cond <- function(object, x, x1=NULL, num=c(1000, 100),
     else
       simpar <- prev
   }
-  if (class(object)[1] == "survreg") 
-    simqi <- qi(object, simpar = simpar, x = xvar, x1 = x1, y = yvar,
-                cond.data = cond.data)
-  else
-    simqi <- qi(object, simpar = simpar, x = xvar, x1 = x1, y = yvar)
+  simqi <- qi(object, simpar = simpar, x = xvar, x1 = x1, y = yvar)
   class(xvar) <- c("matrix", "cond")
-  c <- match.call()
-  c$num <- num
-  res <- list(x=xvar, x1=x1, call = c, zelig.call = object$call,
+  ca <- match.call()
+  ca$num <- num
+  res <- list(x=xvar, x1=x1, call = ca, zelig.call = object$call,
               par = simpar, qi=simqi$qi, qi.name=simqi$qi.name)
   class(res) <- "zelig"
   res
