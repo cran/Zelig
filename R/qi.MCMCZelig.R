@@ -5,13 +5,13 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
   qi <- list()
   check <- FALSE
 
-  if (model %in% c("MCMClogit", "MCMCprobit", "MCMCoprobit", "MCMCmnl")) 
+  if (model %in% c("logit.bayes", "probit.bayes", "oprobit.bayes", "mlogit.bayes")) 
     check <- TRUE
   
-  if (model %in% c("MCMClogit","MCMCprobit", "MCMCregress",
-                   "MCMCpoisson","MCMCtobit")) {
+  if (model %in% c("logit.bayes","probit.bayes", "normal.bayes",
+                   "poisson.bayes","tobit.bayes")) {
 
-    if (model == "MCMClogit") {
+    if (model == "logit.bayes") {
       coef <- object$coefficients
       eta <- coef %*% t(x)
       pr <- ev <- matrix(NA, nrow = nrow(eta), ncol = ncol(eta))
@@ -25,7 +25,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       qi.name <- list(ev = "Expected Values: E(Y|X)", pr="Predicted
       Values: Y|X")
     }
-    else if (model == "MCMCprobit") {
+    else if (model == "probit.bayes") {
       coef <- object$coefficients
       eta <- coef %*% t(x)
       pr <- ev <- matrix(NA, nrow = nrow(eta), ncol = ncol(eta))
@@ -38,7 +38,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       qi.name <- list(ev = "Expected Values: E(Y|X)", pr="Predicted
       Values: Y|X")
     }
-    else if (model =="MCMCregress") {
+    else if (model =="normal.bayes") {
       coef <- object$coefficients[,1:(ncol(object$coefficients)-1)]
       eta <- coef %*% t(x)
       ev <- matrix(NA, nrow = nrow(eta), ncol = ncol(eta))
@@ -47,7 +47,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       qi$ev <- ev
       qi.name <- list(ev = "Expected Values: E(Y|X)")
     }
-    else if (model =="MCMCtobit") {
+    else if (model =="tobit.bayes") {
       coef <- object$coefficients[,1:(ncol(object$coefficients)-1)]
       sig2 <- object$coefficients[,ncol(object$coefficients)]
       sig <- sqrt(sig2)
@@ -69,7 +69,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
     qi.name <- list(ev = "Expected Values: E(Y|X)")
     }
-    else if (model == "MCMCpoisson") {
+    else if (model == "poisson.bayes") {
       coef <- object$coefficients
       eta <- coef %*% t(x)
       pr <- ev <- matrix(NA, nrow = nrow(eta), ncol = ncol(eta))
@@ -87,7 +87,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
         
     if (!is.null(x1)) {
         eta1 <- coef %*% t(x1)
-      if (model == "MCMClogit") {
+      if (model == "logit.bayes") {
         ev1 <- 1/(1+exp(-eta1))
         rr <-ev1/ev
         fd <-ev1-ev
@@ -99,7 +99,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
         qi.name$rr <- "Risk Ratios: P(Y=1|X1)/P(Y=1|X)"
       }
-      else if (model == "MCMCprobit") {
+      else if (model == "probit.bayes") {
         ev1 <- pnorm(eta1)
                 rr <-ev1/ev
         fd <-ev1-ev
@@ -111,7 +111,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
         qi.name$rr <- "Risk Ratios: P(Y=1|X1)/P(Y=1|X)"
       }
-      else if (model == "MCMCregress") {
+      else if (model == "normal.bayes") {
         ev1 <- eta1
         fd <-ev1-ev
 
@@ -119,7 +119,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
         qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
       }
-      else if (model == "MCMCtobit") {
+      else if (model == "tobit.bayes") {
         L2 <- (object$above-eta1)/sig
         L1 <- (object$below-eta1)/sig
         #cev <- eta + sig*(dnorm(L1)-dnorm(L2))/(pnorm(L2)-pnorm(L1))
@@ -137,7 +137,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
         qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
       }        
-      else if (model == "MCMCpoisson") {
+      else if (model == "poisson.bayes") {
         ev1 <- exp(eta1)
         fd <-ev1-ev
 
@@ -157,7 +157,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       tmp.pr <- yvar - qi$pr
     qi$ate.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
     qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
-    if (model %in% c("MCMClogit", "MCMCprobit", "MCMCpoisson"))
+    if (model %in% c("logit", "probit", "poisson"))
       {
         qi$ate.pr <- matrix(apply(tmp.pr, 1, mean), nrow = nrow(simpar))
         qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
@@ -166,8 +166,8 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
     list(qi=qi, qi.name=qi.name)    
   }
-  else if ((model =="MCMCoprobit") || (model == "MCMCmnl")) {
-    if (model == "MCMCoprobit") {
+  else if ((model =="oprobit.bayes") || (model == "mlogit.bayes")) {
+    if (model == "oprobit.bayes") {
       library(stats)
       p <- dim(model.matrix(object, data=eval(object$data)))[2]
       coef <- object$coefficients[,1:p]
@@ -192,19 +192,23 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       for (j in 1:level)
         ev[,j,] <- pnorm(gamma[,j+1]-eta) - pnorm(gamma[,j]-eta)
 
+      colnames(ev) <- levels(model.response(model.frame(object)))
+      
       for (j in 1:nrow(pr)) {
        mu <- eta[j,]
-       pr[j,]<-as.character(cut(mu, gamma[j,], labels=as.factor(1:level)))   
+#       pr[j,]<-as.character(cut(mu, gamma[j,],
+#       labels=as.factor(1:level)))
+       pr[j,]<-as.character(cut(mu, gamma[j,], labels=colnames(ev)))   
      }
        
 
-      #        t(t(1:nrow(pr))%*%pr)
+      colnames(ev) <- levels(model.response(model.frame(object)))
       qi$ev <- ev
       qi$pr <- pr
-      qi.name <- list(ev = "Expected Values: E(Y|X)", pr="Predicted
+      qi.name <- list(ev = "Expected Values: P(Y=j|X)", pr="Predicted
       Values: Y|X")      
     }
-    else if (model == "MCMCmnl") {
+    else if (model == "mlogit.bayes") {
       library(stats)
       resp <- model.response(model.frame(object))
       level <- length(table(resp))
@@ -226,7 +230,9 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
                                       
       ev <- array(NA, c(nrow(coef), level, nrow(x)))
       pr <- matrix(NA, nrow(coef), nrow(x))
-      #dimnames(pr)[1] <- dimnames(ev)[1] <- dimnames(eta)[1]
+      
+      
+      colnames(ev) <- rep(NA, level)
 
       for (k in 1:nrow(x))
        for (j in 1:level)
@@ -234,22 +240,28 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
            ev[,j,k] <- eta[,j,k]/rowSums(eta[,,k])
          }
 
+      for (j in 1:level)
+        {
+          colnames(ev)[j] <- paste("P(Y=", j, ")", sep="")
+        }
+
       for (k in 1:nrow(x)) {             
         probs <- as.matrix(ev[,,k])
         temp <- apply(probs, 1, FUN=rmultinom, n=1, size=1)
         temp <- as.matrix(t(temp)%*%(1:nrow(temp)))
         pr <- apply(temp,2,as.character)
     }
+
       qi$ev <- ev
       qi$pr <- pr
-      qi.name <- list(ev = "Expected Values: E(Y|X)", pr="Predicted
+      qi.name <- list(ev = "Expected Values: P(Y=j|X)", pr="Predicted
       Values: Y|X")      
     }
 
     
     if (!is.null(x1)) {
 
-      if (model == "MCMCoprobit") {
+      if (model == "oprobit.bayes") {
  
         eta1 <- coef %*% t(x1)
       
@@ -264,12 +276,13 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
         qi$fd <- fd
         qi$rr <- rr
 
-        qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
 
-        qi.name$rr <- "Risk Ratios: P(Y=1|X1)/P(Y=1|X)"
+        qi.name$fd <- "First Differences in Expected Values: P(Y=j|X1)-P(Y=j|X)"
+
+        qi.name$rr <- "Risk Ratios: P(Y=j|X1)/P(Y=j|X)"
         
       }
-      else if (model == "MCMCmnl") {
+      else if (model == "mlogit.bayes") {
 
       eta1 <- array(NA, c(nrow(coef),level, nrow(x1)))
       
@@ -283,10 +296,12 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
                                        
       ev1 <- array(NA, c(nrow(eta1), level, nrow(x1)))
 
+
       for (k in 1:nrow(x))
        for (j in 1:level)
          {
            ev1[,j,k] <- eta1[,j,k]/rowSums(eta1[,,k])
+
          }
 
               rr <-ev1/ev
@@ -294,10 +309,11 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
         qi$fd <- fd
         qi$rr <- rr
+        
 
-        qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
+        qi.name$fd <- "First Differences in Expected Values: P(Y=j|X1)-P(Y=j|X)"
 
-        qi.name$rr <- "Risk Ratios: P(Y=1|X1)/P(Y=1|X)"
+        qi.name$rr <- "Risk Ratios: P(Y=j|X1)/P(Y=j|X)"
       
     }
     }
@@ -323,7 +339,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
     tmp.pr <- yvar1 - pr1
     qi$ate.ev <- matrix(apply(tmp.ev, 2, rowMeans), nrow = nrow(simpar))
     qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
-    if (model %in% c("MCMCoprobit", "MCMCmnl"))
+    if (model %in% c("oprobit.bayes", "mlogit.bayes"))
       {
         qi$ate.pr <- matrix(apply(tmp.pr, 2, rowMeans), nrow = nrow(simpar))
         qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
@@ -335,7 +351,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
 
     
   }
-  else if (model == "MCMChierEI" || model == "MCMCdynamicEI") {
+  else if (model == "ei.hier" || model == "ei.dynamic") {
     if (!any(class(x)=="cond")) stop("set 'cond=TRUE' in setx.\n")
     else
       {
@@ -361,7 +377,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
             }
           
         }
-        
+#        dimnames(ev)[[1]] <- dimnames(pr)[[4]] <- 1:nrow(coef)
         dimnames(ev)[[4]] <- dimnames(pr)[[4]] <- rownames(x)
         dimnames(ev)[[2]] <- dimnames(pr)[[2]] <- colnames(x)
         dimnames(ev)[[3]] <- dimnames(pr)[[3]] <- colnames(model.response(object$model))
@@ -375,15 +391,15 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
     
     list(qi=qi, qi.name=qi.name)
   }
-  else if ( model %in% c("MCMCfactanal", "MCMCordfactanal",
-  "MCMCmixfactanal", "MCMCirt1d", "MCMCirtKd"))
+  else if ( model %in% c("factor.bayes", "factor.ord",
+  "factor.mix", "irt1d", "irtkd"))
     {
       stop("sim procedure not applicable since no explanatory
   variables are involved.\n")
     list(qi=qi)
     }
 
-#  return(list(qi=qi, qi.name=qi.name))
+
 
 }  
   

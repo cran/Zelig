@@ -4,7 +4,7 @@ zelig2relogit <- function(formula, model, data, M, ...) {
   if (is.null(mf$case.control))
     mf$case.control <- "prior"
   mf$formula <- as.formula(paste("cbind(", formula[[2]], ", 1 -", formula[[2]], ")",
-                                 "~", deparse(formula[[3]]), sep = ""))
+                                 "~", deparse(formula[[3]], width.cutoff=500), sep = ""))
   if (is.null(mf$bias.correct))
     mf$bias.correct <- TRUE
   mf[[1]] <- as.name("relogit")

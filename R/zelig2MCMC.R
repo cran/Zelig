@@ -1,4 +1,4 @@
-zelig2MCMChierEI <- function(formula, model, data, M, ...) {
+zelig2ei.hier <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   
@@ -43,7 +43,7 @@ zelig2MCMChierEI <- function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCdynamicEI <- function(formula, model, data, M, ...) {
+zelig2ei.dynamic <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   
@@ -91,7 +91,7 @@ zelig2MCMCdynamicEI <- function(formula, model, data, M, ...) {
 
 
 
-zelig2MCMClogit <-  function(formula, model, data, M, ...) {    
+zelig2logit.bayes <-  function(formula, model, data, M, ...) {    
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
 
@@ -111,7 +111,7 @@ zelig2MCMClogit <-  function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCprobit <-  function(formula, model, data, M, ...) {    
+zelig2probit.bayes <-  function(formula, model, data, M, ...) {    
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
 
@@ -131,7 +131,7 @@ zelig2MCMCprobit <-  function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCregress <-  function(formula, model, data, M, ...) {    
+zelig2normal.bayes <-  function(formula, model, data, M, ...) {    
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   mf$model <- mf$M <- NULL
@@ -149,7 +149,7 @@ zelig2MCMCregress <-  function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCpoisson <-  function(formula, model, data, M, ...) {    
+zelig2poisson.bayes <-  function(formula, model, data, M, ...) {    
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   mf$model <- mf$M <- NULL
@@ -166,7 +166,7 @@ zelig2MCMCpoisson <-  function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCtobit <-  function(formula, model, data, M, ...) {    
+zelig2tobit.bayes <-  function(formula, model, data, M, ...) {    
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
  if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
@@ -184,7 +184,7 @@ zelig2MCMCtobit <-  function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCmnl <-  function(formula, model, data, M, ...) {    
+zelig2mlogit.bayes <-  function(formula, model, data, M, ...) {    
   require(MCMCpack)
   require(stats)
   mf <- match.call(expand.dots = TRUE)
@@ -203,7 +203,7 @@ zelig2MCMCmnl <-  function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCoprobit <-  function(formula, model, data, M, ...) {    
+zelig2oprobit.bayes <-  function(formula, model, data, M, ...) {    
   require(MCMCpack)
   require(stats)
   mf <- match.call(expand.dots = TRUE)
@@ -228,7 +228,7 @@ zelig2MCMCoprobit <-  function(formula, model, data, M, ...) {
 
 
 
-zelig2MCMCfactanal <- function(formula, model, data, M, ...) {
+zelig2factor.bayes <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
  if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
@@ -250,7 +250,7 @@ zelig2MCMCfactanal <- function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCordfactanal <- function(formula, model, data, M, ...) {
+zelig2factor.ord <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
    if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
@@ -272,7 +272,7 @@ zelig2MCMCordfactanal <- function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2MCMCmixfactanal <- function(formula, model, data, M, ...) {
+zelig2factor.mix <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
@@ -300,7 +300,7 @@ zelig2MCMCmixfactanal <- function(formula, model, data, M, ...) {
 }
 
 
-zelig2MCMCirt1d <- function(formula, model, data, M, ...) {
+zelig2irt1d <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
@@ -323,7 +323,7 @@ zelig2MCMCirt1d <- function(formula, model, data, M, ...) {
 }
 
 
-zelig2MCMCirtKd <- function(formula, model, data, M, ...) {
+zelig2irtkd <- function(formula, model, data, M, ...) {
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
