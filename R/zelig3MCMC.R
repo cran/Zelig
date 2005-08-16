@@ -1,4 +1,4 @@
-  zelig3MCMCdynamicEI <- zelig3MCMChierEI <- function(res, fcall=NULL, zcall=NULL) {
+zelig3ei.hier <- zelig3ei.dynamic <- function(res, fcall=NULL, zcall=NULL) {
 
   out <- list()
   out$coefficients <- res
@@ -19,8 +19,9 @@
  out
 }
 
-zelig3MCMClogit <- zelig3MCMCoprobit <- zelig3MCMCpoisson <-
-  zelig3MCMCmnl <- zelig3MCMCregress <- function(res, fcall=NULL, zcall=NULL) {
+
+zelig3logit.bayes <- zelig3oprobit.bayes <- zelig3poisson.bayes <-
+  zelig3mlogit.bayes <- zelig3normal.bayes <- function(res, fcall=NULL, zcall=NULL) {
 
   out <- list()
   out$coefficients <- res
@@ -38,7 +39,7 @@ zelig3MCMClogit <- zelig3MCMCoprobit <- zelig3MCMCpoisson <-
  out
 }
 
-zelig3MCMCprobit <- function(res, fcall=NULL, zcall=NULL) {
+zelig3probit.bayes <- function(res, fcall=NULL, zcall=NULL) {
 
   out <- list()
   if (is.null(zcall$bayes.resid)) 
@@ -67,7 +68,7 @@ zelig3MCMCprobit <- function(res, fcall=NULL, zcall=NULL) {
 
   }
 
-  zelig3MCMCtobit <- function(res, fcall=NULL, zcall=NULL) {
+  zelig3tobit.bayes <- function(res, fcall=NULL, zcall=NULL) {
 
   out <- list()
   out$coefficients <- res
@@ -91,7 +92,7 @@ zelig3MCMCprobit <- function(res, fcall=NULL, zcall=NULL) {
  out
 }
 
-  zelig3MCMCfactanal <- zelig3MCMCordfactanal <- zelig3MCMCmixfactanal <- function(res, fcall=NULL, zcall=NULL) {
+  zelig3factor.bayes <- zelig3factor.ord <- zelig3factor.mix <- function(res, fcall=NULL, zcall=NULL) {
 
   out <- list()
   out$coefficients <- res
@@ -111,7 +112,7 @@ zelig3MCMCprobit <- function(res, fcall=NULL, zcall=NULL) {
 }
 
 
-  zelig3MCMCirt1d <- zelig3MCMCirtKd <- function(res, fcall=NULL, zcall=NULL) {
+  zelig3irt1d <- zelig3irtkd <- function(res, fcall=NULL, zcall=NULL) {
 
   out <- list()
   out$coefficients <- res

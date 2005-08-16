@@ -11,7 +11,7 @@ zelig2lognorm <- function(formula, model, data, M, ...) {
   if (!is.null(mf$cluster)) {
     mf$formula <- as.formula(paste(paste(deparse(formula[[2]])),
                                    paste(deparse(formula[[1]])),
-                                   paste(deparse(formula[[3]])),
+                                   paste(deparse(formula[[3]], width.cutoff=500)),
                                    paste("+", " cluster(",
                                          mf$cluster, ")")))
     mf$cluster <- NULL
@@ -19,7 +19,7 @@ zelig2lognorm <- function(formula, model, data, M, ...) {
   else if (mf$robust)
     mf$formula <- as.formula(paste(paste(deparse(formula[[2]])),
                                    paste(deparse(formula[[1]])),
-                                   paste(deparse(formula[[3]])),
+                                   paste(deparse(formula[[3]], width.cutoff=500)),
                                    paste("+", " cluster(1:nrow(",
                                          deparse(formula[[2]]),
                                          "))")))

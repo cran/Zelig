@@ -13,7 +13,7 @@ user.prompt()
 x.out1 <- setx(z.out1)
 user.prompt()
 
-s.out1 <- sim(z.out, x = x.out1)
+s.out1 <- sim(z.out1, x = x.out1)
 user.prompt()
 
 summary(s.out1)
@@ -33,7 +33,7 @@ user.prompt()
 x.out2 <- setx(z.out2)
 user.prompt()
 
-s.out2 <- sim(z.out1, x = x.out2)
+s.out2 <- sim(z.out2, x = x.out2)
 user.prompt()
 
 

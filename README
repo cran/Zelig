@@ -1,3 +1,10 @@
+2.4-1 (August 15, 2005): Stable release for R 2.0.0-2.1.1.  Added the 
+  following Bayesian models:  factor analysis, mixed factor analysis, 
+  ordinal factor analysis, unidimensional item response theory, 
+  k-dimensional item response theory, logit, multinomial logit, normal, 
+  ordinal probit, Poisson, and tobit.  Also fixed minor bug in
+  formula (long variable names coerced to list). 
+
 2.3-2 (August 5, 2005): Stable release for R 2.0.0-2.1.1.  Fixed bug in 
   simulation procedure for lognormal model.
 
