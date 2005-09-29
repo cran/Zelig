@@ -1,3 +1,11 @@
+2.4-4 (September 29, 2005): Stable release for R 2.0.0-2.2.0.  Fixed 
+  links for help.zelig().
+
+2.4-3 (September 29, 2005): Stable release for R 2.0.0-2.2.0.  
+
+2.4-2 (August 30, 2005): Stable release for R 2.0.0-2.1.1.  Fixed bug in 
+  setx() related to as.factor() and I().  Streamlined qi.survreg().
+
 2.4-1 (August 15, 2005): Stable release for R 2.0.0-2.1.1.  Added the 
   following Bayesian models:  factor analysis, mixed factor analysis, 
   ordinal factor analysis, unidimensional item response theory, 

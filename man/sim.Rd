@@ -17,7 +17,7 @@
 
 \usage{
 s.out <- sim(object, x, x1 = NULL, num = c(1000, 100), prev = NULL, 
-             bootstrap = FALSE,  bootfn = NULL, cond.data = NULL, \dots)
+             bootstrap = FALSE,  bootfn = NULL, \dots)
 }
 
 \arguments{
@@ -48,9 +48,6 @@ s.out <- sim(object, x, x1 = NULL, num = c(1000, 100), prev = NULL,
     bootstrap methods include sampling the residuals rather than the
     observations, weighted sampling, and parametric bootstrapping.
     (Not available for conditional prediction.) }  
-  \item{cond.data}{a data frame, identical to the \code{data}
-    argument in \code{\link{setx}}.  Required for conditional prediction
-    with the exponential, Weibull, and lognormal models. } 
   \item{\dots}{additional optional arguments passed to
     \code{boot}. }
 }

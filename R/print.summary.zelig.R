@@ -42,7 +42,7 @@ print.summary.zelig <- function(x, digits=getOption("digits"),
             rownames(tmp[,,j]) <- 1:nrow(tmp[,,j])
           if (!is.null(names(tmp[,,j])))
             names(tmp[,,j]) <- NULL
-          print.matrix(tmp[,,j], digits=digits, ...)
+          print(tmp[,,j], digits=digits, ...)
         }
       }
     else {
