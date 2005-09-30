@@ -13,7 +13,7 @@ importFrom(stats, quasipoisson)
 
 export( dims, 
         gsource,
-        help.zelig, 
+        help.zelig,
         plot.ci,
         plot.zelig,
         rocplot, 

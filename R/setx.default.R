@@ -58,7 +58,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     odta <- eval(object$call$data, sys.parent())
   else
     odta <- data
-  data <- dta <- model.frame(delete.response(tt), odta)
+  data <- dta <- odta[attributes(model.frame(tt, odta))$row.names,] 
   vars <- names(dta)
   if (!is.null(counter)) {
     if (!any(counter == vars))
