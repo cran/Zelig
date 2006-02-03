@@ -1,4 +1,4 @@
-model.end <- function(res, D) {
+model.end <- function(res, mf) {
 
   res$variance <- -solve(res$hessian)
   res$hessian <- NULL
@@ -7,11 +7,11 @@ model.end <- function(res, D) {
   res$coefficients <- res$par
   res$par <- NULL
 
-  res$terms <- attr(D, "terms")
+  res$terms <- attr(mf, "terms")
 
-  attr(res, "na.message") <- attr(D, "na.message") 
-  if (!is.null(attr(D, "na.action"))) 
-    res$na.action <- attr(D, "na.action") 
+  attr(res, "na.message") <- attr(mf, "na.message") 
+  if (!is.null(attr(mf, "na.action"))) 
+    res$na.action <- attr(mf, "na.action") 
 
   res
 }

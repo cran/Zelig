@@ -1,5 +1,4 @@
-zelig2blogit <- function(formula, model, data, M, constrain = NULL,
-                         omit = NULL, constant = 3, ...) {
+zelig2blogit <- function(formula, model, data, M, constant = 3, ...) {
   check <- library()
   if(any(check$results[,"Package"] == "VGAM")) 
     require(VGAM)
@@ -9,11 +8,12 @@ zelig2blogit <- function(formula, model, data, M, constrain = NULL,
   mf[[1]] <- VGAM::vglm
   mf$family <- as.name("blogit")
   mf$... <- NULL
-  tmp <- cmvglm(formula, model, constrain, omit, constant, 3)
+  formula<-parse.formula(formula,model)
+  tmp <- cmvglm(formula, model, constant, 3)
   mf$formula <- tmp$formula 
   mf$constraints <- tmp$constraints
   blogit <<- function() binom2.or(zero=NULL)
-  mf$model <- mf$constrain <- mf$omit <- mf$constant <- mf$M <- NULL
+  mf$model <- mf$constant <- mf$M <- NULL
   mf$robust <- NULL
   as.call(mf)
 }

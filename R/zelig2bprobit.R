@@ -1,5 +1,4 @@
-zelig2bprobit <- function(formula, model, data, M, constrain = NULL,
-                          omit = NULL, constant = 3, ...) {
+zelig2bprobit <- function(formula, model, data, M, constant = 3, ...) {
   check <- library()
   if(any(check$results[,"Package"] == "VGAM")) 
     require(VGAM)
@@ -8,10 +7,12 @@ zelig2bprobit <- function(formula, model, data, M, constrain = NULL,
   mf <- match.call(expand.dots = TRUE)
   mf[[1]] <- VGAM::vglm
   mf$family <- as.name("bprobit")
-  tmp <- cmvglm(formula, model, constrain, omit, constant, 3)
-  mf$formula <- tmp$formula 
+   formula<-parse.formula(formula,model)
+  tmp <- cmvglm(formula, model, constant, 3)
+  mf$formula <- tmp$formula
   mf$constraints <- tmp$constraints
   bprobit <<- function() binom2.rho(zero=NULL)
-  mf$model <- mf$constrain <- mf$omit <- mf$constant <- mf$M <- NULL
+  mf$model <- mf$constant <- mf$M <- NULL
+
   as.call(mf)
 }

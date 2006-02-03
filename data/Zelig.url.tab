@@ -43,4 +43,6 @@ poisson.bayes http://gking.harvard.edu/zelig/docs/_TT_poisson_bayes_TT.html
 probit        http://gking.harvard.edu/zelig/docs/_TT_probit_TT__Probit.html
 probit.bayes  http://gking.harvard.edu/zelig/docs/_TT_probit_bayes_TT__B.html
 relogit       http://gking.harvard.edu/zelig/docs/_TT_relogit_TT__Rare_E.html
+tobit         http://gking.harvard.edu/zelig/docs/_TT_tobit_TT__Regress.html
+tobit.bayes   http://gking.harvard.edu/zelig/docs/_TT_tobit_bayes_TT.html
 weibull       http://gking.harvard.edu/zelig/docs/_TT_weibull_TT__Weibul.html

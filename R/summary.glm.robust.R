@@ -1,17 +1,16 @@
 summary.glm.robust <- function(object, ...) {
-  class(object) <- "glm"
+  class(object) <- c("glm", "lm")
   res <- summary.glm(object, ...)
   if (is.null(object$robust)) {
     res$cov.unscaled <- covmat.unscaled <- vcovHAC(object)
     res$robust <- "vcovHAC"
-  }
-  else {
+  } else {
     fn <- object$robust$method
     res$robust <- object$robust$method
     object$robust$method <- NULL
-    arg <- object$list
+    arg <- object$robust
     arg$x <- object
-    res$cov.unscaled <- covmat.unscaled <- eval(do.call(fn, arg))
+    res$cov.unscaled <- covmat.unscaled <- eval(do.call(fn, args=arg))
   }
   res$cov.scaled <- covmat <- covmat.unscaled*res$dispersion
   if (!is.null(res$correlation)) {

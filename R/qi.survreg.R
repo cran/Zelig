@@ -8,13 +8,16 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
     else
       sim.scale <- rep(object$scale, nrow(simpar))
   }
-  else if (model == "lognorm")
+  else if (model %in% c("lognorm", "tobit"))
     sim.scale <- simpar[,(k+1):ncol(simpar)]
   if (!is.null(y)) {
     status <- y[,2]
     y <- y[,1]
   }
-  link <- survreg.distributions[[object$dist]]$itrans
+  if (model %in% c("weibull", "Weibull", "lognorm", "exp"))
+    link <- survreg.distributions[[object$dist]]$itrans
+  else if (model == "tobit")
+    link <- function(x) x
   ev.surv <- function(model, sim.coef, sim.scale, x, link) {
     eta <- sim.coef %*% t(x)
     theta <- as.matrix(apply(eta, 2, link))
@@ -22,11 +25,11 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
       ev <- exp(log(theta) + 0.5*(exp(sim.scale))^2)
       dimnames(ev) <- dimnames(theta)
     }
-    else if (model == "weibull" || model == "Weibull") {
+    else if (model %in% c("weibull", "Weibull")) {
       ev <- theta * gamma(1 + exp(sim.scale))
       dimnames(ev) <- dimnames(theta)
     }
-    else if (model == "exp") {
+    else if (model %in% c("exp", "tobit")) {
       ev <- theta
     }
     list(ev = as.matrix(ev), theta = as.matrix(theta))
@@ -34,12 +37,15 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
   pr.surv <- function(model, theta, sim.scale, ev) { 
     if (model == "exp") 
       pr <- rexp(length(ev), rate = 1/ev)
-    else if (model == "weibull" || model == "Weibull") 
+    else if (model %in% c("weibull", "Weibull")) 
       pr <- rweibull(length(ev), shape=1/exp(sim.scale),
                          scale=theta)
     else if (model == "lognorm") 
       pr <- rlnorm(length(ev), meanlog = log(theta),
                        sdlog = exp(sim.scale))
+    else if (model == "tobit") {
+      pr <- rnorm(length(ev), mean = ev, sd = exp(sim.scale))
+    }
     pr
   }
   ev <- ev.surv(model, sim.coef, sim.scale, x, link)

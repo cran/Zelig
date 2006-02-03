@@ -105,6 +105,5 @@ summary(s.out3, subset = 2)
 user.prompt()
 
 summary(s.out3, subset = 3) 
-user.prompt()
 
 

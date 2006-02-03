@@ -38,8 +38,7 @@ user.prompt()
 # Estimate the statistical model, with import a function of coop
 # in the first equation and export a function of cost and target
 # in the second equation, by using the zeros argument:
-z.out2 <- zelig(cbind(import, export) ~ coop + cost + target,
-                omit = list("1" = "cost", "2" = c("coop", "target")), 
+z.out2 <- zelig(list(mu1=import~coop,mu2=export~cost+target), 
                 model = "blogit", data = sanction)
 user.prompt()
 print(summary(z.out2))

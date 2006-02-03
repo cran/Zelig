@@ -10,7 +10,7 @@ z.out <- zelig(cbind(Rehnquist,Stevens,OConnor,Scalia,
                Kennedy,Souter,Thomas,Ginsburg,Breyer)~NULL,
                data=SupremeCourt, model="irt1d",
                B0.alpha=0.2, B0.beta=0.2, burnin=500, mcmc=10000,
-               thin=20, verbose=TRUE)
+               thin=20, verbose=FALSE)
 user.prompt()
 
 ## Checking for convergence before summarizing the estimates:

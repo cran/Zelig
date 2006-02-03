@@ -1,7 +1,7 @@
 zelig3logit <- zelig3probit <- zelig3normal <- zelig3gamma <-
   zelig3poisson <- zelig3negbin <- zelig3relogit <-
   function(res, fcall = NULL, zcall = NULL) {
-    rob <- zcall$robust
+    rob <- eval(zcall$robust)
     if (!is.null(rob)) {
       require(sandwich)
       if (is.list(rob)) {

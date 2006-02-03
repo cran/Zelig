@@ -41,7 +41,7 @@ variable.  You may save this plot using the commands described in the
 Zelig manual (\url{http://gking.harvard.edu/zelig}).  
 }
 
-\example{
+\examples{
 data(turnout)
 z.out <- zelig(vote ~ race + educate + age + I(age^2) + income,
                model = "logit", data = turnout)

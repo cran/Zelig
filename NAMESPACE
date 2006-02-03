@@ -11,17 +11,32 @@ importFrom(stats, quasi)
 importFrom(stats, quasibinomial)
 importFrom(stats, quasipoisson)
 
-export( dims, 
+export( current.packages, 
+        dims, 
         gsource,
         help.zelig,
+	model.end,
+        model.matrix.multiple, 
+        model.frame.multiple,
+	parse.formula, 
+	parse.par,
         plot.ci,
         plot.zelig,
+	put.start,
+        repl,
         rocplot, 
+	set.start,
 	setx,
 	sim,
+        ternaryplot,
 	ternarypoints, 
-	user.prompt, 
-        zelig
+	user.prompt,
+        zelig,
+        zeligListModels,
+        zeligInstalledModels,
+        zeligModelDependency, 
+        zeligGetSpecial,
+	zeligDescribeModelXML
 )
 	
 S3method("$", vglm)
@@ -29,6 +44,8 @@ S3method("$", summary.vglm)
 S3method("$<-", vglm)
 S3method("$<-", summary.vglm)
 S3method(formula, vglm)
+S3method(model.matrix, multiple)
+S3method(model.frame, multiple)
 S3method(names, relogit)
 S3method(names, summary.zelig.relogit)
 S3method(names, vglm)
@@ -67,6 +84,7 @@ S3method(print, summary.glm.robust)
 S3method(print, summary.MCMCZelig)
 S3method(print, summary.zelig)
 S3method(print, zelig)
+S3method(repl, default)
 S3method(repl, zelig)
 S3method(sim, default)
 S3method(sim, cond)   
@@ -93,10 +111,11 @@ S3method(summary, zelig)
 S3method(summary, lm.robust)   
 S3method(summary, glm.robust)   
 S3method(terms, vglm)
+S3method(terms, multiple)
 S3method(vcov, BetaReg)
 S3method(vcov, lm)
 S3method(vcov, relogit)
 S3method(vcov, lm.robust)
 S3method(vcov, glm.robust)
-   
+S3method(zelig, default)
 

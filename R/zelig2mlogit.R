@@ -7,17 +7,13 @@ zelig2mlogit <- function(formula, model, data, M, ...) {
   mf <- match.call(expand.dots = TRUE)
   mf[[1]] <- VGAM::vglm 
   mf$family <- VGAM::multinomial
-  if (mf$M == 1)
-    ndim <- length(unique(na.omit((eval(mf$formula[[2]], mf$data))))) - 1
-  if (mf$M > 1) {
-   ntmp <- array()
-   for (i in 1:mf$M)  
-     ntmp[i] <- length(unique(na.omit((eval(mf$formula[[2]], mf$data[[i]]))))) $
-   ndim <- max(ntmp)
-  }
-  tmp <- cmvglm(mf$formula, mf$model, mf$equal, mf$zeros, mf$ones, ndim)
+ formula<-parse.formula(formula,model,data)
+  tt<-terms(formula)
+  fact<-attr(tt,"depFactors")$depFactorVar
+  ndim<-length(attr(tt,"depFactors")$depLevels)
+  tmp <- cmvglm(formula, mf$model, mf$ones, ndim,data,fact)
   mf$formula <- tmp$formula  
   mf$constraints <- tmp$constraints
-  mf$model <- mf$equal <- mf$ones <- mf$zeros <- mf$M <- NULL
+  mf$model <- mf$M <- NULL
   as.call(mf)
 }
