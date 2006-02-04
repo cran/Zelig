@@ -40,19 +40,18 @@ plot(s.out1)
 # in the first equation and export a function of cost and target
 # in the second equation, by using the zeros argument:
 user.prompt()
-z.out2 <- zelig(cbind(import, export) ~ coop + cost + target,
-                  omit = list("1"="coop", "2"="cost", "3" = "target"), 
+z.out2 <- zelig(list(mu1 = import ~ coop, mu2 = export ~ cost + target), 
                   model = "bprobit", data = sanction)
 user.prompt()
 print(summary(z.out2))
 
 # Set the explanatory variables to their default values:
 user.prompt()
-Xval2 <- setx(z.out2)
+x.out2 <- setx(z.out2)
 
 # Simulate draws from the posterior distribution:
 user.prompt()
-s.out2 <- sim(z.out2, x = Xval2)
+s.out2 <- sim(z.out2, x = x.out2)
 user.prompt()
 print(summary(s.out2))
 
@@ -67,9 +66,8 @@ plot(s.out2)
 # some or all explanatory variables, {\it and} the effects of the shared
 # explanatory variables are jointly estimated.  For example,
 user.prompt()
-z.out3 <- zelig(cbind(import, export) ~ coop + cost + target, 
-                  constrain = list("1"=c("coop", "cost", "target"),
-                    "2"=c("coop", "cost", "target")), 
+z.out3 <- zelig(list(mu1 = import ~ tag(coop,"coop") + tag(cost, "cost") + tag (target, "target"),
+                     mu2 = export ~ tag(coop,"coop") + tag(cost, "cost") + tag (target, "target")), 
                 model = "bprobit", data = sanction)
 user.prompt()
 print(summary(z.out3))

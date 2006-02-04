@@ -9,7 +9,7 @@ sanction$ncost <- factor(sanction$ncost, ordered = TRUE,
 
 ## Estimating the model using oprobit.bayes:
 z.out <- zelig(ncost ~ mil + coop, model = "oprobit.bayes",
-                  data = sanction, verbose=TRUE)
+                  data = sanction, verbose=FALSE, tune=0.3)
 
 user.prompt()
 

@@ -1,7 +1,7 @@
 setx.default <- function(object, fn = list(numeric = mean, ordered =
                                    median, other = mode), data = NULL,
                          cond = FALSE, counter = NULL, ...){
-  mf <- match.call()
+  mc <- match.call()
   mode <- function(x){
     tb <- tapply(x, x, length)
     if(is.factor(x))
@@ -50,19 +50,30 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       stop("min cannot be calculated for this data type")
     return(value)
   }
-  if (any(class(object)=="vglm"))
-    tt <- object@terms$terms
+  tt <- terms(object)
+  tt.attr <- attributes(tt)
+  env <- tt.attr$.Environment
+  if (is.null(env))
+    env <- parent.frame()
+  ## original data
+  if (is.null(data))
+    if (is.data.frame(object$data))
+      dta <- object$data
+    else
+      dta <- eval(object$call$data, envir = env)
   else
-    tt <- terms(object)
-  if (is.null(data)) 
-    odta <- eval(object$call$data, sys.parent())
+    dta <- as.data.frame(data)
+  ## extract variables we need
+  mf <- model.frame(tt, data = dta, na.action = na.pass)
+  vars <- all.vars(object$call)
+  if (!is.null(tt.attr$response) && tt.attr$response)
+    resvars <- all.vars(tt.attr$variables[[1+tt.attr$response]])
   else
-    odta <- data
-  data <- dta <- odta[attributes(model.frame(tt, odta))$row.names,] 
-  vars <- names(dta)
+    resvars <- NULL
+  data <- dta[complete.cases(mf), names(dta)%in%vars]
   if (!is.null(counter)) {
     if (!any(counter == vars))
-      stop(paste("the variable specified for counter is not used in the model"))
+      stop("the variable specified for counter is not used in the model")
     treat <- data[, names(data)==counter]
     if(is.numeric(treat)) {
       data[treat==1, names(data)==counter] <- 0
@@ -76,7 +87,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
         data[treat==0, names(data)==counter] <- lev[2]
       }
       else
-        stop(paste("counter only takes a binary variable"))
+        stop("counter only takes a binary variable")
     }
     else if(is.logical(treat)) {
       treat <- as.numeric(treat)
@@ -84,15 +95,17 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       data[treat==0, names(data)==counter] <- TRUE
     }
     else
-      stop(paste("not supported variable type for counter"))
+      stop("not supported variable type for counter")
     if(!cond)
-      stop(paste("if counter is specified, cond must be TRUE"))
+      stop("if counter is specified, cond must be TRUE")
   }
   if (cond) {
     if (is.null(data)) 
-      stop(paste("if cond = TRUE, you must specify the data frame."))
+      stop("if cond = TRUE, you must specify the data frame.")
+    if (is.null(mc$fn))
+      fn <- NULL
     if (!is.null(fn)) {
-      warning(paste("when cond = TRUE, fn is coerced to NULL"))
+      warning("when cond = TRUE, fn is coerced to NULL")
       fn <- NULL
     }
   }
@@ -117,19 +130,21 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       fn$other <- mode
     }
     for (i in 1:ncol(data)) {
-      if (is.numeric(data[,i]))
-        value <- lapply(list(data[,i]), fn$numeric)[[1]]
-      else if (is.ordered(data[,i])) 
-        value <- lapply(list(data[,i]), fn$ordered)[[1]]
-      else 
-        value <- lapply(list(data[,i]), fn$other)[[1]]
-      data[,i] <- value
+      if (!(colnames(data)[i] %in% resvars)) {
+        if (is.numeric(data[,i]))
+          value <- lapply(list(data[,i]), fn$numeric)[[1]]
+        else if (is.ordered(data[,i])) 
+          value <- lapply(list(data[,i]), fn$ordered)[[1]]
+        else 
+          value <- lapply(list(data[,i]), fn$other)[[1]]
+        data[,i] <- value
+      }
     }
-    opt <- vars[na.omit(pmatch(names(mf), vars))]
+    opt <- vars[na.omit(pmatch(names(mc), vars))]
     maxl <- 1
     if (length(opt) > 0)
       for (i in 1:length(opt)) {
-        value <- eval(mf[[opt[i]]], sys.parent())
+        value <- eval(mc[[opt[i]]], envir = env)
         lv <- length(value)
         if (lv>1)
           if (maxl==1 || maxl==lv) {
@@ -154,7 +169,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     names(data) <- vars
   }
   if (cond) {
-    X <- model.frame(tt, odta)
+    X <- model.frame(tt, data = dta)
     if (!is.null(counter)) {
       X <- list(treat=X[treat==1,], control=X[treat==0,])
       class(X$treat) <- class(X$control) <- c("data.frame", "cond")
@@ -164,7 +179,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       class(X) <- c("data.frame", "cond")
   }
   else
-    X <- as.data.frame(model.matrix(delete.response(tt), data = data))
+    X <- as.data.frame(model.matrix(tt, data = data))
 
   return(X)
 }

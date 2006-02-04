@@ -11,7 +11,8 @@ sim.setx.MI <- function(object, x, x1 = NULL, num = c(1000, 100), prev = NULL,
   ca <- match.call()
   if (!any(class(x) == "cond")) {
     simpar <- MIsimulation(object, num, prev, bootstrap, bootfn, ...)
-    simqi <- qi(object[[1]], simpar = simpar, x = x, x1 = x1)
+    simqi <- qi(object[[1]], simpar = simpar, x = as.matrix(x), 
+                x1 = if (!is.null(x1)) as.matrix(x1))
     ca$num <- num
     res <- list(x = x, x1 = x1, call = ca, zelig.call = object[[1]]$call, 
                 par = simpar, qi = simqi$qi, qi.name = simqi$qi.name)

@@ -57,9 +57,7 @@ x.out <- setx(object, fn = list(numeric = mean, ordered = median,
   \code{setx} returns the selected values calculated over the entire
   data frame.  If you wish to calculate values over just one subset of
   the data frame, the 5th subset for example, you may use:  
-\begin{verbatim}
-x.out <- setx(z.out[[5]])
-\end{verbatim} 
+\code{x.out <- setx(z.out[[5]])}
 
 For conditional prediction, \code{x.out} includes the model matrix
   and the dependent variables.  For multiple analyses (when choosing
@@ -67,7 +65,7 @@ For conditional prediction, \code{x.out} includes the model matrix
   observed explanatory variables in each subset.
 }
 
-\example{
+\examples{
 # Unconditional prediction:
 data(turnout)
 z.out <- zelig(vote ~ race + educate, model = "logit", data = turnout)
@@ -85,19 +83,23 @@ x.out <- setx(z.out, data = turnout[1001:2000,])
 s.out <- sim(z.out, x = x.out)
 
 # Using a user-defined function in fn:
+\dontrun{
 quants <- function(x)
   quantile(x, 0.25)
 x.out <- setx(z.out, fn = list(numeric = quants))
+}
 
 # Conditional prediction:  
+\dontrun{library(MatchIt)
 data(lalonde)
 match.out <- matchit(treat ~ age + educ + black + hispan + married + 
                      nodegree + re74 + re75, data = lalonde)
-z.out <- zelig(re78 ~ pscore, data = match.data(match, "control"), 
+z.out <- zelig(re78 ~ distance, data = match.data(match.out, "control"), 
                model = "ls")
 x.out <- setx(z.out, fn = NULL, data = match.data(match.out, "treat"),
 	      cond = TRUE)
 s.out <- sim(z.out, x = x.out)
+}
 }
 
 \seealso{ The full Zelig manual may be accessed online at

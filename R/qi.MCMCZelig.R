@@ -33,7 +33,7 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
     else if (model =="normal.bayes") {
       nvar <- ncol(object$coefficients) 
       coef <- object$coefficients[,1:(nvar-1)]
-      qi$ev <- coef %*% t(x)
+      qi$ev <- ev <- coef %*% t(x)
       qi$pr <- rnorm(nrow(qi$ev), qi$ev,
   sqrt(object$coefficients[,nvar]))
       qi.name <- list(ev = "Expected Values: E(Y|X)", pr = "Predicted Values:Y|X")
@@ -49,11 +49,13 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       L2 <- (object$above-eta)/sig
       L1 <- (object$below-eta)/sig
       ##cev <- eta + sig*(dnorm(L1)-dnorm(L2))/(pnorm(L2)-pnorm(L1))
+      temp1 <- pnorm(L1)*object$below
       if (object$below==-Inf) temp1<-0
-      else temp1 <- pnorm(L1)*object$below
+
+      temp2 <- (1-pnorm(L2))*object$above
       if (object$above==Inf) temp2<-0
-      else temp2 <- (1-pnorm(L2))*object$above
-      qi$ev <- temp1+eta*(pnorm(L2)-pnorm(L1))+sig*(dnorm(L1)-dnorm(L2))+temp2
+
+      qi$ev <-ev <- temp1+eta*(pnorm(L2)-pnorm(L1))+sig*(dnorm(L1)-dnorm(L2))+temp2
       qi.name <- list(ev = "Expected Values: E(Y|X)")
     }
     else if (model == "poisson.bayes") {
@@ -87,17 +89,19 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       }
       else if (model == "normal.bayes") {
         ev1 <- eta1
-        qi$fd <-ev1-ev
+        qi$fd <- ev1 - ev
         qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
       }
       else if (model == "tobit.bayes") {
         L2 <- (object$above-eta1)/sig
         L1 <- (object$below-eta1)/sig
         ##cev <- eta + sig*(dnorm(L1)-dnorm(L2))/(pnorm(L2)-pnorm(L1))
+        temp1 <- pnorm(L1)*object$below
         if (object$below==-Inf) temp1<-0
-        else temp1 <- pnorm(L1)*object$below
+
+        temp2 <- (1-pnorm(L2))*object$above
         if (object$above==Inf) temp2<-0
-        else temp2 <- (1-pnorm(L2))*object$above
+        
         ev1 <- temp1+eta*(pnorm(L2)-pnorm(L1))+sig*(dnorm(L1)-dnorm(L2))+temp2
         qi$fd <-ev1-ev
         qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"

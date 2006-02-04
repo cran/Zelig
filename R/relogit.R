@@ -15,6 +15,8 @@ relogit <- function(formula, data = sys.parent(), tau = NULL,
     else 
       weighting <- TRUE
   }
+  else
+    weighting <- FALSE
   if (length(tau) > 2)
     stop("tau must be a vector of length less than or equal to 2")
   else if (length(tau)==2) {
@@ -79,9 +81,13 @@ relogit <- function(formula, data = sys.parent(), tau = NULL,
       res$coefficients["(Intercept)"] <- res$coefficients["(Intercept)"] - 
         log(((1-tau)/tau) * (ybar/(1-ybar)))
       res$prior.correct <- TRUE
+      res$weighting <- FALSE
     }
     else
       res$prior.correct <- FALSE
+    if (is.null(res$weighting))
+      res$weighting <- FALSE
+
     res$linear.predictors <- t(res$coefficients) %*% t(X) 
     res$fitted.values <- 1/(1+exp(-res$linear.predictors))
     res$zelig <- "relogit"

@@ -1,41 +1,44 @@
-beta            Beta regression and simulation
-blogit          Bivariate Logit regression and simulation 
-bprobit         Bivariate Probit regression and simulation 
-conditional     Conditional prediction
-exp             Exponential regression and simulation 
-gamma           Gamma regression and simulation 
-logit           Logit regression and simulation 
-lognorm         Lognormal regression and simulation 
-ls              Least Squares regression and simulation 
-match           Regression and simulation on a matched data set 
-mi              Regression and simulation on multiply imputed data sets
-mlogit          Multinomial Logit regression and simulation 
-negbin          Negative Binomial regression and simulation
-normal          Normal (Gaussian) regression and simulation
-ologit          Ordinal Logit regression and simulation
-oprobit         Ordinal Probit regression and simulation
-poisson         Poisson regression and simulation
-probit          Probit regression and simulation
-relogit         Rare events logit regression and simulation
-robust	        Robust estimation and simulation
-strata          Regression and simulation in a stratified model
-roc             ROC plot
-vertci          Vertical confidence interval plot
-weibull         Weibull regression and simulation
-ei.hier         Hierarchical Ecological Inference model and simulation
-ei.dynamic      Dynamic Ecological Inference model and simulation
-normal.bayes    MCMC regression model and simulation
-logit.bayes     MCMC logistic regression model and simulation
-probit.bayes    MCMC probit regression model and simulation
-tobit.bayes     MCMC tobit regression model and simulation
-poisson.bayes   MCMC poisson regression model and simulation
-mlogit.bayes    MCMC multinomial regression model and simulation
-oprobit.bayes   MCMC ordered probit regression model and simulation
-factor.bayes	MCMC factor analysis
-factor.ord      MCMC factor analysis for ordinal data
-factor.mix      MCMC factor analysis for mixed data
-irt1d           MCMC one-dimensional item response theory model
-irtkd           MCMC K-dimensional item response theory model
+beta               Beta regression and simulation
+blogit             Bivariate Logit regression and simulation 
+bivariate.probit   New model example: Bivariate probit MLE
+bprobit            Bivariate Probit regression and simulation 
+conditional        Conditional prediction
+exp                Exponential regression and simulation 
+gamma              Gamma regression and simulation 
+logit              Logit regression and simulation 
+lognorm            Lognormal regression and simulation 
+ls                 Least Squares regression and simulation 
+match              Regression and simulation on a matched data set 
+mi                 Regression and simulation on multiply imputed data sets
+mlogit             Multinomial Logit regression and simulation 
+negbin             Negative Binomial regression and simulation
+normal             Normal (Gaussian) regression and simulation
+normal.regression  New model example for normal regression
+ologit             Ordinal Logit regression and simulation
+oprobit            Ordinal Probit regression and simulation
+poisson            Poisson regression and simulation
+probit             Probit regression and simulation
+relogit            Rare events logit regression and simulation
+robust	           Robust estimation and simulation
+strata             Regression and simulation in a stratified model
+tobit              Regression for classical tobit model
+roc                ROC plot
+vertci             Vertical confidence interval plot
+weibull            Weibull regression and simulation
+ei.hier            Hierarchical Ecological Inference model and simulation
+ei.dynamic         Dynamic Ecological Inference model and simulation
+normal.bayes       MCMC regression model and simulation
+logit.bayes        MCMC logistic regression model and simulation
+probit.bayes       MCMC probit regression model and simulation
+tobit.bayes        MCMC tobit regression model and simulation
+poisson.bayes      MCMC poisson regression model and simulation
+mlogit.bayes       MCMC multinomial regression model and simulation
+oprobit.bayes      MCMC ordered probit regression model and simulation
+factor.bayes       MCMC factor analysis
+factor.ord         MCMC factor analysis for ordinal data
+factor.mix         MCMC factor analysis for mixed data
+irt1d              MCMC one-dimensional item response theory model
+irtkd              MCMC K-dimensional item response theory model
 
 
 

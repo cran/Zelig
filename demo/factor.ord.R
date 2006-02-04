@@ -5,8 +5,8 @@ data(newpainters)
 z.out <- zelig(cbind(Composition,Drawing,Colour,Expression)~NULL,   
                     data=newpainters, model="factor.ord",  
                     factors=1,
-                    burin=1000,mcmc=10000, thin=5, verbose=TRUE,
-                    L0=0.5)
+                    burin=5000,mcmc=30000, thin=5, verbose=TRUE,
+                    L0=0.5,tune=1.2)
 
 user.prompt()
 

@@ -31,13 +31,9 @@ ternary diagram.  Use \code{ternaryplot} in the \code{vcd} library to
 generate the main ternary diagram.  
 }
 
-\example{
-
-}
-
 \seealso{ The full Zelig manual at
   \url{http://gking.harvard.edu/zelig}, \code{points}, and
-  \code{ternaryplot} in the \code{vcd} library.  }
+  \code{\link{ternaryplot}}.  }
 
 \author{
   Kosuke Imai <\email{kimai@princeton.edu}>; Gary King

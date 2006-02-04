@@ -36,6 +36,7 @@ sim.default <- function(object, x, x1=NULL, num=c(1000, 100),
   }
   simqi <- qi(object, simpar = simpar, x = x, x1 = x1, y = NULL)
   c <- match.call()
+  c[[1]] <- as.name("sim")
   c$num <- num
   res <- list(x=x, x1=x1, call = c, zelig.call = object$call,
               par = simpar, qi=simqi$qi, qi.name=simqi$qi.name)

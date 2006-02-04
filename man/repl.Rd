@@ -68,9 +68,9 @@ this error decreases.
   \code{\link{sim}}.  In addition, the full Zelig manual may be
   accessed online at \url{http://gking.harvard.edu/zelig}.  }
 
-\example{
+\examples{
 data(turnout)
-z.out <- zelig(vote ~ race + educate, model = "logit", data = turnout[1:1000,$
+z.out <- zelig(vote ~ race + educate, model = "logit", data = turnout[1:1000,])
 x.out <- setx(z.out)
 s.out <- sim(z.out, x = x.out)
 z.rep <- repl(z.out)
