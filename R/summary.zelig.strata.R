@@ -37,7 +37,7 @@ summary.zelig.strata <-function(object, subset = NULL, CI=95,
           if(length(dim(qi1i))==3)
             tmp[(sum(w[1:(j-1)])+1):sum(w[1:j]),,] <- qiji[1:w[j],,]
           else
-            tmp <- rbind(tmp, as.matrix(qiji))
+            tmp <- cbind(tmp, as.matrix(qiji))
         }
       }
       qi[[i]] <- tmp

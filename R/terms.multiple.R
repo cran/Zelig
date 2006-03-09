@@ -56,21 +56,50 @@ terms.multiple<-function(x, data=NULL,...){
     termlabels[[namei]]<-attr(TT,"term.labels")
     intercAttr[[namei]]<-attr(TT,"intercept")
   }
+  
   namesOfEquations<-names(objectNew)
   myattr<-list()
   result<-objectNew
+  subs<-constraints<-FALSE
+  
   if(length(constr)>0){
+    dvars<-unique(unlist(depVars))
     namesConstr<-unique(namesConstr)
-    constraints<-matrix(NA,nrow=nrEquationsNew,ncol=length(namesConstr),dimnames=list(namesOfEquations,namesConstr))
+    namesC<-namesConstr %w/o% dvars
+    namesS <-namesConstr %w/o% namesC
+    nrC<-nrS<-0
+    constrC<-constrS<-list()
+    rownamesS<-c()
     for(i in 1:length(constr)){
       constri<-constr[[i]]
-      eqind<-constri[[1]]
-      eq<-namesOfEquations[as.numeric(eqind)]
-      lab<-constri[[2]]
-      constraints[eq,lab]<-constri[[3]]
+      if(constri[[2]] %in% dvars){
+        nrS=nrS+1
+        constrS[[nrS]]<-constr[[i]]
+        rownamesS<-c(rownamesS,namesOfEquations[[which(constri[[2]] ==dvars)]])        
+      }else{
+        nrC=nrC+1
+        constrC[[nrC]]<-constr[[i]]
+      }
     }
-  }else
-  constraints<-FALSE
+    if(length(constrC)>0){
+      constraints<-matrix(NA,nrow=nrEquationsNew,ncol=length(namesC),dimnames=list(namesOfEquations,namesC))
+      for(i in 1:length(constrC)){
+        constri<-constrC[[i]]
+        eqind<-constri[[1]]
+        eq<-namesOfEquations[as.numeric(eqind)]
+        lab<-constri[[2]]
+        constraints[eq,lab]<-constri[[3]]
+      }
+    }
+    if(length(constrS)>0){  #subs
+      subs<-matrix(NA,nrow=length(rownamesS),ncol=length(namesS),dimnames=list(rownamesS,namesS))
+      for(i in 1:length(constrS)){
+        constri<-constrS[[i]]
+        lab<-constri[[2]]
+        subs[rownamesS[[i]],lab]<-constri[[3]]
+      }
+    }
+  }                  
 
   indVars<-unique(unlist(termlabels))
   if(length(depFactorVar) !=0)
@@ -89,6 +118,7 @@ terms.multiple<-function(x, data=NULL,...){
   myattr$depVars<-depVars
   myattr$depFactors<-depFactors
   myattr$constraints<-constraints
+  myattr$subs<-subs
   myattr$response<-1
   myattr$intercept<-intercAttr
   attributes(result)<-myattr

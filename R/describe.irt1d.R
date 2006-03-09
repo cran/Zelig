@@ -1,5 +1,5 @@
 describe.factor.irt1d<-function(){
-category <- "censored"
+category <- "dichotomous"
 description  <- "One Dimensional Item Response Model"
 package <-list(	name 	="MCMCpack",
 		version	="0.6"

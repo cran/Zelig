@@ -1,5 +1,5 @@
 describe.normal<-function(){
-category <- "countinuous"
+category <- "continuous"
 description  <- "Normal Regression for Continuous Dependent Variables"
 package <-list(	name 	="stats",
 		version	="0.1"

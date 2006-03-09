@@ -63,10 +63,10 @@ qi.relogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
       yvar <- matrix(rep(y, num), nrow = num, byrow = TRUE)
       tmp.ev <- yvar - qi$ev
       tmp.pr <- yvar - as.integer(qi$pr)
-      qi$ate.ev <- matrix(apply(tmp.ev, 1, mean), nrow = num)
-      qi$ate.pr <- matrix(apply(tmp.pr, 1, mean), nrow = num)
-      qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
-      qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
+      qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = num)
+      qi$att.pr <- matrix(apply(tmp.pr, 1, mean), nrow = num)
+      qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
+      qi.name$att.pr <- "Average Treatment Effect for the Treated: Y - PR"
     }
     return(list(qi = qi, qi.name = qi.name))
   }

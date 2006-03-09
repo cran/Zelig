@@ -7,15 +7,22 @@ current.packages <- function(package){
     if (!is.null(depends)) {
       depends <- strsplit(depends, ", ")[[1]]
       Rdepends <- pmatch("R (", depends)
-      if (is.na(Rdepends))
+      if (is.na(Rdepends)) {
         Rdepends <- pmatch("R(", depends)
+        if (is.na(Rdepends))
+          Rdepends <- match("R", depends)
+      }
       if (!is.na(Rdepends)) 
-        depends <- depends[-pmatch("R (", depends)]
+        depends <- depends[-Rdepends]
     }
     suggests <- description$Suggests
     if (!is.null(suggests)) 
       suggests <- strsplit(suggests, ", ")[[1]]
     total <- c(depends, suggests)
+    if (!is.null(total)) 
+      total <- unlist(strsplit(total, "\n"))
+    if (!is.null(total))
+      total <- unlist(strsplit(total, ","))
     if (!is.null(total)) {
       conditions <- grep(")", total)
       if (length(conditions) > 0) { 
@@ -29,16 +36,24 @@ current.packages <- function(package){
   }
   old <- packages <- required.packages(package)
 
-  for (zpack in packages) {
-    new <- required.packages(zpack)
-    tmp <- new[!(new %in% old)]
-    old <- packages <- c(packages, tmp)
+  check.start <- 1
+  check.end <- length(packages)-1
+  while(check.end < length(packages)) {
+    check.end <- length(packages)
+    for (i in check.start:check.end)
+      packages <- c(packages, required.packages(packages[i]))
+    check.start <- check.end+1
+    packages <- na.omit(unique(packages))
   }
 
   ver <- array()
-  for (zpack in na.omit(packages)) { 
-    mylib <- dirname(system.file(package = zpack))
-    ver[zpack] <- packageDescription(zpack, lib = mylib)$Ver
+  for (i in 1:length(packages)) {
+    mylib <- dirname(system.file(package = packages[i]))
+    if (sum(!is.na(packageDescription(packages[i], lib = mylib))))
+      ver[i] <- packageDescription(packages[i], lib = mylib)$Ver
+    else
+      stop()
+    names(ver)[i] <- packages[i]
   }
   ver[1] <- paste(paste(paste(R.Version()$major, R.Version()$minor, sep = "."),
                         R.Version()$status, sep = " "),

@@ -1,6 +1,6 @@
 describe.poisson.bayes<-function(){
-category <- "event.count"
-description  <- "Ordinal Probit Regression for Ordered Categorical Dependent Variables"
+category <- "count"
+description  <- "Bayesian Poisson Regression"
 package <-list(	name 	="MCMCpack",
 		version	="0.6"
 		)

@@ -65,7 +65,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     dta <- as.data.frame(data)
   ## extract variables we need
   mf <- model.frame(tt, data = dta, na.action = na.pass)
-  vars <- all.vars(object$call)
+  vars <- all.vars(tt)
   if (!is.null(tt.attr$response) && tt.attr$response)
     resvars <- all.vars(tt.attr$variables[[1+tt.attr$response]])
   else
@@ -108,8 +108,9 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       warning("when cond = TRUE, fn is coerced to NULL")
       fn <- NULL
     }
+    maxl <- nrow(data)
   }
-  else  if (!is.null(fn)) {
+  else if (!is.null(fn)) {
     if (is.null(fn$numeric) || !is.function(fn$numeric)) {
       warning("fn$numeric coerced to mean().")
       fn$numeric <- mean
@@ -140,30 +141,33 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
         data[,i] <- value
       }
     }
-    opt <- vars[na.omit(pmatch(names(mc), vars))]
     maxl <- 1
-    if (length(opt) > 0)
-      for (i in 1:length(opt)) {
-        value <- eval(mc[[opt[i]]], envir = env)
-        lv <- length(value)
-        if (lv>1)
-          if (maxl==1 || maxl==lv) {
-            maxl <- lv
-            data <- data[1:lv,]
-          }
-          else
-            stop("vector inputs should have the same length.")
-        if (is.factor(data[,opt[i]]))
-          data[,opt[i]] <- list(factor(value, levels=levels(data[,opt[i]])))
-        else if (is.numeric(data[,opt[i]]))
-          data[,opt[i]] <- list(as.numeric(value))
-        else if (is.logical(data[,opt[i]]))
-          data[,opt[i]] <- list(as.logical(value))
-        else
-          data[,opt[i]] <- list(value)
-      }
-    data <- data[1:maxl,]
+  } else {
+    maxl <- nrow(data)
   }
+  opt <- vars[na.omit(pmatch(names(mc), vars))]
+  if (length(opt) > 0)
+    for (i in 1:length(opt)) {
+      value <- eval(mc[[opt[i]]], envir = env)
+      lv <- length(value)
+      if (lv>1)
+        if (maxl==1 || maxl==lv) {
+          maxl <- lv
+          data <- data[1:lv,]
+        }
+        else
+          stop("vector inputs should have the same length.")
+      if (is.factor(data[,opt[i]]))
+        data[,opt[i]] <- list(factor(value, levels=levels(data[,opt[i]])))
+      else if (is.numeric(data[,opt[i]]))
+        data[,opt[i]] <- list(as.numeric(value))
+      else if (is.logical(data[,opt[i]]))
+        data[,opt[i]] <- list(as.logical(value))
+      else
+        data[,opt[i]] <- list(value)
+    }
+  data <- data[1:maxl,]
+  
   if (!is.data.frame(data)) {
     data <- data.frame(data)
     names(data) <- vars

@@ -1,5 +1,5 @@
 describe.weibull<-function(){
-category <- "censored"
+category <- "bounded"
 description  <- "Weibull Regression for Duration Dependent Variables"
 package <-list(	name 	="survival",
 		version	="2.2"

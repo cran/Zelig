@@ -1,5 +1,5 @@
 describe.irtkd<-function(){
-category <- "censored"
+category <- "dichotomous"
 description  <- "K-Dimensional Item Response Model"
 package <-list(	name 	="MCMCpack",
 		version	="0.6"

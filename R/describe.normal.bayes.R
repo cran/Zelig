@@ -1,5 +1,5 @@
 describe.normal.bayes<-function(){
-category <- "countinuous"
+category <- "continuous"
 description  <- "Bayesian Normal Linear Regression"
 package <-list(	name 	="MCMCpack",
 		version	="0.6"

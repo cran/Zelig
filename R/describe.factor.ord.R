@@ -1,5 +1,5 @@
 describe.factor.ord<-function(){
-category <- "censored"
+category <- "ordinal"
 description  <- "Ordinal Data Factor Analysis"
 package <-list(	name 	="MCMCpack",
 		version	="0.6"
@@ -10,7 +10,7 @@ parameters$mu<-list(equations=c(1,1),
 			depVar=TRUE,
 			expVar=FALSE,
 			specialFunction="cbind",
-			varInSpecialFunction=c(1,Inf)
+			varInSpecialFunction=c(2,Inf)
 		)
 			
 list(category=category,description=description,package=package,parameters=parameters)

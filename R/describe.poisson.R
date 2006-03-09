@@ -1,5 +1,5 @@
 describe.poisson<-function(){
-category <- "event.count"
+category <- "count"
 description  <- "Poisson Regression for Event Count Dependent Variables"
 package <-list(	name 	="stats",
 		version	="0.1"
