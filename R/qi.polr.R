@@ -42,7 +42,7 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
     yvar <- matrix(NA, nrow = length(y), ncol = length(lev))
     tmp.ev <- tmp.pr <- array(NA, dim = dim(qi$ev))
     pr.idx <- array(NA, dim = c(nrow(pr), length(lev), nrow(x)))
-    qi$ate.ev <- qi$ate.pr <- matrix(NA, dim(qi$ev)[1], dim(qi$ev)[2])
+    qi$att.ev <- qi$att.pr <- matrix(NA, dim(qi$ev)[1], dim(qi$ev)[2])
     for (i in 1:length(lev)) {
       yvar[,i] <- as.integer(y == lev[i])
       pr.idx[,i,] <- as.integer(pr[,i] == lev[i])
@@ -51,12 +51,12 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
     for (j in 1:ncol(yvar)) {
       tmp.ev[,j,] <- yvar[,j] - qi$ev[,j,]
       tmp.pr[,j,] <- yvar[,j] - pr.idx[,j,]
-      qi$ate.ev[,j] <- apply(tmp.ev[,j,], 1, mean)
-      qi$ate.pr[,j] <- apply(tmp.pr[,j,], 1, mean)
+      qi$att.ev[,j] <- apply(tmp.ev[,j,], 1, mean)
+      qi$att.pr[,j] <- apply(tmp.pr[,j,], 1, mean)
     }
-    colnames(qi$ate.ev) <- colnames(qi$ate.pr) <- lev
-    qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
-    qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
+    colnames(qi$att.ev) <- colnames(qi$att.pr) <- lev
+    qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
+    qi.name$att.pr <- "Average Treatment Effect for the Treated: Y - PR"
   }
   list(qi=qi, qi.name=qi.name)
 }

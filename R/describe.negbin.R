@@ -1,5 +1,5 @@
 describe.negbin<-function(){
-category <- "event.count"
+category <- "count"
 description  <- "Negative Binomial Regression for Event Count Dependent Variables"
 package <-list(	name 	="MASS",
 		version	="0.1"

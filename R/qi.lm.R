@@ -14,8 +14,8 @@ qi.lm <- function(object, simpar, x, x1 = NULL, y = NULL) {
   if (!is.null(y)) {
     yvar <- matrix(rep(y, nrow(simpar)), nrow = nrow(simpar), byrow = TRUE)
     tmp.ev <- yvar - qi$ev
-    qi$ate.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
-    qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
+    qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
+    qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
   }
   list(qi=qi, qi.name=qi.name)
 }

@@ -1,5 +1,5 @@
 describe.tobit.bayes<-function(){
-category <- "censored"
+category <- "continuous"
 description  <- "Bayesian Linear Regression for a Censored Dependent Variable"
 package <-list(	name 	="MCMCpack",
 		version	="0.6"

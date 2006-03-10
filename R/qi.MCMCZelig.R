@@ -120,11 +120,11 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
         tmp.pr <- yvar - as.integer(qi$pr)
       else
         tmp.pr <- yvar - qi$pr
-      qi$ate.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
-      qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
+      qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
+      qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
       if (model %in% c("logit", "probit", "poisson")) {
-        qi$ate.pr <- matrix(apply(tmp.pr, 1, mean), nrow = nrow(simpar))
-        qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
+        qi$att.pr <- matrix(apply(tmp.pr, 1, mean), nrow = nrow(simpar))
+        qi.name$att.pr <- "Average Treatment Effect for the Treated: Y - PR"
       }
     }
     out <- list(qi=qi, qi.name=qi.name)
@@ -239,11 +239,11 @@ qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
       }
       tmp.ev <- yvar1 - qi$ev
       tmp.pr <- yvar1 - pr1
-      qi$ate.ev <- matrix(apply(tmp.ev, 2, rowMeans), nrow = nrow(simpar))
-      qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
+      qi$att.ev <- matrix(apply(tmp.ev, 2, rowMeans), nrow = nrow(simpar))
+      qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
       if (model %in% c("oprobit.bayes", "mlogit.bayes", "normal.bayes")) {
-        qi$ate.pr <- matrix(apply(tmp.pr, 2, rowMeans), nrow = nrow(simpar))
-        qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
+        qi$att.pr <- matrix(apply(tmp.pr, 2, rowMeans), nrow = nrow(simpar))
+        qi.name$att.pr <- "Average Treatment Effect for the Treated: Y - PR"
       }
     }
     out <- list(qi=qi, qi.name=qi.name) 

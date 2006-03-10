@@ -148,7 +148,7 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
   }
   if (!is.null(y)) {
     tmp.ev <- tmp.pr <- array(NA, dim = dim(qi$ev))
-    qi$ate.ev <- qi$ate.pr <- matrix(NA, dim(qi$ev)[1], dim(qi$ev)[2])
+    qi$att.ev <- qi$att.pr <- matrix(NA, dim(qi$ev)[1], dim(qi$ev)[2])
     if (model=="mlogit" || model=="oprobit") {
       yvar <- matrix(NA, nrow = length(y), ncol = length(ynames))
       pr.idx <- array(NA, dim = c(nrow(pr), length(ynames), nrow(x)))
@@ -156,7 +156,7 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
         yvar[,i] <- as.integer(y == ynames[i])
         pr.idx[,i,] <- as.integer(pr[,i] == ynames[i])
       }
-      colnames(qi$ate.ev) <- colnames(qi$ate.pr) <- ynames
+      colnames(qi$att.ev) <- colnames(qi$att.pr) <- ynames
     }
     else if (model=="blogit" || model=="bprobit") {
       yvar <- matrix(NA, nrow = nrow(y), ncol = 4)
@@ -167,7 +167,7 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
       pr.idx <- array(NA, dim = c(nrow(pr), 4, nrow(x)))
       for (i in 1:4)
         pr.idx[,i,] <- as.integer(pr[,i,])
-      colnames(qi$ate.ev) <- colnames(qi$ate.pr) <-
+      colnames(qi$att.ev) <- colnames(qi$att.pr) <-
         c("(Y1=0, Y2=0)", "(Y1=0, Y2=1)",
           "(Y1=1, Y2=0)", "(Y1=1, Y2=1)")
     }
@@ -176,11 +176,11 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
         tmp.ev[i,j,] <- yvar[,j] - qi$ev[i,j,]
         tmp.pr[i,j,] <- yvar[,j] - pr.idx[i,j,]
       }
-      qi$ate.ev[,j] <- apply(tmp.ev[,j,], 1, mean)
-      qi$ate.pr[,j] <- apply(tmp.pr[,j,], 1, mean)
+      qi$att.ev[,j] <- apply(tmp.ev[,j,], 1, mean)
+      qi$att.pr[,j] <- apply(tmp.pr[,j,], 1, mean)
     }
-    qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
-    qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
+    qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
+    qi.name$att.pr <- "Average Treatment Effect for the Treated: Y - PR"
   }
   list(qi=qi, qi.name=qi.name)
 }

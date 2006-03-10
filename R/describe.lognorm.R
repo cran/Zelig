@@ -1,5 +1,5 @@
 describe.lognorm<-function(){
-category <- "censored"
+category <- "bounded"
 description  <- "Log-Normal Regression for Duration Dependent Variables"
 package <-list(	name 	="survival",
 		version	="2.2"

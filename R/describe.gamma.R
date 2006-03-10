@@ -1,5 +1,5 @@
 describe.gamma<-function(){
-category <- "continuous"
+category <- "bounded"
 description  <- "Gamma Regression for Continuous, Positive Dependent Variables"
 package <-list(	name 	="stats",
 		version	="0.1"

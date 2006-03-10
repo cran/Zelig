@@ -4,25 +4,14 @@ model.frame.multiple <- function (formula,data,...){
   }else{
     terms<-terms(formula)
   }
- # print(terms)
+
+  #is multilevel?
+  if(!(is.logical(attr(terms,"subs"))))
+    return (multilevel(terms,data,mode=2))
+
   "%w/o%" <- function(x,y) x[!x %in% y]
-  #print("model.frame.multiple is called")
-  toBuildFormula<-function(Xnames,sepp="+"){
-    lng<-length(Xnames)
-    rhs<-NULL
-    if (lng!=0){
-      if(lng==1){
-        rhs=Xnames
-      }else{
-        for (j in 1:(lng-1)){
-          rhs<-paste(rhs,as.name(Xnames[[j]]))
-          rhs<-paste(rhs,sepp)
-        }
-        rhs<-paste(rhs,Xnames[[lng]])
-      }
-    }
-    return (rhs)
-  }
+
+
   eqn<-names(formula)
   eqn<-attr(terms,"systEqns")
   nrEquations<-length(eqn)
@@ -89,8 +78,6 @@ model.frame.multiple <- function (formula,data,...){
     lhs=Ynames
   }
   lhs<-as.formula(paste(lhs,rhs))
-#print(lhs)
-#print(names(my.data.frame))
   Y<-model.frame.default(lhs,data=my.data.frame)
   result=Y
   if(cb)
@@ -100,5 +87,8 @@ model.frame.multiple <- function (formula,data,...){
   attr(result,"terms")<-terms
   class(result)<-c(class(result),"multiple")
   return(result)
+
 }
+
+
 

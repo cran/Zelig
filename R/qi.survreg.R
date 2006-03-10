@@ -94,10 +94,10 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
       yvar <- matrix(y, ncol = length(y), nrow = nrow(qi$ev), byrow = TRUE)
     tmp.ev <- yvar - qi$ev
     tmp.pr <- yvar - qi$pr
-    qi$ate.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
-    qi$ate.pr <- matrix(apply(tmp.pr, 1, mean), nrow = nrow(simpar))
-    qi.name$ate.ev <- "Average Treatment Effect: Y - EV"
-    qi.name$ate.pr <- "Average Treatment Effect: Y - PR"
+    qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
+    qi$att.pr <- matrix(apply(tmp.pr, 1, mean), nrow = nrow(simpar))
+    qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
+    qi.name$att.pr <- "Average Treatment Effect for the Treated: Y - PR"
   }
   list(qi=qi, qi.name=qi.name)
 }  

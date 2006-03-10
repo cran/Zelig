@@ -1,24 +1,16 @@
 model.matrix.multiple <- function (object,data,shape="compact",eqn=NULL,...){
   
   intersect <- function(x, y) y[match(x, y, nomatch = 0)]
-  
-  toBuildFormula<-function(Xnames,sepp="+"){
-    lng<-length(Xnames)
-    rhs<-NULL
-    if (lng!=0){
-      if(lng==1){
-        rhs=Xnames
-      }else{
-        for (j in 1:(lng-1)){
-          rhs<-paste(rhs,as.name(Xnames[[j]]))
-          rhs<-paste(rhs,sepp)
-        }
-        rhs<-paste(rhs,Xnames[[lng]])
-      }
-    }
-    return (rhs)
+
+  #olny for multilevel
+  if(class(formula)[[1]]=="terms"){
+    terms <-object
+  }else{
+    terms<-terms(object)
   }
-  
+  if(!(is.logical(attr(terms,"subs"))))
+    return (multilevel(terms,data,mode=1))
+  ##
 
   if((shape != "compact") && (shape != "array") && (shape !="stacked"))
     stop("wrong shape argument! Choose from \"compact\", \"array\" or \"stacked\" \n")
@@ -31,6 +23,7 @@ model.matrix.multiple <- function (object,data,shape="compact",eqn=NULL,...){
  
  
   terms<-attr(data,"terms")
+  
   whiche<-which(eqn %in% names(terms)==FALSE)
   if (length(whiche)!=0)
     stop("Unknown eqn name \"",eqn[whiche],"\"\n")
@@ -98,3 +91,4 @@ model.matrix.multiple <- function (object,data,shape="compact",eqn=NULL,...){
   return(res)
 }
 
+ 
