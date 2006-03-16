@@ -1,4 +1,4 @@
-model.frame.multiple <- function (formula,data,...){
+model.frame.multiple <- function (formula,data,eqn=NULL,...){
   if(class(formula)[[1]]=="terms"){
     terms <-formula
   }else{
@@ -7,26 +7,27 @@ model.frame.multiple <- function (formula,data,...){
 
   #is multilevel?
   if(!(is.logical(attr(terms,"subs"))))
-    return (multilevel(terms,data,mode=2))
+    return(multilevel(tt=terms,data=data,eqn=eqn,mode=2))
+
 
   "%w/o%" <- function(x,y) x[!x %in% y]
 
 
-  eqn<-names(formula)
-  eqn<-attr(terms,"systEqns")
-  nrEquations<-length(eqn)
+  eqns<-names(formula)
+  eqns<-attr(terms,"systEqns")
+  nrEquations<-length(eqns)
   termlabels<-attr(terms,"term.labels")
   depVars<-attr(terms,"depVars")
   Xs<-Ys<-tlNew<-dvNew<-list()
   for (i in 1:nrEquations){
-    rhs<-toBuildFormula(termlabels[[eqn[[i]]]])
+    rhs<-toBuildFormula(termlabels[[eqns[[i]]]])
     if(!(is.null(rhs))){
       rhs<-paste(rhs,"-1")
       rhs<-as.formula(paste("~",rhs))
-     Xs[[eqn[[i]]]]<-model.matrix.default(rhs,data=data)
-      tlNew[[eqn[[i]]]]<-colnames(Xs[[eqn[[i]]]])
-      tlNew[[eqn[[i]]]]<-gsub("as.factor\\(.*\\)","",tlNew[[eqn[[i]]]],extended=TRUE)
-      colnames(Xs[[eqn[[i]]]])<-tlNew[[eqn[[i]]]]
+     Xs[[eqns[[i]]]]<-model.matrix.default(rhs,data=data)
+      tlNew[[eqns[[i]]]]<-colnames(Xs[[eqns[[i]]]])
+      tlNew[[eqns[[i]]]]<-gsub("as.factor\\(.*\\)","",tlNew[[eqns[[i]]]],extended=TRUE)
+      colnames(Xs[[eqns[[i]]]])<-tlNew[[eqns[[i]]]]
     }
   }
   depFactors<-attr(terms,"depFactors")

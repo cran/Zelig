@@ -9,14 +9,15 @@ model.matrix.multiple <- function (object,data,shape="compact",eqn=NULL,...){
     terms<-terms(object)
   }
   if(!(is.logical(attr(terms,"subs"))))
-    return (multilevel(terms,data,mode=1))
+    return(multilevel(tt=terms,data=data,eqn=eqn,mode=1))
+      
   ##
 
   if((shape != "compact") && (shape != "array") && (shape !="stacked"))
     stop("wrong shape argument! Choose from \"compact\", \"array\" or \"stacked\" \n")
   
   if(!(any(class(object)=="multiple")))
-    stop("Please run first parse.formula() on you formula ...\n")
+    stop("Please run first parse.formula() on your formula ...\n")
   
   if(!(any(class(data)=="multiple")))
     data<-model.frame(object,data)
