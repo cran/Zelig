@@ -30,7 +30,8 @@ suggested or required by \code{package}.
 }
 
 \examples{
+\dontrun{
 current.packages("Zelig")
-}
+}}
 
 \keyword{file}

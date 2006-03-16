@@ -7,14 +7,17 @@ data frame of the unique variables identified in the formula (or list
 of formulas).}
   
 \usage{
-model.frame.multiple(formula, data, ...)
+model.frame.multiple(formula, data, eqn = NULL, ...)
 }
 
 \arguments{
 \item{formula}{a list of formulas of class \code{"multiple"}, returned from \code{\link{parse.par}}}  
 \item{data}{a data frame containing all the variables used in \code{formula}}  
-\item{\dots}{additional arguments passed to \code{\link{model.frame.default}}}
-}  
+\item{eqn}{an optional character string or vector of character strings specifying 
+the equations (specified in \code{describe.mymodel}) for which you would like to 
+pull out the relevant variables.}
+\item{\dots}{additional arguments passed to 
+\code{\link{model.frame.default}}} }  
 
 \value{
 The output is a data frame (with a terms attribute) containing all the
