@@ -1,7 +1,8 @@
-sim.default <- function(object, x, x1=NULL, num=c(1000, 100),
+sim.default <- function(object, x=NULL, x1=NULL, num=c(1000, 100),
                         prev = NULL, bootstrap = FALSE, bootfn=NULL,
                         cond.data = NULL, ...) {
-  x <- as.matrix(x)
+  if (!is.null(x))
+    x <- as.matrix(x)
   if (!is.null(x1))
     x1 <- as.matrix(x1)
   if (any(class(object) == "MCMCZelig"))

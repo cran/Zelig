@@ -9,7 +9,7 @@ plot.ci <- function(x, CI=95, qi = "ev", main = "",
                                         "MCMCpoisson", "MCMCregress"))
     stop("\n  plot.ci() is valid only for non-categorical, univariate response models.")
   var <- var1 <- list()
-  idx <- array()
+  idx1 <- idx <- NULL
   cip <- c((100-CI)/200, 1-(100-CI)/200)
   summarize <- function(z, cip){
     res <- NULL

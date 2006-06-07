@@ -33,7 +33,7 @@ to apply to the outcome variables. All functions return NULL if results are
 not available for that model.
 }
 
-\examples{
+\examples{\dontrun{
 	# show all available models
 	zeligListModels(inZeligOnly=FALSE)
 	# show installed models
@@ -44,8 +44,9 @@ not available for that model.
 	cat(zeligDescribeModelXML("ologit"))
 	# special function for factor analysis
  	zeligGetSpecial("factor.mix")
-
+}
 \dontshow{
+\dontrun{
 
 # test model lists
 zd= zeligInstalledModels(schemaVersion="1.1")
@@ -64,7 +65,7 @@ if (zeligGetSpecial("factor.mix")!="cbind") {
 if (grep("explanatory",  zeligDescribeModelXML("ologit"))!=1) {
 	stop("Failed zmodel2string/zeligDescribeModel self test")
 }
-
+}
 }
 
 }

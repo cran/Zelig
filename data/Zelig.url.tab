@@ -20,6 +20,8 @@ repl          http://gking.harvard.edu/zelig/docs/_TT_repl_TT__Replicati.html
 blogit        http://gking.harvard.edu/zelig/docs/_TT_blogit_TT__Bivaria.html
 bprobit       http://gking.harvard.edu/zelig/docs/_TT_bprobit_TT__Bivari.html
 exp           http://gking.harvard.edu/zelig/docs/_TT_exp_TT__Exponentia.html
+ei.dynamic    http://gking.harvard.edu/zelig/docs/_TT_ei_dynamic_TT__Qui.html
+ei.hier       http://gking.harvard.edu/zelig/docs/_TT_ei_hier_TT__Hierar.html
 factor.bayes  http://gking.harvard.edu/zelig/docs/_TT_factor_bayes_TT__B.html
 factor.mix    http://gking.harvard.edu/zelig/docs/_TT_factor_mix_TT__Mix.html
 factor.ord    http://gking.harvard.edu/zelig/docs/_TT_factor_ord_TT__Ord.html

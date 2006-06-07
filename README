@@ -1,3 +1,19 @@
+2.6-1 (April 29, 2006): Stable release for R 2.0.0-2.2.1. Fixed major bug 
+  in ordinal logit and ordinal probit expected value simulation procedure 
+  (does not affect Bayesian ordinal probit). (reported by Ian Yohai) Added 
+  the following ecological inference (EI) models: Bayesian hierarchical 
+  EI, Bayesian dynamic EI, and RxC EI.  First level version compatabilties 
+  (at time of release) are as follows:
+     MASS          7.2-24 
+     boot          1.2-24     
+     VGAM          0.6-8       
+     MCMCpack      0.7-1      
+     mvtnorm       0.7-2       
+     survival      2.24       
+     sandwich      1.1-1       
+     zoo           1.0-6       
+     coda          0.10-5
+
 2.5-4 (March 16, 2006): Stable release for R 2.0.0-2.2.1.  Fixed bug related to 
   windows build.  First-level dependencies are the same as in version 2.5-1.  
 

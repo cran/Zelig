@@ -2,6 +2,8 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
                                    median, other = mode), data = NULL,
                          cond = FALSE, counter = NULL, ...){
   mc <- match.call()
+  if (class(object)[1]=="MI")
+    object <- object[[1]]
   mode <- function(x){
     tb <- tapply(x, x, length)
     if(is.factor(x))
@@ -65,12 +67,15 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     dta <- as.data.frame(data)
   ## extract variables we need
   mf <- model.frame(tt, data = dta, na.action = na.pass)
+  if(any(class(tt)=="multiple"))
+    vars<-unlist(c(attr(tt,"depVars"),attr(tt,"indVars")),use.names=FALSE)
+  else
   vars <- all.vars(tt)
   if (!is.null(tt.attr$response) && tt.attr$response)
     resvars <- all.vars(tt.attr$variables[[1+tt.attr$response]])
   else
     resvars <- NULL
-  data <- dta[complete.cases(mf), names(dta)%in%vars]
+  data <- dta[complete.cases(mf), names(dta)%in%vars, drop=FALSE]
   if (!is.null(counter)) {
     if (!any(counter == vars))
       stop("the variable specified for counter is not used in the model")

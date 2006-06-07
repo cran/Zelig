@@ -37,7 +37,7 @@ print.summary.zelig <- function(x, digits=getOption("digits"),
     cat("\n", lab, "\n", sep = "")
     if (length(dim(tmp)) == 3) {
         for (j in 1:dim(tmp)[3]){
-          cat("\n  Observation", rownames(x$x)[j], "\n")
+          cat("\n  Observation", dimnames(tmp)[[3]][j], "\n")
           if (is.null(rownames(tmp[,,j])))
             rownames(tmp[,,j]) <- 1:nrow(tmp[,,j])
           if (!is.null(names(tmp[,,j])))

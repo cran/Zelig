@@ -3,10 +3,11 @@ param.polr <- function(object, num, bootstrap=FALSE) {
   zeta <- object$zeta
   k <- length(coef)
   if (!bootstrap) {
-    par <- mvrnorm(num, mu=c(coef,zeta), Sigma=vcov(object))
-    coef <- par[,1:k]
-    alpha <- par[,(k+1):ncol(par)]
-    res <- as.matrix(cbind(coef, alpha))
+    theta <- NULL
+    theta[1] <- zeta[1]
+    for (i in 2:length(zeta)) 
+      theta[i] <- log(zeta[i] - zeta[i-1])
+    res <- mvrnorm(num, mu=c(coef,theta), Sigma=vcov(object))
   }
   else
     res <- c(coef, zeta)
