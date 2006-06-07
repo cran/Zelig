@@ -2,7 +2,9 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
   num <- nrow(simpar)
   m <- length(coef(object))
   sim.coef <- simpar[,1:m]
-  sim.zeta <- simpar[,(m+1):ncol(simpar)]
+  sim.zeta <- sim.theta <- simpar[,(m+1):ncol(simpar)]
+  sim.zeta[,-1] <- exp(sim.theta[,-1])
+  sim.zeta <- t(apply(sim.zeta, 1, cumsum))
   k <- length(object$zeta) + 1
   lev <- object$lev
   eta <- t(x[,-1] %*% t(sim.coef)) 

@@ -39,6 +39,7 @@ factor.ord         MCMC factor analysis for ordinal data
 factor.mix         MCMC factor analysis for mixed data
 irt1d              MCMC one-dimensional item response theory model
 irtkd              MCMC K-dimensional item response theory model
+ei.RxC		   RxC ecological inference via penalized least-squares
 
 
 

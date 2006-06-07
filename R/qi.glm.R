@@ -14,6 +14,10 @@ qi.glm <- function(object, simpar, x, x1 = NULL, y = NULL) {
     ev <- theta
     for (i in 1:ncol(theta)) 
       pr[,i] <- as.character(rbinom(length(ev[,i]), 1, ev[,i]))
+    if (!is.null(y)) {
+      if (NCOL(y) > 1)
+        y <- y[,1]
+    }
   }
   else if (model == "normal") {
     ev <- theta

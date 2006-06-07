@@ -46,14 +46,14 @@ current.packages <- function(package){
     packages <- na.omit(unique(packages))
   }
 
-  ver <- array()
+  ver <- array(NA, length(packages) + 1)
   for (i in 1:length(packages)) {
     mylib <- dirname(system.file(package = packages[i]))
     if (sum(!is.na(packageDescription(packages[i], lib = mylib))))
-      ver[i] <- packageDescription(packages[i], lib = mylib)$Ver
+      ver[i+1] <- packageDescription(packages[i], lib = mylib)$Ver
     else
       stop()
-    names(ver)[i] <- packages[i]
+    names(ver)[i+1] <- packages[i]
   }
   ver[1] <- paste(paste(paste(R.Version()$major, R.Version()$minor, sep = "."),
                         R.Version()$status, sep = " "),

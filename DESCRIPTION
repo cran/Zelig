@@ -1,14 +1,14 @@
 Package: Zelig
-Version: 2.5-4
-Date: 2006-03-16
-Title: Zelig: Everyone's Statistical Software
+Version: 2.6-2
+Date: 2006-06-07
+Title: Everyone's Statistical Software
 Author: Kosuke Imai <kimai@Princeton.Edu>,
         Gary King <king@harvard.edu>,
         Olivia Lau <olau@fas.harvard.edu>
 Maintainer: Olivia Lau <olau@fas.harvard.edu>
 Depends: R (>= 2.0.0), MASS, boot
-Suggests: VGAM (>= 0.6-7), mvtnorm, survival, sandwich (>= 1.1-0), 
-          zoo (>= 1.0-4), MCMCpack, coda
+Suggests: VGAM (>= 0.6-7), MCMCpack (>= 0.7-1), mvtnorm, survival, 
+          sandwich (>= 1.1-0), zoo (>= 1.0-4), coda
 Description: Zelig is an easy-to-use program that can estimate, and
         help interpret the results of, an enormous range of
         statistical models. It literally is ``everyone's statistical
@@ -24,4 +24,4 @@ Description: Zelig is an easy-to-use program that can estimate, and
         translates them into quantities of direct interest.
 License: GPL version 2 or newer
 URL: http://gking.harvard.edu/zelig
-Packaged: Thu Mar 16 14:40:47 2006; olau
+Packaged: Wed Jun  7 16:49:22 2006; olau

@@ -13,14 +13,11 @@ rocplot <- function(y1, y2, fitted1, fitted2,
     roc2[i,2] <- mean(fitted2[y2==0] < cutoff[i])
   }
   if (plot) {
-    op <- par(no.readonly = TRUE)
-    par(mar = c(4,4,2,1), tcl = -0.25, mgp = c(2, 0.6, 0))
     plot(0:1, 0:1, type = "n", xaxs = "i", yaxs = "i",
          main=main, xlab=xlab, ylab=ylab, ...)
     lines(roc1, lty = lty1, lwd = lwd1, col=col1)
     lines(roc2, lty = lty2, lwd = lwd2, col=col2)
     abline(1, -1, lty = "dotted")
-    par(op)
   }
   else {
     area1 <- area2 <- array()

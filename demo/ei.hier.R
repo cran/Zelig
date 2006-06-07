@@ -34,7 +34,6 @@ user.prompt()
 ## Summarizing in-sample simulations at unit level 
 ## for the first 5 units:
 summary(s.out, subset = 1:5)
-user.prompt()
 
 
 

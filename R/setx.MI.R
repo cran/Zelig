@@ -13,8 +13,10 @@ setx.MI <- function(object, fn = list(numeric = mean, ordered =
         tmp <- data[[i]]
       dta <- rbind(dta, tmp)
     }
-    X <- setx(object[[1]], fn = fn, data = dta, cond = FALSE,
-              counter = NULL, ...)
+    X <- NextMethod("setx", object = object[[1]], fn = fn, data = dta, cond = FALSE,
+                    counter = NULL, ...)
+    #X <- setx(object[[1]], fn = fn, data = dta, cond = FALSE,
+    #         counter = NULL, dots)
     class(X) <- c("setx.MI", "setx", "data.frame")
   }
   else { # conditional prediction
