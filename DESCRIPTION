@@ -1,6 +1,6 @@
 Package: Zelig
-Version: 2.6-2
-Date: 2006-06-07
+Version: 2.6-3
+Date: 2006-06-19
 Title: Everyone's Statistical Software
 Author: Kosuke Imai <kimai@Princeton.Edu>,
         Gary King <king@harvard.edu>,
@@ -24,4 +24,4 @@ Description: Zelig is an easy-to-use program that can estimate, and
         translates them into quantities of direct interest.
 License: GPL version 2 or newer
 URL: http://gking.harvard.edu/zelig
-Packaged: Wed Jun  7 16:49:22 2006; olau
+Packaged: Mon Jun 19 20:13:10 2006; olau
