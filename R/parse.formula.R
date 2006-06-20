@@ -106,10 +106,10 @@ parse.formula<-function( formula, model,data=NULL){
       if (length(eqni)==3){                            
         rootNames<-modelParsReq                    
         lhs<-eqni[[2]]
-        rhs<-eqni[[3]]
+        rhs<-deparse(eqni[[3]],width.cutoff=500)
         if(length(lhs)>1 && (lhs[[1]]=="cbind" || lhs[[1]]=="as.factor" || lhs[[1]]=="id")){
           if( lhs[[1]]=="cbind"){
-            rhs=deparse(rhs)
+            #rhs=deparse(rhs)
             g<- as.list(lhs)[-1]
             for (j in 1:length(g)){
               e<-paste(g[[j]],"~",sep="")
@@ -132,10 +132,10 @@ parse.formula<-function( formula, model,data=NULL){
                 e<-paste("id(",lhs[[2]],",\"",userLevels[[j]],"\")","~",sep="")
                 if(rhs!="1"){
                   nrUserReq=nrUserReq+1
-                  userReq[[nrUserReq]]<-as.formula(paste(e,deparse(rhs),sep=""))
+                  userReq[[nrUserReq]]<-as.formula(paste(e,rhs,sep=""))
                 }else{
                   nrUserSubreq=nrUserSubreq+1
-                  userSubreq[[nrUserSubreq]]<-as.formula(paste(e,deparse(rhs),sep=""))
+                  userSubreq[[nrUserSubreq]]<-as.formula(paste(e,rhs,sep=""))
                 }
               }     
             }else{  
@@ -144,7 +144,7 @@ parse.formula<-function( formula, model,data=NULL){
               userNrLevels<-length(userLevels)
               levels<-levels(data[[varname]])
               lhs<-deparse(lhs)
-              rhs<-deparse(rhs)
+            #  rhs<-deparse(rhs)
               e<-paste(lhs,"~",sep="")
               if(rhs !="1"){
                 nrUserReq=nrUserReq+1
@@ -157,7 +157,7 @@ parse.formula<-function( formula, model,data=NULL){
           }
         }else{ 
           lhs<-deparse(lhs)
-          rhs<-deparse(rhs)
+        #  rhs<-deparse(rhs)
           e<-paste(lhs,"~",sep="")
           if(rhs !="1"){
             nrUserReq=nrUserReq+1

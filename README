@@ -1,3 +1,10 @@
+2.6-3 (June 19, 2006): Stable release for R 2.0.0-2.3.1.
+  Fixed bug in VDC interface functions, and parse.formula().
+
+2.6-2 (June 7, 2006): Stable release for R 2.0.0-2.3.1. Removed R x C EI.  
+  Changed data = list() to data = mi() for multiply-imputed data frames.  
+  First level version compatabilities are as for version 2.6-1.
+
 2.6-1 (April 29, 2006): Stable release for R 2.0.0-2.2.1. Fixed major bug 
   in ordinal logit and ordinal probit expected value simulation procedure 
   (does not affect Bayesian ordinal probit). (reported by Ian Yohai) Added 

@@ -10,7 +10,7 @@ parameters$mu<-list(equations=c(2,Inf),
 			depVar=TRUE,
 			expVar=TRUE)
 			
-parameters$inst<-list(equations=c(1),
+parameters$inst<-list(equations=c(1,1),
 			tagsAllowed=FALSE,
 			depVar=FALSE,
 			expVar=TRUE)
