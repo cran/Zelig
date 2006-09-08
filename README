@@ -1,3 +1,8 @@
+2.6-4 (September 8, 2006): Stable release for R 2.3.0-2.3.1.  Fixed 
+  bugs in {\tt setx()}, and bugs related to {\tt multiple}.  Added 
+  instructions for installing Fortran tools for Intel macs.  Added 
+  the RxC ecological inference model.
+
 2.6-3 (June 19, 2006): Stable release for R 2.0.0-2.3.1.
   Fixed bug in VDC interface functions, and parse.formula().
 

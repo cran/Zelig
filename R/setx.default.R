@@ -158,7 +158,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       if (lv>1)
         if (maxl==1 || maxl==lv) {
           maxl <- lv
-          data <- data[1:lv,]
+          data <- data[1:lv,,drop = FALSE]
         }
         else
           stop("vector inputs should have the same length.")
@@ -171,24 +171,21 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       else
         data[,opt[i]] <- list(value)
     }
-  data <- data[1:maxl,]
+  data <- data[1:maxl,,drop = FALSE]
   
-  if (!is.data.frame(data)) {
-    data <- data.frame(data)
-    names(data) <- vars
-  }
   if (cond) {
     X <- model.frame(tt, data = dta)
     if (!is.null(counter)) {
-      X <- list(treat=X[treat==1,], control=X[treat==0,])
+      X <- list(treat=X[treat==1,,drop=FALSE],
+                control=X[treat==0,,drop=FALSE])
       class(X$treat) <- class(X$control) <- c("data.frame", "cond")
       class(X) <- "setx.counter"
     }
     else
       class(X) <- c("data.frame", "cond")
   }
-  else
+  else {
     X <- as.data.frame(model.matrix(tt, data = data))
-
+  }
   return(X)
 }

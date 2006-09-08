@@ -1,10 +1,14 @@
 zelig.default <- function(formula, model, data, by = NULL, save.data =
                           FALSE, ...) {
+#  fn0 <- paste("describe", model, sep = ".")
   fn1 <- paste("zelig2", model, sep = "")
   fn2 <- paste("zelig3", model, sep = "")
+#  if (exists(fn0))
+#    formula <- do.call("parse.formula", list(formula = formula,
+#                                             model = model, data = data))
   if (!exists(fn1))
     stop(model,
-         "not supported. Type help.zelig(\"models\") to list supported models.")
+         " not supported. Type help.zelig(\"models\") to list supported models.")
   mf <- zelig.call <- match.call(expand.dots = TRUE)
   zelig.call[[1]] <- as.name("zelig")
   if (missing(by))

@@ -14,6 +14,11 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
     status <- y[,2]
     y <- y[,1]
   }
+  if (summary(object)$robust) {
+    x <- x[,-ncol(x), drop = FALSE]
+    if (!is.null(x1))
+      x1 <- x1[,-ncol(x1), drop = FALSE]
+  }
   if (model %in% c("weibull", "Weibull", "lognorm", "exp"))
     link <- survreg.distributions[[object$dist]]$itrans
   else if (model == "tobit")
