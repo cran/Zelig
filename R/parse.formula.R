@@ -229,7 +229,7 @@ parse.formula<-function( formula, model,data=NULL){
         names(userSubreq)<-paste(modelParsSubreq,1:length(userSubreq),sep="")
     }
     result<-c(userReq,userOpt,userFixed,userSubreq)
-  }else{
+  }else{    ##user provides names for formulas
     modelPars<-names(modelReq)
     parsS<-names(sort(sapply(modelPars,nchar),decreasing=TRUE))    
     userNames<-names(formula)
@@ -250,7 +250,7 @@ parse.formula<-function( formula, model,data=NULL){
       modelNumEqn<-modelReq[[modelPar]]$equations
       mode<-fMode(modelReq[[modelPar]])
       tmplst<-formula[userEqnNamesByPars[[modelPar]]]                
-      if(length(modelNumEqn)==1 && modelNumEqn==1)
+      if(modelNumEqn[[1]]==1 && modelNumEqn[[2]]==1 )
         tmpNames<-modelPar
       else
         tmpNames<-paste(modelPar,1:userNumEqn,sep="")                   

@@ -49,6 +49,7 @@ of a point P(a,b,c), \eqn{a + b + c = 1}, are: P(b + c/2, c * sqrt(3)/2).
 
 \examples{
 data(mexico)
+if (require(VGAM)) { 
 z.out <- zelig(as.factor(vote88) ~ pristr + othcok + othsocok, 
                 model = "mlogit", data = mexico)
 x.out <- setx(z.out)
@@ -56,6 +57,7 @@ s.out <- sim(z.out, x = x.out)
 
 ternaryplot(s.out$qi$ev, pch = ".", col = "blue",
             main = "1988 Mexican Presidential Election")
+}
 }
 
 \seealso{\code{\link{ternarypoints}}}

@@ -1,5 +1,3 @@
-useDynLib(Zelig)
-
 importFrom(MASS, mvrnorm)
 importFrom(boot, boot)
 importFrom(stats, glm)
@@ -117,6 +115,7 @@ S3method(summary, setx)
 S3method(summary, zelig.strata)
 S3method(summary, MCMCZelig)   
 S3method(summary, zelig)   
+S3method(summary, vglm)
 S3method(summary, lm.robust)   
 S3method(summary, glm.robust)   
 S3method(summary, eiRxC)

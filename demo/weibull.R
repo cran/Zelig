@@ -8,7 +8,7 @@ data(coalition)
 ##  object using the selected explanatory variables:  
 user.prompt()
 z.out <- zelig(Surv(duration, ciep12) ~ invest + polar + numst2 + crisis,
-               model = "weibull", data = coalition)
+               model = "weibull", data = coalition, robust = TRUE)
 user.prompt()
 ##  Viewing the regression output.  Note that the Weibull model
 ##  differs from the exponential model in that the Weibull has an

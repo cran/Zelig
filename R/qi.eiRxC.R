@@ -5,6 +5,7 @@ qi.eiRxC <- function(object, simpar, x=NULL, x1=NULL, y=NULL,
   if (!is.null(x))
     object$covar <- x
   ev <- calc.fractions(object, simpar)
+ # print(ev)
   ev <- aperm(ev, perm = c(3,1,2))
   class(ev) <- c("ei", "array")
   qi <- list(ev=ev)
