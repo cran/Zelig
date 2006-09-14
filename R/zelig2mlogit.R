@@ -3,7 +3,7 @@ zelig2mlogit <- function(formula, model, data, M, ...) {
   if(any(check$results[,"Package"] == "VGAM")) 
     require(VGAM)
   else
-    stop("Please install VGAM using \n     install.packages(\"VGAM\", CRAN = \"http://www.stat.auckland.ac.nz/~yee\")")
+    stop("Please install VGAM using \n     install.packages(\"VGAM\", repos = \"http://www.stat.auckland.ac.nz/~yee\")")
   mf <- match.call(expand.dots = TRUE)
   mf[[1]] <- VGAM::vglm 
   mf$family <- VGAM::multinomial
