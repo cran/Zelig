@@ -13,68 +13,31 @@ terms.multiple<-function(x, data=NULL,...){
   
   for (i in 1:nrEquations){
     TT<-terms.formula(object[[i]], specials=c("id","tag"))
-    
-    attrTTvars<-attr(TT,"variables")
-    newVars<-list()             # has tag so make a new list of variables
-    newTermslbls<-c()
     eqni<-object[[i]]                    
     namei<-namesOfEquations[[i]]            
     tagattr<-attr(TT,"specials")$tag         
     hastag<-!(is.null(tagattr))
     if (hastag){
-      indxV<-indxV<-1
       constrTmp<-c()
       for(j in 1:length(tagattr)){
-        taglabels<-c()
+        nrConstr<-nrConstr+1
         if(length(eqni)==3)
-          lind<-tagattr[[j]]-1
+          ind<-tagattr[[j]]-1
         else
-          lind<-tagattr[[j]]
+          ind<-tagattr[[j]]
         vind<-tagattr[[j]]+1
-        for(v in indxV:(vind))
-          newVars<-c(newVars,attrTTvars[[v]])    # add all vars prior to tag into new list of vars
-        newVars[[length(newVars)]]<-NULL         # delete the last element (which is tag(...)
-        indxV<-vind+1
-        parsedTag<-attrTTvars[[vind]]
-        if(length(parsedTag)==3){   # there is comma there
-          varname<-as.name(parsedTag[[2]])
-          newVars<-c(newVars,varname)
-          after.comma.vars<-all.vars(parsedTag[[3]])
-          print(parsedTag)
-          print(after.comma.vars)
-          if(length(after.comma.vars)==2){       # tag(z,gamma|state)
-            label<-as.character(after.comma.vars[[1]])
-            varname<-as.name(after.comma.vars[[2]])   # one more variable here (state)
-            newVars<-c(newVars,varname)
-          }else{                                 # tag(z,gamma)  ; we are talkig about constraints here
-            varname<-as.character(parsedTag[[2]])
-            nrConstr<-nrConstr+1
-            label<-as.character(after.comma.vars)
-            namesConstr<-c(namesConstr,label)
-            constr[[nrConstr]]<-c(i,label,varname)
-            constrTmp<-c(constrTmp,varname)
-          }
-        }else {                                         # tag(z|state)
-          after.comma.vars<-all.vars(parsedTag[[2]])
-          if(length(after.comma.vars)>1){
-            for(v in after.comma.vars)
-              newVars<-c(newVars,as.name(v))
-          }else
-          stop("wrong use of \"tag()\" function. Please see Zelig documentation for more information")
-        }
-      }
-      if(length(attrTTvars)>vind){      # is there any var remaining after tags? add them
-        for(v in (vind+1):length(attrTTvars))
-          newVars<-c(newVars,attrTTvars[[v]])
+        parsedTag<-attr(TT,"variables")[[vind]]
+        varname<-as.character(parsedTag[[2]])
+        label<-as.character(parsedTag[[3]])
+        namesConstr<-c(namesConstr,label)
+        constr[[nrConstr]]<-c(i,label,varname)
+        attr(TT,"term.labels")[[ind]]<-varname
+        attr(TT,"variables")[[vind]]<-as.name(varname)         
+        constrTmp<-c(constrTmp,varname)
       }
       XconstrEqn[[i]]<-constrTmp
-      newVars<-unique(newVars)               # finish with tags, make newVars unique
-      
-    } else
-    newVars<-attrTTvars
-    
-    if (length(eqni)==3){
-      attr(TT,"term.labels")<-as.character(newVars)[-(1:2)]
+    }
+    if (length(eqni)==3){                               
       nrEquationsNew<-nrEquationsNew+1
       objectNew[[namei]]<-eqni
       nreq=nreq+1
@@ -85,12 +48,10 @@ terms.multiple<-function(x, data=NULL,...){
         depLevels<-c(depLevels,lhs[[3]])
       }else
       depVars[[namei]]<-deparse(eqni[[2]])
-    }else{
-      attr(TT,"term.labels")<-as.character(newVars)[-1]
+    }else{                            
       nrEquationsNew<-nrEquationsNew+1
       objectNew[[namei]]<-eqni
     }
-    attr(TT,"variables")<-as.call(newVars)
     variables[[namei]]<-attr(TT,"variables")
     termlabels[[namei]]<-attr(TT,"term.labels")
     intercAttr[[namei]]<-attr(TT,"intercept")
@@ -139,7 +100,7 @@ terms.multiple<-function(x, data=NULL,...){
       }
     }
   }                  
-  
+
   indVars<-unique(unlist(termlabels))
   if(length(depFactorVar) !=0)
     depFactors<-list("depFactorVar"=unique(unlist(depFactorVar)),"depLevels"=depLevels)

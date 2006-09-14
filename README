@@ -1,3 +1,18 @@
+2.6-5 (September 14, 2006): Stable release for R 2.3.0-2.3.1.  Fixed bugs 
+  in bivariate logit, bivariate probit, multinomial logit, and 
+  model.matrix.multiple (related to version 2.6-4, but not previous 
+  versions,  thanks to Chris Lawrence).  First level dependencies are as 
+  follows:
+     MASS          7.2-27.1         
+     boot          1.2-26           
+     VGAM          0.6-9            
+     MCMCpack      0.7-1            
+     mvtnorm       0.7-2            
+     survival      2.28               
+     sandwich      1.1-1            
+     zoo           1.0-6            
+     coda          0.10-5 
+
 2.6-4 (September 8, 2006): Stable release for R 2.3.0-2.3.1.  Fixed 
   bugs in {\tt setx()}, and bugs related to {\tt multiple}.  Added 
   instructions for installing Fortran tools for Intel macs.  Added 
