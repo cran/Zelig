@@ -59,7 +59,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     env <- parent.frame()
   ## original data
   if (is.null(data))
-    if (is.data.frame(object$data))
+    if (nrow(as.data.frame(object$zelig.data)) > 0)
       dta <- object$data
     else
       dta <- eval(object$call$data, envir = env)

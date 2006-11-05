@@ -24,31 +24,20 @@ parse.formula<-function( formula, model,data=NULL){
 
   
   checkNrOpt<-function(modelNumEqn,nrUserOpt,modelParsOpt,userOpt){
-    if(length(modelNumEqn)==1){
-      if(nrUserOpt > modelNumEqn)
-        stop("The parameter \"",modelParsOpt,"\" requires ",modelNumEqn, " equation(s) with DepVar=FALSE and ExpVar=TRUE. You have provided ", nrUserOpt, " See model doc. for more details")
-      else{
-        if(nrUserOpt<modelNumEqn)
-          for(i in (nrUserOpt+1):modelNumEqn){
-            userOpt[[i]]<-as.formula("~1")
-            if(modelNumEqn==1)
-              names(userOpt)[[i]]<-modelParsOpt
-            else
-              names(userOpt)[[i]]<-paste(modelParsOpt,i,sep="")
-          }
-      }
-    }else{
-      if(!(betweenf(nrUserOpt,modelNumEqn)))
-        if(nrUserOpt < modelNumEqn[[1]])
-          for(i in (nrUserOpt+1):modelNumEqn[[1]]){
-            userOpt[[i]]<-as.formula("~1")
-            names(userOpt)[[i]]<-paste(modelParsOpt,i,sep="")
-          }
-        else
-          stop("The parameter \"",modelParsOpt,"\" requires between ",modelNumEqn[[1]]," and ",modelNumEqn[[2]], " equation(s). You have provided ", nrUserOpt, " See model doc. for more details")    
-    }
+            if(!(betweenf(nrUserOpt,modelNumEqn)))
+              if(nrUserOpt < modelNumEqn[[1]]){
+                      if(modelNumEqn[[1]]==1)
+                        userOpt[[modelParsOpt]]<- as.formula("~1")
+                      else
+                        for(i in (nrUserOpt+1):modelNumEqn[[1]]){
+                                userOpt[[i]]<-as.formula("~1")
+                                names(userOpt)[[i]]<-paste(modelParsOpt,i,sep="")
+                        }
+              }else
+            stop("The parameter \"",modelParsOpt,"\" requires between ",modelNumEqn[[1]]," and ",modelNumEqn[[2]], " equation(s). You have provided ", nrUserOpt, " See model doc. for more details")    
+    
     return(userOpt)
-  }
+}
   
   betweenf<-function(a,range){
     if (is.finite(range[[2]]))

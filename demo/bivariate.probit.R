@@ -2,11 +2,11 @@ describe.bivariate.probit <- function() {
   category <- "bivaraite.dichotomous"
   package <- list(name = "mvtnorm", 
                   version = "0.7")
-  mu <- list(equations = 2,               # Systematic component 
+  mu <- list(equations = c(2,2),               # Systematic component 
              tagsAllowed = TRUE,          
              depVar = TRUE, 
              expVar = TRUE)
-  rho <- list(equations = 1,              # Optional systematic component
+  rho <- list(equations = c(1,1),              # Optional systematic component
              tagsAllowed = FALSE,         #   Estimated as an ancillary
              depVar = FALSE,              #   parameter by default
              expVar = TRUE)
