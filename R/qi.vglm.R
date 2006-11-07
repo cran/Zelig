@@ -1,4 +1,4 @@
-qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
+qi.ZeligS4vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
   model <- object$zelig
   cm <- object@constraints
   if (model=="mlogit")

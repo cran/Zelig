@@ -1,3 +1,20 @@
+2.7-2 (November 5, 2006):  Stable release for R 2.4.0.  Temporarily 
+  removed ARIMA models.
+     
+2.7-1 (November 3, 2006): Stable release for R 2.4.0. Made
+  changes regarding the S4 classes in VGAM. The ARIMA
+  model for time series data added by Justin Grimmer.  First level
+  dependencies are as follows:
+     MASS         7.2-29 
+     boot         1.2-26 
+     VGAM         0.7-1 
+     MCMCpack     0.7-4 
+     mvtnorm      0.7-5 
+     survival     2.29 
+     sandwich     2.0-0 
+     zoo          1.2-1 
+     coda         0.10-7 
+
 2.6-5 (September 14, 2006): Stable release for R 2.3.0-2.3.1.  Fixed bugs 
   in bivariate logit, bivariate probit, multinomial logit, and 
   model.matrix.multiple (related to version 2.6-4, but not previous 
