@@ -1,4 +1,4 @@
-zeligListModels<-function(inZeligOnly=T) {
+zeligListModels<-function(inZeligOnly=TRUE) {
      if (inZeligOnly) {
     		tmp = ls(envir=asNamespace("Zelig"),pattern="^zelig2")
      } else { 
@@ -12,7 +12,7 @@ zeligListModels<-function(inZeligOnly=T) {
 
 
 
-zeligInstalledModels<-function(inZeligOnly=T,schemaVersion="1.1") {
+zeligInstalledModels<-function(inZeligOnly=TRUE,schemaVersion="1.1") {
   chkpkgs<-function(name)  {
     zd=zeligDescribeModelXML(name,schemaVersion=schemaVersion)
     if (is.null(zd)) {
@@ -23,7 +23,7 @@ zeligInstalledModels<-function(inZeligOnly=T,schemaVersion="1.1") {
       return(TRUE)
     }
     ow=options(warn=-1)
-    ret=sapply(zdpd,function(x) require(x,character.only=T)==T)
+    ret=sapply(zdpd,function(x) require(x,character.only=TRUE)==TRUE)
     options(ow)
     return (ret)
   }
@@ -53,8 +53,8 @@ zeligModelDependency<-function(modelName,repos="") {
       }
 
 
-zeligDescribeModel<-function(name,force=F,schemaVersion="1.1") {
-    res=try(eval(call(paste("describe.",name,sep=""))),silent=T)
+zeligDescribeModel<-function(name,force=FALSE,schemaVersion="1.1") {
+    res=try(eval(call(paste("describe.",name,sep=""))),silent=TRUE)
     if (inherits(res,"try-error")) {
         if (force) {
                 res=describe.default()
@@ -69,7 +69,7 @@ zeligDescribeModel<-function(name,force=F,schemaVersion="1.1") {
     return(res)
 }
 
-zeligDescribeModelXML<-function(modelName,force=F,schemaVersion="1.1") {
+zeligDescribeModelXML<-function(modelName,force=FALSE,schemaVersion="1.1") {
 	zd = zeligDescribeModel(modelName,force,schemaVersion)
 	if (is.null(zd)) {
 		return(NULL)
@@ -87,7 +87,7 @@ printZeligSchemaInstance<-function(filename=NULL, serverName=NULL,vdcAbsDirPrefi
 	# open connection 
 	schemaURL<-'http://gking.harvard.edu/zelig';
 	if (is.null(serverName)) {
-		serverName<-system('hostname -f', intern=T)
+		serverName<-system('hostname -f', intern=TRUE)
 	}
 	if (is.null(vdcAbsDirPrefix)){
 		locationURL<-paste('http://', serverName, '/VDC/Schema/analysis/ZeligInterfaceDefinition.xsd',sep="");
@@ -100,7 +100,7 @@ printZeligSchemaInstance<-function(filename=NULL, serverName=NULL,vdcAbsDirPrefi
 		con<-file(filename,"w");
 	}
 	cat(file=con, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<zelig xmlns=\"",schemaURL,"\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"",schemaLocation,"\">\n", sep="");
-	mssg<- sapply(zeligInstalledModels(),function(x){cat(file=con,zmodel2string(zeligDescribeModel(x)),sep="")},simplify=F);
+	mssg<- sapply(zeligInstalledModels(),function(x){cat(file=con,zmodel2string(zeligDescribeModel(x)),sep="")},simplify=FALSE);
 	cat(file=con,"\n</zelig>\n",sep="");
 }
 

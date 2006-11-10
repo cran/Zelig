@@ -1,3 +1,6 @@
+2.7-3 (November 9, 2006):  Stable release for R 2.4.0.  Fixed bugs related 
+   to R check.
+
 2.7-2 (November 5, 2006):  Stable release for R 2.4.0.  Temporarily 
   removed ARIMA models.
      
