@@ -1,5 +1,4 @@
 arima              Arima models
-beta               Beta regression and simulation
 blogit             Bivariate Logit regression and simulation 
 bivariate.probit   New model example: Bivariate probit MLE
 bprobit            Bivariate Probit regression and simulation 

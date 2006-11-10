@@ -1,4 +1,4 @@
-repl.zelig <- function(object, prev=NULL, data=NULL, x=NULL,
+repl.zelig <- function(object, data=NULL, prev = NULL, x=NULL,
   x1=NULL, bootfn=NULL, ...) {
   rep.zelig <- eval(object$zelig.call, sys.parent())
   object$call$object <- rep.zelig

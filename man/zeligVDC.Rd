@@ -9,9 +9,9 @@
 	Zelig interface functions. Used by VDC DSB to  communicate with Zelig.
 }
 \usage{
-	zeligDescribeModelXML(modelName,force=F,schemaVersion="1.1")
-	zeligInstalledModels(inZeligOnly=T,schemaVersion="1.1")
-	zeligListModels(inZeligOnly=T) 
+	zeligDescribeModelXML(modelName,force=FALSE,schemaVersion="1.1")
+	zeligInstalledModels(inZeligOnly=TRUE,schemaVersion="1.1")
+	zeligListModels(inZeligOnly=TRUE) 
 	zeligModelDependency(modelName,repos) 
 	zeligGetSpecial(modelName)
 }

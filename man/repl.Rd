@@ -1,8 +1,8 @@
 \name{repl}
 
 \alias{repl}
-\alias{repl.default}
 \alias{repl.zelig}
+\alias{repl.default}
 
 \title{Replicating Analyses}
 
@@ -17,9 +17,9 @@ object
   stochastic randomness in the simulation procedure.  }
 
 \usage{
-repl(object, \dots)
-repl.default(object, data = NULL, \dots)
-repl.zelig(object, prev = NULL, data = NULL, x = NULL, x1 = NULL,
+repl(object, data, \dots)
+\method{repl}{default}(object, data = NULL, \dots)
+\method{repl}{zelig}(object, data = NULL, prev = NULL, x = NULL, x1 = NULL,
      bootfn = NULL, \dots) 
 }
 
@@ -27,7 +27,7 @@ repl.zelig(object, prev = NULL, data = NULL, x = NULL, x1 = NULL,
 \item{object}{Stored output from either \code{\link{zelig}} or
     \code{\link{sim}}.}
 \item{data}{You may manually input the data frame name rather
-  than allowing replicate to draw the data frame name from the object
+  than allowing \code{repl} to draw the data frame name from the object
   to be replicated.}
 \item{prev}{When replicating \code{\link{sim}} output, you may
   optionally use the previously simulated parameters to calculate the
