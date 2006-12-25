@@ -5,29 +5,29 @@ zelig2arima <- function(formula, model, data, M, ...){
   ##assembling the order of the ARIMA model
   dep.var <- eval(mf[[2]][[2]])$name
   d <- eval(mf[[2]][[2]])$d
-  d.s <- eval(mf[[2]][[2]])$d.s
+  d.s <- eval(mf[[2]][[2]])$ds
   per <- eval(mf[[2]][[2]])$per
   ##the don't use vector will be used below to assemble the actual formula employed
   dont.use <- vector()
   ##this for loop is used to find the values of p, p.s., q, and q.s.
-  n.par <- length(unlist(strsplit(deparse(mf[[2]][[3]]), "\\+")))
+  n.par <- length(unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+")))
   for(i in 1:n.par){
-    if(class(eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[i]),
+    if(class(eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
                   envir=data))=="list"){
-      if(eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[i]),
+      if(eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
               envir=data)$ep==TRUE){
         dont.use[1] <- i
-        q <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[i]),
+        q <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
                   envir=data)$q
-        q.s <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[i]),
+        q.s <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
                     envir=data)$q.s
       }
-      if(eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[i]),
+      if(eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
               envir=data)$y==TRUE){
         dont.use[2] <- i
-        p <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[i]),
+        p <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
                   envir=data)$p
-        p.s <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[i]),
+        p.s <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
                     envir=data)$p.s
       }
     }
@@ -35,12 +35,12 @@ zelig2arima <- function(formula, model, data, M, ...){
   
   if (length(dont.use) < n.par){
     ##this vector then denotes what we are going to use on the right hand side
-    use.vec <- c(1:length(unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))))
+    use.vec <- c(1:length(unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))))
     use.vec <- use.vec[-dont.use]
     ##now, we are creating the right hand side portion of the formula
     rhs <- vector()
     for (i in 1:length(use.vec)){
-      rhs[2*i-1] <- paste(unlist(strsplit(deparse(mf[[2]][[3]]), "\\+"))[use.vec[i]])
+      rhs[2*i-1] <- paste(unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[use.vec[i]])
       if (i+1 <= length(use.vec))
         rhs[2*i] <- paste("+")
       if (i + 1 > length(use.vec))

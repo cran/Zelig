@@ -1,6 +1,6 @@
-names.summary.zelig.relogit <- function(x, ...) {
-  res <- names.default(x, ...)[1:5]
-  qi.names <- names.default(x$qi.stats, ...)
+names.summary.zelig.relogit <- function(x) {
+  res <- names(unclass(x))[1:5]
+  qi.names <- names(x$qi.stats)
   for (i in 1:length(qi.names)) {
     qi.names[i] <- paste("qi.stats$", qi.names[i], sep = "")
   }

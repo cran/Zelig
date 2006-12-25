@@ -21,7 +21,8 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
     Ipr[,i,] <- as.integer(tmp > cuts[,i,])
   for (n in 1:nrow(x))
     pr[,n] <- 1 + rowSums(Ipr[,,n])
-  pr <- matrix(factor(pr, labels = lev, ordered = TRUE),
+  pr <- matrix(factor(pr, labels = lev[1:length(lev) %in% sort(unique(pr))],
+                      ordered = TRUE),
                nrow = nrow(sim.coef), ncol = nrow(x))
   colnames(pr) <- rownames(x)
   qi <- list(ev = ev, pr = pr)

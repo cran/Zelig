@@ -4,7 +4,7 @@ setx.Arima <- function(object, cond=FALSE, data=NULL, counter=NULL,
     warning("counter ignored in ARIMA models.")
   t.effect <-cond 
   mc <- match.call()
-  env <- parent.frame()
+  env <- attr(object$terms, ".Environment")
   if (is.null(data)){
     data <- eval(object$call$data, envir=env)
   }

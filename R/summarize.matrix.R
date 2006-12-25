@@ -4,8 +4,11 @@ summarize.matrix <- function(x, rows, cip, stats, subset = NULL) {
     colnames(res) <- rows
   }
   if (is.null(subset)) {
-    if (length(rows) == 1)
+    if (length(rows) == 1) {
       res <- apply(x, 2, summarize.default, stats = stats, cip = cip)
+      if (length(res) == 1)
+        names(res) <- as.character(unique(x))
+    }
     else {
       tmp <- NULL
       for (i in 1:dim(x)[2])

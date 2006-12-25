@@ -6,7 +6,8 @@ summarize.default <- function(x, rows = NULL, cip, stats, subset = NULL) {
     res <- c(res, quantile(x, cip))
     names(res) <- c(stats, paste(cip*100, "%", sep = ""))
   }
-  else if (is.character(x)) 
-    res <- table(x) / length(x)
+  else if (is.character(x)) {
+    res <- c(table(x) / length(x))
+  }
   res
 }
