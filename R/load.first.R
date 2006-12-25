@@ -11,4 +11,5 @@
   if(!any(search()=="package:boot"))
     require(boot) 
   options(digits = 4)
+  library.dynam("stats")
 }

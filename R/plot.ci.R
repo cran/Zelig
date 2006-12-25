@@ -40,7 +40,7 @@ plot.ci <- function(x, CI=95, qi = "ev", main = "",
     if (!identical(idx, idx1))
       stop(" x and x1 in vary on different dimensions.")
   var <- var[[idx[1]]]
-  q <- pmatch(qi, names.default(x$qi))
+  q <- pmatch(qi, names(x$qi))
   qofi <- x$qi[[q]]
   sum.qi <- summarize(qofi, cip)
   if (!is.null(x$x1) && qi == "ev") {
