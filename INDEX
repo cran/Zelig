@@ -6,4 +6,4 @@ setx            Set values of explanatory variables
 sim             Simulate quantities of interest
 help.zelig      Get html help for functions and models in the  Zelig 
                    package.  
-
+network         Create a network data object

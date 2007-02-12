@@ -15,6 +15,7 @@ export( current.packages,
         dims, 
         gsource,
         help.zelig,
+        network,
         mi,
 	model.end,
         model.matrix.multiple, 
@@ -67,6 +68,8 @@ S3method(plot.zelig, lognorm)
 S3method(plot.zelig, ls)
 S3method(plot.zelig, mlogit)
 S3method(plot.zelig, negbin)
+S3method(plot.zelig, netls)
+S3method(plot.zelig, netlogit)
 S3method(plot.zelig, normal)
 S3method(plot.zelig, ologit)
 S3method(plot.zelig, oprobit)

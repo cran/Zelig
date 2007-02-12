@@ -1,4 +1,5 @@
 zelig2ei.hier <- function(formula, model, data, M, ...) {
+  packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   
@@ -44,6 +45,7 @@ zelig2ei.hier <- function(formula, model, data, M, ...) {
 }
 
 zelig2ei.dynamic <- function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   
@@ -92,6 +94,7 @@ zelig2ei.dynamic <- function(formula, model, data, M, ...) {
 
 
 zelig2logit.bayes <-  function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
 
@@ -112,6 +115,7 @@ zelig2logit.bayes <-  function(formula, model, data, M, ...) {
 }
 
 zelig2probit.bayes <-  function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
 
@@ -131,7 +135,8 @@ zelig2probit.bayes <-  function(formula, model, data, M, ...) {
   as.call(mf)
 }
 
-zelig2normal.bayes <-  function(formula, model, data, M, ...) {    
+zelig2normal.bayes <-  function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   mf$model <- mf$M <- NULL
@@ -150,6 +155,7 @@ zelig2normal.bayes <-  function(formula, model, data, M, ...) {
 }
 
 zelig2poisson.bayes <-  function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   mf$model <- mf$M <- NULL
@@ -186,6 +192,7 @@ zelig2tobit.bayes <-  function(formula, model, data, M, ...) {
 }
 
 zelig2mlogit.bayes <-  function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   require(stats)
   mf <- match.call(expand.dots = TRUE)
@@ -231,6 +238,7 @@ zelig2oprobit.bayes <-  function(formula, model, data, M, ...) {
 
 
 zelig2factor.bayes <- function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
  if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
@@ -253,6 +261,7 @@ zelig2factor.bayes <- function(formula, model, data, M, ...) {
 }
 
 zelig2factor.ord <- function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
    if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0
@@ -328,6 +337,7 @@ zelig2irt1d <- function(formula, model, data, M, ...) {
 
 
 zelig2irtkd <- function(formula, model, data, M, ...) {
+   packageConflicts("VGAM")
   require(MCMCpack)
   mf <- match.call(expand.dots = TRUE)
   if (is.null(mf$verbose) || !mf$verbose) mf$verbose <- 0

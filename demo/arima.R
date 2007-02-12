@@ -37,7 +37,7 @@ z.out2<- zelig(Diff(approve, 1)~ iraq.war + sept.oct.2001 + avg.price + lag.eps(
 
 # Set the both the value and time period of counterfactual of interest.
 user.prompt()
-x.out2<- setx(z.out2, sept.oct.2001=list(time=45, c.fact=0), cond=T)
+x.out2<- setx(z.out2, sept.oct.2001=list(time=45, value=0), cond=TRUE)
 
 # Simulate the quantities of interest
 user.prompt()
@@ -60,8 +60,8 @@ plot(s.out2)
 
 user.prompt()
 
-x.out3<- setx(z.out2, sept.oct.2001=list(time=45:50, c.fact=0))
-x1.out3<- setx(z.out2, sept.oct.2001=list(time=45:50, c.fact=1))
+x.out3<- setx(z.out2, sept.oct.2001=list(time=45:50, value=0))
+x1.out3<- setx(z.out2, sept.oct.2001=list(time=45:50, value=1))
 
 # Simulating the quantities of interest
 

@@ -6,7 +6,6 @@
 \alias{immi3}
 \alias{immi4}
 \alias{immi5}
-\alias{data}
 
 \title{Individual Preferences Over Immigration Policy}
 

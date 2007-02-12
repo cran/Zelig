@@ -33,7 +33,7 @@ setx.Arima <- function(object, cond=FALSE, data=NULL, counter=NULL,
     else { dta  <- data[1:(max.time),] }
     for (i in 1:length(trew)){
       dta[eval(mc[[wert[i]]]$time, envir=env), trew[i]] <-
-        eval(mc[[wert[i]]]$c.fact, envir=env)
+        eval(mc[[wert[i]]]$value, envir=env)
     }
     dta <- as.matrix(dta[,na.omit(pmatch(names(object$coef), colnames(data)))])
   }

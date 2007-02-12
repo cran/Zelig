@@ -52,6 +52,11 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       stop("min cannot be calculated for this data type")
     return(value)
   }
+  
+  
+  # Testing From Here
+  
+  
   tt <- terms(object)
   tt.attr <- attributes(tt)
   env <- tt.attr$.Environment
@@ -60,7 +65,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   ## original data
   if (is.null(data))
     if (nrow(as.data.frame(object$zelig.data)) > 0)
-      dta <- object$data
+      dta <- object$zelig.data
     else
       dta <- eval(object$call$data, envir = env)
   else
@@ -130,7 +135,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     else if (identical(max.default, fn$ordered)) 
       fn$ordered <- max
     else if (identical(median.default, fn$ordered)) 
-      fn$ordered <- median
+      fn$ordered <- median								# "this is what sna.lm ends up with"
     if (is.null(fn$other) || !is.function(fn$other)) { 
       warning("the only available fn for other is mode.")
       fn$other <- mode
@@ -138,7 +143,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     for (i in 1:ncol(data)) {
       if (!(colnames(data)[i] %in% resvars)) {
         if (is.numeric(data[,i]))
-          value <- lapply(list(data[,i]), fn$numeric)[[1]]
+          value <- lapply(list(data[,i]), fn$numeric)[[1]]     # "This is the Problem"
         else if (is.ordered(data[,i])) 
           value <- lapply(list(data[,i]), fn$ordered)[[1]]
         else 

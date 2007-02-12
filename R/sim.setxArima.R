@@ -1,7 +1,8 @@
 sim.setxArima <- function(object, x, x1 = NULL, num = 1000, prev = NULL,
-                          bootstrap = FALSE, bootfn = NULL, cond.data = NULL,
-                          max.iter=10, ...) {
+                     bootstrap = FALSE, bootfn = NULL, cond.data = NULL,
+                     max.iter=10, ...) {
   require(mvtnorm)
+#  library.dynam("stats")
   if (bootstrap | !is.null(bootfn) | !is.null(cond.data)){
     warning("boostrap, bootfn, and cond.data are ignored in ARIMA models")
   }
@@ -12,7 +13,7 @@ sim.setxArima <- function(object, x, x1 = NULL, num = 1000, prev = NULL,
   else{
     envir<- attr(object$terms, ".Environment")
     dat <- eval(object$call$data, envir)
-  }
+	}
   series <- eval(eval(object$call$formula[[2]])$name, envir=dat)
   pred.ahead <- x$pred.ahead
   if (!is.null(prev)){
@@ -22,53 +23,54 @@ sim.setxArima <- function(object, x, x1 = NULL, num = 1000, prev = NULL,
     draw.parm <- rmvnorm(num, mean=object$coef, sigma=object$var.coef)
 ###inserting a function that will be used to ensure that the 
 ###ma portion is invertible.  This code is taken from 
-    ##the implementation of ARIMA in the stats package
+##the implementation of ARIMA in the stats package
     maInvert <- function(ma) {
-      q <- length(ma)
-      q0 <- max(which(c(1, ma) != 0)) - 1
-      if (!q0) 
-        return(ma)
-      roots <- polyroot(c(1, ma[1:q0]))
-      ind <- Mod(roots) < 1
-      if (all(!ind)) 
-        return(ma)
-      if (q0 == 1) 
-        return(c(1/ma[1], rep(0, q - q0)))
-      roots[ind] <- 1/roots[ind]
-      x <- 1
-      for (r in roots) x <- c(x, 0) - c(0, x)/r
-      c(Re(x[-1]), rep(0, q - q0))
+        q <- length(ma)
+        q0 <- max(which(c(1, ma) != 0)) - 1
+        if (!q0) 
+            return(ma)
+        roots <- polyroot(c(1, ma[1:q0]))
+        ind <- Mod(roots) < 1
+        if (all(!ind)) 
+            return(ma)
+        if (q0 == 1) 
+            return(c(1/ma[1], rep(0, q - q0)))
+        roots[ind] <- 1/roots[ind]
+        x <- 1
+        for (r in roots) x <- c(x, 0) - c(0, x)/r
+        c(Re(x[-1]), rep(0, q - q0))
     }
-    ##
-    temp<- which(object$arma[1:4]>0)
-    temp<- sort(temp)
-    for(j in 1:nrow(draw.parm)){
-      if(length(temp)==1){
+##
+temp<- which(object$arma[1:4]>0)
+temp<- sort(temp)
+for(j in 1:nrow(draw.parm)){
+if(length(temp)==1){
 	if(temp==2 | temp==4){
-          draw.parm[j, 1:object$arma[temp]]<- maInvert(draw.parm[i, 1:object$arma[temp]])
-        }
+		draw.parm[j, 1:object$arma[temp]]<- maInvert(draw.parm[i, 1:object$arma[temp]])
+		}
 	if(temp==1 | temp==3){
-          draw.parm[j, 1:object$arma[temp]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp]]
-        }
-      }
-      if(length(temp)>1){
+		draw.parm[j, 1:object$arma[temp]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp]]
+		}
+	}
+if(length(temp)>1){
 	if(temp[1]==2 | temp[1]==4){
-          draw.parm[i, 1:object$arma[temp[1]]]<- maInvert(draw.parm[j, 1:object$arma[temp[1]]])
-        }
+		draw.parm[i, 1:object$arma[temp[1]]]<- maInvert(draw.parm[j, 1:object$arma[temp[1]]])
+		}
 	if(temp[1]==1 | temp[1]==3){
-          draw.parm[j, 1:object$arma[temp[1]]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp[1]]]
-        }
-      }
-      for(i in 2:length(temp)){
+		draw.parm[j, 1:object$arma[temp[1]]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp[1]]]
+		}
+	}
+	for(i in 2:length(temp)){
 	if(temp[i]==2 | temp[i]==4){
-          draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]<- maInvert(draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))])
-        }
+		draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]<- maInvert(draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))])
+		}
 	if(temp[i]==1 | temp[i]==3){
-          draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]<- .Call("ARIMA_transPars",draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]
-        }
-      }
-    }
+		draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]<- .Call("ARIMA_transPars",draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])],
+													 as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]
+		}
+	}
   }
+}
   if (x$min.time==1 | x$min.time==2)
     stop("Counterfactuals can only be specified from the third observation and later \n")
   if (ncol(x$dta)==0){
@@ -122,10 +124,10 @@ sim.setxArima <- function(object, x, x1 = NULL, num = 1000, prev = NULL,
       }
       for (i in 1:nrow(draw.parm)){
 	temp3<- arima(series[1:(x1$min.time-1)], xreg=x1.obs,
-                      order=c(object$arma[1], object$arma[6], object$arma[2]),
-                      seasonal=list(order=c(object$arma[3], object$arma[7],
-                                      object$arma[4]), period=object$arma[5]),
-                      fixed=draw.parm[i,])
+                                     order=c(object$arma[1], object$arma[6], object$arma[2]),
+                                    seasonal=list(order=c(object$arma[3], object$arma[7],
+                                                    object$arma[4]), period=object$arma[5]),
+                                     fixed=draw.parm[i,])
 	temp4 <- predict(temp3, newxreg=x1.cf, n.ahead=nrow(x.cf))
 	ev.1[i,] <- temp4$pred	
 	se.1[i,] <- temp4$se
