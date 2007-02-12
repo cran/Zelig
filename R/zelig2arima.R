@@ -20,7 +20,7 @@ zelig2arima <- function(formula, model, data, M, ...){
         q <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
                   envir=data)$q
         q.s <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
-                    envir=data)$q.s
+                    envir=data)$qs
       }
       if(eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
               envir=data)$y==TRUE){
@@ -28,7 +28,7 @@ zelig2arima <- function(formula, model, data, M, ...){
         p <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
                   envir=data)$p
         p.s <- eval(parse(text=unlist(strsplit(deparse(mf[[2]][[3]], width.cutoff=500), "\\+"))[i]),
-                    envir=data)$p.s
+                    envir=data)$ps
       }
     }
   }

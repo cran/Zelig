@@ -1,3 +1,19 @@
+2.8-0 (February 12, 2007):  Stable release for R 2.4.0-2.4.1.
+  Released ARIMA models and network analysis models (least
+  squares and logit) for sociomatrices.  First version dependencies
+  are as follows:
+    MASS          7.2-31           
+    boot          1.2-27           
+    VGAM          0.7-1            
+    MCMCpack      0.7-4            
+    mvtnorm       0.7-5            
+    survival      2.31             
+    sandwich      2.0-0            
+    zoo           1.2-1            
+    coda          0.10-7           
+    nnet          7.2-31           
+    sna           1.4    
+
 2.7-5 (December 25, 2006):  Stable release for R 2.4.0-2.4.1.
   Fixed bug related to {\tt names.default()}, summary for multiple
   imputation methods, and prediction for ordinal response models (thanks 
