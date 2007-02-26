@@ -25,10 +25,10 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   median <- function(x) {
     if(is.numeric(x))
       value <- median.default(x)
-    else if (is.ordered(x))
-      value <- factor(levels(x)[median.default(as.integer(x))],
+    else if (is.ordered(x)) {
+      value <- factor(levels(x)[quantile(as.integer(x), type = 1, prob = 0.5)],
                       levels=levels(x)) 
-    else
+    } else
       stop("median cannot be calculated for this data type")
     return(value)
   }
@@ -135,7 +135,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     else if (identical(max.default, fn$ordered)) 
       fn$ordered <- max
     else if (identical(median.default, fn$ordered)) 
-      fn$ordered <- median								# "this is what sna.lm ends up with"
+      fn$ordered <- median			
     if (is.null(fn$other) || !is.function(fn$other)) { 
       warning("the only available fn for other is mode.")
       fn$other <- mode
@@ -143,7 +143,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     for (i in 1:ncol(data)) {
       if (!(colnames(data)[i] %in% resvars)) {
         if (is.numeric(data[,i]))
-          value <- lapply(list(data[,i]), fn$numeric)[[1]]     # "This is the Problem"
+          value <- lapply(list(data[,i]), fn$numeric)[[1]]
         else if (is.ordered(data[,i])) 
           value <- lapply(list(data[,i]), fn$ordered)[[1]]
         else 
