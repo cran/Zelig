@@ -48,28 +48,68 @@ if(length(temp)==1){
 	if(temp==2 | temp==4){
 		draw.parm[j, 1:object$arma[temp]]<- maInvert(draw.parm[i, 1:object$arma[temp]])
 		}
-	if(temp==1 | temp==3){
-		draw.parm[j, 1:object$arma[temp]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp]]
+	if(temp==1){
+		draw.parm[j, 1:object$arma[temp]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], 
+			as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp]]
+		}
+	if(temp==3){
+		draw.parm[j, 1:object$arma[temp]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], 
+			as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(1:object$arma[3])*object$arma[5]]
 		}
 	}
-if(length(temp)>1){
+if(length(temp)==2){
 	if(temp[1]==2 | temp[1]==4){
 		draw.parm[i, 1:object$arma[temp[1]]]<- maInvert(draw.parm[j, 1:object$arma[temp[1]]])
 		}
-	if(temp[1]==1 | temp[1]==3){
+	if(temp[1]==1){
 		draw.parm[j, 1:object$arma[temp[1]]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp[1]]]
 		}
-	}
-	for(i in 2:length(temp)){
-	if(temp[i]==2 | temp[i]==4){
-		draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]<- maInvert(draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))])
+	if(temp[1]==3){
+		draw.parm[j, 1:object$arma[temp[1]]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], 
+			as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(1:object$arma[3])*object$arma[5]]
 		}
-	if(temp[i]==1 | temp[i]==3){
-		draw.parm[j, (sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]<- .Call("ARIMA_transPars",draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])],
-													 as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(sum(object$arma[1:(i-1)]) + 1):(sum(object$arma[1:(i)]))]
+	if(temp[2]==2 | temp[2]==4){
+		draw.parm[j, (object$arma[temp[1]] + 1):(sum(object$arma[temp[1]:temp[2]]))]<- maInvert(draw.parm[j, (object$arma[temp[1]] + 1):(sum(object$arma[temp[1]:temp[2]]))])
 		}
-	}
+	if(temp[2]==1){
+		draw.parm[j, (sum(object$arma[temp[1]]) + 1):(sum(object$arma[temp[1]:temp[2]]))]<- .Call("ARIMA_transPars",draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])],
+													 as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(sum(object$arma[1]) + 1):(sum(object$arma[1:2]))]
+}
+	if(temp[2]==3){
+		draw.parm[j, (sum(object$arma[temp[1]]) + 1):object$arma[temp[2]]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], 
+			as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(1:object$arma[3])*object$arma[5]]
+
   }
+}
+if(length(temp)>2){
+if(temp[1]==2 | temp[1]==4){
+		draw.parm[i, 1:object$arma[temp[1]]]<- maInvert(draw.parm[j, 1:object$arma[temp[1]]])
+		}
+	if(temp[1]==1){
+		draw.parm[j, 1:object$arma[temp[1]]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], 
+				as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][1:object$arma[temp[1]]]
+		}
+	if(temp[1]==3){
+		draw.parm[j, 1:object$arma[temp[3]]]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], 
+			as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(1:object$arma[3])*object$arma[5]]
+		}
+for(i in 2:length(temp)){
+if(temp[i]==2 | temp[i]==4){
+		draw.parm[j, (sum(object$arma[temp[1]:temp[(i-1)]]) + 1):(sum(object$arma[temp[1]:temp[(i)]]))]<- maInvert(draw.parm[j, 
+						(sum(object$arma[temp[1]:temp[(i-1)]]) + 1):(sum(object$arma[temp[1]:temp[(i)]]))])
+		}
+	if(temp[i]==1){
+		draw.parm[j, (sum(object$arma[temp[1]:temp[(i-1)]]) + 1):(sum(object$arma[temp[1]:temp[(i)]]))]<- .Call("ARIMA_transPars",draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])],
+													 as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(sum(object$arma[temp[1]:temp[(i-1)]]) + 1):(sum(object$arma[temp[1]:temp[(i)]]))]
+}
+	if(temp[i]==3){
+		draw.parm[j, (sum(object$arma[temp[1]:temp[(i-1)]]) + 1):(sum(object$arma[temp[1]:temp[(i)]]))]<- .Call("ARIMA_transPars", draw.parm[j, 1:sum(object$arma[temp[1:length(temp)]])], 
+			as.integer(object$arma[1:5]), TRUE, PACKAGE = "stats")[[1]][(1:object$arma[3])*object$arma[5]]
+		}
+
+  }
+}
+}
 }
   if (x$min.time==1 | x$min.time==2)
     stop("Counterfactuals can only be specified from the third observation and later \n")
@@ -174,3 +214,4 @@ if(length(temp)>1){
     return(res) 
   } 
 } 
+

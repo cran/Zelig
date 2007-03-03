@@ -1,3 +1,6 @@
+2.8-2 (March 3, 2007):  Stable release for R 2.4.0-2.4.1.  Fixed bug in 
+  ARIMA simulation process.  
+
 2.8-1 (February 21, 2007):  Stable release for R 2.4.0-2.4.1.  Made  
   setx() compatible with ordred factor variables (thanks to Mike Ward and 
   Kirill Kalinin).  First order dependencies as in version 2.8-1.  
