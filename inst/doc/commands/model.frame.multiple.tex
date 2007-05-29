@@ -1,0 +1,80 @@
+\section{{\tt model.frame.multiple}: Extracting the ``environment'' of
+a model formula}
+\label{model.frame.multiple}
+
+\subsubsection{Description}
+Use {\tt model.frame.multiple()} after {\tt parse.par()} to create a
+data frame of the unique variables identified in the formula (or list
+of formulas).  
+  
+\subsubsection{Syntax}
+\begin{verbatim}
+model.frame.multiple(formula, data, eqn = NULL, ...)
+\end{verbatim}
+
+\subsubsection{Arguments}
+\begin{itemize}
+  \item {\tt formula}: a list of formulas of class {\tt "multiple"},
+returned from {\tt parse.par()}.  
+  \item {\tt data}: a data frame containing all the variables used in
+{\tt formula}.  
+\item {\tt eqn}: an optional character string or vector of character strings 
+specifying the equations for which you would like to extract variables.  Defaults 
+to {\tt NULL}, which pulls out all the variables for all equations in {\tt 
+formula}.   
+ \item {\tt \dots}: additional arguments passed to {\tt
+model.frame.default()}.  
+\end{itemize}
+
+\subsubsection{Output Values}
+
+The output is a data frame (with a terms attribute) containing all the
+unique explanatory and response variables identified in the list of
+formulas.  By default, missing ({\tt NA}) values are listwise deleted.
+
+If {\tt as.factor()} appears on the left-hand side, the response
+variables will be returned as an indicator (0/1) matrix with columns
+corresponding to the unique levels in the factor variable.  
+	
+If any formula contains a {\tt tag()}, {\tt model.frame.multiple()}
+will return the original variable in the data frame and use the {\tt
+tag()} information in the terms attribute only.
+
+\subsubsection{Examples}
+\begin{verbatim}
+formulae <- list(import ~ coop + cost + target,
+                 export ~ coop + cost + target)
+fml <- parse.formula(formulae, model = "bivariate.logit")
+D <- model.frame(fml, data = mydata)
+\end{verbatim}
+Since the output from {\tt parse.formula()} is of class {\tt
+"multiple"}, you do not need to call {\tt model.frame.multiple()}
+explicitly, but can use the generic {\tt model.frame()} instead.    
+
+\subsubsection{See Also}
+\begin{itemize}
+\item \Sref{parse.formula} for {\tt parse.formula()}
+\item \Sref{ui} for an overview of the user-interface.  
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, Olivia Lau, and Ferdinand Alimadhi.
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+
+
+
+
+
+
+
+
+
+
+

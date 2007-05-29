@@ -43,7 +43,7 @@ sim.cond <- function(object, x, x1=NULL, num=c(1000, 100),
   class(xvar) <- c("matrix", "cond")
   ca <- match.call()
   ca$num <- num
-  res <- list(x=xvar, x1=x1, call = ca, zelig.call = object$call,
+  res <- list(x=xvar, x1=x1, call = ca, zelig.call = getcall(object),
               par = simpar, qi=simqi$qi, qi.name=simqi$qi.name)
   class(res) <- "zelig"
   res

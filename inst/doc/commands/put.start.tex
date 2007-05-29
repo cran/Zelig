@@ -1,0 +1,44 @@
+\section{{\tt put.start}: Set specific starting values for certain parameters}
+\label{put.start}
+
+\subsubsection{Description}
+
+After calling {\tt set.start()} to create default starting values, use
+{\tt put.start()} to change starting values for specific parameters or
+parameter sets. 
+
+\subsubsection{Syntax}
+\begin{verbatim}
+put.start(start.val, value, terms, eqn)
+\end{verbatim}
+
+\subsubsection{Arguments}
+
+\begin{itemize}
+\item {\tt start.val}: the vector of starting values created by {\tt
+set.start()}. 
+\item {\tt value}: the scalar or vector of replacement starting
+values.  
+\item {\tt terms}: the terms output from {\tt model.frame.multiple()}.
+\item {\tt eqn}: the parameters for which you would like to replace
+the default values with {\tt value}.    
+\end{itemize}
+
+\subsubsection{Output Values}
+A vector of starting values (of the same length as {\tt start.val}).  
+
+\subsubsection{See Also}
+\begin{itemize}
+\item \Sref{set.start} to set default starting values.  
+\item \Sref{s:new} for an overview of the procedure to add
+  models to Zelig.
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, Olivia Lau, and Ferdinand Alimadhi.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "~/zelig/docs/zelig"
+%%% End: 

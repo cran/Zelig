@@ -1,0 +1,13 @@
+if (! "MASS" %in% installed.packages()[,"Package"])
+  install.packages("MASS", CRAN = "http://cran.cnr.berkeley.edu/")
+
+install.packages("Zelig", repos = "http://cran.us.r-project.org/")
+##install.packages("Zelig", repos = "http://gking.harvard.edu")
+install.packages("zoo", repos = "http://cran.cnr.berkeley.edu/")
+install.packages("sandwich", repos = "http://cran.cnr.berkeley.edu/")
+install.packages("MCMCpack", repos = "http://cran.cnr.berkeley.edu/")
+install.packages("coda", repos = "http://cran.cnr.berkeley.edu/")
+install.packages("lattice", repos = "http://cran.cnr.berkeley.edu/")
+install.packages("mvtnorm", repos = "http://cran.cnr.berkeley.edu/")
+install.packages("VGAM", repos = "http://cran.cnr.berkeley.edu/")
+install.packages("sna", repos = "http://cran.cnr.berkeley.edu/")

@@ -7,7 +7,7 @@ setx.MI <- function(object, fn = list(numeric = mean, ordered =
     obj <- object[[1]]
     for (i in 1:M) {
       if(is.null(data))
-        tmp <- as.data.frame(eval(object[[1]]$call$data,
+        tmp <- as.data.frame(eval(getcall(obj)$data,
                               sys.parent())[[i]])
       else
         tmp <- data[[i]]
@@ -22,7 +22,7 @@ setx.MI <- function(object, fn = list(numeric = mean, ordered =
   else { # conditional prediction
     X <- list()
     if (is.null(data))
-      data <- eval(object[[1]]$call$data, sys.parent())
+      data <- eval(getcall(obj)$data, sys.parent())
     for (i in 1:M)
       X[[i]] <- setx(object[[i]], fn = NULL, data = data[[i]], cond = TRUE,
                               counter = counter, ...)

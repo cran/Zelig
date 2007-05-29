@@ -10,19 +10,20 @@ summary.MI <- function(object, subset = NULL, ...){
   ans$call <- getcall(object[[1]])
   if (length(M) > 1) {
     ans$all <- res
-    coef <- se <- NULL
+    coef1 <- se1 <- NULL
     for (i in M){
-      coef <- cbind(coef, getcoef(res[[i]])[,1])
-      se <- cbind(se, getcoef(res[[i]])[,2])
+      tmp <-  getcoef(res[[i]])
+      coef1 <- cbind(coef1, tmp[,1])
+      se1 <- cbind(se1, tmp[,2])
     }
-    rows <- nrow(coef)
-    Q <- apply(coef, 1, mean)
-    U <- apply(se^2, 1, mean)
-    B <- apply((coef-Q)^2, 1, sum)/(length(M)-1)
+    rows <- nrow(coef1)
+    Q <- apply(coef1, 1, mean)
+    U <- apply(se1^2, 1, mean)
+    B <- apply((coef1-Q)^2, 1, sum)/(length(M)-1)
     var <- U+(1+1/length(M))*B
     nu <- (length(M)-1)*(1+U/((1+1/length(M))*B))^2
     coef.table <- matrix(NA, nrow = rows, ncol = 4)
-    dimnames(coef.table) <- list(rownames(coef),
+    dimnames(coef.table) <- list(rownames(coef1),
                                  c("Value", "Std. Error", "t-stat", "p-value"))
     coef.table[,1] <- Q
     coef.table[,2] <- sqrt(var)

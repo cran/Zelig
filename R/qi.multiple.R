@@ -1,7 +1,7 @@
 qi.multiple <- function(object, simpar, x, x1 = NULL, y = NULL) {
  
   check <- FALSE
-  model <- object$zelig
+  model <- getzelig(object)
   coef<-list()
   tt<-terms(object)
   nreq<-length(tt)

@@ -3,7 +3,7 @@ describe.sur<-function(){
 description  <- "Seemingly Unrelated Regression"
 
 package <-list(	name 	="systemfit",
-		version	="0.8",
+		version	="0.8"
 		)
 parameters<-list(mu="mu")
 parameters$mu<-list(equations=c(2,Inf),

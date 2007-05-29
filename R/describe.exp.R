@@ -2,8 +2,7 @@ describe.exp<-function(){
 category <- "bounded"
 description  <- "Exponential Regression for Duration Dependent Variables"
 package <-list(	name 	="survival",
-		version	="2.0",
-		CRAN    =NA
+		version	="2.0"
 		)
 parameters<-list(mu="mu")
 parameters$mu<-list(equations=c(1,1),

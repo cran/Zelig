@@ -41,10 +41,10 @@ export( current.packages,
 	zeligDescribeModelXML
 )
 	
-S3method("$", ZeligS4vglm)
-S3method("$", summary.ZeligS4vglm)
-S3method("$<-", ZeligS4vglm)
-S3method("$<-", summary.ZeligS4vglm)
+#S3method("$", ZeligS4vglm)
+#S3method("$", summary.ZeligS4vglm)
+#S3method("$<-", ZeligS4vglm)
+#S3method("$<-", summary.ZeligS4vglm)
 S3method(formula, vglm)
 S3method(model.matrix, multiple)
 S3method(model.frame, multiple)

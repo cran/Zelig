@@ -63,11 +63,12 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   if (is.null(env))
     env <- parent.frame()
   ## original data
-  if (is.null(data))
-    if (nrow(as.data.frame(object$zelig.data)) > 0)
-      dta <- object$zelig.data
+  if (is.null(data)) {
+    if (nrow(as.data.frame(getdata(object))) > 0)
+      dta <- getdata(object)
     else
-      dta <- eval(object$call$data, envir = env)
+      dta <- eval(getcall(object)$data, envir = env)
+  }
   else
     dta <- as.data.frame(data)
   ## extract variables we need

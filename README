@@ -1,3 +1,19 @@
+2.8-3 (May 29, 2007):  Stable release for R 2.4.0-2.5.0.  Fixed bugs in 
+  help.zelig(), and summary for multinomial logit, bivariate probit, 
+  and bivariate logit with multiple imputation.  First version 
+  dependencies are as follows:  
+     MASS          7.2-34           
+     boot          1.2-27           
+     VGAM          0.7-1            
+     MCMCpack      0.8-2            
+     mvtnorm       0.7-5            
+     survival      2.31             
+     sandwich      2.0-0            
+     zoo           1.2-1            
+     coda          0.10-7           
+     nnet          7.2-34           
+     sna           1.4    
+
 2.8-2 (March 3, 2007):  Stable release for R 2.4.0-2.4.1.  Fixed bug in 
   ARIMA simulation process.  
 

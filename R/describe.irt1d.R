@@ -1,4 +1,4 @@
-describe.factor.irt1d<-function(){
+describe.irt1d<-function(){
 category <- "dichotomous"
 description  <- "One Dimensional Item Response Model"
 package <-list(	name 	="MCMCpack",

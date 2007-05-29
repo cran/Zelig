@@ -1,7 +1,7 @@
 qi.netlogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
   check <- FALSE
-  model <- object$zelig
-  k <- length(object$coef)
+  model <- getzelig(object)
+  k <- length(getcoef(object))
   coef <- simpar[,1:k]
   if (k < ncol(simpar)) 
     alpha <- simpar[,(k+1):ncol(simpar)]

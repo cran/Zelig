@@ -9,7 +9,7 @@ help.zelig <- function (...)  {
     warning(paste("Zelig installed in", length(paths), "locations.  Using\n     ", paths[1]))
   path <- paths[1]
   path <- file.path(path, "data")
-  if (tools::file_test("-f", file.path(path, "Rdata.zip"))) {
+  if (file_test("-f", file.path(path, "Rdata.zip"))) {
     zipped <- TRUE
     if (tools::file_test("-f", fp <- file.path(path, "filelist"))) 
       files <- file.path(path, scan(fp, what = "", quiet = TRUE))

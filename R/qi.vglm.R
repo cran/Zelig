@@ -1,5 +1,5 @@
-qi.ZeligS4vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
-  model <- object$zelig
+qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
+  model <- getzelig(object)
   cm <- object@constraints
   if (model=="mlogit")
     ndim <- (ncol(object@y)-1)
@@ -48,7 +48,7 @@ qi.ZeligS4vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
     ev
   }
   pr.vglm <- function(object, ev, ynames) { # To assign predicted values.
-    model <- object$zelig
+    model <- getzelig(object)
     if (model == "mlogit") {
       k <- ncol(ev)
       Ipr <- sim.cut <- matrix(NA, nrow = nrow(ev), ncol = ncol(ev))

@@ -1,0 +1,49 @@
+\section{{\tt model.end}: Cleaning up after optimization}
+\label{model.end}
+
+\subsubsection{Description}
+
+The {\tt model.end()} function creates a list of regression output from
+{\tt optim()} output.  The list includes coefficients (from the {\tt optim() 
+par} output), a variance-covariance matrix (from the {\tt optim()} Hessian output), 
+and any terms, contrasts, or xlevels (from the model frame).  Use  {\tt 
+model.end()} after calling {\tt optim()}, but before assigning a class to the 
+regression output.  
+
+\subsubsection{Syntax}
+\begin{verbatim}
+model.end(res, mf)
+\end{verbatim}
+
+\subsubsection{Arguments}
+
+\begin{itemize}
+\item {\tt res}: the output from {\tt optim()} or another fitting-algorithm.  
+\item {\tt mf}: the model frame output by {\tt model.frame()}.  
+\end{itemize}
+
+\subsubsection{Output Values}
+A list of regression output, including:
+\begin{itemize}
+\item {\tt coefficients}: the optimized parameters.
+\item {\tt variance}: the variance-covariance matrix (the negative
+  inverse of the Hessian matrix returned from the optimization
+  procedure).  
+\item {\tt terms}:  the terms object.  See {\tt help(terms.object)}
+  for more information.
+\item {\tt \dots}: additional elements passed from {\tt res}.
+\end{itemize}
+
+\subsubsection{See Also}
+\begin{itemize}
+\item \Sref{s:new} for an overview of how to write a new model.
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, Olivia Lau, and Ferdinand Alimadhi.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "~/zelig/docs/zelig"
+%%% End: 
