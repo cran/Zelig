@@ -1,5 +1,5 @@
 qi.MCMCZelig <- function(object, simpar=NULL, x, x1 = NULL, y = NULL, ...) {
-  model <- object$zelig
+  model <- getzelig(object)
   qi <- list()
   check <- FALSE
   if (model %in% c("logit.bayes", "probit.bayes", "oprobit.bayes", "mlogit.bayes")) 

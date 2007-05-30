@@ -52,14 +52,23 @@ zelig.default <- function(formula, model, data, by = NULL, save.data =
         d <- d[complete.cases(model.frame(mf$formula, data=d,
                                           na.action = na.pass)),]
         mf$data <- d
-        res <- create.ZeligS4(eval(as.call(mf)))
+#        res <- create.ZeligS4(eval(as.call(mf)))
+         res <- eval(as.call(mf))
         if (exists(fn2)) 
           res <- do.call(fn2, list(res = res, fcall = mf,
                                    zcall = as.list(zelig.call)))
-        res$call <- as.call(zelig.call)
-        if (save.data)
-          res$zelig.data <- d
-        res$zelig <- model
+        check <- length(slotNames(res)) > 0
+        if (check) {
+          res@call <- as.call(zelig.call)
+          res@model <- as.data.frame(d)
+        }
+        else{
+          res$call <- as.call(zelig.call)
+          if (save.data) res$zelig.data <- as.data.frame(d)
+        }
+#        res$call <- as.call(zelig.call)
+#        if (save.data)  res$zelig.data <- d
+#        res$zelig <- model
         if (M > 1) 
           obj[[j]] <- res
         else

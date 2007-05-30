@@ -1,0 +1,113 @@
+\section{{\tt parse.formula}: Parsing the inputs}
+\label{parse.formula}
+
+\subsubsection{Description}
+Parse the input formula (or list of formulas) into the standard format
+described below.  Since labels for this format will vary by model,
+{\tt parse.formula()} will evaluate a function {\tt describe.model()},
+where {\tt model} is given as an input to {\tt parse.formula()}.
+
+If the {\tt check.model()} function has more than one parameter for
+which {\tt ExpVar = TRUE} and {\tt DepVar = TRUE}, then the
+user-specified equations must have labels to match those parameters,
+else {\tt parse.formula()} should return an error. In addition, if the
+formula entries are not unambiguous, then {\tt parse.formula()} should
+return an error.
+  
+\subsubsection{Syntax}
+\begin{verbatim}
+> fml <- parse.formula(formula, model, data = NULL)
+\end{verbatim}
+
+\subsubsection{Arguments}
+\begin{itemize}
+  \item {\tt formula}: either a single formula or a list of formula
+objects.  
+  \item {\tt model}: a character string specifying the name of the model.
+  \item {\tt data}: an optional data frame for models that require a
+factor response variable.
+\end{itemize}
+
+\subsubsection{Output Values}
+The output is a list of formula objects with class {\tt ("multiple",
+"list")}.  Let's say that the name of the model is {\tt
+"bivariate.probit"}, and the corresponding describe function is {\tt
+describe.bivariate.probit()}, which identifies {\tt mu1} and {\tt mu2}
+as systematic components, and an ancillary parameter {\tt rho}, which
+may be parameterized, but is estimated as a scalar by default.  Given
+this model, Table \ref{good.formulas} gives acceptable user inputs.  
+
+\subsubsection{Examples}
+\begin{verbatim}
+formulae <- list(cbind(import, export) ~ coop + cost + target)
+fml <- parse.formula(formulae, model = "bivariate.probit")
+D <- model.frame(fml, data = mydata)
+\end{verbatim}
+
+\subsubsection{See Also}
+\begin{itemize}
+  \item \Sref{ui} for commented examples of how {\tt parse.formula()}
+and {\tt describe.model()} work together.  
+  \item \Sref{tag} for constraints between coefficients in a multiple
+equation context.  
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, Olivia Lau, and Ferdinand Alimadhi.
+
+\clearpage
+\begin{landscape}
+\begin{table}[h!]
+\caption{Examples of acceptable short-hand for user-specified
+formulas, using bivariate probit as an example}
+\label{good.formulas}
+\begin{center}
+\begin{tabular}{lll}
+\\
+ & User Input    & Output from {\tt parse.formula()} \\
+\hline
+\\
+Same covariates, & \verb|cbind(y1, y2) ~ x1 + x2 * x3|  & \verb|list(mu1 = y1 ~ x1 + x2 * x3,|\\
+separate effects & & \verb|     mu2 = y2 ~ x1 + x2 * x3,| \\
+& &                  \verb|     rho = ~ 1)| \\
+\\
+With $\rho$ as a & \verb|list(cbind(y1, y2) ~ x1 + x2,| &
+\verb|list(mu1 = y1 ~ x1 + x2,|\\
+systematic equation & \verb|    rho = ~ x4 + x5)| & \verb|     mu2 = y2 ~ x1 + x2,|\\
+& & \verb|     rho = ~ x4 + x5)| \\
+\\
+With constraints & \verb|list(mu1 = y1 ~ x1 + tag(x2, "x2"),| &
+\verb|list(mu1 = y1 ~ x1 + tag(x2, "x2"),| \\ 
+(same variable)  & \verb|     mu2 = y2 ~ x3 + tag(x2, "x2"))| &
+\verb|     mu2 = y2 ~ x3 + tag(x2, "x2"),|\\
+& & \verb|     rho = ~ 1)|\\
+\\
+With constraints & \verb|list(mu1 = y1 ~ x1 + tag(x2, "z1"),| &
+\verb|list(mu1 = y1 ~ x1 + tag(x2, "z1"),| \\ 
+(different variables)  & \verb|     mu2 = y2 ~ x3 + tag(x4, "z1"))| &
+\verb|     mu2 = y2 ~ x3 + tag(x4, "z1"),|\\
+& & \verb|     rho = ~ 1)|\\
+\end{tabular}
+\end{center}
+\end{table}
+\end{landscape}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+
+
+
+
+
+
+
+
+
+
+

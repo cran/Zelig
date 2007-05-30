@@ -1,0 +1,562 @@
+\contentsline {chapter}{\numberline {1}Introduction}{7}{chapter.1}
+\contentsline {section}{\numberline {1.1}What Zelig and R Do}{7}{section.1.1}
+\contentsline {section}{\numberline {1.2}Getting Help}{8}{section.1.2}
+\contentsline {part}{I\hspace {1em}User's Guide}{10}{part.1}
+\contentsline {chapter}{\numberline {2}Installation}{11}{chapter.2}
+\contentsline {subsubsection}{If You Know R}{11}{section*.3}
+\contentsline {subsubsection}{If You Are New to R}{11}{section*.4}
+\contentsline {section}{\numberline {2.1}Windows}{12}{section.2.1}
+\contentsline {subsubsection}{Installing R}{12}{section*.5}
+\contentsline {subsubsection}{Installing Zelig}{12}{section*.6}
+\contentsline {subsubsection}{Updating Zelig}{13}{section*.7}
+\contentsline {section}{\numberline {2.2}MacOS X}{13}{section.2.2}
+\contentsline {subsubsection}{Installing R}{13}{section*.8}
+\contentsline {subsubsection}{Installing Zelig}{13}{section*.9}
+\contentsline {subsubsection}{Updating Zelig}{15}{section*.10}
+\contentsline {section}{\numberline {2.3}UNIX and Linux}{16}{section.2.3}
+\contentsline {subsubsection}{Installing R}{16}{section*.11}
+\contentsline {subsubsection}{Installing Zelig}{16}{section*.12}
+\contentsline {subsubsection}{Updating Zelig}{17}{section*.13}
+\contentsline {section}{\numberline {2.4}Version Compatability}{18}{section.2.4}
+\contentsline {chapter}{\numberline {3}Data Analysis Commands}{19}{chapter.3}
+\contentsline {section}{\numberline {3.1}Command Syntax}{19}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Getting Started}{19}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Details}{20}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Data Sets}{21}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Data Structures}{21}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Loading Data}{21}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Saving Data}{23}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Variables}{24}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Classes of Variables}{24}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Recoding Variables}{25}{subsection.3.3.2}
+\contentsline {chapter}{\numberline {4}Statistical Commands}{30}{chapter.4}
+\contentsline {section}{\numberline {4.1}Zelig Commands}{30}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Quick Overview}{30}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Examples}{31}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Details}{33}{subsection.4.1.3}
+\contentsline {section}{\numberline {4.2}Supported Models}{38}{section.4.2}
+\contentsline {section}{\numberline {4.3}Replication Procedures}{41}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Saving Replication Materials}{42}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Replicating Analyses}{42}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Graphing Commands}{44}{chapter.5}
+\contentsline {section}{\numberline {5.1}Drawing Plots}{44}{section.5.1}
+\contentsline {section}{\numberline {5.2}Adding Points, Lines, and Legends to Existing Plots}{46}{section.5.2}
+\contentsline {section}{\numberline {5.3}Saving Graphs to Files}{46}{section.5.3}
+\contentsline {section}{\numberline {5.4}Examples}{48}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Descriptive Plots: Box-plots}{48}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}Density Plots: A Histogram}{49}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}Advanced Examples}{50}{subsection.5.4.3}
+\contentsline {part}{II\hspace {1em}Advanced Zelig Uses}{53}{part.2}
+\contentsline {chapter}{\numberline {6}R Objects}{54}{chapter.6}
+\contentsline {section}{\numberline {6.1}Scalar Values}{54}{section.6.1}
+\contentsline {section}{\numberline {6.2}Data Structures}{55}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Arrays}{55}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Lists}{58}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Data Frames}{59}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Identifying Objects and Data Structures}{60}{subsection.6.2.4}
+\contentsline {chapter}{\numberline {7}Programming Statements}{61}{chapter.7}
+\contentsline {section}{\numberline {7.1}Functions}{61}{section.7.1}
+\contentsline {section}{\numberline {7.2}If-Statements}{61}{section.7.2}
+\contentsline {section}{\numberline {7.3}For-Loops}{62}{section.7.3}
+\contentsline {paragraph}{Example 1: Creating a vector with a logical statement}{62}{section*.24}
+\contentsline {paragraph}{Example 2: Creating dummy variables by hand}{63}{section*.25}
+\contentsline {paragraph}{Example 3: Weighted regression with subsets}{64}{section*.26}
+\contentsline {chapter}{\numberline {8}Writing New Models}{66}{chapter.8}
+\contentsline {section}{\numberline {8.1}Managing Statistical Model Inputs}{67}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Describe the Statistical Model}{67}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Single Response Variable Models: Normal Regression Model}{68}{subsection.8.1.2}
+\contentsline {subsection}{\numberline {8.1.3}Multivariate models: Bivariate Normal example}{71}{subsection.8.1.3}
+\contentsline {section}{\numberline {8.2}Easy Ways to Manage Matrices}{73}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}The Intuitive Layout}{74}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}The Computationally-Efficient Layout}{74}{subsection.8.2.2}
+\contentsline {subsection}{\numberline {8.2.3}The Memory-Efficient Layout}{75}{subsection.8.2.3}
+\contentsline {subsection}{\numberline {8.2.4}Interchanging the Three Methods}{75}{subsection.8.2.4}
+\contentsline {chapter}{\numberline {9}Adding Models and Methods to Zelig}{78}{chapter.9}
+\contentsline {section}{\numberline {9.1}Making the Model Compatible with Zelig}{79}{section.9.1}
+\contentsline {subsubsection}{To Work with {\tt zelig()}}{80}{section*.27}
+\contentsline {subsubsection}{To Work with {\tt setx()}}{81}{section*.28}
+\contentsline {subsubsection}{Compatibility with {\tt sim()}}{81}{section*.29}
+\contentsline {paragraph}{Simulating Parameters}{81}{section*.30}
+\contentsline {paragraph}{Calculating Quantities of Interest}{83}{section*.31}
+\contentsline {section}{\numberline {9.2}Getting Ready for the GUI}{85}{section.9.2}
+\contentsline {section}{\numberline {9.3}Formatting Reference Manual Pages}{85}{section.9.3}
+\contentsline {part}{III\hspace {1em}Reference Manual}{88}{part.3}
+\contentsline {chapter}{\numberline {10}Main Commands}{89}{chapter.10}
+\contentsline {section}{\numberline {10.1}{\tt zelig}: Estimating a Statistical Model}{89}{section.10.1}
+\contentsline {subsubsection}{Description}{89}{section*.33}
+\contentsline {subsubsection}{Syntax}{89}{section*.34}
+\contentsline {subsubsection}{Arguments}{89}{section*.35}
+\contentsline {subsubsection}{Output Values}{91}{section*.36}
+\contentsline {subsubsection}{Examples}{91}{section*.37}
+\contentsline {subsubsection}{See Also}{92}{section*.38}
+\contentsline {subsubsection}{Contributors}{92}{section*.39}
+\contentsline {section}{\numberline {10.2}{\tt setx}: Setting Explanatory Variable Values}{93}{section.10.2}
+\contentsline {subsubsection}{Description}{93}{section*.40}
+\contentsline {subsubsection}{Syntax}{93}{section*.41}
+\contentsline {subsubsection}{Arguments}{93}{section*.42}
+\contentsline {subsubsection}{Output Values}{94}{section*.43}
+\contentsline {subsubsection}{Example: Unconditional Prediction}{94}{section*.44}
+\contentsline {subsubsection}{Example: Conditional Prediction With MatchIt Data}{94}{section*.45}
+\contentsline {subsubsection}{Example: Conditional Prediction With Multiple Analyses}{95}{section*.46}
+\contentsline {subsubsection}{See Also}{95}{section*.47}
+\contentsline {subsubsection}{Contributors}{95}{section*.48}
+\contentsline {section}{\numberline {10.3}{\tt sim}: Simulating Quantities of Interest}{96}{section.10.3}
+\contentsline {subsubsection}{Description}{96}{section*.49}
+\contentsline {subsubsection}{Syntax}{96}{section*.50}
+\contentsline {subsubsection}{Arguments}{96}{section*.51}
+\contentsline {subsubsection}{Output Values}{97}{section*.52}
+\contentsline {subsubsection}{See Also}{98}{section*.53}
+\contentsline {subsubsection}{Contributors}{98}{section*.54}
+\contentsline {section}{\numberline {10.4}{\tt summary}: Summarizing Zelig Output}{99}{section.10.4}
+\contentsline {subsubsection}{Description}{99}{section*.55}
+\contentsline {subsubsection}{Syntax}{99}{section*.56}
+\contentsline {subsubsection}{Arguments for multiply-imputed {\tt zelig()} output}{99}{section*.57}
+\contentsline {subsubsection}{Arguments for subsetted {\tt zelig()} output}{99}{section*.58}
+\contentsline {subsubsection}{Arguments for {\tt sim()} output}{100}{section*.59}
+\contentsline {subsubsection}{Output Values}{100}{section*.60}
+\contentsline {subsubsection}{See Also}{100}{section*.61}
+\contentsline {subsubsection}{Contributors}{101}{section*.62}
+\contentsline {section}{\numberline {10.5}{\tt plot}: Graphing Quantities of Interest}{102}{section.10.5}
+\contentsline {subsubsection}{Description}{102}{section*.63}
+\contentsline {subsubsection}{Syntax}{102}{section*.64}
+\contentsline {subsubsection}{Arguments}{102}{section*.65}
+\contentsline {subsubsection}{Output Values}{102}{section*.66}
+\contentsline {subsubsection}{Examples}{102}{section*.67}
+\contentsline {subsubsection}{See Also}{103}{section*.68}
+\contentsline {subsubsection}{Contributors}{103}{section*.69}
+\contentsline {section}{\numberline {10.6}{\tt print}: Printing Quantities of Interest}{104}{section.10.6}
+\contentsline {subsubsection}{Description}{104}{section*.70}
+\contentsline {subsubsection}{Syntax}{104}{section*.71}
+\contentsline {subsubsection}{Arguments}{104}{section*.72}
+\contentsline {subsubsection}{Examples}{104}{section*.73}
+\contentsline {subsubsection}{See Also}{104}{section*.74}
+\contentsline {subsubsection}{Contributors}{104}{section*.75}
+\contentsline {section}{\numberline {10.7}{\tt repl}: Replicating Analyses}{105}{section.10.7}
+\contentsline {subsubsection}{Description}{105}{section*.76}
+\contentsline {subsubsection}{Syntax}{105}{section*.77}
+\contentsline {subsubsection}{Arguments}{105}{section*.78}
+\contentsline {subsubsection}{Output Values}{105}{section*.79}
+\contentsline {subsubsection}{Examples}{106}{section*.80}
+\contentsline {subsubsection}{See Also}{106}{section*.81}
+\contentsline {subsubsection}{Contributors}{106}{section*.82}
+\contentsline {chapter}{\numberline {11}Supplementary Commands}{107}{chapter.11}
+\contentsline {section}{\numberline {11.1}{\tt matchit}: Create matched data}{107}{section.11.1}
+\contentsline {subsubsection}{Description}{107}{section*.83}
+\contentsline {subsubsection}{Syntax}{107}{section*.84}
+\contentsline {subsubsection}{Arguments}{107}{section*.85}
+\contentsline {paragraph}{Arguments for All Matching Methods}{107}{section*.86}
+\contentsline {paragraph}{Additional Arguments for Specification of Distance Measures}{108}{section*.87}
+\contentsline {paragraph}{Additional Arguments for Subclassification}{110}{section*.88}
+\contentsline {paragraph}{Additional Arguments for Nearest Neighbor Matching}{110}{section*.89}
+\contentsline {paragraph}{Additional Arguments for Optimal Matching}{111}{section*.90}
+\contentsline {paragraph}{Additional Arguments for Full Matching}{111}{section*.91}
+\contentsline {paragraph}{Additional Arguments for Genetic Matching}{111}{section*.92}
+\contentsline {subsubsection}{Output Values}{112}{section*.93}
+\contentsline {subsubsection}{Contributors}{113}{section*.94}
+\contentsline {section}{\numberline {11.2}{\tt mi}: Create a list of multiply imputed data frames}{115}{section.11.2}
+\contentsline {subsubsection}{Description}{115}{section*.95}
+\contentsline {subsubsection}{Syntax}{115}{section*.96}
+\contentsline {subsubsection}{Arguments}{115}{section*.97}
+\contentsline {subsubsection}{Output Values}{115}{section*.98}
+\contentsline {subsubsection}{See Also}{115}{section*.99}
+\contentsline {subsubsection}{Contributors}{115}{section*.100}
+\contentsline {subsection}{\numberline {11.2.1} \texttt {network}: Format Individual Matricies into a Data Frame for Social Network Analysis }{116}{subsection.11.2.1}
+\contentsline {subsubsection}{Description}{116}{section*.101}
+\contentsline {subsubsection}{Usage}{116}{section*.102}
+\contentsline {subsubsection}{Arguments}{116}{section*.103}
+\contentsline {subsubsection}{Details}{116}{section*.104}
+\contentsline {subsubsection}{Example}{116}{section*.105}
+\contentsline {subsubsection}{Contributors}{116}{section*.106}
+\contentsline {section}{\numberline {11.3}{\tt plot.ci}: Plotting Vertical confidence Intervals}{117}{section.11.3}
+\contentsline {subsubsection}{Description}{117}{section*.107}
+\contentsline {subsubsection}{Syntax}{117}{section*.108}
+\contentsline {subsubsection}{Arguments}{117}{section*.109}
+\contentsline {subsubsection}{Output Values}{117}{section*.110}
+\contentsline {subsubsection}{Example}{117}{section*.111}
+\contentsline {subsubsection}{See Also}{118}{section*.112}
+\contentsline {subsubsection}{Contributors}{118}{section*.113}
+\contentsline {section}{\numberline {11.4}{\tt rocplot}: Receiver Operator Characteristic Plots}{119}{section.11.4}
+\contentsline {subsubsection}{Description}{119}{section*.114}
+\contentsline {subsubsection}{Syntax}{119}{section*.115}
+\contentsline {subsubsection}{Arguments}{119}{section*.116}
+\contentsline {subsubsection}{Output Values}{120}{section*.117}
+\contentsline {subsubsection}{Example}{120}{section*.118}
+\contentsline {subsubsection}{See Also}{120}{section*.119}
+\contentsline {subsubsection}{Contributors}{120}{section*.120}
+\contentsline {section}{\numberline {11.5}{\tt ternaryplot}: Ternary Diagram for 3D Data}{121}{section.11.5}
+\contentsline {subsubsection}{Description}{121}{section*.121}
+\contentsline {subsubsection}{Syntax}{121}{section*.122}
+\contentsline {subsubsection}{Arguments}{121}{section*.123}
+\contentsline {subsubsection}{Examples}{122}{section*.124}
+\contentsline {subsubsection}{See Also}{122}{section*.125}
+\contentsline {subsubsection}{Contributors}{122}{section*.126}
+\contentsline {section}{\numberline {11.6}{\tt ternarypoints}: Adding Points to Ternary Diagrams}{123}{section.11.6}
+\contentsline {subsubsection}{Description}{123}{section*.127}
+\contentsline {subsubsection}{Syntax}{123}{section*.128}
+\contentsline {subsubsection}{Arguments}{123}{section*.129}
+\contentsline {subsubsection}{Output Values}{123}{section*.130}
+\contentsline {subsubsection}{Examples}{123}{section*.131}
+\contentsline {subsubsection}{See Also}{123}{section*.132}
+\contentsline {subsubsection}{Contributors}{123}{section*.133}
+\contentsline {chapter}{\numberline {12}Models Zelig Can Run}{124}{chapter.12}
+\contentsline {section}{\numberline {12.1}{\tt ARIMA} : ARIMA Models for Time Series Data}{126}{section.12.1}
+\contentsline {section}{\numberline {12.2}{\tt blogit}: Bivariate Logistic Regression for Two Dichotomous Dependent Variables}{132}{section.12.2}
+\contentsline {subsubsection}{Syntax}{132}{section*.143}
+\contentsline {subsubsection}{Input Values}{132}{section*.144}
+\contentsline {subsubsection}{Examples}{132}{section*.145}
+\contentsline {subsubsection}{Model}{134}{section*.146}
+\contentsline {subsubsection}{Quantities of Interest}{135}{section*.147}
+\contentsline {subsubsection}{Output Values}{136}{section*.148}
+\contentsline {subsubsection}{Contributors}{137}{section*.149}
+\contentsline {section}{\numberline {12.3}{\tt bprobit}: Bivariate Probit Regression for Two Dichotomous Dependent Variables}{138}{section.12.3}
+\contentsline {subsubsection}{Syntax}{138}{section*.150}
+\contentsline {subsubsection}{Input Values}{138}{section*.151}
+\contentsline {subsubsection}{Examples}{139}{section*.152}
+\contentsline {subsubsection}{Model}{140}{section*.153}
+\contentsline {subsubsection}{Quantities of Interest}{141}{section*.154}
+\contentsline {subsubsection}{Output Values}{142}{section*.155}
+\contentsline {subsubsection}{Contributors}{143}{section*.156}
+\contentsline {section}{\numberline {12.4}\texttt {ei.dynamic}: Quinn's Dynamic Ecological Inference Model}{145}{section.12.4}
+\contentsline {subsubsection}{Syntax}{145}{section*.157}
+\contentsline {subsubsection}{Inputs}{145}{section*.158}
+\contentsline {subsubsection}{Additional Inputs}{145}{section*.159}
+\contentsline {subsubsection}{Convergence}{146}{section*.160}
+\contentsline {subsubsection}{Examples}{147}{section*.161}
+\contentsline {subsubsection}{Model}{148}{section*.162}
+\contentsline {subsubsection}{Output Values}{149}{section*.163}
+\contentsline {subsubsection}{Contributors}{150}{section*.164}
+\contentsline {section}{\numberline {12.5}\texttt {ei.hier}: Hierarchical Ecological Inference Model for $2 \times 2$ Tables}{151}{section.12.5}
+\contentsline {subsubsection}{Syntax}{151}{section*.165}
+\contentsline {subsubsection}{Inputs}{151}{section*.166}
+\contentsline {subsubsection}{Additional Inputs}{151}{section*.167}
+\contentsline {subsubsection}{Convergence}{152}{section*.168}
+\contentsline {subsubsection}{Examples}{153}{section*.169}
+\contentsline {subsubsection}{Model}{154}{section*.170}
+\contentsline {subsubsection}{Output Values}{155}{section*.171}
+\contentsline {subsubsection}{Contributors}{156}{section*.172}
+\contentsline {section}{\numberline {12.6}\texttt {ei.RxC}: Hierarchical Multinomial-Dirichlet Ecological Inference Model for $R \times C$ Tables}{157}{section.12.6}
+\contentsline {subsubsection}{Syntax}{157}{section*.173}
+\contentsline {subsubsection}{Inputs}{157}{section*.174}
+\contentsline {subsubsection}{Examples}{157}{section*.175}
+\contentsline {subsubsection}{Model}{159}{section*.176}
+\contentsline {subsubsection}{Output Values}{160}{section*.177}
+\contentsline {subsubsection}{Contributors}{160}{section*.178}
+\contentsline {section}{\numberline {12.7}{\tt exp}: Exponential Regression for Duration Dependent Variables}{161}{section.12.7}
+\contentsline {subsubsection}{Syntax}{161}{section*.179}
+\contentsline {subsubsection}{Input Values}{161}{section*.180}
+\contentsline {subsubsection}{Example}{162}{section*.181}
+\contentsline {subsubsection}{Model}{162}{section*.182}
+\contentsline {subsubsection}{Quantities of Interest}{163}{section*.183}
+\contentsline {subsubsection}{Output Values}{164}{section*.184}
+\contentsline {subsubsection}{Contributors}{165}{section*.185}
+\contentsline {section}{\numberline {12.8}\texttt {factor.bayes}: Bayesian Factor Analysis}{166}{section.12.8}
+\contentsline {subsubsection}{Syntax}{166}{section*.186}
+\contentsline {subsubsection}{Inputs}{166}{section*.187}
+\contentsline {subsubsection}{Additional Inputs}{166}{section*.188}
+\contentsline {subsubsection}{Convergence}{168}{section*.189}
+\contentsline {subsubsection}{Examples}{168}{section*.190}
+\contentsline {subsubsection}{Model}{169}{section*.191}
+\contentsline {subsubsection}{Output Values}{170}{section*.192}
+\contentsline {subsubsection}{Contributors}{170}{section*.193}
+\contentsline {section}{\numberline {12.9}\texttt {factor.mix}: Mixed Data Factor Analysis}{171}{section.12.9}
+\contentsline {subsubsection}{Syntax}{171}{section*.194}
+\contentsline {subsubsection}{Inputs}{171}{section*.195}
+\contentsline {subsubsection}{Additional Inputs}{171}{section*.196}
+\contentsline {subsubsection}{Convergence}{173}{section*.197}
+\contentsline {subsubsection}{Examples}{174}{section*.198}
+\contentsline {subsubsection}{Model}{174}{section*.199}
+\contentsline {subsubsection}{Output Values}{175}{section*.200}
+\contentsline {subsubsection}{Contributors}{176}{section*.201}
+\contentsline {section}{\numberline {12.10}\texttt {factor.ord}: Ordinal Data Factor Analysis}{177}{section.12.10}
+\contentsline {subsubsection}{Syntax}{177}{section*.202}
+\contentsline {subsubsection}{Inputs}{177}{section*.203}
+\contentsline {subsubsection}{Additional Inputs}{177}{section*.204}
+\contentsline {subsubsection}{Convergence}{179}{section*.205}
+\contentsline {subsubsection}{Examples}{179}{section*.206}
+\contentsline {subsubsection}{Model}{180}{section*.207}
+\contentsline {subsubsection}{Output Values}{181}{section*.208}
+\contentsline {subsubsection}{Contributors}{181}{section*.209}
+\contentsline {section}{\numberline {12.11}{\tt gamma}: Gamma Regression for Continuous, Positive Dependent Variables}{182}{section.12.11}
+\contentsline {subsubsection}{Syntax}{182}{section*.210}
+\contentsline {subsubsection}{Additional Inputs}{182}{section*.211}
+\contentsline {subsubsection}{Example}{182}{section*.212}
+\contentsline {subsubsection}{Model}{183}{section*.213}
+\contentsline {subsubsection}{Quantities of Interest}{183}{section*.214}
+\contentsline {subsubsection}{Output Values}{184}{section*.215}
+\contentsline {subsubsection}{Contributors}{185}{section*.216}
+\contentsline {section}{\numberline {12.12}\texttt {irt1d}: One Dimensional Item Response Model}{187}{section.12.12}
+\contentsline {subsubsection}{Syntax}{187}{section*.217}
+\contentsline {subsubsection}{Inputs}{187}{section*.218}
+\contentsline {subsubsection}{Additional arguments}{187}{section*.219}
+\contentsline {subsubsection}{Convergence}{189}{section*.220}
+\contentsline {subsubsection}{Examples}{189}{section*.221}
+\contentsline {subsubsection}{Model}{190}{section*.222}
+\contentsline {subsubsection}{Output Values}{191}{section*.223}
+\contentsline {subsubsection}{Contributors}{191}{section*.224}
+\contentsline {section}{\numberline {12.13}\texttt {irtkd}: $k$-Dimensional Item Response Theory Model}{192}{section.12.13}
+\contentsline {subsubsection}{Syntax}{192}{section*.225}
+\contentsline {subsubsection}{Inputs}{192}{section*.226}
+\contentsline {subsubsection}{Additional arguments}{192}{section*.227}
+\contentsline {subsubsection}{Convergence}{194}{section*.228}
+\contentsline {subsubsection}{Examples}{194}{section*.229}
+\contentsline {subsubsection}{Model}{195}{section*.230}
+\contentsline {subsubsection}{Output Values}{196}{section*.231}
+\contentsline {subsubsection}{Contributors}{196}{section*.232}
+\contentsline {section}{\numberline {12.14}{\tt logit}: Logistic Regression for Dichotomous Dependent Variables}{197}{section.12.14}
+\contentsline {subsubsection}{Syntax}{197}{section*.233}
+\contentsline {subsubsection}{Additional Inputs}{197}{section*.234}
+\contentsline {subsubsection}{Examples}{197}{section*.235}
+\contentsline {subsubsection}{Model}{199}{section*.236}
+\contentsline {subsubsection}{Quantities of Interest}{199}{section*.237}
+\contentsline {subsubsection}{Output Values}{200}{section*.238}
+\contentsline {subsubsection}{Contributors}{201}{section*.239}
+\contentsline {section}{\numberline {12.15}\texttt {logit.bayes}: Bayesian Logistic Regression}{202}{section.12.15}
+\contentsline {subsubsection}{Syntax}{202}{section*.240}
+\contentsline {subsubsection}{Additional Inputs}{202}{section*.241}
+\contentsline {subsubsection}{Convergence}{203}{section*.242}
+\contentsline {subsubsection}{Examples}{203}{section*.243}
+\contentsline {subsubsection}{Model}{204}{section*.244}
+\contentsline {subsubsection}{Quantities of Interest}{205}{section*.245}
+\contentsline {subsubsection}{Output Values}{205}{section*.246}
+\contentsline {subsubsection}{Contributors}{206}{section*.247}
+\contentsline {section}{\numberline {12.16}{\tt lognorm}: Log-Normal Regression for Duration Dependent Variables}{207}{section.12.16}
+\contentsline {subsubsection}{Syntax}{207}{section*.248}
+\contentsline {subsubsection}{Input Values}{207}{section*.249}
+\contentsline {subsubsection}{Example}{208}{section*.250}
+\contentsline {subsubsection}{Model}{208}{section*.251}
+\contentsline {subsubsection}{Quantities of Interest}{209}{section*.252}
+\contentsline {subsubsection}{Output Values}{210}{section*.253}
+\contentsline {subsubsection}{Contributors}{211}{section*.254}
+\contentsline {section}{\numberline {12.17}{\tt ls}: Least Squares Regression for Continuous Dependent Variables}{212}{section.12.17}
+\contentsline {subsubsection}{Syntax}{212}{section*.255}
+\contentsline {subsubsection}{Additional Inputs}{212}{section*.256}
+\contentsline {subsubsection}{Examples}{212}{section*.257}
+\contentsline {subsubsection}{Model}{214}{section*.258}
+\contentsline {subsubsection}{Quantities of Interest}{214}{section*.259}
+\contentsline {subsubsection}{Output Values}{214}{section*.260}
+\contentsline {subsubsection}{Contributors}{215}{section*.261}
+\contentsline {section}{\numberline {12.18}{\tt mlogit}: Multinomial Logistic Regression for Dependent Variables with Unordered Categorical Values}{217}{section.12.18}
+\contentsline {subsubsection}{Syntax}{217}{section*.262}
+\contentsline {subsubsection}{Input Values}{217}{section*.263}
+\contentsline {subsubsection}{Examples}{217}{section*.264}
+\contentsline {subsubsection}{Model}{219}{section*.265}
+\contentsline {subsubsection}{Quantities of Interest}{219}{section*.266}
+\contentsline {subsubsection}{Output Values}{220}{section*.267}
+\contentsline {subsubsection}{Further Information}{221}{section*.268}
+\contentsline {section}{\numberline {12.19}\texttt {mlogit.bayes}: Bayesian Multinomial Logistic Regression}{222}{section.12.19}
+\contentsline {subsubsection}{Syntax}{222}{section*.269}
+\contentsline {subsubsection}{Additional Inputs}{222}{section*.270}
+\contentsline {subsubsection}{Convergence}{223}{section*.271}
+\contentsline {subsubsection}{Examples}{224}{section*.272}
+\contentsline {subsubsection}{Model}{225}{section*.273}
+\contentsline {subsubsection}{Quantities of Interest}{225}{section*.274}
+\contentsline {subsubsection}{Output Values}{226}{section*.275}
+\contentsline {subsubsection}{Contributors}{227}{section*.276}
+\contentsline {section}{\numberline {12.20}{\tt negbin}: Negative Binomial Regression for Event Count Dependent Variables}{228}{section.12.20}
+\contentsline {subsubsection}{Syntax}{228}{section*.277}
+\contentsline {subsubsection}{Additional Inputs}{228}{section*.278}
+\contentsline {subsubsection}{Example}{228}{section*.279}
+\contentsline {subsubsection}{Model}{229}{section*.280}
+\contentsline {subsubsection}{Quantities of Interest}{230}{section*.281}
+\contentsline {subsubsection}{Output Values}{230}{section*.282}
+\contentsline {subsubsection}{Contributors}{232}{section*.283}
+\contentsline {section}{\numberline {12.21}{\tt netls}: Network Least Squares Regression for Continuous Proximity Matrix Dependent Variables}{233}{section.12.21}
+\contentsline {subsubsection}{Syntax}{233}{section*.284}
+\contentsline {subsubsection}{Examples}{233}{section*.285}
+\contentsline {subsubsection}{Model}{234}{section*.286}
+\contentsline {subsubsection}{Quantities of Interest}{234}{section*.287}
+\contentsline {subsubsection}{Output Values}{234}{section*.288}
+\contentsline {subsubsection}{Contributors}{235}{section*.289}
+\contentsline {section}{\numberline {12.22}{\tt netlogit}: Network Logistic Regression for Dichotomous Proximity Matrix Dependent Variables}{236}{section.12.22}
+\contentsline {subsubsection}{Syntax}{236}{section*.290}
+\contentsline {subsubsection}{Examples}{236}{section*.291}
+\contentsline {subsubsection}{Model}{237}{section*.292}
+\contentsline {subsubsection}{Quantities of Interest}{237}{section*.293}
+\contentsline {subsubsection}{Output Values}{238}{section*.294}
+\contentsline {subsubsection}{Contributors}{239}{section*.295}
+\contentsline {section}{\numberline {12.23}{\tt normal}: Normal Regression for Continuous Dependent Variables}{240}{section.12.23}
+\contentsline {subsubsection}{Syntax}{240}{section*.296}
+\contentsline {subsubsection}{Additional Inputs}{240}{section*.297}
+\contentsline {subsubsection}{Examples}{240}{section*.298}
+\contentsline {subsubsection}{Model}{242}{section*.299}
+\contentsline {subsubsection}{Quantities of Interest}{242}{section*.300}
+\contentsline {subsubsection}{Output Values}{243}{section*.301}
+\contentsline {subsubsection}{Contributors}{244}{section*.302}
+\contentsline {section}{\numberline {12.24}\texttt {normal.bayes}: Bayesian Normal Linear Regression}{245}{section.12.24}
+\contentsline {subsubsection}{Syntax}{245}{section*.303}
+\contentsline {subsubsection}{Additional Inputs}{245}{section*.304}
+\contentsline {subsubsection}{Convergence}{246}{section*.305}
+\contentsline {subsubsection}{Examples}{246}{section*.306}
+\contentsline {subsubsection}{Model}{247}{section*.307}
+\contentsline {subsubsection}{Quantities of Interest}{248}{section*.308}
+\contentsline {subsubsection}{Output Values}{249}{section*.309}
+\contentsline {subsubsection}{Contributors}{249}{section*.310}
+\contentsline {section}{\numberline {12.25}{\tt ologit}: Ordinal Logistic Regression for Ordered Categorical Dependent Variables}{250}{section.12.25}
+\contentsline {subsubsection}{Syntax}{250}{section*.311}
+\contentsline {subsubsection}{Example}{250}{section*.312}
+\contentsline {subsubsection}{Model}{251}{section*.313}
+\contentsline {subsubsection}{Quantities of Interest}{252}{section*.314}
+\contentsline {subsubsection}{Output Values}{252}{section*.315}
+\contentsline {subsubsection}{Contributors}{253}{section*.316}
+\contentsline {section}{\numberline {12.26}{\tt oprobit}: Ordinal Probit Regression for Ordered Categorical Dependent Variables}{255}{section.12.26}
+\contentsline {subsubsection}{Syntax}{255}{section*.317}
+\contentsline {subsubsection}{Example}{255}{section*.318}
+\contentsline {subsubsection}{Model}{256}{section*.319}
+\contentsline {subsubsection}{Quantities of Interest}{257}{section*.320}
+\contentsline {subsubsection}{Output Values}{258}{section*.321}
+\contentsline {subsubsection}{Contributors}{259}{section*.322}
+\contentsline {section}{\numberline {12.27}\texttt {oprobit.bayes}: Bayesian Ordered Probit Regression}{260}{section.12.27}
+\contentsline {subsubsection}{Syntax}{260}{section*.323}
+\contentsline {subsubsection}{Additional Inputs}{260}{section*.324}
+\contentsline {subsubsection}{Convergence}{261}{section*.325}
+\contentsline {subsubsection}{Examples}{261}{section*.326}
+\contentsline {subsubsection}{Model}{262}{section*.327}
+\contentsline {subsubsection}{Quantities of Interest}{263}{section*.328}
+\contentsline {subsubsection}{Output Values}{264}{section*.329}
+\contentsline {subsubsection}{Contributors}{265}{section*.330}
+\contentsline {section}{\numberline {12.28}{\tt poisson}: Poisson Regression for Event Count Dependent Variables}{266}{section.12.28}
+\contentsline {subsubsection}{Syntax}{266}{section*.331}
+\contentsline {subsubsection}{Additional Inputs}{266}{section*.332}
+\contentsline {subsubsection}{Example}{266}{section*.333}
+\contentsline {subsubsection}{Model}{267}{section*.334}
+\contentsline {subsubsection}{Quantities of Interest}{267}{section*.335}
+\contentsline {subsubsection}{Output Values}{268}{section*.336}
+\contentsline {subsubsection}{Contributors}{269}{section*.337}
+\contentsline {section}{\numberline {12.29}\texttt {poisson.bayes}: Bayesian Poisson Regression}{270}{section.12.29}
+\contentsline {subsubsection}{Syntax}{270}{section*.338}
+\contentsline {subsubsection}{Additional Inputs}{270}{section*.339}
+\contentsline {subsubsection}{Convergence}{271}{section*.340}
+\contentsline {subsubsection}{Examples}{271}{section*.341}
+\contentsline {subsubsection}{Model}{272}{section*.342}
+\contentsline {subsubsection}{Quantities of Interest}{273}{section*.343}
+\contentsline {subsubsection}{Output Values}{273}{section*.344}
+\contentsline {subsubsection}{Contributors}{274}{section*.345}
+\contentsline {section}{\numberline {12.30}{\tt probit}: Probit Regression for Dichotomous Dependent Variables}{275}{section.12.30}
+\contentsline {subsubsection}{Syntax}{275}{section*.346}
+\contentsline {subsubsection}{Additional Inputs}{275}{section*.347}
+\contentsline {subsubsection}{Examples}{275}{section*.348}
+\contentsline {subsubsection}{Model}{276}{section*.349}
+\contentsline {subsubsection}{Quantities of Interest}{276}{section*.350}
+\contentsline {subsubsection}{Output Values}{277}{section*.351}
+\contentsline {subsubsection}{Contributors}{278}{section*.352}
+\contentsline {section}{\numberline {12.31}\texttt {probit.bayes}: Bayesian Probit Regression}{280}{section.12.31}
+\contentsline {subsubsection}{Syntax}{280}{section*.353}
+\contentsline {subsubsection}{Additional Inputs}{280}{section*.354}
+\contentsline {subsubsection}{Convergence}{281}{section*.355}
+\contentsline {subsubsection}{Examples}{281}{section*.356}
+\contentsline {subsubsection}{Model}{282}{section*.357}
+\contentsline {subsubsection}{Quantities of Interest}{283}{section*.358}
+\contentsline {subsubsection}{Output Values}{283}{section*.359}
+\contentsline {subsubsection}{Contributors}{284}{section*.360}
+\contentsline {section}{\numberline {12.32}{\tt relogit}: Rare Events Logistic Regression for Dichotomous Dependent Variables}{285}{section.12.32}
+\contentsline {subsubsection}{Syntax}{285}{section*.361}
+\contentsline {subsubsection}{Arguments}{285}{section*.362}
+\contentsline {subsubsection}{Model}{288}{section*.366}
+\contentsline {subsubsection}{Quantities of Interest}{289}{section*.367}
+\contentsline {subsubsection}{Output Values}{290}{section*.368}
+\contentsline {subsubsection}{Differences with Stata Version}{291}{section*.369}
+\contentsline {subsubsection}{Contributors}{292}{section*.370}
+\contentsline {section}{\numberline {12.33}\texttt {tobit}: Linear Regression for a Left-Censored Dependent Variable}{293}{section.12.33}
+\contentsline {subsubsection}{Syntax}{293}{section*.371}
+\contentsline {subsubsection}{Inputs}{293}{section*.372}
+\contentsline {subsubsection}{Examples}{294}{section*.373}
+\contentsline {subsubsection}{Model}{294}{section*.374}
+\contentsline {subsubsection}{Quantities of Interest}{295}{section*.375}
+\contentsline {subsubsection}{Output Values}{295}{section*.376}
+\contentsline {subsubsection}{Contributors}{296}{section*.377}
+\contentsline {section}{\numberline {12.34}\texttt {tobit.bayes}: Bayesian Linear Regression for a Censored Dependent Variable}{297}{section.12.34}
+\contentsline {subsubsection}{Syntax}{297}{section*.378}
+\contentsline {subsubsection}{Inputs}{297}{section*.379}
+\contentsline {subsubsection}{Additional Inputs}{297}{section*.380}
+\contentsline {subsubsection}{Convergence}{298}{section*.381}
+\contentsline {subsubsection}{Examples}{299}{section*.382}
+\contentsline {subsubsection}{Model}{300}{section*.383}
+\contentsline {subsubsection}{Quantities of Interest}{300}{section*.384}
+\contentsline {subsubsection}{Output Values}{301}{section*.385}
+\contentsline {subsubsection}{Contributors}{302}{section*.386}
+\contentsline {section}{\numberline {12.35}{\tt weibull}: Weibull Regression for Duration Dependent Variables}{303}{section.12.35}
+\contentsline {subsubsection}{Syntax}{303}{section*.387}
+\contentsline {subsubsection}{Input Values}{303}{section*.388}
+\contentsline {subsubsection}{Example}{304}{section*.389}
+\contentsline {subsubsection}{Model}{304}{section*.390}
+\contentsline {subsubsection}{Quantities of Interest}{305}{section*.391}
+\contentsline {subsubsection}{Output Values}{306}{section*.392}
+\contentsline {subsubsection}{Contributors}{307}{section*.393}
+\contentsline {chapter}{\numberline {13}Commands for Programmers and Contributors}{308}{chapter.13}
+\contentsline {section}{\numberline {13.1}{\tt describe}: Describe a model's systematic and stochastic parameters}{308}{section.13.1}
+\contentsline {subsubsection}{Description}{308}{section*.394}
+\contentsline {subsubsection}{Syntax}{308}{section*.395}
+\contentsline {subsubsection}{Arguments}{308}{section*.396}
+\contentsline {subsubsection}{Output Values}{308}{section*.397}
+\contentsline {subsubsection}{Examples}{310}{section*.398}
+\contentsline {subsubsection}{See Also}{312}{section*.399}
+\contentsline {subsubsection}{Contributors}{312}{section*.400}
+\contentsline {section}{\numberline {13.2}{\tt model.end}: Cleaning up after optimization}{313}{section.13.2}
+\contentsline {subsubsection}{Description}{313}{section*.401}
+\contentsline {subsubsection}{Syntax}{313}{section*.402}
+\contentsline {subsubsection}{Arguments}{313}{section*.403}
+\contentsline {subsubsection}{Output Values}{313}{section*.404}
+\contentsline {subsubsection}{See Also}{313}{section*.405}
+\contentsline {subsubsection}{Contributors}{313}{section*.406}
+\contentsline {section}{\numberline {13.3}{\tt model.frame.multiple}: Extracting the ``environment'' of a model formula}{314}{section.13.3}
+\contentsline {subsubsection}{Description}{314}{section*.407}
+\contentsline {subsubsection}{Syntax}{314}{section*.408}
+\contentsline {subsubsection}{Arguments}{314}{section*.409}
+\contentsline {subsubsection}{Output Values}{314}{section*.410}
+\contentsline {subsubsection}{Examples}{314}{section*.411}
+\contentsline {subsubsection}{See Also}{315}{section*.412}
+\contentsline {subsubsection}{Contributors}{315}{section*.413}
+\contentsline {section}{\numberline {13.4}{\tt model.matrix.multiple}: Design matrix for multivariate models}{316}{section.13.4}
+\contentsline {subsubsection}{Description}{316}{section*.414}
+\contentsline {subsubsection}{Syntax}{316}{section*.415}
+\contentsline {subsubsection}{Arguments}{316}{section*.416}
+\contentsline {subsubsection}{Output Values}{316}{section*.417}
+\contentsline {subsubsection}{Examples}{317}{section*.418}
+\contentsline {subsubsection}{See Also}{317}{section*.419}
+\contentsline {subsubsection}{Contributors}{317}{section*.420}
+\contentsline {section}{\numberline {13.5}{\tt parse.formula}: Parsing the inputs}{318}{section.13.5}
+\contentsline {subsubsection}{Description}{318}{section*.421}
+\contentsline {subsubsection}{Syntax}{318}{section*.422}
+\contentsline {subsubsection}{Arguments}{318}{section*.423}
+\contentsline {subsubsection}{Output Values}{318}{section*.424}
+\contentsline {subsubsection}{Examples}{318}{section*.425}
+\contentsline {subsubsection}{See Also}{318}{section*.426}
+\contentsline {subsubsection}{Contributors}{319}{section*.427}
+\contentsline {section}{\numberline {13.6}{\tt parse.par}: Select and reshape parameter vectors}{321}{section.13.6}
+\contentsline {subsubsection}{Description}{321}{section*.428}
+\contentsline {subsubsection}{Syntax}{321}{section*.429}
+\contentsline {subsubsection}{Arguments}{321}{section*.430}
+\contentsline {subsubsection}{Output Values}{321}{section*.431}
+\contentsline {subsubsection}{Examples}{321}{section*.432}
+\contentsline {subsubsection}{See Also}{322}{section*.433}
+\contentsline {subsubsection}{Contributors}{322}{section*.434}
+\contentsline {section}{\numberline {13.7}{\tt put.start}: Set specific starting values for certain parameters}{323}{section.13.7}
+\contentsline {subsubsection}{Description}{323}{section*.435}
+\contentsline {subsubsection}{Syntax}{323}{section*.436}
+\contentsline {subsubsection}{Arguments}{323}{section*.437}
+\contentsline {subsubsection}{Output Values}{323}{section*.438}
+\contentsline {subsubsection}{See Also}{323}{section*.439}
+\contentsline {subsubsection}{Contributors}{323}{section*.440}
+\contentsline {section}{\numberline {13.8}{\tt set.start}: Set starting values for all parameters}{324}{section.13.8}
+\contentsline {subsubsection}{Description}{324}{section*.441}
+\contentsline {subsubsection}{Syntax}{324}{section*.442}
+\contentsline {subsubsection}{Arguments}{324}{section*.443}
+\contentsline {subsubsection}{Output Values}{324}{section*.444}
+\contentsline {subsubsection}{Example}{324}{section*.445}
+\contentsline {subsubsection}{See Also}{324}{section*.446}
+\contentsline {subsubsection}{Contributors}{324}{section*.447}
+\contentsline {section}{\numberline {13.9}{\tt tag}: Constrain parameter effects across equations}{325}{section.13.9}
+\contentsline {subsubsection}{Description}{325}{section*.448}
+\contentsline {subsubsection}{Syntax}{325}{section*.449}
+\contentsline {subsubsection}{Arguments}{325}{section*.450}
+\contentsline {subsubsection}{Output Values}{325}{section*.451}
+\contentsline {subsubsection}{Examples}{325}{section*.452}
+\contentsline {subsubsection}{See Also}{325}{section*.453}
+\contentsline {subsubsection}{Contributors}{325}{section*.454}
+\contentsline {part}{IV\hspace {1em}Appendices}{326}{part.4}
+\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{327}{appendix.A}
+\contentsline {section}{\numberline {A.1}For All Zelig Users}{327}{section.A.1}
+\contentsline {section}{\numberline {A.2}For Zelig Contributors}{331}{section.A.2}
+\contentsline {chapter}{\numberline {B}What's New? What's Next?}{333}{appendix.B}
+\contentsline {section}{\numberline {B.1}What's New: Zelig Release Notes}{333}{section.B.1}
+\contentsline {section}{\numberline {B.2}What's Next?}{339}{section.B.2}

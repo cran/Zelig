@@ -1,0 +1,86 @@
+\section{{\tt plot.ci}: Plotting Vertical confidence Intervals}\label{plot.ci}
+
+\subsubsection{Description}
+The \texttt{plot.ci()} command generates vertical confidence intervals
+for linear or generalized linear univariate response models.  
+
+\subsubsection{Syntax}
+\begin{verbatim}
+> plot.ci(object, CI = 95, qi = "ev", col = c("red", "blue"), ...) 
+\end{verbatim}
+
+\subsubsection{Arguments}
+\begin{itemize}
+\item {\tt object}: stored output from {\tt sim()}.  The {\tt x} and optional
+  {\tt x1} values used to generate the {\tt sim()} output object must
+  have more than one observation.  
+\item {\tt CI}: the selected confidence interval.  Defaults to 95
+  percent.  
+\item {\tt qi}: the selected quantity of interest.  Defaults to
+  expected values.
+\item {\tt col}: a vector of at most two colors for plotting the
+  expected value given by {\tt x} and the alternative set of expected
+  values given by {\tt x1} in {\tt sim()}.  If the quantity of
+  interest selected is not the expected value, or {\tt x1 = NULL},
+  only the first color will be used. 
+\item {\tt \dots}: Additional parameters, such as {\tt xlab}, {\tt
+    ylab}, and {\tt main}, passed to {\tt plot()}.  
+\end{itemize}
+
+\subsubsection{Output Values}
+For all univariate response models, {\tt plot.ci()} returns vertical
+confidence intervals over a specified range of one explanatory
+variable.  You may save this plot using the commands described in
+\Sref{ss:output}.  
+
+\subsubsection{Example}
+
+This demo is available within R as {\tt demo(vertci)}.  Load the
+sample data and estimate the model.
+\begin{verbatim}
+data(turnout)
+z.out <- zelig(vote ~ race + educate + age + I(age^2) + income,
+               model = "logit", data = turnout)
+\end{verbatim}
+Establish a range for {\tt `age'}, the key explanatory variable, and
+create two {\tt setx} objects that hold the other explanatory
+variables to fixed, while allowing age to range from 18 to 95, inclusive.
+\begin{verbatim}
+age.range <- 18:95
+x.low <- setx(z.out, educate = 12, age = age.range)
+x.high <- setx(z.out, educate = 16, age = age.range)
+\end{verbatim}
+Simulate quantities of interest.  
+\begin{verbatim}
+s.out <- sim(z.out, x = x.low, x1 = x.high)
+\end{verbatim}
+Plot these results using the {\tt plot.ci()} function:  
+\begin{verbatim}
+plot.ci(s.out, xlab = "Age in Years",
+        ylab = "Predicted Probability of Voting",
+        main = "Effect of Education and Age on Voting Behavior")
+legend(45, 0.52, legend = c("College Education (16 years)",
+       "High School Education (12 years)"), col = c("blue","red"), 
+       lty = c("solid"))
+\end{verbatim}
+
+\subsubsection{See Also}
+\begin{itemize}
+  \item The {\tt help(plot)} and {\tt help(lines)} reference pages.    
+  \item \Sref{s:plot} for an overview of plotting procedures
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, and Olivia Lau created the R procedure to
+generate vertical confidence intervals for simulated quantities of
+interest.  
+
+Sample data are a selection of $2,000$ observations from
+\begin{verse}
+\bibentry{KinTomWit00}.  
+\end{verse}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

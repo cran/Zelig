@@ -1,0 +1,29 @@
+\section{{\tt matchit}: Create matched data}\label{matchit}
+
+\subsubsection{Description}
+
+\hlink{MatchIt}{http://gking.harvard.edu/matchit/} implements the
+suggestions of \cite{HoImaKin05b} for improving parametric statistical
+models by preprocessing data with semi-parametric matching methods. It
+uses a sophisticated array of matching methods to select well-matched
+treated and control units from the original data set, thus reducing
+the dependence of causal inferences on functional form and other
+parametric assumptions.  After pre-processing, MatchIt output can be
+used just like any other dataset in Zelig to estimate causal effects.
+In this way, MatchIt improves rather than replaces existing parametric
+models, reducing sensitivity to modeling assumptions.  The matching
+methods available in
+\hlink{MatchIt}{http://gking.harvard.edu/matchit/} include exact
+matching on all covariates, nearest neighbor matching,
+subclassification, optimal matching, genetic matching, and full
+matching.  An outline of all options are provided below; see the full
+documentation (available at
+\hlink{\url{http://gking.harvard.edu/matchit/}}{http://gking.harvard.edu/matchit/})
+for more details.
+
+\input{commands/matchitref}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "zelig"
+%%% End: 

@@ -1,1 +1,0 @@
-setx.netlogit <- setx.default

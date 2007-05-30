@@ -1,0 +1,193 @@
+\section{{\tt zelig}: Estimating a Statistical Model}\label{ss:zelig}
+
+\subsubsection{Description}
+The \texttt{zelig()} command estimates a variety of statistical models.  Use
+{\tt zelig()} output with {\tt setx()} and {\tt sim()} to compute
+quantities of interest, such as predicted probabilities, expected
+values, and first differences, along with the associated measures of
+uncertainty (standard errors and confidence intervals).
+
+\subsubsection{Syntax}
+\begin{verbatim}
+> z.out <- zelig(formula, model, data, by = NULL, ...)
+\end{verbatim}
+
+\subsubsection{Arguments}
+\begin{itemize}
+\item{\tt formula}: a symbolic representation of the model to be
+  estimated, in the form {\tt y \~\, x1 + x2}, where {\tt y} is the
+  dependent variable and {\tt x1} and {\tt x2} are the explanatory
+  variables, and {\tt y}, {\tt x1}, and {\tt x2} are contained in the
+  same dataset.  (You may include more than two explanatory variables,
+  of course.)  The {\tt +} symbol means ``inclusion'' not
+  ``addition.''  You may also include interaction terms and main
+  effects in the form {\tt x1*x2} without computing them in prior
+  steps; {\tt I(x1*x2)} to include only the interaction term and
+  exclude the main effects; and quadratic terms in the form {\tt
+    I(x1\^{}2)}.   
+\item{\tt model}: the name of a statistical model, enclosed in {\tt ""}.
+  Currently, the following models are supported:
+  \begin{itemize}
+    \item {\tt "arima"}: ARIMA regression (see \Sref{arima})
+    \item {\tt "blogit"}: Bivariate logistic regression.  (see
+      \Sref{blogit})
+    \item {\tt "bprobit"}: Bivariate probit regression.  (see
+      \Sref{bprobit})
+    \item {\tt "exp"}: Exponential duration regression.  (see
+      \Sref{exp})
+    \item {\tt "factor.bayes"}: Bayesian factor analysis.  (see
+\Sref{factor.bayes})
+    \item {\tt  "factor.mix"}: Mixed data Bayesian factor analysis.
+(see \Sref{factor.mix})
+    \item {\tt "factor.ord"}: Bayesian factor analysis for ordinal
+variables.  (see \Sref{factor.ord})
+    \item {\tt "ei.dynamic"}: Quinn's dyanamic ecological inference
+model for $2 \times 2$ tables. (see \Sref{ei.dynamic})
+    \item {\tt "ei.hier"}: Bayesian hierarchical ecological inference
+model for a cross-section of $2 \times 2$ tables.  (see
+\Sref{ei.hier})
+    \item {\tt "ei.RxC"}: Non-linear least squares approximation to
+the hierarchical Multinomial-Dirichlet ecological inference model in
+contingency tables with more than 2 rows or columns.  (see \Sref{eiRxC})
+    \item {\tt "gamma"}: Gamma regression.  (see
+      \Sref{gamma})
+    \item {\tt "irt1d"}: Bayesian unidimensional item response theory model.
+(see \Sref{irt1d})
+    \item {\tt "irtkd"}: Bayesian $k$-dimensional item response theory
+model.  (see \Sref{irtkd})
+    \item {\tt "logit"}: Logistic regression.  (see
+      \Sref{logit})
+    \item {\tt "logit.bayes"}: Bayesian logistic regression.  (see
+\Sref{logit.bayes})
+    \item {\tt "lognorm"}: Log-normal duration regression.  (see
+      \Sref{lognorm})
+    \item {\tt "ls"}: Linear least squares regression.  (see
+      \Sref{ls})
+    \item {\tt "mlogit"}: Multinomial logistic regression.  (see
+      \Sref{mlogit})
+    \item {\tt "mlogit.bayes"}: Bayesian multinomial logistic
+regression.  (see \Sref{mlogit.bayes})
+%     \item {\tt "mloglm"}: Multinomial log-linear regression.  (see
+%       \Sref{mloglm})
+%    \item {\tt "mprobit"}: Multinomial probit regression.  (see
+%      \Sref{mprobit})
+    \item {\tt "negbin"}: Negative binomial event count regression.
+      (see \Sref{negbin})
+    \item {\tt "netls"}: Network least squares regression (see
+\Sref{netls})
+\item {\tt "netlogit"}: Network logistic regression (see
+\Sref{netlogit})
+
+    \item {\tt "negbin"}: Negative binomial event count regression.
+      (see \Sref{negbin})
+    \item {\tt "normal"}: Normal linear regression.  (see
+      \Sref{normal})
+    \item {\tt "normal.bayes"}: Bayesian Normal regression (see \Sref{normal.bayes})
+    \item {\tt "ologit"}: Ordinal logistic regression.  (see
+      \Sref{ologit})
+    \item {\tt "oprobit"}: Ordinal probit regression.  (see
+      \Sref{oprobit})
+    \item {\tt "oprobit.bayes"}: Bayesian ordinal probit regression.
+(see \Sref{oprobit.bayes})
+    \item {\tt "poisson"}: Poisson event count regression.  (see
+      \Sref{poisson})
+    \item {\tt "poisson.bayes"}: Bayesian Poisson regression.  (see \Sref{poisson.bayes})
+    \item {\tt "probit"}: Probit regression.  (see
+      \Sref{probit})
+    \item {\tt "probit.bayes"}:  Bayesian Probit regression.  (see \Sref{probit.bayes})
+    \item {\tt "relogit"}: Rare events logistic regression.  (see
+      \Sref{relogit})
+    \item {\tt "tobit"}: Tobit regression.  (see \Sref{tobit})
+    \item {\tt "tobit.bayes"}: Bayesian tobit regression.  (see \Sref{tobit.bayes})
+    \item {\tt "weibull"}: Weibull regression.  (see
+      \Sref{weibull})
+  \end{itemize}
+\item {\tt data}: the name of a data frame containing the variables
+  referenced in the formula, or a list of multiply imputed data frames
+  each having the same variable names and number of rows (created by
+  {\tt mi()}).
+\item {\tt by}: \label{by} A factor variable contained in {\tt
+    data}.  Zelig will subset the data frame based on the levels in
+  the {\tt by} variable, and estimate a model for each subset.  This a
+  particularly powerful option which will allow you to save a
+  considerable amount of effort.  For example, to run the same model
+  on all fifty states, you could type:  
+\begin{verbatim}
+> z.out <- zelig(y ~ x1 + x2, data = mydata, model = "ls", by = "state")
+\end{verbatim}
+  You may also use {\tt by} to run models by
+  \hlink{MatchIt}{http://gking.harvard.edu/matchit/} subclass.
+  
+\item{\tt save.data}: the logical variable indicating whether the
+  original data frame should be saved within the output of
+  \texttt{zelig()}. If {\tt FALSE} (default), only the name of the
+  data frame will be stored.
+
+\item{\tt \dots}: additional arguments passed to \texttt{zelig()},
+  depending on the model to be estimated.
+\end{itemize}
+
+\subsubsection{Output Values}
+Depending on the class of model selected, \texttt{zelig()} will return
+an object with elements including \texttt{coefficients}, \texttt{residuals},
+and \texttt{formula} which may be summarized using
+\texttt{summary(z.out)} or individually extracted using, for example,
+\texttt{z.out\$coefficients}.  See the specific models listed above
+for additional output values, or simply type {\tt names(z.out)}.  
+
+\subsubsection{Examples}
+\begin{verbatim}
+> z.out <- zelig(y ~ x1 + x2, model = "logit", data = mydata)
+> z.out <- zelig(log(y) ~ x1 + x2, model = "ls", data = mydata)
+> z.out <- zelig(y ~ x1 + I(x2^2), model = "ologit", data = mydata)
+> z.out <- zelig(y ~ x1 * x2, model = "probit", data = mydata)
+> z.out <- zelig(y ~ x1 * x2, model = "probit",  
+                 data = mi(mydata1, mydata2, mydata3, mydata4, mydata5))
+\end{verbatim}
+
+\subsubsection{See Also}
+\begin{itemize}
+  \item \Sref{s:commands} for an overview of the Zelig simulation procedure.
+  \item \Sref{s:models} for an overview of supported models.  
+  \item \Sref{s:syntax} for an overview of R syntax.  
+  \item \Sref{factors} for how to create factor variables.  
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, and Olivia Lau created the {\tt zelig()}
+framework for handling a selection of the statistical models contained
+in the base, survreg, VGAM, and nnet packages for R.  For additional
+details, please refer to the appropriate model reference page.
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

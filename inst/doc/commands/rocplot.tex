@@ -1,0 +1,91 @@
+\section{{\tt rocplot}: Receiver Operator Characteristic Plots}\label{ss:rocplot}
+
+\subsubsection{Description}
+The \texttt{rocplot()} command generates a receiver operator
+characteristic plot to compare the in-sample (default) or
+out-of-sample fit for two logit or probit regressions.  
+
+\subsubsection{Syntax}
+\begin{verbatim}
+rocplot(y1, y2, fitted1, fitted2, cutoff = seq(from=0, to=1, length=100), 
+        lty1 = "solid", lty2 = "dashed", lwd1 = par("lwd"), lwd2 = par("lwd"),
+        col1 = par("col"), col2 = par("col"), plot = TRUE, ...)
+\end{verbatim}
+
+\subsubsection{Arguments}
+\begin{itemize}
+\item {\tt y1}: Response variable for the first model.  
+\item {\tt y2}: Response variable for the second model. 
+\item {\tt fitted1}: Fitted values for the first model.  These values
+  may represent either the in-sample or out-of-sample fitted values.
+\item {\tt fitted2}: Fitted values for the second model.  
+\item {\tt cutoff}: A vector of cut-off values between 0 and 1, at
+  which to evaluate the proportion of 0s and 1s correctly predicted by
+  the first and second model.  By default, this is 100 increments
+  between 0 and 1, inclusive.  
+\item {\tt lty1}, {\tt lty2}: The line type for the first model ({\tt
+    lty1}) and the second model ({\tt lty2}), defaulting to solid and
+  dashed, respectively.    
+\item {\tt lwd1}, {\tt lwd2}: The width of the line for the first
+  model ({\tt lwd1}) and the second model ({\tt lwd2}), defaulting to
+  1 for both.  
+\item {\tt col1}, {\tt col2}: The colors of the line for the first
+  model ({\tt col1}) and the second model ({\tt col2}), defaulting to
+  black for both.
+\item{\tt plot}: By default, {\tt plot = TRUE}, which generates a plot to the
+  selected device.  If {\tt FALSE}, {\tt rocplot()} returns a list of output (see below).  
+\item {\tt \dots}: Additional parameters passed to plot, including
+  {\tt xlab}, {\tt ylab}, and {\tt main}.  
+\end{itemize}
+
+\subsubsection{Output Values}
+
+If {\tt plot = TRUE}, {\tt rocplot()} generates an ROC plot for two
+logit or probit models.  You may save this plot using the commands
+described in \Sref{ss:output}.
+
+If {\tt plot = FALSE}, {\tt rocplot()} returns a list with the following
+elements:
+\begin{itemize}
+\item {\tt roc1}:  A matrix containing a vector of x-coordinates and
+  y-coordinates corresponding to the number of ones and zeros correctly
+  predicted for the first model.
+\item {\tt roc2}:  A matrix containing a vector of x-coordinates and
+  y-coordinates corresponding to the number of ones and zeros correctly
+  predicted for the second model.
+\item {\tt area1}:  The area under the first ROC curve, calculated using
+  Reimann sums.
+\item {\tt area2}:  The area under the second ROC curve, calculated using
+  Reimann sums.
+\end{itemize}
+
+\subsubsection{Example}
+You may view this example using {\tt demo(roc)}.  
+\begin{verbatim}
+> data(turnout)
+> z.out1 <- zelig(vote ~ race + educate + age, model = "logit", 
+                  data = turnout)
+> z.out2 <- zelig(vote ~ race + educate, model = "logit", 
+                  data = turnout)
+> rocplot(z.out1$y, z.out2$y, fitted(z.out1), fitted(z.out2))
+\end{verbatim}
+
+\subsubsection{See Also}
+\begin{itemize}
+  \item The {\tt help(plot)} and {\tt help(lines)} reference pages.  
+  \item \Sref{s:plot} for an overview of plotting procedures.
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, and Olivia Lau.  
+
+Sample data are a selection of $2,000$ observations from
+\begin{verse}
+\bibentry{KinTomWit00}.  
+\end{verse}
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+

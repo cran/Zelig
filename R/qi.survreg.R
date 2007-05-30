@@ -1,6 +1,6 @@
 qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
-  model <- object$zelig
-  k <- length(object$coef)
+  model <- getzelig(object)
+  k <- length(getcoef(object))
   sim.coef <- as.matrix(simpar[,1:k])
   if (model %in% c("weibull", "Weibull")) {
     if (ncol(simpar) == (k + 1)) 

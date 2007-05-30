@@ -1,6 +1,6 @@
 qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
   num <- nrow(simpar)
-  m <- length(coef(object))
+  m <- length(getcoef(object))
   sim.coef <- simpar[,1:m]
   sim.zeta <- sim.theta <- simpar[,(m+1):ncol(simpar)]
   sim.zeta[,-1] <- exp(sim.theta[,-1])

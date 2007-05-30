@@ -1,18 +1,19 @@
-param.glm <- function(object, num = NULL, bootstrap = FALSE) {
+param.glm <- function(object, num = NULL, bootstrap = FALSE){
+  model <- getzelig(object)
   if (!bootstrap) {
     coef <- mvrnorm(num, mu=coef(object), Sigma=vcov(object))
-    if (object$zelig == "normal") {
+    if (model == "normal") {
       df <- object$df.residual
       sig2 <- summary(object)$dispersion
       alpha <- sqrt(df*sig2/rchisq(num, df=df))
       res <- cbind(coef, alpha)
     }
-    else if (object$zelig == "gamma")  {
+    else if (model == "gamma")  {
       rate <- gamma.shape(object) 
       alpha <- rnorm(num, mean = rate$alpha, sd = rate$SE)
       res <- cbind(coef, alpha)
     }
-    else if (object$zelig == "negbin") {
+    else if (model == "negbin") {
       alpha <- object$theta
       res <- cbind(coef, c(alpha))
     }

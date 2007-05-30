@@ -1,0 +1,63 @@
+\section{{\tt ternarypoints}: Adding Points to Ternary Diagrams}
+\label{ternarypoints}
+
+\subsubsection{Description}
+Use {\tt ternarypoints()} to add points to a ternary diagram generated
+using the {\tt ternaryplot()} function in the vcd library.  Use
+ternary diagrams to plot expected values for multinomial choice models
+with three categories in the dependent variable.  
+
+\subsubsection{Syntax}
+\begin{verbatim}
+> ternarypoints(object, pch = 19, col = "blue", ...)
+\end{verbatim}
+
+\subsubsection{Arguments}
+\begin{itemize}
+\item {\tt object}: The input object must be a matrix with three
+  columns.   
+\item {\tt pch}: The selected type of point.  By default, {\tt pch =
+    19}, solid disks.  
+\item {\tt col}: The color of the points.  By default, {\tt col =
+    "blue"}.  
+\item {\tt \dots}: Additional parameters passed to {\tt points()}.  
+\end{itemize}
+
+\subsubsection{Output Values}
+The {\tt ternarypoints()} command adds points to a previously existing
+ternary diagram.  Use {\tt ternaryplot()} to generate the main ternary diagram.  
+
+\subsubsection{Examples}
+\begin{verbatim}
+> ternaryplot(s.out$qi$ev)
+> ternarypoints((s.out$qi$ev + s.out$qi$fd))
+\end{verbatim}
+
+\subsubsection{See Also}
+\begin{itemize}
+  \item \Sref{ternaryplot} to create a ternary diagram, to which you
+may add points.  
+  \item \Sref{s:plot} for an overview of plotting procedures
+\end{itemize}
+
+\subsubsection{Contributors}
+
+Kosuke Imai, Gary King, and Olivia Lau created the {\tt
+  ternarypoints()} function to work with {\tt ternaryplot()}.    
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-master: t
+%%% End: 
+
+
+
+
+
+
+
+
+
+
+

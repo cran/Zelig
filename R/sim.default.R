@@ -20,7 +20,7 @@ sim.default <- function(object, x=NULL, x1=NULL, num=c(1000, 100),
       simpar <- param(object, num=num, bootstrap=bootstrap)
     else {
       tt <- terms(object)
-      dta <- eval(object$data, sys.parent())
+      dta <- eval(getcall(object)$data, sys.parent())
       dta <- dta[complete.cases(model.frame(tt, dta)),]
       if (is.null(bootfn))
         bootfn <- bootfn.default
@@ -39,7 +39,7 @@ sim.default <- function(object, x=NULL, x1=NULL, num=c(1000, 100),
   c <- match.call()
   c[[1]] <- as.name("sim")
   c$num <- num
-  res <- list(x=x, x1=x1, call = c, zelig.call = object$call,
+  res <- list(x=x, x1=x1, call = c, zelig.call = getcall(object),
               par = simpar, qi=simqi$qi, qi.name=simqi$qi.name)
   class(res) <- "zelig"
   res

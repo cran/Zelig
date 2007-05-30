@@ -1,7 +1,7 @@
 sim.setx.strata <- function(object, x, x1 = NULL, num = c(1000, 100),
                          bootstrap = FALSE, ...){
   if (any(class(object) == "MCMCZelig"))
-    num <- nrow(object$coefficients)
+    num <- nrow(getcoef(object))
   if (length(num) == 2) {
     if (!bootstrap)
       num <- num[1]
@@ -9,12 +9,12 @@ sim.setx.strata <- function(object, x, x1 = NULL, num = c(1000, 100),
       num <- num[2]
   }
   if(any(class(object[[1]])=="MI")) {
-    dta <- eval((object[[1]])[[1]]$call$data, sys.parent())[[1]]
-    by <- (object[[1]])[[1]]$call$by
+    dta <- eval(getcall((object[[1]])[[1]])$data, sys.parent())[[1]]
+    by <- getcall((object[[1]])[[1]])$by
   }
   else {	
-    dta <- eval(object[[1]]$call$data, sys.parent())
-    by <- object[[1]]$call$by
+    dta <- eval(getcall(object[[1]])$data, sys.parent())
+    by <- getcall(object[[1]])$by
   }
   N <- length(object)
   res <- list()

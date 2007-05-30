@@ -1,5 +1,5 @@
 qi.netlm <- function(object, simpar, x, x1 = NULL, y = NULL) {
-  k <- length(object$coef)
+  k <- length(getcoef(object))
   coef <- simpar[,1:k]
   #alpha <- simpar[,(k+1):ncol(simpar)]
   ev <- coef %*% t(x)

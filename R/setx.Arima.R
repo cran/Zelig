@@ -6,7 +6,7 @@ setx.Arima <- function(object, cond=FALSE, data=NULL, counter=NULL,
   mc <- match.call()
   env <- attr(object$terms, ".Environment")
   if (is.null(data)){
-    data <- eval(object$call$data, envir=env)
+    data <- eval(getcall(object)$data, envir=env)
   }
   if(!is.null(data)){
    data <- as.data.frame(data)

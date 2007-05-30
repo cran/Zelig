@@ -5,10 +5,10 @@ setx.strata <- function(object, fn = list(numeric = mean, ordered =
   x <- list()
   if (any(class(obj)=="MI")) { # with multiple imputation
     if (is.null(data))
-      dta <- eval(obj[[1]]$call$data, sys.parent())
+      dta <- eval(getcall(obj[[1]])$data, sys.parent())
     else
       dta <- data
-    by <- obj[[1]]$call$by
+    by <- getcall(obj[[1]])$by
     M <- length(dta)
     d <- dta[[1]]
     idx <- pmatch(by, names(d))[1]
@@ -25,10 +25,10 @@ setx.strata <- function(object, fn = list(numeric = mean, ordered =
   }
   else { # without multiple imputation
     if (is.null(data))
-      dta <- eval(obj$call$data, sys.parent())
+      dta <- eval(getcall(obj)$data, sys.parent())
     else
       dta <- data
-    by <- obj$call$by
+    by <- getcall(obj)$by
     idx <- pmatch(by, names(dta))[1]
     lev <- sort(unique(eval(dta[[idx]], sys.parent())))
     for (i in 1:length(lev)) {

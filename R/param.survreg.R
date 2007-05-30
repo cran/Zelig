@@ -1,6 +1,6 @@
 param.survreg <- function(object, num, bootstrap = FALSE) {
   cov <- vcov(object)
-  coef <- object$coefficients
+  coef <- getcoef(object)
   log.scale <- log(object$scale)
   k <- length(coef)
   if(!bootstrap) {
