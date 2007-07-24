@@ -12,7 +12,7 @@
 <a href="http://www.people.fas.harvard.edu/~olau/">Olivia Lau</a>
 <br /><br />
 <!-- rbuild: replace 'Version:' '</b>' version -->
-<b>Version:2.4-6</b>
+<b>Version:3.0-1</b>
 
 <table border='0' cellpadding='0' cellspacing='8'><tr><td valign='top' width='200'>
 <p !style="float:left; width: 200; margin: 1.5em;"> <a
@@ -58,11 +58,11 @@ Bayesian, robust Bayesian, and nonparametric theories of
 inference.</p>
 
 <ul>
-<li>Documentation:  <a href="/zelig/docs/">Read on-line</a> or <a
+<li>Documentation:  <a href="/zelig/docs/index.html">Read on-line</a> or <a
 href="/zelig/docs/zelig.pdf">Download PDF</a></li>
 
-<li><a href="/zelig/docs/Installation.html">Installation</a>, <a
-href="/zelig/docs/Frequently_Asked_Quest.html">Frequently Asked
+<li><a href="/zelig/docs/static/install.pdf">Installation</a>, <a
+href="/zelig/docs/static/install.pdf">Frequently Asked
 Questions</a></li>
 
 <li>All questions, bugs and requests: Zelig Mailing List, <a

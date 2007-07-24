@@ -733,7 +733,7 @@ check.advance.versions <- function(mat){
 ### evillalon@iq.harvard.edu
 ###
 
-zelig.packages.update <- function(destdir=NULL,installWithVers=FALSE,lib.loc=NULL, repos="http://cran.r-project.org")
+zeligDepUpdate <- function(destdir=NULL,installWithVers=FALSE,lib.loc=NULL, repos="http://cran.r-project.org")
 {
   
 ####Input arguments################
@@ -1005,7 +1005,7 @@ matrixDependencies <- function(file=system.file("zideal", "zideal.RData", packag
 ### Elena Villalon
 ### evillalon@iq.harvard.edu
 ###
-zelig.packages.status <- function(lib.loc=NULL)
+zeligDepStatus <- function(lib.loc=NULL)
 {
 ####Hiden input arguments################
 ### zmat is the matrix of dependencies stored in system files  

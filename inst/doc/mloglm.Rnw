@@ -1,0 +1,126 @@
+\SweaveOpts{results=hide, prefix.string=vigpics/mloglm}
+\include{zinput}
+%\VignetteIndexEntry{Multinomial Log-Linear Regression for Contingency Table Models}
+%\VignetteDepends{Zelig}
+%\VignetteKeyWords{model, log-linear,multinomial, regression, contingency table}
+%\VignettePackage{Zelig}
+\begin{document}
+\nobibliography*
+<<beforepkgs, echo=FALSE>>=
+ before=search()
+@
+
+<<loadLibrary, echo=F,results=hide>>=
+library(Zelig)
+@ 
+
+\section{{\tt mloglm}: Multinomial Log-Linear Regression
+for Contingency Table Models}\label{mloglm}
+
+Log-linear models are for modeling contingency tables, the
+cross-tabulation of discrete individual-level variables.  Contingency
+table models take as the ``unit of analysis'' for the purpose of the
+statistical procedure, the cell of a contingency table.  The
+``dependent variable'' is then the count within each cell, and the
+explanatory variables indicate what categories the cells fall into.
+These models are highly efficient computationally since there are so
+few ``observations,'' but they are asymptotically equivalent to
+logistic regression models run on the unpacked individual level data.
+
+\subsubsection{Syntax}
+
+\begin{verbatim}
+> estimate <- zelig(Y ~ X1 + X2, model = "mloglm", data = mydata)
+> Xval <- setx(estimate)
+> results <- sim(estimate, x = Xval)
+\end{verbatim}
+
+\subsubsection{Examples}
+
+\subsubsection{Model}
+
+\subsubsection{Quantities of Interest}
+
+\subsubsection{Output Values}
+
+The output of each Zelig command contains useful information which you
+may view.  For example, if you run \texttt{estimate <- zelig(y \~\,
+  x, model = "mloglm", data)}, then you may examine the available
+information in \texttt{estimate} by using \texttt{names(estimate)},
+see the {\tt coefficients} by using {\tt estimate\$coefficients}, and
+a default summary of information through \texttt{summary(estimate)}.
+Other elements available through the {\tt \$} operator are listed
+below.
+
+\begin{itemize}
+\item From the {\tt zelig()} output stored in {\tt estimate}, you may extract:
+   \begin{itemize}
+   \item {\tt coefficients}: parameter estimates for the explanatory
+     variables.
+   \item {\tt deviance}: the residual deviance.
+   \item {\tt fitted.values}: the $n \times m$ matrix of in-sample
+     fitted values.
+   \item {\tt df.residual}: the residual degrees of freedom.
+   \item {\tt edf}: the effective degrees of freedom.  
+   \item {\tt AIC}: Akaike's An Information Criterion (minus twice the
+     maximized log-likelihood plus twice the number of coefficients).
+   \item {\tt Hessian}: the Hessian matrix.
+   \end{itemize}
+
+\item From {\tt summary(estimate)}, you may extract: 
+   \begin{itemize}
+   \item {\tt coefficients}: the parameter estimates with their
+     associated standard errors, $p$-values, and $t$-statistics.
+     covariances.  
+   \end{itemize}
+
+\item From the {\tt sim()} output stored in {\tt results}:
+   \begin{itemize}
+   \item {\tt qi\$ev}: the simulated expected (or fitted values) for
+     the specified values of {\tt x}.  
+   \item {\tt qi\$rd}: the difference in the expected values (or first
+     difference) for the values specified in {\tt x} and
+     {\tt x1}.
+   \end{itemize}
+\end{itemize}
+
+\subsection*{How to Cite}
+To cite the \emph{mloglm} Zelig model use:
+\begin{verse}
+Kosuke Imai, Gary King, and Olivia Lau. 2007. ``mloglm: Multinomial Log-Linear Regression for Contingency Table Models,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
+\end{verse}
+\input{citeZelig}
+\subsection*{See also}
+The multinomial logit model is part of the nnet library by Brian D.
+Ripley. \citep{Ripley1996}.Advanced users may wish to refer to the R-help for
+\texttt{help(multinom)} and \cite{VenRip2002}
+
+\bibliographystyle{asa}
+\bibliography{gk,gkpubs}
+<<afterpkgs, echo=FALSE>>=
+ after<-search()
+ torm<-setdiff(after,before)
+ for (pkg in torm)
+ detach(pos=match(pkg,search()))
+@
+ \end{document}
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-master: t
+%%% End: 
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+\include{zinput} \begin{document}\section{{\tt model.end}: Cleaning up after optimization}\label{ss:model.end}
+\keyword{utilities}{model.end}
+\begin{Description}\relax
+The \code{model.end} function creates a list of regression output from \code{\LinkA{optim}{optim}} 
+output.  The list includes coefficients (from the \code{\LinkA{optim}{optim}} \code{par} output), a 
+variance-covariance matrix (from the \code{\LinkA{optim}{optim}} Hessian output), and any terms, contrasts, or 
+xlevels (from the model frame).  Use \code{model.end} after calling \code{\LinkA{optim}{optim}}, but before 
+assigning a 
+class to the regression output.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+model.end(res, mf)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{res}] the output from \code{\LinkA{optim}{optim}} or another fitting-algorithm
+\item[\code{mf}] the model frame output by \code{\LinkA{model.frame}{model.frame}}
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+A list of regression output, including: 
+\begin{ldescription}
+\item[\code{coefficients}] the optimized parameters
+\item[\code{variance}] the variance-covariance matrix (the negative
+inverse of the Hessian matrix returned from the optimization
+procedure)
+\item[\code{terms}] the terms object.  See \code{\LinkA{terms.object}{terms.object}}
+for more information
+\item[\code{...}] additional elements passed from \code{res}
+\end{ldescription}
+
+normal-bracket37bracket-normal
+\end{Value}
+\begin{Author}\relax
+Kosuke Imai <\email{kimai@princeton.edu}>; Gary King
+<\email{king@harvard.edu}>; Olivia Lau <\email{olau@fas.harvard.edu}>; Ferdinand Alimadhi
+<\email{falimadhi@iq.harvard.edu}>
+\end{Author}
+\begin{SeeAlso}\relax
+The full Zelig manual at \url{http://gking.harvard.edu/zelig} for examples.
+\end{SeeAlso}
+
+\end{document}

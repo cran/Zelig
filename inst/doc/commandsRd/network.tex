@@ -1,0 +1,43 @@
+\include{zinput} \begin{document}\section{{\tt network}: Format matricies into a data frame for social network analysis}\label{ss:network}
+\keyword{methods}{network}
+\begin{Description}\relax
+This function accepts individual matricies as its inputs,
+combining the input matricies into a single data frame which can then be
+used in the \code{data} argument for social network analysis (models
+\code{"netlm"} and \code{"netlogit"}) in Zelig.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+network(...)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{...}] matricies representing variables, with rows and columns corresponding to
+individuals.  These can be given as named arguments and should be
+given in the order the in which the user wishes them to appear in
+the output data frame.
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+The \code{network} function creates a data frame which
+contains matricies instead of vectors as its variables.  Inputs to the
+function should all be square matricies and can be given as named
+arguments.
+\end{Value}
+\begin{Author}\relax
+Skyler J. Cranmer
+\end{Author}
+\begin{SeeAlso}\relax
+The full Zelig manual is available at
+\url{http://gking.harvard.edu/zelig}.
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}## Not run: 
+## Let Var1, Var2, Var3, Var4, and Var5 be matrices
+friendship <- network(Var1, Var2, Var3, Var4, Var5)
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+
+\end{document}

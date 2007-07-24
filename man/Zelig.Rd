@@ -1,7 +1,6 @@
 \name{zelig}
 
 \alias{zelig}
-\alias{Zelig}
 
 \title{Estimating a Statistical Model}
 

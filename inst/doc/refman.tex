@@ -7,23 +7,23 @@ the {\tt setx()} command.  (Occasionally, you may need to use, for example, {\tt
   help(print)} rather than {\tt help.zelig(print)}, to access the R
   help page instead of the default Zelig help page.)  
 
-\input{commands/zelig}
-\include{commands/setx}
-\include{commands/sim}
-\include{commands/summary}
-\include{commands/plot.zelig}
+\include{commandsRd/zelig}
+\include{commandsRd/setx}
+\include{commandsRd/sim}
+\include{commandsRd/summary}
+\include{commandsRd/plot.zelig}
 \include{commands/print}
-\include{commands/replicate}
+\include{commandsRd/repl}
 
 \chapter{Supplementary Commands}
 
 \input{commands/matchit}
-\include{commands/mi}
-\include{commands/network}
-\include{commands/plot.ci}
-\include{commands/rocplot}
-\include{commands/ternaryplot}
-\include{commands/ternarypoints}
+\include{commandsRd/mi}
+\include{commandsRd/network}
+\include{commandsRd/plot.ci}
+\include{commandsRd/rocplot}
+\include{commandsRd/ternaryplot}
+\include{commandsRd/ternarypoints}
 
 \chapter{Models Zelig Can Run}\label{s:model.details}
 
@@ -79,47 +79,56 @@ the distribution of the expected values tends toward a constant; the
 distribution of the predicted values does not collapse as the number
 of simulations increases.
 
-%\include{models/2sls}
-%\include{models/3sls}
-%\include{models/sur}
-
-\include{models/arima}
-%\include{models/beta}
-\include{models/blogit}
-\include{models/bprobit}
-\include{models/ei.dynamic}
-\include{models/ei.hier}
-\include{models/eiRxC}
-\include{models/exp}
-\include{models/factor.bayes}
-\include{models/factor.mix}
-\include{models/factor.ord}
-\include{models/gamma}
-\include{models/irt1d}
-\include{models/irtkd}
-\include{models/logit}
-\include{models/logit.bayes}
-\include{models/lognormal}
-\include{models/ls}
-\include{models/mlogit}
-\include{models/mlogit.bayes}
-% \include{models/mloglm}
-\include{models/negbin}
-\include{models/netls}
-\include{models/netlogit}
-\include{models/normal}
-\include{models/normal.bayes}
-\include{models/ologit}
-\include{models/oprobit}
-\include{models/oprobit.bayes}
-\include{models/poisson}
-\include{models/poisson.bayes}
-\include{models/probit}
-\include{models/probit.bayes}
-\include{models/relogit}
-\include{models/tobit}
-\include{models/tobit.bayes}
-\include{models/weibull}
+\include{arima}
+\include{blogit}
+\include{bprobit}
+\include{ei.dynamic}
+\include{ei.hier}
+\include{ei.RxC}
+\include{exp}
+\include{factor.bayes}
+\include{factor.mix}
+\include{factor.ord}
+\include{gamma}
+\include{gee.logit}
+\include{gam.logit}
+\include{gam.normal}
+\include{gam.poisson}
+\include{gam.probit}
+\include{irt1d}
+\include{irtkd}
+\include{logit}
+\include{logit.gee}
+\include{logit.bayes}
+\include{lognorm}
+\include{ls}
+\include{mlogit}
+\include{mlogit.bayes}
+\include{mloglm}
+\include{negbin}
+\include{netls}
+\include{netlogit}
+\include{netcloglog}
+\include{netgamma}
+\include{netnormal}
+\include{netpoisson}
+\include{netprobit}
+\include{normal}
+\include{normal.bayes}
+\include{ologit}
+\include{oprobit}
+\include{oprobit.bayes}
+\include{poisson}
+\include{poisson.bayes}
+\include{probit}
+\include{probit.bayes}
+\include{relogit}
+\include{sur}
+\include{threesls}
+\include{tobit}
+\include{tobit.bayes}
+\include{twosls}
+\include{weibull}
 
 \chapter{Commands for Programmers and Contributors}
 

@@ -66,11 +66,18 @@ are three ways to do this.
 in R:
 \begin{verbatim}
 > install.packages("Zelig")
-> install.packages("MCMCpack")
-> install.packages("coda")
-> install.packages("VGAM")
 > install.packages("zoo")
 > install.packages("sandwich")
+> install.packages("MCMCpack")
+> install.packages("coda")
+> install.packages("lattice")
+> install.packages("mvtnorm")
+> install.packages("VGAM")
+> install.packages("sna")
+> install.packages("systemfit")
+> install.packages("nnet")
+> install.packages("gee")
+> install.packages("mgcv")
 > library(Zelig)
 \end{verbatim}
 Zelig will load the optional libraries whenever their functions are
@@ -167,11 +174,18 @@ status''.)
 each package individually and specify the specific installation path:
 \begin{verbatim}
 > install.packages("Zelig", lib = "~/Library/R/library")
-> install.packages("MCMCpack", lib = "~/Library/R/library")
-> install.packages("coda", lib = "~/Library/R/library")
-> install.packages("VGAM", lib = "~/Library/R/library")
 > install.packages("zoo", lib = "~/Library/R/library")
 > install.packages("sandwich", lib = "~/Library/R/library")
+> install.packages("MCMCpack", lib = "~/Library/R/library")
+> install.packages("coda", lib = "~/Library/R/library")
+> install.packages("lattice", lib = "~/Library/R/library")
+> install.packages("mvtnorm", lib = "~/Library/R/library")
+> install.packages("VGAM", lib = "~/Library/R/library")
+> install.packages("sna", lib = "~/Library/R/library")
+> install.packages("systemfit", lib = "~/Library/R/library")
+> install.packages("nnet", lib = "~/Library/R/library")
+> install.packages("gee", lib = "~/Library/R/library")
+> install.packages("mgcv", lib = "~/Library/R/library")
 > library(Zelig)
 \end{verbatim}
     where \texttt{\~{}/Library/R/library} is the default local library
@@ -233,11 +247,18 @@ status''.)
 each component package separately and specify the installation path:
 \begin{verbatim}
 > install.packages("Zelig", lib = "~/Library/R/library")
-> install.packages("MCMCpack", lib = "~/Library/R/library")
-> install.packages("coda", lib = "~/Library/R/library")
-> install.packages("VGAM", lib = "~/Library/R/library")
 > install.packages("zoo", lib = "~/Library/R/library")
 > install.packages("sandwich", lib = "~/Library/R/library")
+> install.packages("MCMCpack", lib = "~/Library/R/library")
+> install.packages("coda", lib = "~/Library/R/library")
+> install.packages("lattice", lib = "~/Library/R/library")
+> install.packages("mvtnorm", lib = "~/Library/R/library")
+> install.packages("VGAM", lib = "~/Library/R/library")
+> install.packages("sna", lib = "~/Library/R/library")
+> install.packages("systemfit", lib = "~/Library/R/library")
+> install.packages("nnet", lib = "~/Library/R/library")
+> install.packages("gee", lib = "~/Library/R/library")
+> install.packages("mgcv", lib = "~/Library/R/library")
 > library(Zelig)
 \end{verbatim}
       Although the {\tt lib} argument is optional, we recommend that
@@ -332,12 +353,19 @@ status''.)
 \item Alternatively, you can avoid the warning messages by installing each 
 component package separately and specifying the installation path:  
 \begin{verbatim}
-> install.packages("Zelig", lib = "~/.R/library")
-> install.packages("MCMCpack", lib = "~/.R/library")
-> install.packages("coda", lib = "~/.R/library")
-> install.packages("VGAM", lib = "~/.R/library")
-> install.packages("zoo", lib = "~/.R/library")
-> install.packages("sandwich", lib = "~/.R/library")
+> install.packages("Zelig", lib = "~/Library/R/library")
+> install.packages("zoo", lib = "~/Library/R/library")
+> install.packages("sandwich", lib = "~/Library/R/library")
+> install.packages("MCMCpack", lib = "~/Library/R/library")
+> install.packages("coda", lib = "~/Library/R/library")
+> install.packages("lattice", lib = "~/Library/R/library")
+> install.packages("mvtnorm", lib = "~/Library/R/library")
+> install.packages("VGAM", lib = "~/Library/R/library")
+> install.packages("sna", lib = "~/Library/R/library")
+> install.packages("systemfit", lib = "~/Library/R/library")
+> install.packages("nnet", lib = "~/Library/R/library")
+> install.packages("gee", lib = "~/Library/R/library")
+> install.packages("mgcv", lib = "~/Library/R/library")
 > library(Zelig)
 \end{verbatim}
 \item Finally, create a {\tt .Rprofile} file in your home directory, containing the line:
@@ -372,12 +400,20 @@ This will load Zelig every time you start R.
     prompt, type:
 \begin{verbatim}
 % R CMD INSTALL Zelig_XX.tar.gz
-% R CMD INSTALL MCMCpack_XX.tar.gz
-% R CMD INSTALL coda_XX.tar.gz
-% R CMD INSTALL VGAM_XX.tar.gz
 % R CMD INSTALL zoo_XX.tar.gz
 % R CMD INSTALL sandwich_XX.tar.gz
-% rm Zelig_XX.tar.gz VGAM_XX.tar.gz zoo_XX.tar.gz sandwich_XX.tar.gz
+% R CMD INSTALL MCMCpack_XX.tar.gz
+% R CMD INSTALL coda_XX.tar.gz
+% R CMD INSTALL lattice_XX.tar.gz
+% R CMD INSTALL mvtnorm_XX.tar.gz
+% R CMD INSTALL VGAM_XX.tar.gz
+% R CMD INSTALL sna_XX.tar.gz
+% R CMD INSTALL systemfit_XX.tar.gz
+% R CMD INSTALL nnet_XX.tar.gz
+% R CMD INSTALL gee_XX.tar.gz
+% R CMD INSTALL mgcv_XX.tar.gz
+
+% rm Zelig_XX.tar.gz zoo_XX.tar.gz sandwich_XX.tar.gz MCMCpack_XX.tar.gz coda_XX.tar.gz lattice_XX.tar.gz mvtnorm_XX.tar.gz mvtnorm_XX.tar.gz VGAM_XX.tar.gz sna_XX.tar.gz systemfit_XX.tar.gz nnet_XX.tar.gz  gee_XX.tar.gz mgcv_XX.tar.gz
 \end{verbatim}
 \item Create a {\tt .Rprofile} file in your home directory, containing the line:  
 \begin{verbatim}

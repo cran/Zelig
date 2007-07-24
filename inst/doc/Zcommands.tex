@@ -15,7 +15,7 @@ three commands.
 \SelectTips{eu}{12} \UseTips 
 \xymatrix@!C{\quad {\rm Imputation}
 \ar@{-->}[dr] & & {\rm Matching} \ar@{-->}[dl] \\ 
- & *+[F-:<10pt>]{{\tt zelig()}} \ar@{->}[d] \ar@{-->}[r] &
+{\rm Validation } \ar@{<--}[r] & *+[F-:<10pt>]{{\tt zelig()}} \ar@{->}[d] \ar@{-->}[r] &
 {\tt summary()}\\ 
  & *+[F-:<10pt>]{{\tt setx()}}  \ar@{-->}[r] \ar@{->}[d] & {\tt whatif()}\\ 
 & *+[F-:<10pt>]{{\tt sim()}} \ar@{-->}[dr] \ar@{-->}[dl] & \\
@@ -31,12 +31,15 @@ likelihood models, for example, this step estimates the coefficients,
 other model parameters, and a variance-covariance matrix.  In
 addition, you may choose from a variety of options:
 \begin{itemize} 
-\item Pre-processing:  Prior to calling {\tt zelig()}, you may
+\item Pre-process data:  Prior to calling {\tt zelig()}, you may
   choose from a variety of data pre-processing commands (matching or
   multiple imputation, for example) to make your statistical
   inferences more accurate. 
 \item Summarize model: After calling {\tt zelig()}, you may summarize
-the regression output using {\tt summary()}.  
+  the fitted model output using {\tt summary()}.
+\item Validate model: After calling {\tt zelig()}, you may choose to
+  validate the fitted model. This can be done, for example, by using
+  cross-validation procedures and diagnostics tools.
 \end{itemize}
 \item Use \texttt{setx()} to set each of the explanatory variables to
   chosen (actual or counterfactual) values in preparation for
@@ -128,6 +131,17 @@ names.
 > x.out1 <- setx(z.out, fn = NULL, treat = 1)
 > s.out <- sim(z.out, x=x.out0, x1=x.out1)
 > summary(s.out)
+\end{verbatim}
+
+\item Validate the fitted model using the leave-one-out cross
+  validation procedure and calculating the average squared prediction
+  error via {\it boot} package.  For example:
+\begin{verbatim}
+> library(boot)
+> data(turnout)
+> z.out <- zelig(vote ~ race + educate, model = "logit", data = turnout)
+> cv.out <- cv.glm(z.out, data = turnout)
+> print(cv.out$delta)
 \end{verbatim}
 
 \end{itemize}
@@ -781,3 +795,8 @@ identical, you may use
 \end{verbatim} %$
 
 
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "zelig"
+%%% End: 

@@ -1,0 +1,64 @@
+\include{zinput} \begin{document}\section{{\tt zeligDepStatus}: Zelig Dependencies Packages Client Status}\label{ss:zeligDepStatus}
+\keyword{documentation}{zeligDepStatus}
+\begin{Description}\relax
+Compares Zelig-matrix of dependencies to the locally installed
+packages. Finds those packages that \pkg{Zelig} depends on and are not
+installed in local environment. Also finds those packages that are
+locally installed but with lower versions than those required in the
+dependencies matrix.
+The Zelig-matrix includes any of dependency fields in the
+\sQuote{DESCRIPTION} files, i.e. depends, imports and suggests,
+for any packages directly derived from \pkg{Zelig} and for any of the models that \pkg{Zelig} supports.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+zeligDepStatus(lib.loc = NULL)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{lib.loc}] a character vector of directory names 
+of \code{R} libraries, or NULL.
+The default value NULL corresponds to all libraries currently known. If the default is used, the loaded packages are searched before the libraries. 
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+Returns a matrix of packages that are either installed locally 
+with lower versions, or packages not installed but listed in the
+Zelig-matrix of dependencies.  The matrix rows correspond to the packages and 
+the columns contain the following fields
+\begin{ldescription}
+\item[\code{Package}] names of packages.
+\item[\code{Version}] versions locally installed
+\item[\code{Zideal}] versions required in Zelig-matrix of dependencies.
+\end{ldescription}
+\end{Value}
+\begin{Note}\relax
+If the R version in the local environment is different from the R
+version that \pkg{Zelig}  
+depends on, then, it is reported with a message and no futher action is taken. 
+If the installed packages have versions higher than the corresponding 
+values in the Zelig-matrix, it is reported with a message.
+\end{Note}
+\begin{Author}\relax
+Ferdinand Alimadhi and Elena Villalon
+\end{Author}
+\begin{References}\relax
+King, Gary. Zelig: Everyones Statistical Software. 
+\url{http://gking.harvard.edu/zelig}.
+\end{References}
+\begin{SeeAlso}\relax
+\code{\LinkA{installed.packages}{installed.packages}}
+\code{\LinkA{packageDescription}{packageDescription}}
+\code{\LinkA{zeligDepUpdate}{zeligDepUpdate}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## find packages in all libraries currently installed
+## Not run: zstatus <- zeligDepStatus()
+## find packages only in lib.loc
+## Not run: zstatus <- zeligDepStatus(lib.loc="~/.R/mylibrary")
+\end{ExampleCode}
+\end{Examples}
+
+\end{document}

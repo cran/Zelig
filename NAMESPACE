@@ -11,6 +11,7 @@ importFrom(stats, quasi)
 importFrom(stats, quasibinomial)
 importFrom(stats, quasipoisson)
 
+
 export( current.packages, 
         dims, 
         gsource,
@@ -34,12 +35,14 @@ export( current.packages,
 	ternarypoints, 
 	user.prompt,
         zelig,
+        zeligDepStatus,
+        zeligDepUpdate,
         zeligListModels,
         zeligInstalledModels,
         zeligModelDependency, 
         zeligGetSpecial,
 	zeligDescribeModelXML
-)
+       )
 	
 #S3method("$", ZeligS4vglm)
 #S3method("$", summary.ZeligS4vglm)
@@ -56,20 +59,29 @@ S3method(names, zelig)
 S3method(names, zelig.relogit)
 S3method(plot, zelig)
 S3method(plot, zelig.arima)
-S3method(plot.zelig, "2sls")
-S3method(plot.zelig, "3sls")
-S3method(plot.zelig, beta)
 S3method(plot.zelig, blogit)
 S3method(plot.zelig, bprobit)
 S3method(plot.zelig, exp)
 S3method(plot.zelig, gamma)
+S3method(plot.zelig, gam.logit)
+S3method(plot.zelig, gam.normal)
+S3method(plot.zelig, gam.poisson)
+S3method(plot.zelig, gam.probit)
 S3method(plot.zelig, logit)
+S3method(plot.zelig, logit.gee)
 S3method(plot.zelig, lognorm)
 S3method(plot.zelig, ls)
 S3method(plot.zelig, mlogit)
 S3method(plot.zelig, negbin)
 S3method(plot.zelig, netls)
+
+S3method(plot.zelig, netcloglog)
+S3method(plot.zelig, netgamma)
 S3method(plot.zelig, netlogit)
+S3method(plot.zelig, netnormal)
+S3method(plot.zelig, netpoisson)
+S3method(plot.zelig, netprobit)
+
 S3method(plot.zelig, normal)
 S3method(plot.zelig, ologit)
 S3method(plot.zelig, oprobit)
@@ -77,6 +89,8 @@ S3method(plot.zelig, probit)
 S3method(plot.zelig, poisson)
 S3method(plot.zelig, relogit)
 S3method(plot.zelig, sur)
+S3method(plot.zelig, twosls)
+S3method(plot.zelig, threesls)
 S3method(plot.zelig, w2sls)
 S3method(plot.zelig, weibull)
 S3method(print, arimaSummary)
@@ -107,8 +121,10 @@ S3method(sim, setx.strata)
 S3method(setx, Arima)
 S3method(setx, default)
 S3method(setx, eiRxC)
+S3method(setx, gam)
 S3method(setx, noX)
 S3method(setx, MI)
+S3method(setx, netglm)
 S3method(setx, strata)
 S3method(setx, relogit2)
 S3method(summarize, array)
@@ -117,6 +133,7 @@ S3method(summary, Arima)
 S3method(summary, zelig.arima)
 S3method(summary, BetaReg)
 S3method(summary, MI)
+S3method(summary, netglm)
 S3method(summary, strata)   
 S3method(summary, relogit)   
 S3method(summary, relogit2)   
@@ -133,7 +150,6 @@ S3method(terms, vglm)
 S3method(terms, multiple)
 S3method(vcov, BetaReg)
 S3method(vcov, eiRxC)
-S3method(vcov, lm)
 S3method(vcov, relogit)
 S3method(vcov, lm.robust)
 S3method(vcov, glm.robust)

@@ -1,0 +1,78 @@
+\include{zinput} \begin{document}\section{{\tt ternaryplot}: Ternary diagram}\label{ss:ternaryplot}
+\keyword{hplot}{ternaryplot}
+\begin{Description}\relax
+Visualizes compositional, 3-dimensional data in an equilateral triangle  
+(from the vcd library, Version 0.1-3.3, Date 2004-04-21), using plot graphics.  
+Differs from implementation in vcd (0.9-7), which uses grid graphics.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+ternaryplot(x, scale = 1, dimnames = NULL, dimnames.position = c("corner","edge","none"),
+            dimnames.color = "black", id = NULL, id.color = "black", coordinates = FALSE,
+            grid = TRUE, grid.color = "gray", labels = c("inside", "outside", "none"),
+            labels.color = "darkgray", border = "black", bg = "white", pch = 19, cex = 1,
+            prop.size = FALSE, col = "red", main = "ternary plot", ...)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{x}] a matrix with three columns.
+\item[\code{scale}] row sums scale to be used.
+\item[\code{dimnames}] dimension labels (defaults to the column names of
+\code{x}).
+\item[\code{dimnames.position, dimnames.color}] position and color of dimension labels.
+\item[\code{id}] optional labels to be plotted below the plot
+symbols. \code{coordinates} and \code{id} are mutual exclusive.
+\item[\code{id.color}] color of these labels.
+\item[\code{coordinates}] if \code{TRUE}, the coordinates of the points are
+plotted below them. \code{coordinates} and \code{id} are mutual exclusive.
+\item[\code{grid}] if \code{TRUE}, a grid is plotted. May optionally
+be a string indicating the line type (default: \code{"dotted"}).
+\item[\code{grid.color}] grid color.
+\item[\code{labels, labels.color}] position and color of the grid labels.
+\item[\code{border}] color of the triangle border.
+\item[\code{bg}] triangle background.
+\item[\code{pch}] plotting character. Defaults to filled dots.
+\item[\code{cex}] a numerical value giving the amount by which plotting text
+and symbols should be scaled relative to the default. Ignored for
+the symbol size if \code{prop.size} is not \code{FALSE}.
+\item[\code{prop.size}] if \code{TRUE}, the symbol size is plotted
+proportional to the row sum of the three variables, i.e. represents
+the weight of the observation.
+\item[\code{col}] plotting color.
+\item[\code{main}] main title.
+\item[\code{...}] additional graphics parameters (see \code{par})
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+A points' coordinates are found by computing the gravity center
+of mass points using the data entries as weights. Thus, the coordinates
+of a point P(a,b,c), \eqn{a + b + c = 1}{}, are: P(b + c/2, c * sqrt(3)/2).
+\end{Details}
+\begin{Author}\relax
+David Meyer\\
+\email{david.meyer@ci.tuwien.ac.at}
+\end{Author}
+\begin{References}\relax
+M. Friendly (2000),
+\emph{Visualizing Categorical Data}. SAS Institute, Cary, NC.
+\end{References}
+\begin{SeeAlso}\relax
+\code{\LinkA{ternarypoints}{ternarypoints}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+data(mexico)
+if (require(VGAM)) { 
+z.out <- zelig(as.factor(vote88) ~ pristr + othcok + othsocok, 
+                model = "mlogit", data = mexico)
+x.out <- setx(z.out)
+s.out <- sim(z.out, x = x.out)
+
+ternaryplot(s.out$qi$ev, pch = ".", col = "blue",
+            main = "1988 Mexican Presidential Election")
+}
+\end{ExampleCode}
+\end{Examples}
+
+\end{document}
