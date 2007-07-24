@@ -12,4 +12,8 @@
     require(boot) 
   options(digits = 4)
   library.dynam("stats")
+
+  ## add viggnettes menu
+  addVigs2WinMenu("Zelig")
+
 }

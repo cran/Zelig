@@ -1,53 +1,62 @@
 help.zelig <- function (...)  {
-  zipped <- FALSE
-  loc <- NULL
-  name <- c(as.character(substitute(list(...))[-1]), list)[[1]]
-  if (length(name) == 0) 
-    loc <- "http://gking.harvard.edu/zelig"
-  paths <- .find.package("Zelig")
-  if (length(paths) > 1)
-    warning(paste("Zelig installed in", length(paths), "locations.  Using\n     ", paths[1]))
-  path <- paths[1]
-  path <- file.path(path, "data")
-  if (file_test("-f", file.path(path, "Rdata.zip"))) {
-    zipped <- TRUE
-    if (tools::file_test("-f", fp <- file.path(path, "filelist"))) 
-      files <- file.path(path, scan(fp, what = "", quiet = TRUE))
-    else 
-      stop(gettextf("file 'filelist' is missing for directory '%s'", 
-                    path), domain = NA)
-  }
-  else 
-    files <- list.files(path, full = TRUE)
-  files <- files[which(regexpr("url", files) > 0)]
-  if (length(files) == 0)
-    loc <- "http://gking.harvard.edu/zelig"
-  else {
-    zfile <- array()
-    for (f in 1:length(files)) {
-      if (zipped) 
-        zfile[f] <- zip.file.extract(files[f], "Rdata.zip")
-      else
-        zfile <- files
-    }
-    tab <- read.table(zfile[1], header = FALSE, as.is = TRUE)
-    if (length(zfile) > 1) {
-      for (i in 2:length(zfile)) 
-        tab <- rbind(tab, read.table(zfile[i], header = FALSE, as.is = TRUE))
-    }
-    loc <- tab[which(as.character(tab[, 1]) == name), 2]
-  }
-  if (is.null(loc)) { 
-    cat("Warning: Requested topic not found in Zelig help.  \n If you are sure the topic exists, please check \n the full documentation at http://gking.harvard.edu/zelig.  \n Now searching R-help.\n\n")
-    topic <- as.name(name)
-    do.call("help", list(topic, htmlhelp = TRUE))
-  }
-  else {
-    browseURL(loc)
-    invisible(name)
-  }
-  if (zipped) {
-    for (i in 1:length(zfile))
-      on.exit(unlink(zfile[i]))
-  }
+
+        driver  <- match.call()
+        driver  <- as.character(driver)
+        name <- NULL
+        if(length(driver) > 1){ 
+		name <- driver[2]
+	} else {
+                print(do.call("help",list(package="Zelig"), envir=parent.frame()))
+                return(invisible(NULL))
+	}
+        if (name == "models"){
+                print(do.call("vignette", list(package="Zelig")))
+                return(invisible(NULL))
+        }
+                  
+        filesPDf <- NULL
+        
+        helpfile <- try(system.file("Meta", "vignette.rds", package="Zelig"))
+        
+        if(helpfile!=""){
+                helpMtrx <- .readRDS(helpfile)
+                ix <- grep("[pP][dD][fF]", colnames(helpMtrx))
+                if(length(ix)) filesPDF <- helpMtrx[,ix]
+                
+                if(length(filesPDF) && length(name))
+                  {
+                          fl  <- paste("^",name,".pdf$",sep="")
+                          ix  <- grep(fl,filesPDF)
+                          if(length(ix)){
+                                  file <- filesPDF[ix]
+                                  print(do.call("vignette", c(list(topic=name),list(package="Zelig"))))
+                                  return(invisible(list()))
+                          }
+                  }
+        }
+        helpfile  <- try(system.file("Meta", "hsearch.rds", package="Zelig"))
+        
+        fileshtml <- NULL
+        if(helpfile != "")
+          {
+                  helpMtrx  <- .readRDS(helpfile)
+                  fileshtml <- helpMtrx[[2]][,"Aliases"]
+                  ix <- grep("url$", fileshtml)
+                  if(length(ix))
+                    fileshtml <- fileshtml[-ix]
+                  if(length(fileshtml) && length(name))
+                    {
+                            ix <- grep(name, fileshtml)
+                            
+                            if(length(ix)){
+                                    
+                                    print(do.call("help", c(list(as.name(name)), list(package="Zelig")), envir=parent.frame()))
+                                    return(invisible(NULL))
+                            }
+                            
+                                              }
+          }
+        ##message("Not valid input...Showing package description")
+        do.call("help", c(list("Zelig"), list(package="Zelig")), envir=parent.frame())
 }
+

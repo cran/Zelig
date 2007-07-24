@@ -1,0 +1,43 @@
+\include{zinput} \begin{document}\section{{\tt set.start}: Set starting values for all parameters}\label{ss:set.start}
+\keyword{utilities}{set.start}
+\begin{Description}\relax
+After using \code{\LinkA{parse.par}{parse.par}} and \code{\LinkA{model.matrix.multiple}{model.matrix.multiple}}, use 
+\code{set.start} to set starting values for all parameters.  By default, starting values are set to 0.  If 
+you wish to select alternative starting values for certain parameters, use \code{\LinkA{put.start}{put.start}} after 
+\code{set.start}.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+set.start(start.val = NULL, terms)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{start.val}] user-specified starting values.  If \code{NULL} (default), the default 
+starting values for all parameters are set to 0.
+\item[\code{terms}] the terms output from \code{\LinkA{model.frame.multiple}{model.frame.multiple}}
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+A named vector of starting values for all parameters specified in \code{terms}, defaulting to 0.
+\end{Value}
+\begin{Author}\relax
+Kosuke Imai <\email{kimai@princeton.edu}>; Gary King
+<\email{king@harvard.edu}>; Olivia Lau <\email{olau@fas.harvard.edu}>; Ferdinand Alimadhi
+<\email{falimadhi@iq.harvard.edu}>
+\end{Author}
+\begin{SeeAlso}\relax
+\code{\LinkA{put.start}{put.start}}, \code{\LinkA{parse.par}{parse.par}}, \code{\LinkA{model.frame.multiple}{model.frame.multiple}}, and the 
+full Zelig manual at \url{http://gking.harvard.edu/zelig}.
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+fml <- parse.formula(formula, model = "bivariate.probit")
+D <- model.frame(fml, data = data)
+terms <- attr(D, "terms")
+start.val <- set.start(start.val = NULL, terms)
+## End(Not run)\end{ExampleCode}
+\end{Examples}
+
+\end{document}

@@ -4,6 +4,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   mc <- match.call()
   if (class(object)[1]=="MI")
     object <- object[[1]]
+ 
   mode <- function(x){
     tb <- tapply(x, x, length)
     if(is.factor(x))
@@ -21,6 +22,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     }
     return(value)
   }
+  
   median.default <- median
   median <- function(x) {
     if(is.numeric(x))
@@ -32,6 +34,8 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       stop("median cannot be calculated for this data type")
     return(value)
   }
+  
+ 
   max.default <- max
   max <- function(x, na.rm=FALSE) {
     if(is.numeric(x))
@@ -42,6 +46,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       stop("max cannot be calculated for this data type")
     return(value)
   }
+  
   min.default <- min
   min <- function(x, na.rm=FALSE) {
     if(is.numeric(x))
@@ -52,10 +57,12 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       stop("min cannot be calculated for this data type")
     return(value)
   }
-  
+ 
   
   # Testing From Here
-  
+  if(length(fn))
+    fn <- updatefn(fn, operVec=c("mode", "median","min", "max"),
+                   ev=environment(), global=parent.frame())
   
   tt <- terms(object)
   tt.attr <- attributes(tt)
@@ -195,3 +202,42 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   }
   return(X)
 }
+### DESCRIPTION: Takes the operations in vector operVec and updates list fn
+###              so that list elements "numeric", "ordered", and "other" in fn
+###              are as defined in setx rather
+###              than those taken from .GlobalEnv or namespace:base
+###
+### INPUTS: fn a list with default operations for numeric, ordered, other
+###         operVec a vector of chars with operations, e.g max, min, median, mode
+###         ev, parent environment; global, granparent environment
+###
+updatefn <- function(fn, operVec=c("mode", "median","min", "max"), ev=parent.frame(), global=.GlobalEnv)
+   {
+     mode   <- get("mode", env=ev)
+     median <- get("median", env=ev)
+     max   <- get("max", env=ev)
+     min   <- get("min", env=ev)
+      
+     modeG   <- get("mode", env=global)
+     medianG <- get("median", env=global)
+     minG <- get("min", env=global)
+     maxG <-  get("max", env=global)
+    if(!identical(sort(c("max", "median", "min", "mode")), sort(operVec)))
+      stop("updatefn missing some operations from setx")
+     
+    for(oper in operVec){     
+      operGlob <- switch(EXPR=oper,"mode"=, "mode.default"=modeG,"median"=, "median.default"=medianG,
+                         "min"=,"min.default"= minG,"max"=, "max.default"=maxG)
+      operSetx <- switch(EXPR=oper,"mode"=, "mode.default"=mode,"median"=, "median.default"=median,
+                         "min"=,"min.default"= min,"max"=, "max.default"=max)
+      if(identical(fn$other, operGlob))
+        fn$other <-  operSetx
+   
+      if(identical(fn$numeric, operGlob))
+        fn$numeric <-  operSetx
+      
+      if(identical(fn$ordered, operGlob))
+        fn$ordered <- operSetx
+    }
+     fn
+   }

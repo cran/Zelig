@@ -126,10 +126,12 @@ xmlList<-function(z){
     res<-paste(res," specialFunction=",'"',z$parameters[[1]]$specialFunction,'"',sep="")
   res<-paste(res,">\n",sep="")
   res<-paste(res,"<description>",z$description, "</description>\n",sep="")
-  if(z$name=="irtkd")
-    res<-paste(res,"<helpLink url=",'"',"http://gking.harvard.edu/zelig/docs/_TT_irtkd_TT__tex2htm.html",'"',sep="")
-  else
-  res<-paste(res,"<helpLink url=",'"',modelURL(z$name,z$description),'"',sep="")
+  url <- paste("http://gking.harvard.edu/zelig/doc/",z$name,".pdf",sep="")
+  #if(z$name=="irtkd")
+  #  res<-paste(res,"<helpLink url=",'"',"http://gking.harvard.edu/zelig/docs/_TT_irtkd_TT__tex2htm.html",'"',sep="")
+  #else
+  #res<-paste(res,"<helpLink url=",'"',modelURL(z$name,z$description),'"',sep="")
+res<-paste(res,"<helpLink url=",'"',url,'"',sep="")
 
   res<-paste(res,"/>\n", sep="")
   if(any(!(is.null(z$package)))){

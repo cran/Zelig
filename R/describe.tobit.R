@@ -1,6 +1,6 @@
 describe.tobit<-function(){
 category <- "continuous"
-description  <- "Linear regression for Left-Censored Dependet Variable"
+description  <- "Linear regression for Left-Censored Dependent Variable"
 package <-list(	name 	="survival",
 		version	="2.2"
 		)

@@ -1,11 +1,16 @@
 qi.lm <- function(object, simpar, x, x1 = NULL, y = NULL) {
+
   k <- length(getcoef(object))
   coef <- simpar[,1:k]
   alpha <- simpar[,(k+1):ncol(simpar)]
+  if (k < ncol(x))
+    x <- as.data.frame(x[,names(coef(object)),drop = FALSE])
   ev <- coef %*% t(x)
   qi <- list(ev=ev)
   qi.name <- list(ev="Expected Values: E(Y|X)")
   if(!is.null(x1)){
+    if (k < ncol(x1))
+      x1 <- as.data.frame(x1[,names(coef(object)),drop=FALSE])
     ev1 <- coef %*% t(x1)
     qi$fd <- ev1-ev
     qi.name$fd <-

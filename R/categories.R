@@ -5,5 +5,6 @@ list(continuous="Models for Continous Dependent Variables",
      bounded="Models for Continous Bounded  Dependent Variables",
      multinomial="Multinomial Choice Models",
      count="Event Count Models",
-     mixed="Models for Mixed Dependent Variables")
+     mixed="Models for Mixed Dependent Variables",
+     ei="Ecological inverence models")
 }

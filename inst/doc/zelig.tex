@@ -1,42 +1,4 @@
-\documentclass[oneside,letterpaper,12pt]{book}
-%\usepackage[ae,hyper]{Rd}
-\usepackage{bibentry}
-\usepackage{upquote}
-\usepackage{graphicx}
-\usepackage{natbib}
-\usepackage[reqno]{amsmath}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{verbatim}
-\usepackage{epsf}
-\usepackage{url}
-\usepackage{html}
-\usepackage{dcolumn}
-\usepackage{multirow}
-\usepackage{fullpage}
-\usepackage{lscape}
-\usepackage[all]{xy}
-% \usepackage[pdftex, bookmarksopen=true,bookmarksnumbered=true,
-%   linkcolor=webred]{hyperref}
-\bibpunct{(}{)}{;}{a}{}{,}
-\newcolumntype{.}{D{.}{.}{-1}}
-\newcolumntype{d}[1]{D{.}{.}{#1}}
-\htmladdtonavigation{
-  \htmladdnormallink{%
-    \htmladdimg{http://gking.harvard.edu/pics/home.gif}}
-  {http://gking.harvard.edu/}}
-\newcommand{\MatchIt}{{\sc MatchIt}}
-\newcommand{\hlink}{\htmladdnormallink}
-\newcommand{\Sref}[1]{Section~\ref{#1}}
-\newcommand{\fullrvers}{2.4.1}
-\newcommand{\rvers}{2.4}
-\newcommand{\rwvers}{R-2.4.1}
-%\renewcommand{\bibentry}{\citealt}
-
-\bodytext{ BACKGROUND="http://gking.harvard.edu/pics/temple.jpg"}
-\setcounter{tocdepth}{2}
-
+\include{zinput}
 \title{Zelig: Everyone's Statistical Software\thanks{The current
     version of this software is available at
     \texttt{http://gking.harvard.edu/zelig/}, free of charge and
@@ -59,7 +21,7 @@ Olivia Lau\thanks{Ph.D.\ Candidate, Department of Government, Harvard
   \texttt{OLau@Fas.Harvard.Edu}).}}
 
 % rbuild: replace 'Version ' '\\' Version
-\date{Version \\ \today}
+\date{Version 3.0-1\\ \today}
 
 \begin{document}
 \maketitle
@@ -112,6 +74,10 @@ may contain bugs, but are usually replaced by stable releases within a
 few days. 
 
 \begin{itemize} 
+
+\item {\bf 3.0} (July 20, 2007):  Stable release for R 2.5.0-2.5.1.
+Introducing vignettes for each model. Improving documentation in the 
+Zelig web site, improving citation style, improving {\tt help.zelig()} function, adding gam models, social network methods, logit gee model, adding support for cross-validation procedures and diagnostics tools, etc.
 
 \item {\bf 2.8-3} (May 29, 2007):  Stable release for R 2.4.0-2.5.0.  
 Fixed bugs in {\tt help.zelig()}, and summary for multinomial logit, 
@@ -410,7 +376,6 @@ changes slated for Version 3.0 (and beyond) include:
 \item Neural network models
 \item Average treatment effects for everyone (treated and control
 units)
-\item Cross-validation
 \item Time-series cross-sectional models (via {\tt nlme})
 \item Generalized boosted regression model (via {\tt gbm})
 \item Saving random seeds to ensure exact replication

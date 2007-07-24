@@ -51,7 +51,7 @@ zelig.default <- function(formula, model, data, by = NULL, save.data =
       if (is.data.frame(d)) {
         d <- d[complete.cases(model.frame(mf$formula, data=d,
                                           na.action = na.pass)),]
-        mf$data <- d
+#        mf$data <- d
 #        res <- create.ZeligS4(eval(as.call(mf)))
          res <- eval(as.call(mf))
         if (exists(fn2)) 

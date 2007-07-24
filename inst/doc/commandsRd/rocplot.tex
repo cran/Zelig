@@ -1,0 +1,88 @@
+\include{zinput} \begin{document}\section{{\tt rocplot}: Receiver Operator Characteristic Plots}\label{ss:rocplot}
+\aliasA{ROC}{rocplot}{ROC}
+\aliasA{roc}{rocplot}{roc}
+\aliasA{ROCplot}{rocplot}{ROCplot}
+\keyword{file}{rocplot}
+\begin{Description}\relax
+The \code{rocplot} command generates a receiver operator
+characteristic plot to compare the in-sample (default) or out-of-sample
+fit for two logit or probit regressions.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+rocplot(y1, y2, fitted1, fitted2, cutoff = seq(from=0, to=1, length=100), 
+        lty1 = "solid", lty2 = "dashed", lwd1 = par("lwd"), lwd2 = par("lwd"),
+        col1 = par("col"), col2 = par("col"), main, xlab, ylab,
+        plot = TRUE, ...)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{y1}] Response variable for the first model.
+\item[\code{y2}] Response variable for the second model.
+\item[\code{fitted1}] Fitted values for the first model.  These values
+may represent either the in-sample or out-of-sample fitted values.
+\item[\code{fitted2}] Fitted values for the second model.
+\item[\code{cutoff}] A vector of cut-off values between 0 and 1, at
+which to evaluate the proportion of 0s and 1s correctly predicted by
+the first and second model.  By default, this is 100 increments
+between 0 and 1, inclusive.
+\item[\code{lty1, lty2}] The line type for the first model (\code{lty1}) and
+the second model (\code{lty2}), defaulting to solid and dashed,
+respectively.
+\item[\code{lwd1, lwd2}] The width of the line for the first model
+(\code{lwd1}) and the second model (\code{lwd2}), defaulting to 1 for both.
+\item[\code{col1, col2}] The colors of the line for the first
+model (\code{col1}) and the second model (\code{col2}), defaulting to
+black for both.
+\item[\code{main}] a title for the plot.  Defaults to \code{ROC Curve}.
+\item[\code{xlab}] a label for the x-axis.  Defaults to \code{Proportion of 1's 
+    Correctly Predicted}.
+\item[\code{ylab}] a label for the y-axis.  Defaults to \code{Proportion of 0's 
+    Correctly Predicted}.
+\item[\code{plot}] defaults to \code{TRUE}, which generates a plot to the
+selected device.  If \code{FALSE}, returns a list of
+items (see below).
+\item[\code{...}] Additional parameters passed to plot, including
+\code{xlab}, \code{ylab}, and \code{main}.  
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+If \code{plot = TRUE}, \code{rocplot} generates an ROC plot for
+two logit or probit models.  If \code{plot = FALSE}, \code{rocplot}
+returns a list with the following elements: normal-bracket63bracket-normal
+\begin{ldescription}
+\item[\code{roc1}] a matrix containing a vector of x-coordinates and
+y-coordinates corresponding to the number of ones and zeros correctly
+predicted for the first model.
+\item[\code{roc2}] a matrix containing a vector of x-coordinates and
+y-coordinates corresponding to the number of ones and zeros correctly
+predicted for the second model.
+\item[\code{area1}] the area under the first ROC curve, calculated using
+Reimann sums.
+\item[\code{area2}] the area under the second ROC curve, calculated using
+Reimann sums.
+\end{ldescription}
+
+normal-bracket63bracket-normal
+\end{Value}
+\begin{Author}\relax
+Kosuke Imai <\email{kimai@princeton.edu}>; Gary King
+<\email{king@harvard.edu}>; Olivia Lau <\email{olau@fas.harvard.edu}>
+\end{Author}
+\begin{SeeAlso}\relax
+The full Zelig manual (available at
+\url{http://gking.harvard.edu/zelig}), \code{plot}, \code{lines}.
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+data(turnout)
+z.out1 <- zelig(vote ~ race + educate + age, model = "logit", 
+  data = turnout)
+z.out2 <- zelig(vote ~ race + educate, model = "logit", 
+  data = turnout)
+rocplot(z.out1$y, z.out2$y, fitted(z.out1), fitted(z.out2))
+\end{ExampleCode}
+\end{Examples}
+
+\end{document}

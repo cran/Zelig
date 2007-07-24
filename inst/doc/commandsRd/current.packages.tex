@@ -1,0 +1,36 @@
+\include{zinput} \begin{document}\section{{\tt current.packages}: Find all packages in a dependency chain}\label{ss:current.packages}
+\keyword{file}{current.packages}
+\begin{Description}\relax
+Use \code{current.packages} to find all the packages suggested or 
+required by a given package, and the currently installed version number 
+for each.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+current.packages(package)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{package}] a character string corresponding to the name of an 
+installed package
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+A matrix containing the current version number of the packages 
+suggested or required by \code{package}.
+\end{Value}
+\begin{Author}\relax
+Olivia Lau <\email{olau@fas.harvard.edu}>
+\end{Author}
+\begin{SeeAlso}\relax
+\code{packageDescription}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+current.packages("Zelig")
+## End(Not run)\end{ExampleCode}
+\end{Examples}
+
+\end{document}

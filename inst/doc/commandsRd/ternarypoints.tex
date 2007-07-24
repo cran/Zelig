@@ -1,0 +1,40 @@
+\include{zinput} \begin{document}\section{{\tt ternarypoints}: Adding Points to Ternary Diagrams}\label{ss:ternarypoints}
+\keyword{aplot}{ternarypoints}
+\begin{Description}\relax
+Use \code{ternarypoints} to add points to a ternary diagram generated
+using the \code{ternaryplot} function in the vcd library.  Use
+ternary diagrams to plot expected values for multinomial choice models
+with three categories in the dependent variable.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+ternarypoints(object, pch = 19, col = "blue", ...)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{object}] The input object must be a matrix with three
+columns. 
+\item[\code{pch}] The selected type of point.  By default, \code{pch =
+    19}, solid disks. 
+\item[\code{col}] The color of the points.  By default, \code{col =
+    "blue"}. 
+\item[\code{...}] Additional parameters passed to \code{points}. 
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+The \code{ternarypoints} command adds points to a previously existing
+ternary diagram.  Use \code{ternaryplot} in the \code{vcd} library to
+generate the main ternary diagram.
+\end{Value}
+\begin{Author}\relax
+Kosuke Imai <\email{kimai@princeton.edu}>; Gary King
+<\email{king@harvard.edu}>; Olivia Lau <\email{olau@fas.harvard.edu}>
+\end{Author}
+\begin{SeeAlso}\relax
+The full Zelig manual at
+\url{http://gking.harvard.edu/zelig}, \code{points}, and
+\code{\LinkA{ternaryplot}{ternaryplot}}.
+\end{SeeAlso}
+
+\end{document}

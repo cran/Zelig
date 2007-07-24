@@ -4,7 +4,11 @@ bivariate.probit   New model example: Bivariate probit MLE
 bprobit            Bivariate Probit regression and simulation 
 conditional        Conditional prediction
 exp                Exponential regression and simulation 
-gamma              Gamma regression and simulation 
+gamma              Gamma regression and simulation
+gam.logit          Generalized Additive Model for Dichotomous Dependent Variables
+gam.normal         Generalized Additive Model for Continuous Dependent Variables
+gam.poisson        Generalized Additive Model for Count Dependent Variables
+gam.probit         Generalized Additive Model for Dichotomous Dependent Variable
 logit              Logit regression and simulation 
 lognorm            Lognormal regression and simulation 
 ls                 Least Squares regression and simulation 
@@ -14,6 +18,11 @@ mlogit             Multinomial Logit regression and simulation
 negbin             Negative Binomial regression and simulation
 netls              Network analysis least squares
 netlogit           Network analysis logit 
+netcloglog         Social Network Complementary Log Log Regression for Dichotomous Dependent Variables
+netgamma           Social Network Gamma Regression for Continuous, Positive Dependent Variables
+netnormal          Social Network Normal Regression for Continuous Dependent Variables
+netpoisson         Social Network Poisson Regression for Event Count Dependent Variables
+netprobit          Social Network Probit Regression for Dichotomous Dependent Variables
 normal             Normal (Gaussian) regression and simulation
 normal.regression  New model example for normal regression
 ologit             Ordinal Logit regression and simulation
@@ -41,7 +50,11 @@ factor.ord         MCMC factor analysis for ordinal data
 factor.mix         MCMC factor analysis for mixed data
 irt1d              MCMC one-dimensional item response theory model
 irtkd              MCMC K-dimensional item response theory model
-ei.RxC		   RxC ecological inference via penalized least-squares
+ei.RxC 		   RxC ecological inference via penalized least-squares
+sur                Seemingly Unrelated Regression
+twosls             Two Stage Least Squares
+threesls           Three Stage Least Squares
+logit.gee          GEE logistic regression
 
 
 
