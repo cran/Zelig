@@ -1,4 +1,4 @@
-netlogit.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FALSE, 
+logit.net.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FALSE, 
     nullhyp = c("qap", "qapspp", "qapy", "qapx", "qapallx", "cugtie", 
         "cugden", "cuguman", "classical"), tol = 1e-07, reps = 1000) 
 {
@@ -27,11 +27,11 @@ netlogit.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FAL
     y <- as.sociomatrix.sna(y)
     x <- as.sociomatrix.sna(x)
     if (is.list(y) || ((length(dim(y)) > 2) && (dim(y)[1] > 1))) 
-        stop("y must be a single graph in netlogit.")
+        stop("y must be a single graph in logit.net.")
     if (length(dim(y)) > 2) 
         y <- y[1, , ]
     if (is.list(x) || (dim(x)[2] != dim(y)[2])) 
-        stop("Homogeneous graph orders required in netlogit.")
+        stop("Homogeneous graph orders required in logit.net.")
     nx <- stackcount(x) + intercept
     n <- dim(y)[2]
     g <- list(y)
@@ -42,7 +42,7 @@ netlogit.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FAL
     else for (i in 1:(nx - intercept)) g[[i + 1 + intercept]] <- x[i, 
         , ]
     if (any(sapply(lapply(g, is.na), any))) 
-        warning("Missing data supplied to netlogit; this may pose problems for certain null hypotheses.  Hope you know what you're doing....")
+        warning("Missing data supplied to logit.net; this may pose problems for certain null hypotheses.  Hope you know what you're doing....")
     fit.base <- gfit(g, mode = mode, diag = diag)
     fit <- list()
     fit$coefficients <- fit.base$coefficients
@@ -195,6 +195,6 @@ netlogit.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FAL
     if (intercept) 
         fit$names <- c("(intercept)", fit$names)
     fit$intercept <- intercept
-    class(fit) <- "netlogit"
+    class(fit) <- "logit.net"
     fit
 }

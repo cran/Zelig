@@ -245,3 +245,54 @@ return (c(src %w/o% src[index],dest))
         return(v)
 }
 
+##
+#   Reaction ~ Days + tag(1 + Days | subject) ==>
+#   list (fixed = ~ Days,
+#         random = ~ 1 + Days)
+#
+
+.getRandAndFixedTerms <- function (fml){
+        f <- function(x){
+                as.formula(paste("~",paste(x, collapse = "+")))
+        }
+        res <- list()
+        if(length(fml)!=3)
+          stop("the main formula in the extended form should be of length 3 !")
+        lhs <- fml[[2]]
+        rhs <- fml[[3]]
+        TT <- terms(fml,specials="tag")
+        TT.labels <- attr(TT,"term.labels")
+        TT.vars <- attr(TT,"variables")
+        tagattr<-attr(TT,"specials")$tag
+
+        hastag<-!(is.null(tagattr))
+
+        if (hastag){
+                ## fixed
+                F.labels <- TT.labels[-(tagattr-1)]
+                if (!length(F.labels))
+                  F.labels <- 1
+                res$fixed <- as.formula(paste("~",paste(F.labels,collapse="+")))
+
+                ## random
+                random <- list()
+                idx = 1
+                for (j in tagattr){
+                        vind <- j + 1
+                        tmp <- .deparseTag(TT.vars[[vind]])
+                        idx <- idx + 1
+                        ## if tags have the same id, merge them together
+                        if (tmp$id %in% names(random)){
+                            random[[tmp$id]] <- c(random[[tmp$id]], tmp$var)    
+                        } else {
+                                random[[tmp$id]] <- tmp$var
+                        }
+                }
+                res$random <- lapply(random,f)
+                
+        } else {
+                res$fixed <- fml
+        }
+        return(res)
+}
+

@@ -1,15 +1,15 @@
 \SweaveOpts{results=hide, prefix.string=vigpics/logit_gee}
 \include{zinput}
-%\VignetteIndexEntry{logit.gee: Generalized Estimating Equation for Logistic Regression}
+%\VignetteIndexEntry{Generalized Estimating Equation for Logistic Regression}
 %\VignetteDepends{Zelig, gee}
 %\VignetteKeyWords{model,generalized estimating equation, logistic regression}
 %\VignettePackage{Zelig}
 \begin{document}
+
 \nobibliography*
 <<beforepkgs, echo=FALSE>>=
  before=search()
 @
-
 <<loadLibrary, echo=F,results=hide>>=
 library(Zelig)
 @ 
@@ -26,7 +26,7 @@ panel data.  The user must first specify a ``working''
 correlation matrix for the clusters, which models the dependence of each observation with other observations in the same cluster.  The ``working'' correlation matrix is a $T \times T$ matrix of correlations, where $T$ is the size of the largest cluster and the elements of the matrix are correlations between within-cluster observations.  The appeal of GEE models is that it gives consistent estimates of the parameters and consistent estimates of
 the standard errors can be obtained using a robust ``sandwich''
 estimator even if the ``working'' correlation matrix is incorrectly
-specified.  If the ``working'' correlation matrix is correctly specified, GEE models will give more efficient estimates of the parameters.     
+specified.  If the ``working'' correlation matrix is correctly specified, GEE models will give more efficient estimates of the parameters.  GEE models measure  population-averaged effects as opposed to cluster-specific effects (See \citet{Zorn01}).
 
 \subsubsection{Syntax}
 
@@ -152,7 +152,7 @@ Setting values for the explanatory variables to their default values:
 <<Example.setx>>=
 x.out1 <- setx(z.out1)
 @
-Simulating quantities of interest from the posterior distribution.
+Simulating quantities of interest:
 <<Example.sim>>=
 s.out1 <- sim(z.out1, x = x.out1)
 @
@@ -206,67 +206,54 @@ summary(z.out2)
 \end{enumerate}
 
 \subsubsection{The Model}
-Suppose we have a panel dataset, with $Y_{it}$ denoting the binary
-dependent variable for unit $i$ at time $t$ which takes the value of
-either 0 or 1.  $Y_{i}$ is a vector or cluster of correlated data
+Suppose we have a panel dataset, with $Y_{it}$ denoting the binary dependent variable for unit $i$ at time $t$.  $Y_{i}$ is a vector or cluster of correlated data
 where $y_{it}$ is correlated with $y_{it^\prime}$ for some or all
-$t, t^\prime$.  In the GEE model, we must specify a mean function, a
-variance function, and the structure of the correlation matrix of the within-cluster
-observations.  Observations are assumed to be correlated within each
-cluster but not across clusters.  
-
+$t, t^\prime$.  Note that the model assumes correlations within $i$ but independence across $i$.  
 
 \begin{itemize}
 
-\item The \emph{stochastic component} is given by the joint distribution
+\item The \emph{stochastic component} is given by the joint and marginal distributions
+\begin{eqnarray*}
+Y_{i} &\sim& f(y_{i} \mid \pi_{i})\\
+Y_{it} &\sim& g(y_{it} \mid \pi_{it})
+\end{eqnarray*}
+where $f$ and $g$ are unspecified distributions with means $\pi_{i}$ and $\pi_{it}$.  GEE models make no distributional assumptions and only require three specifications: a mean function, a variance function, and a correlation structure.
 
-\begin{eqnarray*}
-Y_{i} &\sim& f(y_{i} \mid \pi_{i})
-\end{eqnarray*}
-where $f$ is an unspecified multivariate distribution.  The marginal distributions of $f$, which characterize each nonindependent unit-time observation $Y_{it}$, is given by
-\begin{eqnarray*}
-Y_{it} &\sim& \mathrm{Bernoulli}(y_{it} \mid \pi_{it}) \\
-    &=& \pi_{it}^{y_{it}} (1-\pi_{it})^{1-y_{it}}
-\end{eqnarray*}
-where $\pi_{it}=\Pr(Y_{it}=1)$ for $t=1,...,T$.  The correlations
-within each unit $i$ are modeled by defining the structure of a $T \times T$
-``working'' correlation matrix, which is specified by the user
-\textit{a priori}.  Note that the model assumes correlations within $i$ but independence across $i$.  The ``working'' correlation matrix then enters
-the variance term for each $i$, given by:
+\item The \emph{systematic component} is the \textit{mean function}, given by:
+\begin{equation*}
+\pi_{it} = \frac{1}{1 + \exp(-x_{it} \beta)}
+\end{equation*}
+where  $x_{it}$ is the vector of $k$ explanatory variables for unit $i$ at time $t$
+and $\beta$ is the vector of coefficients.
+
+\item The \textit{variance function} is given by: 
+\begin{equation*}
+V_{it} = \pi_{it} (1-\pi_{it})
+\end{equation*} 
+
+\item The \textit{correlation structure} is defined by a $T \times T$ ``working'' correlation matrix, where $T$ is the size of the largest cluster.  Users must specify the structure of the ``working'' correlation matrix \textit{a priori}.  The ``working'' correlation matrix then enters the variance term for each $i$, given by:
 \begin{equation*}
 V_{i} = \phi \, A_{i}^{\frac{1}{2}} R_{i}(\alpha) A_{i}^{\frac{1}{2}}
 \end{equation*}
-where $A_{i}$ is a $T \times T$ diagonal matrix with $var(\pi_{it}) = \pi_{it} (1-\pi_{it})$ as the $t$th diagonal element, $R_{i}(\alpha)$ is the ``working'' correlation matrix, and $\phi$ is a scale parameter.  The parameters are then estimated via a quasi-likelihood approach.
+where $A_{i}$ is a $T \times T$ diagonal matrix with the variance function $V_{it} = \pi_{it} (1-\pi_{it})$ as the $t$th diagonal element, $R_{i}(\alpha)$ is the ``working'' correlation matrix, and $\phi$ is a scale parameter.  The parameters are then estimated via a quasi-likelihood approach.
 
-\item The \emph{systematic component} is given by:
-\begin{equation*}
-\pi_{it} \; = \; \frac{1}{1 + \exp(-x_{it} \beta)}.
-\end{equation*}
-where $x_{it}$ is the vector of $k$ explanatory variables for unit $i$ at time $t$
-and $\beta$ is the vector of coefficients.
+\item In GEE models, if the mean is correctly specified, but the variance and correlation structure are incorrectly specified, then GEE models provide consistent estimates of the parameters and thus the mean function as well, while consistent estimates of the standard errors can be obtained via a robust ``sandwich'' estimator.  Similarly, if the mean and variance are correctly specified but the correlation structure is incorrectly specified, the parameters can be estimated consistently and the standard errors can be estimated consistently with the sandwich estimator.  If all three are specified correctly, then the estimates of the parameters are more efficient.
 
-
-\item GEE models require three specifications: a mean function (the systematic component above), a variance function (given by the variance of the Bernoulli stochastic component: $var(\pi_{it}) = \pi_{it} (1-\pi_{it})$), and a correlation structure (the ``working'' correlation matrix above).  If the mean is correctly specified, but the variance and correlation structure are incorrectly specified, then GEE models provide consistent estimates of the parameters and thus the mean function as well, while consistent estimates of the standard errors can be obtained via a robust ``sandwich'' estimator.  Similarly, if the mean and variance are correctly specified but the correlation structure is incorrectly specified, the parameters can be estimated consistently and the standard errors can be estimated consistently with the sandwich estimator.  If all three are specified correctly, then the estimates of the parameters are more efficient.
-
-\item The robust ``sandwich'' estimator gives consistent estimates of the standard errors when the correlations are specified incorrectly only if the number of units $i$ is relatively large and the number of repeated periods $t$ is relatively small.  Otherwise, one should use the ``na\"{i}ve'' model-based standard errors, which assume that the specified correlations are close approximations to the true underlying correlations.  See \citet{fitlaiwar04} for more details.
+\item The robust ``sandwich'' estimator gives consistent estimates of the standard errors when the correlations are specified incorrectly only if the number of units $i$ is relatively large and the number of repeated periods $t$ is relatively small.  Otherwise, one should use the ``na\"{i}ve'' model-based standard errors, which assume that the specified correlations are close approximations to the true underlying correlations.  See \citet{FitLaiWar04} for more details.
 
 \end{itemize}
-
-
 
 \subsubsection{Quantities of Interest}
 \begin{itemize}
 \item All quantities of interest are for marginal means rather than joint means.
-\item The expected values ({\tt qi\$ev}) for the logit model are
+\item The method of bootstrapping generally should not be used in GEE models.  If you must bootstrap, bootstrapping should be done within clusters, which is not currently supported in Zelig.  For conditional prediction models, data should be matched within clusters.
+\item The expected values ({\tt qi\$ev}) for the GEE logit model are
   simulations of the predicted probability of a success: $$E(Y) =
   \pi_{c}= \frac{1}{1 + \exp(-x_{c} \beta)},$$ given draws of $\beta$ from
   its sampling distribution, where $x_{c}$ is a vector of values, one for
 each independent variable, chosen by the user.
 
-\item The predicted values ({\tt qi\$pr}) are draws from the Binomial
-  distribution with mean equal to the simulated expected value $\pi_{c}$.
-
-\item The first difference ({\tt qi\$fd}) for the logit model is defined as
+\item The first difference ({\tt qi\$fd}) for the GEE logit model is defined as
 \begin{equation*}
 \textrm{FD} = \Pr(Y = 1 \mid x_1) - \Pr(Y = 1 \mid x).
 \end{equation*}
@@ -288,25 +275,13 @@ each independent variable, chosen by the user.
     treatment group, under the assumption that everything stays the
     same except that the treatment indicator is switched to $tr_{it}=0$.
 
-\item In conditional prediction models, the average predicted treatment
-  effect ({\tt att.pr}) for the treatment group is
-    \begin{equation*} \frac{1}{\sum_{i=1}^n \sum_{t=1}^T tr_{it}}\sum_{i:tr_{it}=1}^n \sum_{t:tr_{it}=1}^T \left\{ Y_{it}(tr_{it}=1) -
-      \widehat{Y_{it}(tr_{it}=0)}\right\},
-    \end{equation*}
-    where $tr_{it}$ is a binary explanatory variable defining the
-    treatment ($tr_{it}=1$) and control ($tr_{it}=0$) groups.  Variation in
-    the simulations are due to uncertainty in simulating
-    $\widehat{Y_{it}(tr_{it}=0)}$, the counterfactual predicted value of
-    $Y_{it}$ for observations in the treatment group, under the
-    assumption that everything stays the same except that the
-    treatment indicator is switched to $tr_{it}=0$.
 \end{itemize}
 
 \subsubsection{Output Values}
 
 The output of each Zelig command contains useful information which you
 may view.  For example, if you run \texttt{z.out <- zelig(y \~\, x,
-  model = "logit.gee", id, data, corstr)}, then you may examine the available
+  model = "logit.gee", id, data)}, then you may examine the available
 information in \texttt{z.out} by using \texttt{names(z.out)},
 see the {\tt coefficients} by using {\tt z.out\$coefficients}, and
 a default summary of information through \texttt{summary(z.out)}.
@@ -342,37 +317,36 @@ below.
    \begin{itemize}
    \item {\tt qi\$ev}: the simulated expected probabilities for the
      specified values of {\tt x}.
-   \item {\tt qi\$pr}: the simulated predicted values for the
-     specified values of {\tt x}.
    \item {\tt qi\$fd}: the simulated first difference in the expected
      probabilities for the values specified in {\tt x} and {\tt x1}.
    \item {\tt qi\$rr}: the simulated risk ratio for the expected
      probabilities simulated from {\tt x} and {\tt x1}.
    \item {\tt qi\$att.ev}: the simulated average expected treatment
      effect for the treated from conditional prediction models.
-   \item {\tt qi\$att.pr}: the simulated average predicted treatment
-     effect for the treated from conditional prediction models.
    \end{itemize}
 \end{itemize}
 
-\subsection* {How to Cite} 
+\subsection*{How To Cite}
 
 To cite the \emph{logit.gee} Zelig model:
 \begin{verse}
-Patrick Lam. 2007. ``logit.gee: Generalized Estimating Equation for Logistic Regression,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
+Patrick Lam. 2007. ``logit.gee: Generalized Estimating Equation for Logit Regression,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
 
 \end{verse}
-\input{citeZelig}
+%\input{citeZelig}
 
-\subsection* {See also}
-The logit function is part of the base packages by William N. Venable \citep{VenRip02}. Advanced users may wish to refer to \texttt{help(glm)} and \texttt{help(family)}, as well as \cite{McCNel89}. Robust standard errors are implemented via sandwich package by Achim Zeileis \citep{Zeileis04}.Sample data are a selection of $2,000$ observations from \cite{KinTomWit00}
+\subsection*{See also}
+The gee function is part of the gee package by Vincent J. Carey, ported to R by Thomas Lumley and Brian Ripley.  Advanced users may wish to refer to \texttt{help(gee)} and \texttt{help(family)}.  Sample data are from \cite{KinTomWit00}.
 
 \bibliographystyle{asa}
-\bibliography{gk,gkpubs}
+\bibliography{gk}
+
 <<afterpkgs, echo=FALSE>>=
  after<-search()
  torm<-setdiff(after,before)
  for (pkg in torm)
  detach(pos=match(pkg,search()))
 @
+
+
 \end{document}

@@ -1,4 +1,4 @@
-\include{zinput} \begin{document}\section{{\tt Zelig-package}: Zelig: Everyone's Statistical Software}\label{ss:Zelig.Rdash.package}
+\include{zinput} \begin{document}\section{{\tt Zelig-package}: Everyone's Statistical Software}\label{ss:Zelig.Rdash.package}
 \aliasA{Zelig}{Zelig-package}{Zelig}
 \keyword{package}{Zelig-package}
 \begin{Description}\relax
@@ -19,31 +19,49 @@ quantities of direct interest.
 \begin{Details}\relax
 \Tabular{ll}{
 Package: & Zelig\\
-Version: & 2.8-5\\
+Version: & 3.1-0\\
 Date: & 2007-06-12\\
-Depends: & R (>= 2.4.0), MASS, boot\\
+Depends: & R (>= 2.5.0), MASS, boot\\
 Suggests: & VGAM (>= 0.7-1), MCMCpack (>= 0.7-4), mvtnorm, survival,
 sandwich (>= 2.0-0), zoo (>= 1.2-1), coda, nnet, sna, gee,
-systemfit, mgcv\\
+systemfit, mgcv, lme4, anchors (>= 2.0)\\
 License: & GPL version 2 or newer\\
 URL: & http://gking.harvard.edu/zelig\\
+Packaged: & Wed May 30 16:14:15 2007; falimadh\\
+Built: & R 2.6.0; ; 2007-11-30 13:37:37; unix\\
 }
 
 Index:
 \begin{alltt}
 approval                U.S. Presidential Approval Data
+bivariate               Sample data for bivariate probit regression
 coalition               Coalition Dissolution in Parliamentary
                         Democracies
+coalition2              Coalition Dissolution in Parliamentary
+                        Democracies, Modified Version
 current.packages        Find all packages in a dependency chain
 dims                    Return Dimensions of Vectors, Arrays, and Data
                         Frames
 eidat                   Simulation Data for Ecological Inference
+free1                   Freedom of Speech Data
+free2                   Freedom of Speech Data
 friendship              Simulated Example of Schoolchildren Friendship
                         Network
+grunfeld                Simulation Data for model Seemingly Unrelated
+                        Regression (sur) that corresponds to method SUR
+                        of systemfit
 gsource                 Read Data As a Space-Delimited Table
 help.zelig              HTML Help for Zelig Commands and Models
 hoff                    Social Security Expenditure Data
+homerun                 Sample Data on Home Runs Hit By Mark McGwire
+                        and Sammy Sosa in 1998.
 immigration             Individual Preferences Over Immigration Policy
+klein                   Simulation Data for model Two-Stage Least
+                        Square (twosls) that corresponds to method 2SLS
+                        of systemfit
+kmenta                  Simulation Data for model Three-Stage Least
+                        Square (threesls) that corresponds to method
+                        3SLS of systemfit
 macro                   Macroeconomic Data
 match.data              Output matched data sets
 MatchIt.url             Table of links for Zelig
@@ -83,67 +101,79 @@ tobin                   Tobin's Tobit Data
 turnout                 Turnout Data Set from the National Election
                         Survey
 user.prompt             Pause in demo files
+voteincome              Sample Turnout and Demographic Data from the
+                        2000 Current Population Survey
 Weimar                  1932 Weimar election data
 zelig                   Estimating a Statistical Model
 zeligDepStatus          Zelig Dependencies Packages Client Status
 zeligDepUpdate          Download Zelig Dependencies Packages
 zeligDescribeModelXML   Zelig interface functions
-Zelig-package           Everyone's Statistical Software
+Zelig-package           Zelig: Everyone's Statistical Software
 Zelig.url               Table of links for Zelig
-zideal                  Zelig Matrix of Dependencies
 \end{alltt}
 
 Further information is available in the following vignettes:
-
 \Tabular{ll}{
+\code{aov} & Fit an Analysis of Variance Model (source)\\
 \code{arima} & ARIMA Models for Time Series Data (source)\\
 \code{blogit} & Bivariate Logistic Regression for Two Dichotomous Dependent Variables (source)\\
 \code{bprobit} & Bivariate Probit Regression for Dichotomous Dependent Variables (source)\\
+\code{chopit} & Compound Hierarchical Ordered Probit for Survey Vignettes (source)\\
+\code{cloglog.net} & Social Network Complementary Log Log Regression for Dichotomous Dependent Variables (source)\\
+\code{coxph} & Cox Proportional Hazards Regression for Duration Dependent Variables (source)\\
 \code{ei.RxC} & Hierarchical Multinomial-Dirichlet Ecological Inference Model (source)\\
 \code{ei.dynamic} & Quinn's Dynamic Ecological Inference (source)\\
-\code{ei.hier} & Hierarchical Ecological Inference Model (source)\\
+\code{ei.hier} & Hierarchical Ecological Inference Model for 2x2 tables (source)\\
 \code{exp} & Exponential Regression for Duration Dependent Variables (source)\\
 \code{factor.bayes} & Bayesian Factor Analysis (source)\\
 \code{factor.mix} & Mixed Data Factor Analysis (source)\\
 \code{factor.ord} & Ordinal Data Factor Analysis (source)\\
-\code{gam.logit} & gam.logit: Generalized Additive Model for Dichotomous Dependent Variables (source)\\
-\code{gam.normal} & Generalized Additive Model for Continuous Dependent Variables (source)\\
-\code{gam.poisson} & Generalized Additive Model for Count Dependent Variables (source)\\
-\code{gam.probit} & Generalized Additive Model for Dichotomous Dependent Variables (source)\\
 \code{gamma} & Gamma Regression for Continuous, Positive Dependent Variables (source)\\
-\code{irt1d} &  One Dimensional Item Response Mode (source)\\
+\code{gamma.gee} & Generalized Estimating Equation for Gamma Regression (source)\\
+\code{gamma.mixed} & Gamma mixed effects linear regression (source)\\
+\code{gamma.net} & Network Gamma Regression for Continuous, Positive Proximity Matrix Dependent Variables (source)\\
+\code{irt1d} & One Dimensional Item Response Mode (source)\\
 \code{irtkd} & K-Dimensional Item Response Model (source)\\
 \code{logit} & Logistic Regression for Dichotomous Dependent Variables (source)\\
 \code{logit.bayes} & Bayesian Logistic Regression for Dichotomous Dependent Variables (source)\\
+\code{logit.gam} & Generalized Additive Model for Dichotomous Dependent Variables (source)\\
 \code{logit.gee} & Generalized Estimating Equation for Logistic Regression (source)\\
+\code{logit.mixed} & Mixed effects linear regression (source)\\
+\code{logit.net} & Network Logistic Regression for Dichotomous Proximity Matrix Dependent Variables (source)\\
 \code{lognorm} & Log-Normal Regression for Duration Dependent Variables (source)\\
 \code{ls} & Least Squares Regression for Continuous Dependent Variables (source)\\
+\code{ls.mixed} & Mixed effects linear regression (source)\\
+\code{ls.net} & Network Least Squares Regression for Continuous Proximity Matrix Dependent Variables (source)\\
 \code{mlogit} & Multinomial Logistic Regression for Dependent Variables with Unordered Categorical Values (source)\\
 \code{mlogit.bayes} & Bayesian Multinomial Logistic Regression for Dependent Variables with Unordered Categorical Values (source)\\
 \code{mloglm} & Multinomial Log-Linear Regression for Contingency Table Models (source)\\
 \code{negbin} & Negative Binomial Regression for Event Count Dependent Variables (source)\\
-\code{netcloglog} & Least Squares Regression for Continuous Dependent Variables (source)\\
-\code{netgamma} & Least Squares Regression for Continuous Dependent Variables (source)\\
-\code{netlogit} & Least Squares Regression for Continuous Dependent Variables (source)\\
-\code{netls} & Network Least Squares Regression for Continuous Proximity Matrix Dependent Variables (source)\\
-\code{netnormal} & Least Squares Regression for Continuous Dependent Variables (source)\\
-\code{netpoisson} & Least Squares Regression for Continuous Dependent Variables (source)\\
-\code{netprobit} & Least Squares Regression for Continuous Dependent Variables (source)\\
 \code{normal} & Normal Regression  for Continuous Dependent Variables (source)\\
 \code{normal.bayes} & Bayesian Normal Linear Regression (source)\\
+\code{normal.gam} & Generalized Additive Model for Continuous Dependent Variables (source)\\
+\code{normal.gee} & Generalized Estimating Equation for Normal Regression (source)\\
+\code{normal.net} & Network Normal Regression for Continuous Proximity Matrix Dependent Variables (source)\\
 \code{ologit} & Ordinal Logistic Regression  for Ordered Categorical Dependent Variables (source)\\
 \code{oprobit} & Ordinal Probit Regression for Ordered Categorical Dependent Variables (source)\\
 \code{oprobit.bayes} & Bayesian Ordered Probit Regression (source)\\
 \code{poisson} & Poisson Regression for Event Count Dependent Variables (source)\\
 \code{poisson.bayes} & Bayesian Poisson Regression (source)\\
+\code{poisson.gam} & Generalized Additive Model for Count Dependent Variables (source)\\
+\code{poisson.gee} & Generalized Estimating Equation for Poisson Regression (source)\\
+\code{poisson.mixed} & Mixed effects poisson regression (source)\\
+\code{poisson.net} & Network Poisson Regression for Event Count Proximity Matrix Dependent Variables (source)\\
 \code{probit} & Probit Regression for Dichotomous Dependent Variables (source)\\
 \code{probit.bayes} & Bayesian Probit Regression for Dichotomous Dependent Variable (source)\\
+\code{probit.gam} & Generalized Additive Model for Dichotomous Dependent Variables (source)\\
+\code{probit.gee} & Generalized Estimating Equation for Probit Regression (source)\\
+\code{probit.mixed} & Mixed effects probit regression (source)\\
+\code{probit.net} & Network Probit Regression for Dichotomous Proximity Matrix Dependent Variables (source)\\
 \code{relogit} & Rare Events Logistic Regression for Dichotomous Dependent Variables (source)\\
 \code{sur} & Seemingly Unrelated Regression (source)\\
-\code{threesls} &  Three Stage Least Squares (source)\\
+\code{threesls} & Three Stage Least Squares (source)\\
 \code{tobit} & Linear regression for Left-Censored Dependet Variable (source)\\
 \code{tobit.bayes} & Bayesian Linear Regression for a Censored Dependent Variable (source)\\
-\code{twosls} &  Two Stage Least Squares (source)\\
+\code{twosls} & Two Stage Least Squares (source)\\
 \code{weibull} & Weibull Regression for Duration Dependent Variables (source)\\
 }
 \end{Details}

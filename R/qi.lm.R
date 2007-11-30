@@ -18,6 +18,8 @@ qi.lm <- function(object, simpar, x, x1 = NULL, y = NULL) {
   }
   if (!is.null(y)) {
     yvar <- matrix(rep(y, nrow(simpar)), nrow = nrow(simpar), byrow = TRUE)
+#    tmp.ev <- qi$tt.ev <- yvar - qi$ev
+#    qi.name$tt.ev <- "Unit Treatment Effect for the Treated: Y - EV"
     tmp.ev <- yvar - qi$ev
     qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
     qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"

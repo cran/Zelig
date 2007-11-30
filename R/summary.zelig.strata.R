@@ -14,26 +14,25 @@ summary.zelig.strata <-function(object, subset = NULL, CI=95,
         if(length(dim(qi1i))==3){
           tmp <- array(NA, dim=c(dim(qi1i)[1:2], sum(w)))
           tmp[,1:dim(qi1i)[2],1:dim(qi1i)[3]] <- qi1i
-        }
-        else
+        } else {
           tmp <- as.matrix(qi1i)
-      }
-      else { # unconditional prediction
+        }
+      } else { # unconditional prediction
         if(length(dim(qi1i))==3){
           tmp <- array(NA, dim=c(dim(qi1i)[1:2], sum(w)))
           tmp[,,1:w[1]] <- qi1i[,,1:w[1]] 
-        }
-        else 
+        } else {
           tmp <- as.matrix(qi1i)
+        }
       }
       for (j in 2:m) {
         qiji <- object[[j]]$qi[[i]]
-        if(any(class(object[[j]]$x)=="cond")) # conditional prediction
+        if(any(class(object[[j]]$x)=="cond")) {# conditional prediction
           if(length(dim(qi1i))==3) 
             tmp[,,(sum(w[1:(m-1)])+1):sum(w[1:m])] <- qiji
           else
             tmp <- cbind(tmp, qiji)
-        else{ # unconditional prediction
+        } else{ # unconditional prediction
           if(length(dim(qi1i))==3)
             tmp[(sum(w[1:(j-1)])+1):sum(w[1:j]),,] <- qiji[1:w[j],,]
           else
@@ -48,8 +47,7 @@ summary.zelig.strata <-function(object, subset = NULL, CI=95,
                 x=object[[1]]$x, x1=NULL, call=c,
                 zelig.call=object[[1]]$zelig.call)
     return(summary.zelig(res, ...))  
-  }
-  else { # summary for each strata
+  } else { # summary for each strata
     res <- list()
     if(is.function(subset)){
       m <- length(object)

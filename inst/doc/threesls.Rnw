@@ -200,8 +200,8 @@ Ferdinand Alimadhi, Ying Lu, and Elena Villalon. 2007. ``threesls: Three Stage L
 \input{citeZelig}
 
 \subsection* {See also}
-The threesls function is adapted from the \texttt{systemfit} library by Jeff Hamann
-and Arne Henningsen \citep{HamaHenn05}.
+The threesls function is adapted from the \texttt{systemfit} library
+\citep{HamHen05}.
 
 \bibliographystyle{asa}
 \bibliography{gk,gkpubs}

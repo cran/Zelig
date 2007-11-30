@@ -22,8 +22,7 @@ summary(z.out1)
 user.prompt()
 x.out1 <- setx(z.out1)
 
-##  Simulating quantities of interest (predicted probabilites, risk
-##  ratios, and risk differences):
+##  Simulating quantities of interest: 
 user.prompt()
 s.out1 <- sim(z.out1, x = x.out1)
 user.prompt()

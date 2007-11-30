@@ -15,7 +15,7 @@ library(Zelig)
 @ 
 
 \section{{\tt ei.RxC}: Hierarchical Multinomial-Dirichlet Ecological
-  Inference Model for $R \times C$ Tables}\label{eiRxC}
+  Inference Model for $R \times C$ Tables}\label{ei.RxC}
 
 Given $n$ contingency tables, each with observed marginals (column and
 row totals), ecological inference ({\sc ei}) estimates the internal
@@ -28,7 +28,7 @@ bootstrapping for standard errors, had good frequentist properties.
 \begin{verbatim}
 > z.out <- zelig(cbind(T0, T1, T2, T3) ~ X0 + X1, 
                  covar = NULL, 
-                 model = "eiRxC", data = mydata)
+                 model = "ei.RxC", data = mydata)
 > x.out <- setx(z.out, fn = NULL)
 > s.out <- sim(z.out)
 \end{verbatim}
@@ -65,14 +65,9 @@ Estimating the model:
  summary(z.out)
 @ 
 
-Setting values for in-sample simulations given marginal values:
-<<ExampleNoCov.setx>>=
- x.out <- setx(z.out)
-@ 
-
 Estimate fractions of different social groups that support political parties:
 <<ExampleNoCov.sim>>=
- s.out <- sim(z.out)
+ s.out <- sim(z.out, num = 10)
 @ 
 
 Summarizing fractions of different social groups that support political parties:
@@ -99,14 +94,16 @@ Set the covariate to its default (mean/median) value
 @ 
 
 Estimate fractions of different social groups that support political parties:
-<<ExampleCov.sim>>=
- s.out <- sim(z.out)
-@ 
+
+\begin{verbatim}
+> s.out <- sim(z.out, num = 100) 
+\end{verbatim}
 
 Summarizing fractions of different social groups that support political parties:
-<<ExampleCov.summary>>=
- summary(s.out)
-@ 
+\begin{verbatim}
+> s.out <- summary(s.out) 
+\end{verbatim}
+
 \end{enumerate}
 
 \clearpage
@@ -189,7 +186,7 @@ The output of each Zelig command contains useful information which you may
 view. For example, if you run
 \begin{verbatim}
 > z.out <- zelig(cbind(T0, T1, T2) ~ X0 + X1 + X2, 
-          model = "eiRxC", data = mydata)
+          model = "ei.RxC", data = mydata)
 \end{verbatim}
 
 \noindent then you may examine the available information in
@@ -206,13 +203,14 @@ view. For example, if you run
   parameters $\beta_{ij}$ corresponding to the estimated fractions of
   different social groups that support different political parties, by
   using \texttt{s.out\$qi\$ev}.  For each precinct, that will be a
-  matrix with dimensions: simulations $\times R \times C$.
+  matrix with dimensions: simulations $\times R \times C$. \\ 
+  \texttt{summary(s.out)} will give you the nationwide aggregate parameters.
 \end{itemize}
 
 \subsection*{How to Cite}
 To cite the \emph{ei.RxC} Zelig model use:
 \begin{verse}
-Jason Wittenberg, Ferdinand Alimadhi, and Olivia Lau. 2007. ``ei.RxC:Hierarchical Multinomial-Dirichlet Ecological Inference Model,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
+Jason Wittenberg, Ferdinand Alimadhi, Badri Narayan Bhaskar, and Olivia Lau. 2007. ``ei.RxC:Hierarchical Multinomial-Dirichlet Ecological Inference Model,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
 \end{verse}
 \input{citeZelig}
 \subsection*{See also}

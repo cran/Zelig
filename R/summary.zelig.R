@@ -30,6 +30,8 @@ summary.zelig<-function(object, subset = NULL, CI=95,
       X1 <- X1[subset,]
   }
   rows <- rownames(X)
+  #object$qi$tt.pr <- object$qi$tt.ev <- 
+  #  object$qi.name$tt.pr <- object$qi.name$tt.ev <- NULL
   for (i in 1:length(object$qi)) {
     qi.stats[[i]] <- summarize(object$qi[[i]], rows = rows,
                                stats = stats, cip = cip, 

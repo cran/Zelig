@@ -1,4 +1,4 @@
-describe.gam.probit<-function(){
+describe.probit.gam<-function(){
 category <- "dichotomous"
 description  <- "Generalized Additive Model for Dichotomous Dependent Variables"
 package <-list(	name 	="mgcv",

@@ -1,4 +1,4 @@
-zelig2netprobit <- function(formula, model, data, M, ...) {
+zelig2probit.net <- function(formula, model, data, M, ...) {
   check <- library()
   if(any(check$results[,"Package"] == "sna")) 
     require(sna)

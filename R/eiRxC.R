@@ -54,6 +54,13 @@ call.difp <- function(par, mx, my, covar, nR, nC, nP, const){
     ebeta <- exp(gamma)/(1 + apply(exp(gamma), 1, sum))
     diff <- sum((mx %*% ebeta - my[, -nC])^2) + (const * sum(gamma^2))
   }
+
+  ## Trap bad values
+  if (is.null(diff))
+    diff <- 9999999;
+  if (!is.finite(diff))
+    diff <- 9999999;
+  
   diff
 }
 
@@ -192,7 +199,7 @@ calc.fractions <- function(object, simpar) {
 cmei <- function(formula, data, covar = NULL, ...){
   if (is.null(rownames(data))) {
     rownames(data) <- 1:nrow(data)
-    assign(data, as.character(mc$data), env = .GlobalEnv)
+    assign(data, as.character(data), env = .GlobalEnv)
   }
   res<-NULL
   myVars<-all.vars(formula[[2]])

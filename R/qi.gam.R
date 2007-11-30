@@ -9,7 +9,7 @@ qi.gam <- function(object, simpar, x, x1 = NULL, y = NULL) {
   theta <- matrix(object$family$linkinv(eta), nrow = nrow(coef))
   pr <- ev <- matrix(NA, nrow = nrow(theta), ncol = ncol(theta))
   dimnames(pr) <- dimnames(ev) <- dimnames(theta)
-  if (model %in% c("gam.logit", "gam.probit")) { 
+  if (model %in% c("logit.gam", "probit.gam")) { 
     check <- TRUE
     ev <- theta
     for (i in 1:ncol(theta)) 
@@ -19,7 +19,7 @@ qi.gam <- function(object, simpar, x, x1 = NULL, y = NULL) {
         y <- y[,1]
     }
   }
-  else if (model == "gam.normal") {
+  else if (model == "normal.gam") {
     ev <- theta
     for (i in 1:nrow(ev)) 
       pr[i,] <- rnorm(length(ev[i,]), mean = ev[i,], sd = alpha[i])
@@ -29,7 +29,7 @@ qi.gam <- function(object, simpar, x, x1 = NULL, y = NULL) {
     for (i in 1:nrow(ev))  
       pr[i,] <- rgamma(length(ev[i,]), shape = theta[i,], scale = 1/alpha[i])
   }
-  else if (model == "gam.poisson") {
+  else if (model == "poisson.gam") {
     ev <- theta
     for (i in 1:ncol(ev))
       pr[,i] <- rpois(length(ev[,i]), lambda = ev[,i])
@@ -51,13 +51,20 @@ qi.gam <- function(object, simpar, x, x1 = NULL, y = NULL) {
       ev1 <- theta1
     qi$fd <- ev1-ev
     qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
-    if (model %in% c("gam.logit", "gam.probit")) {
+    if (model %in% c("logit.gam", "probit.gam")) {
       qi$rr <- ev1/ev
       qi.name$rr <- "Risk Ratios: P(Y=1|X1)/P(Y=1|X)"
     }
   }
   if (!is.null(y)) {
     yvar <- matrix(rep(y, nrow(simpar)), nrow = nrow(simpar), byrow = TRUE)
+#    tmp.ev <- qi$tt.ev <- yvar - qi$ev
+#    qi.name$tt.ev <- "Unit Treatment Effect for the Treated: Y - EV"
+#   if (check)
+#     tmp.pr <- qi$tt.pr <- yvar - as.integer(qi$pr)
+#   else
+#      tmp.pr <- qi$tt.pr <- yvar - qi$pr
+#    qi.name$tt.pr <- "Unit Treatment Effect for the Treated: Y - PR"
     tmp.ev <- yvar - qi$ev
     if (check)
       tmp.pr <- yvar - as.integer(qi$pr)

@@ -1,4 +1,4 @@
-describe.gam.normal<-function(){
+describe.normal.gam<-function(){
 category <- "continuous"
 description  <- "Generalized Additive Model for Continuous Dependent Variables"
 package <-list(	name 	="mgcv",

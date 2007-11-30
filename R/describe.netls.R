@@ -1,8 +1,8 @@
-describe.netls<-function(){
+describe.ls.net<-function(){
 category <- "continuous"
 description  <- "Social Network Least Squares Regression for Continuous Dependent Variables"
 package <-list(	name 	="sna",
-		version	="0.1"
+		version	="1.4"
 		)
 parameters<-list(mu="mu")
 parameters$mu<-list(equations=c(1,1),

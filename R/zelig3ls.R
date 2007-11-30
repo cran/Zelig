@@ -14,6 +14,9 @@ zelig3ls <- function(res, fcall = NULL, zcall = NULL) {
     else if (rob) 
       class(res) <- c("lm.robust", class(res))    
   }
+  rc <- class(res)
+  if("mlm" %in% class(res))
+    class(res) <- c("zmlm", rc)
   return(res)
 }
 

@@ -25,9 +25,9 @@ qi.glm <- function(object, simpar, x, x1 = NULL, y = NULL) {
       pr[i,] <- rnorm(length(ev[i,]), mean = ev[i,], sd = alpha[i])
   }
   else if (model == "gamma") {
-    ev <- theta * 1/alpha
+    ev <- theta 
     for (i in 1:nrow(ev))  
-      pr[i,] <- rgamma(length(ev[i,]), shape = theta[i,], scale = 1/alpha[i])
+      pr[i,] <- rgamma(length(ev[i,]), shape = alpha[i], scale = theta[i,]/alpha[i])
   }
   else if (model == "poisson") {
     ev <- theta
@@ -43,12 +43,8 @@ qi.glm <- function(object, simpar, x, x1 = NULL, y = NULL) {
   qi.name <- list(ev = "Expected Values: E(Y|X)",
                   pr = "Predicted Values: Y|X")
   if (!is.null(x1)){
-    theta1 <- matrix(object$family$linkinv(coef %*% t(as.matrix(x1))),
+    ev1 <- theta1 <- matrix(object$family$linkinv(coef %*% t(as.matrix(x1))),
                      nrow = nrow(coef))
-    if (model == "gamma")
-      ev1 <- theta1 * 1/alpha
-    else
-      ev1 <- theta1
     qi$fd <- ev1-ev
     qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
     if (model %in% c("logit", "probit", "relogit")) {
@@ -63,6 +59,13 @@ qi.glm <- function(object, simpar, x, x1 = NULL, y = NULL) {
       tmp.pr <- yvar - as.integer(qi$pr)
     else
       tmp.pr <- yvar - qi$pr
+#    tmp.ev <- qi$tt.ev <- yvar - qi$ev
+#    if (check)
+#      tmp.pr <- qi$tt.pr <- yvar - as.integer(qi$pr)
+#    else
+#      tmp.pr <- qi$tt.pr <- yvar - qi$pr
+#    qi.name$tt.ev <- "Unit Treatment Effect for the Treated: Y - EV"
+#    qi.name$tt.pr <- "Unit Treatment Effect for the Treated: Y - PR"
     qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
     qi$att.pr <- matrix(apply(tmp.pr, 1, mean), nrow = nrow(simpar))
     qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
@@ -70,6 +73,7 @@ qi.glm <- function(object, simpar, x, x1 = NULL, y = NULL) {
   }
   list(qi=qi, qi.name=qi.name)
 }
+
 
 
 

@@ -32,13 +32,19 @@ sim.cond <- function(object, x, x1=NULL, num=c(1000, 100),
       colnames(res$t) <- names(res$t0)
       simpar <- res$t
     }
-  }
-  else {
+  } else {
     if (bootstrap)
       stop("Error: Choosing 'bootstrap = TRUE' generates new parameters.  \nIf you wish to use previously generated parameters, \nplease specify only 'prev'.")
     else
       simpar <- prev
   }
+  fn <- paste("zelig4", getzelig(object), sep = "")
+  if(exists(fn)){
+    if(!bootstrap)
+      simpar <- do.call(fn, list(object=object, simpar=simpar, x=xvar, x1=x1, bootstrap=bootstrap, bootfn=bootfn))
+    else
+	simpar <- do.call(fn, list(object=object, simpar=simpar, x=xvar, x1=x1, bootstrap=bootstrap, bootfn=bootfn, dta=dta))
+  } 
   simqi <- qi(object, simpar = simpar, x = xvar, x1 = x1, y = yvar)
   class(xvar) <- c("matrix", "cond")
   ca <- match.call()

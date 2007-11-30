@@ -1,4 +1,4 @@
-qi.netlogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
+qi.logit.net <- function(object, simpar, x, x1 = NULL, y = NULL) {
   check <- FALSE
   model <- getzelig(object)
   k <- length(getcoef(object))
@@ -9,7 +9,7 @@ qi.netlogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
   theta <- matrix(object$family$linkinv(eta), nrow = nrow(coef))
   pr <- ev <- matrix(NA, nrow = nrow(theta), ncol = ncol(theta))
   dimnames(pr) <- dimnames(ev) <- dimnames(theta)
-  if (model == "netlogit") {
+  if (model == "logit.net") {
     check <- TRUE
     ev <- theta
     for (i in 1:ncol(theta)) 
@@ -25,7 +25,7 @@ qi.netlogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
   if (!is.null(x1)){
     theta1 <- matrix(object$family$linkinv(coef %*% t(as.matrix(x1))),
                      nrow = nrow(coef))
-    if (model == "netlogit")
+    if (model == "logit.net")
       ev1 <- theta1
     qi$fd <- ev1-ev
     qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
@@ -36,6 +36,12 @@ qi.netlogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
   }
   if (!is.null(y)) {
     yvar <- matrix(rep(y, nrow(simpar)), nrow = nrow(simpar), byrow = TRUE)
+#    tmp.ev <- qi$tt.ev <- yvar - qi$ev
+#    qi.name$tt.ev <- "Unit Treatment Effect for the Treated: Y - EV"
+#    if (check)
+#      tmp.pr <- qi$tt.pr <- yvar - as.integer(qi$pr)
+#    else
+#      tmp.pr <- qi$tt.pr <- yvar - qi$pr
     tmp.ev <- yvar - qi$ev
     if (check)
       tmp.pr <- yvar - as.integer(qi$pr)

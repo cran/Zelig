@@ -24,9 +24,6 @@
 \source{
    J. Tobin, Estimation of relationships for limited dependent
      variables, Econometrica, v26, 24-36, 1958.
-  }
-
-}
-
+   }
 
 \keyword{datasets}

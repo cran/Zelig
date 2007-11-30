@@ -22,7 +22,7 @@ be viewed as a special case of generalized least squares.
 \subsubsection{Syntax}
 \begin{verbatim}
 > fml <- list ("mu1" = Y1 ~ X1,
-	       "mu2" = Y2 ~ X2,
+               "mu2" = Y2 ~ X2,
                "mu3" = Y3 ~ X3)
 > z.out<-zelig(formula = fml, model = "2sls", data = mydata)
 > x.out <- setx(z.out)
@@ -37,7 +37,7 @@ the $M$ equations and their respective dependent and explanatory variables.
 For example, when there are no constraints on the coefficients:
 <<Inputs.list1>>=
  fml <- list ("mu1" = Y1 ~ X1,
-	       "mu2" = Y2 ~ X2,
+               "mu2" = Y2 ~ X2,
                "mu3" = Y3 ~ X3)
 @ 
 \texttt{"mu1"} is the label for the first equation with Y1 as the dependent variable
@@ -50,7 +50,7 @@ parameter is label for the constrained coefficient. Each label uniquely identifi
 the constrained coefficient. For example:
 <<Inputs.list2>>=
  fml <- list ("mu1" = Y1 ~ tag(Xc,"constrain1")+ X1,
-	       "mu2" = Y2 ~ tag(Xc,"constrain1")+ X2,
+               "mu2" = Y2 ~ tag(Xc,"constrain1")+ X2,
                "mu3" = Y3 ~ X3)
 @ 
 \end{itemize}
@@ -203,8 +203,8 @@ Ferdinand Alimadhi, Ying Lu, and Elena Villalon. 2007. ``sur: Seemingly Unrelate
 \input{citeZelig}
 
 \subsection* {See also}
-The sur function is adapted from the \texttt{systemfit} library by Jeff Hamann
-and Arne Henningsen \citep{HamaHenn05}.
+The sur function is adapted from the \texttt{systemfit} library
+\citep{HamHen05}.
 
 \bibliographystyle{asa}
 \bibliography{gk,gkpubs}

@@ -1,4 +1,4 @@
-sim.netlogit <- function(object, x=NULL, x1=NULL, num=c(1000, 100),
+sim.logit.net <- function(object, x=NULL, x1=NULL, num=c(1000, 100),
                         prev = NULL, bootstrap = FALSE, bootfn=NULL,
                         cond.data = NULL, ...) {
   if (!is.null(x))

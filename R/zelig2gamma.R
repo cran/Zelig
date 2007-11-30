@@ -4,5 +4,7 @@ zelig2gamma <- function(formula, model, data, M, ...) {
   mf$model <- FALSE
   mf[[1]] <- glm
   mf$family <- Gamma
+  if (is.character(mf$weights))
+    mf$weights <- as.name(mf$weights)
   as.call(mf)
 }

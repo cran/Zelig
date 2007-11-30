@@ -23,7 +23,7 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
     pr[,n] <- 1 + rowSums(Ipr[,,n])
   pr <- matrix(factor(pr, labels = lev[1:length(lev) %in% sort(unique(pr))],
                       ordered = TRUE),
-               nrow = nrow(sim.coef), ncol = nrow(x))
+               nrow = num, ncol = nrow(x))
   colnames(pr) <- rownames(x)
   qi <- list(ev = ev, pr = pr)
   qi.name <- list(ev = "Expected Values: P(Y=j|X)",

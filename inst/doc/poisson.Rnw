@@ -222,7 +222,11 @@ Kosuke Imai, Gary King, and Olivia Lau. 2007. ``poisson: Poisson Regression for 
 \input{citeZelig}
 
 \subsection* {See also}
-The poisson model is part of the base packages by William N. Venable and Brian D. Ripley \citep{VenRip02}. Advanced users may wish to refer to \texttt{help(glm)} and \texttt{help(family)}, as well as \cite{McCNel89}. Robust standard errors are implemented via sandwich package by Achim Zeileis \citep{Zeileis04}.Sample data are from \cite{Martin92}.
+The poisson model is part of the stats package by \citet{VenRip02}.
+Advanced users may wish to refer to \texttt{help(glm)} and
+\texttt{help(family)}, as well as \cite{McCNel89}. Robust standard
+errors are implemented via the sandwich package by \citet{Zeileis04}.
+Sample data are from \cite{Martin92}.
 
 \bibliographystyle{asa}
 \bibliography{gk,gkpubs}

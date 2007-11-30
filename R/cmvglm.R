@@ -1,4 +1,4 @@
-cmvglm <- function(formula, model, constant, ndim,data=NULL, fact=NULL){
+cmvglm <- function(formula, model, ndim,data=NULL, fact=NULL){
 
   toBuildFormula<-function(Xnames,sepp="+"){
     lng<-length(Xnames)
@@ -49,11 +49,12 @@ cmvglm <- function(formula, model, constant, ndim,data=NULL, fact=NULL){
     }
   }
     
-  if(!is.null(constant))
-    for(i in 1:length(constant))
-      for(j in 1:length(cm))
-        if(names(cm)[j]!="(Intercept)")
-          cm[[j]][constant[i],]<-matrix(0, ncol=ncol(cm[[j]]))
+ # if(!is.null(constant))
+ #   for(i in 1:length(constant))
+ #     for(j in 1:length(cm))
+ #       if(names(cm)[j]!="(Intercept)")
+ #         cm[[j]][constant[i],]<-matrix(0, ncol=ncol(cm[[j]]))
+
   for(i in 1:length(cm))
     cm[[i]]<-as.matrix(cm[[i]][,apply(cm[[i]], 2, sum)!=0])
   rhs<-toBuildFormula(attr(tt,"indVars"))

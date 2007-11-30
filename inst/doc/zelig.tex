@@ -21,7 +21,7 @@ Olivia Lau\thanks{Ph.D.\ Candidate, Department of Government, Harvard
   \texttt{OLau@Fas.Harvard.Edu}).}}
 
 % rbuild: replace 'Version ' '\\' Version
-\date{Version 3.0-1\\ \today}
+\date{Version 3.1-0\\ \today}
 
 \begin{document}
 \maketitle
@@ -74,17 +74,46 @@ may contain bugs, but are usually replaced by stable releases within a
 few days. 
 
 \begin{itemize} 
+  
+\item {\bf 3.1} (November 30, 2007): Stable release for R 2.6.0-2.6.1.
+  Adding many new models such as {\tt aov}, {\tt chopit}, {\tt coxph}, generalized linear mixed-effects models, and gee models.  Also, several bugs are
+  fixed.  First version dependencies are as follows:\newline
+\begin{tabular}{ll}\label{table.compat}
+MASS      & 7.2-34 \\
+nlme      & 3.1-86 \\
+survival  & 2.34 \\
+boot      & 1.2-30 \\
+nnet      & 7.2-34 \\
+zoo       & 1.4-0 \\
+sandwich  & 2.0-2 \\
+sna       & 1.4 \\
+lme4      & 0.99875-9 \\
+coda      & 0.12-1 \\
+systemfit & 0.8-5 \\
+VGAM      & 0.7-4 \\
+MCMCpack  & 0.8-2 \\
+mvtnorm   & 0.8-1 \\
+gee       & 4.13-13 \\
+mgcv      & 1.3-29 \\
+anchors   & 2.0 
+\end{tabular}
 
-\item {\bf 3.0} (July 20, 2007):  Stable release for R 2.5.0-2.5.1.
-Introducing vignettes for each model. Improving documentation in the 
-Zelig web site, improving citation style, improving {\tt help.zelig()} function, adding gam models, social network methods, logit gee model, adding support for cross-validation procedures and diagnostics tools, etc.
+\item {\bf 3.0-1} -- {\bf 3.0-6}: Minor bug fixes. Stable release for
+  R 2.5.0-2.5.1.
+
+\item {\bf 3.0} (July 20, 2007): Stable release for R 2.5.0-2.5.1.
+  Introducing vignettes for each model. Improving documentation in the
+  Zelig web site, improving citation style, improving {\tt
+    help.zelig()} function, adding gam models, social network methods,
+  logit gee model, adding support for cross-validation procedures and
+  diagnostics tools, etc.
 
 \item {\bf 2.8-3} (May 29, 2007):  Stable release for R 2.4.0-2.5.0.  
 Fixed bugs in {\tt help.zelig()}, and summary for multinomial logit, 
 bivariate probit, and bivariate logit with multiple imputation.  (Thanks 
 to Brant Inman and Javier Marquez.)  First version dependencies are as 
 follows:\newline
-\begin{tabular}{ll}\label{table.compat}
+\begin{tabular}{ll}
      MASS       &   7.2-34 \\
      boot        &  1.2-27 \\
      VGAM        &  0.7-1  \\

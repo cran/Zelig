@@ -1,8 +1,8 @@
-describe.netnormal<-function(){
+describe.normal.net<-function(){
 category <- "continuous"
 description  <- "Social Network Normal Regression for Continuous Dependent Variables"
-package <-list(	name 	="stats",
-		version	="0.1"
+package <-list(	name 	="sna",
+		version	="1.4"
 		)
 parameters<-list(mu="mu")
 parameters$mu<-list(equations=c(1,1),

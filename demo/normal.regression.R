@@ -20,32 +20,29 @@ zelig2normal.regression <- function(formula, model, data, M, ...) {
 }
 
 normal.regression <- function(formula, data, start.val = NULL, ...) {
-
-  fml <- parse.formula(formula, model = "normal.regression") # [1]
+  # fml <- parse.formula(formula, req = "mu", ancil = "sigma2")  # [1a]
+  fml <- parse.formula(formula, model = "normal.regression") # [1b]
   D <- model.frame(fml, data = data)
   X <- model.matrix(fml, data = D)
   Y <- model.response(D)
   terms <- attr(D, "terms")
-  n <- nrow(X)
+                                    
+  start.val <- set.start(start.val, terms)                     # [2]
 
-  start.val <- set.start(start.val, terms)
-  start.val <- put.start(start.val, 1, terms, eqn = "sigma2")       # [2]
-
-  ll.normal <- function(par, X, Y, n, terms) {               # [3]
-    beta <- parse.par(par, terms, eqn = "mu")
-    sigma2 <- exp(parse.par(par, terms, eqn = "sigma2"))
-    -n / 2 * log(2 * pi * sigma2) - 
-       1/(2 * sigma2) * sum((Y - X %*% beta)^2)
+  ll.normal <- function(par, X, Y, n, terms) {                 # [3]
+    beta <- parse.par(par, terms, eqn = "mu")                  # [3a]
+    gamma <- parse.par(par, terms, eqn = "sigma2")             # [3b]
+    sigma2 <- exp(gamma)
+    -0.5 * (n * log(sigma2) + sum((Y - X %*% beta)^2 / sigma2)) 
   }
 
-  res <- optim(start.val, ll.normal, method = "BFGS",        
+  res <- optim(start.val, ll.normal, method = "BFGS",          # [4]
                hessian = TRUE, control = list(fnscale = -1),
-               X = X, Y = Y, n = n, terms = terms, ...)      # [4]
+               X = X, Y = Y, n = nrow(X), terms = terms, ...)      
 
-  fit <- model.end(res, D)                                   # [5]
-  fit$n <- n
-  class(fit) <- "normal"                                     # [6]
-  fit                                                        # [7]
+  fit <- model.end(res, D)                                     # [5]
+  class(fit) <- "normal"                                    
+  fit                                                        
 }
 
 param.normal <- function(object, num = NULL, bootstrap = FALSE, 

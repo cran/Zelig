@@ -97,6 +97,10 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
     }
     else
       yvar <- matrix(y, ncol = length(y), nrow = nrow(qi$ev), byrow = TRUE)
+#    tmp.ev <- qi$tt.ev <- yvar - qi$ev
+#    tmp.pr <- qi$tt.pr <- yvar - qi$pr
+#    qi.name$tt.ev <- "Unit Treatment Effect for the Treated: Y - EV"
+#    qi.name$tt.pr <- "Unit Treatment Effect for the Treated: Y - PR"
     tmp.ev <- yvar - qi$ev
     tmp.pr <- yvar - qi$pr
     qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
@@ -106,18 +110,3 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
   }
   list(qi=qi, qi.name=qi.name)
 }  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

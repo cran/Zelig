@@ -9,14 +9,9 @@ z.out1 <- zelig(cbind(Nazi, Government, Communists, FarRight, Other) ~
 ## summarizing the output
 summary(z.out1)
 user.prompt()
-
-## Setting values for in-sample simulations given 
-##  marginal values of X0, X1, T0 and T1:
-x.out1 <- setx(z.out1)
-user.prompt()
                       
 ## In-sample simulations from the posterior distribution:
-s.out1 <- sim(z.out1)
+s.out1 <- sim(z.out1, num =10)
 
 ## Summarizing in-sample simulations at aggregate level
 ## weighted by the count in each unit:
@@ -47,7 +42,7 @@ x.out2 <- setx(z.out2)
 user.prompt()
                       
 ## In-sample simulations from the posterior distribution:
-s.out2 <- sim(z.out2)
+s.out2 <- sim(z.out2, num = 10)
 
 ## Summarizing in-sample simulations at aggregate level
 ## weighted by the count in each unit:

@@ -1,8 +1,8 @@
-describe.netgamma<-function(){
+describe.gamma.net<-function(){
 category <- "bounded"
 description  <- "Social Network Gamma Regression for Continuous, Positive Dependent Variables"
-package <-list(	name 	="stats",
-		version	="0.1"
+package <-list(	name 	="sna",
+		version	="1.4"
 		)
 parameters<-list(lambda="lambda")
 parameters$lambda<-list(equations=c(1,1),

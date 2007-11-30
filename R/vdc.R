@@ -232,7 +232,9 @@ modeling.types <-function(){
               bounded=c("continuous","discrete","nominal","ordinal","binary"),
               multinomial=c("continuous","discrete","nominal","ordinal","binary"),
               count=c("continuous","discrete","nominal","ordinal","binary"),
-              mixed=c("continuous","discrete","nominal","ordinal","binary")),
+              mixed=c("continuous","discrete","nominal","ordinal","binary"),
+              ei=c("continuous","discrete","nominal","ordinal","binary")
+              ),
             depVar=list(
               continuous="continuous",
               dichotomous="binary",
@@ -240,7 +242,10 @@ modeling.types <-function(){
               bounded="continuous",
               multinomial=c("nominal","ordinal"),
               count="discrete",
-              mixed=c("continuous","discrete","nominal","ordinal","binary")))
+              mixed=c("continuous","discrete","nominal","ordinal","binary"),
+              ei=c("continuous")
+              )
+            )
   res
 }
 
