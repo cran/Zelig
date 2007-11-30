@@ -5,7 +5,11 @@ plot.zelig <- function(x, xlab = "", user.par = FALSE, ...) {
     class(x) <- x$zelig.call$model
     if (exists(paste("plot.zelig", x$zelig.call$model, sep = ".")))
       UseMethod("plot.zelig", x)
-    else
-      stop(paste(x$zelig.call$model, "does not have an applicable plot method for sim() output."))
+    else{
+      res <- try(plot.zelig.default(x, xlab = xlab, user.par = user.par, ...), silent=F)
+      if(class(res) =="try-error")
+        message("No plot generated for model ", class(x)[1]) 
+    }
+  
   }
 }

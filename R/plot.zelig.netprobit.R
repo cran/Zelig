@@ -1,4 +1,4 @@
-plot.zelig.netprobit <- function(x, xlab = "", user.par = FALSE, alt.col = "red", ...){
+plot.zelig.probit.net <- function(x, xlab = "", user.par = FALSE, alt.col = "red", ...){
   k <- length(x$qi)
   op <- par(no.readonly = TRUE)
   if (!user.par) 

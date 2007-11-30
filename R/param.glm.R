@@ -9,8 +9,8 @@ param.glm <- function(object, num = NULL, bootstrap = FALSE){
       res <- cbind(coef, alpha)
     }
     else if (model == "gamma")  {
-      rate <- gamma.shape(object) 
-      alpha <- rnorm(num, mean = rate$alpha, sd = rate$SE)
+      shape <- gamma.shape(object)
+      alpha <- rnorm(num, mean = shape$alpha, sd = shape$SE)
       res <- cbind(coef, alpha)
     }
     else if (model == "negbin") {
@@ -23,11 +23,11 @@ param.glm <- function(object, num = NULL, bootstrap = FALSE){
   else {
     coef <- coef(object)
     if (object$family$family == "gaussian") {
-      alpha <- sum(object$residuals^2)/length(object$residuals)
+      alpha <- sum(object$residuals^2)/object$df.residual
       res <- c(coef, alpha)
     }
     else if (object$family$family == "Gamma") {
-      alpha <- gamma.dispersion(object)
+      alpha <- gamma.shape(object)$alpha
       res <- c(coef, alpha)
     }
     else if (object$family$family == "neg.bin") {
@@ -39,6 +39,7 @@ param.glm <- function(object, num = NULL, bootstrap = FALSE){
   }
   res
 }
+
 
 
 

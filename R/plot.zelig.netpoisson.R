@@ -1,4 +1,4 @@
-plot.zelig.netpoisson <- function(x, xlab = "", user.par = FALSE, ...){
+plot.zelig.poisson.net <- function(x, xlab = "", user.par = FALSE, ...){
   k <- length(x$qi)
   op <- par(no.readonly = TRUE)
   if (!user.par) 

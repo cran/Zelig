@@ -1,4 +1,4 @@
-plot.zelig.netcloglog <- function(x, xlab = "", user.par = FALSE, alt.col = "red", ...){
+plot.zelig.cloglog.net <- function(x, xlab = "", user.par = FALSE, alt.col = "red", ...){
   k <- length(x$qi)
   op <- par(no.readonly = TRUE)
   if (!user.par) 

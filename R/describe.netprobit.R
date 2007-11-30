@@ -1,4 +1,4 @@
-describe.netprobit<-function(){
+describe.probit.net<-function(){
 category <- "dichotomous"
 description  <- "Social Network Probit Regression for Dichotomous Dependent Variables"
 package <-list(	name 	="stats",

@@ -1,4 +1,4 @@
-describe.gam.poisson<-function(){
+describe.poisson.gam<-function(){
 category <- "count"
 description  <- "Generalized Additive Model for Event Count Dependent Variables"
 package <-list(	name 	="mgcv",

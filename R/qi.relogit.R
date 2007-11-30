@@ -17,8 +17,8 @@ qi.relogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
       FD <- RR <- array(NA, dim = c(num, 2, nrow(x)),
                         dimnames = list(NULL, d2 = c("Lower Bound", "Upper Bound"), 
                           rownames(x)))
-      sim01 <- qi.glm(tmp0, par0, x = x1, x1 = NULL)
-      sim11 <- qi.glm(tmp1, par1, x = x1, x1 = NULL)
+      sim01 <- qi.glm(tmp0, simpar$par0, x = x1, x1 = NULL)
+      sim11 <- qi.glm(tmp1, simpar$par1, x = x1, x1 = NULL)
       tau0 <- object$lower.estimate$tau
       tau1 <- object$upper.estimate$tau
       P01 <- as.matrix(sim01$qi$ev)
@@ -61,6 +61,10 @@ qi.relogit <- function(object, simpar, x, x1 = NULL, y = NULL) {
     }
     if (!is.null(y)) {
       yvar <- matrix(rep(y, num), nrow = num, byrow = TRUE)
+#      tmp.ev <- qi$tt.ev <- yvar - qi$ev
+#      tmp.pr <- qi$tt.pr <- yvar - as.integer(qi$pr)
+#      qi.name$tt.ev <- "Unit Treatment Effect for the Treated: Y - EV"
+#      qi.name$tt.pr <- "Unit Treatment Effect for the Treated: Y - PR"
       tmp.ev <- yvar - qi$ev
       tmp.pr <- yvar - as.integer(qi$pr)
       qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = num)

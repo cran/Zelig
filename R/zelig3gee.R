@@ -1,4 +1,5 @@
-zelig3logit.gee <- function(res, fcall=NULL, zcall=NULL){	
+zelig3logit.gee <- zelig3probit.gee <- zelig3normal.gee <- 
+zelig3poisson.gee <- zelig3gamma.gee <- function(res, fcall=NULL, zcall=NULL){	
   rob <- eval(zcall$robust)	
   if (!is.null(rob)){		
     if (!is.logical(rob))	

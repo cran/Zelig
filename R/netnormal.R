@@ -1,4 +1,4 @@
-netnormal <- function (formula, data, LF= "identity", family=gaussian(link=LF), ..., mode = "digraph", diag = FALSE, 
+normal.net <- function (formula, data, LF= "identity", family=gaussian(link=LF), ..., mode = "digraph", diag = FALSE, 
     nullhyp = c("qap", "qapspp", "qapy", "qapx", "qapallx", "cugtie", 
         "cugden", "cuguman", "classical"), tol = 1e-07, reps = 1000) 
 {	
@@ -69,7 +69,7 @@ netnormal <- function (formula, data, LF= "identity", family=gaussian(link=LF), 
     else for (i in 1:(nx - intercept)) g[[i + 1 + intercept]] <- x[i, 
         , ]
     if (any(sapply(lapply(g, is.na), any))) 
-        warning("Missing data supplied to netpoisson; this may pose problems for certain null hypotheses.  Hope you know what you're doing....")
+        warning("Missing data supplied to poisson.net; this may pose problems for certain null hypotheses.  Hope you know what you're doing....")
     fit.base <- gfit(g, mode = mode, diag = diag)
     fit <- list()
     fit$coefficients <- fit.base$coefficients

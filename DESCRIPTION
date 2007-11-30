@@ -1,6 +1,6 @@
 Package: Zelig
-Version: 3.0-1
-Date: 2007-07-24
+Version: 3.1-0
+Date: 2007-11-30
 Title: Everyone's Statistical Software
 Author: Kosuke Imai <kimai@Princeton.Edu>,
         Gary King <king@harvard.edu>,
@@ -20,9 +20,9 @@ Description: Zelig is an easy-to-use program that can estimate, and
         model, and mimicking the program Clarify (for Stata) that
         takes the raw output of existing statistical procedures and
         translates them into quantities of direct interest.
-License: GPL version 2 or newer
+License: GPL (>= 2)
 URL: http://gking.harvard.edu/zelig
 Suggests: VGAM (>= 0.7-1), MCMCpack (>= 0.7-4), mvtnorm, survival, 
           sandwich (>= 2.0-0), zoo (>= 1.2-1), coda, nnet, sna, gee, 
-	  systemfit, mgcv
-Packaged: Tue Jul 24 15:58:31 2007; king
+	  systemfit, mgcv, lme4, anchors (>= 2.0)
+Packaged: Fri Nov 30 17:03:48 2007; king

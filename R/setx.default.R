@@ -88,6 +88,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     resvars <- all.vars(tt.attr$variables[[1+tt.attr$response]])
   else
     resvars <- NULL
+  opt <- vars[na.omit(pmatch(names(mc), vars))]
   data <- dta[complete.cases(mf), names(dta)%in%vars, drop=FALSE]
   if (!is.null(counter)) {
     if (!any(counter == vars))
@@ -127,8 +128,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       fn <- NULL
     }
     maxl <- nrow(data)
-  }
-  else if (!is.null(fn)) {
+  } else if (!is.null(fn)) {
     if (is.null(fn$numeric) || !is.function(fn$numeric)) {
       warning("fn$numeric coerced to mean().")
       fn$numeric <- mean
@@ -149,21 +149,22 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
       fn$other <- mode
     }
     for (i in 1:ncol(data)) {
-      if (!(colnames(data)[i] %in% resvars)) {
-        if (is.numeric(data[,i]))
-          value <- lapply(list(data[,i]), fn$numeric)[[1]]
-        else if (is.ordered(data[,i])) 
-          value <- lapply(list(data[,i]), fn$ordered)[[1]]
-        else 
-          value <- lapply(list(data[,i]), fn$other)[[1]]
-        data[,i] <- value
+      if (!(colnames(data)[i] %in% opt)) {
+        if (!(colnames(data)[i] %in% resvars)) {
+          if (is.numeric(data[,i]))
+            value <- lapply(list(data[,i]), fn$numeric)[[1]]
+          else if (is.ordered(data[,i])) 
+            value <- lapply(list(data[,i]), fn$ordered)[[1]]
+          else 
+            value <- lapply(list(data[,i]), fn$other)[[1]]
+          data[,i] <- value
+        }
       }
     }
     maxl <- 1
   } else {
     maxl <- nrow(data)
   }
-  opt <- vars[na.omit(pmatch(names(mc), vars))]
   if (length(opt) > 0)
     for (i in 1:length(opt)) {
       value <- eval(mc[[opt[i]]], envir = env)
@@ -219,7 +220,7 @@ updatefn <- function(fn, operVec=c("mode", "median","min", "max"), ev=parent.fra
      min   <- get("min", env=ev)
       
      modeG   <- get("mode", env=global)
-     medianG <- get("median", env=global)
+     medianG <- get("median.default", env=global)
      minG <- get("min", env=global)
      maxG <-  get("max", env=global)
     if(!identical(sort(c("max", "median", "min", "mode")), sort(operVec)))

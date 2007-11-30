@@ -1,4 +1,4 @@
-sim.counter <- function(object, x, x1=NULL, num = c(100, 1000), ...) {
+sim.counter <- function(object, x, x1=NULL, bootstrap = FALSE, num = c(100, 1000), ...) {
   if (any(class(object) == "MCMCZelig"))
     num <- nrow(object$coefficients)
   else if (length(num) == 2) {

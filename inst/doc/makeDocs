@@ -44,6 +44,7 @@ for f in `cat models.txt`
   ## remove bibstyle and bib database at the end
   perl -i -p -e 's#\\bibliographystyle{asa}# #i' $f.tex
   perl -i -p -e 's#\\bibliography{gk,gkpubs}# #i' $f.tex
+  perl -i -p -e 's#\\bibliography{gk}# #i' $f.tex
 done
 
 ## create pdf file for a007.Rnw, just to pass the local R CMD check

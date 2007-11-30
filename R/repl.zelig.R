@@ -12,6 +12,7 @@ repl.zelig <- function(object, data=NULL, prev = NULL, x=NULL,
     object$call$x1
   if (!is.null(prev))
     object$call$prev <- prev
+  if (!is.null(object$seed)) set.seed(object$seed)
   eval(object$call, sys.parent())
 }
 

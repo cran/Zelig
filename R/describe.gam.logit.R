@@ -1,4 +1,4 @@
-describe.gam.logit<-function(){
+describe.logit.gam<-function(){
 category <- "dichotomous"
 description  <- "Generalized Additive Model for Dichotomous Dependent Variables"
 package <-list(	name 	="mgcv",

@@ -1,4 +1,4 @@
-plot.zelig.gam.poisson <- function(x, xlab = "", user.par = FALSE, ...){
+plot.zelig.poisson.gam <- function(x, xlab = "", user.par = FALSE, ...){
   k <- length(x$qi)
   op <- par(no.readonly = TRUE)
   if (!user.par) 

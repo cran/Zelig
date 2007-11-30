@@ -1,4 +1,4 @@
-param.relogit <- function(object, num, x, bootstrap = FALSE) {
+param.relogit <- function(object, num, x, bootstrap = FALSE, bootfn = NULL) {
   if ("relogit2" %in% class(object)) {
     pping <- function(tmp0, tmp1, num, bootstrap, x) {
       par0 <- param.relogit(tmp0, num=num, x=x, bootstrap=bootstrap)

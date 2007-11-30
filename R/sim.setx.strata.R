@@ -1,5 +1,5 @@
 sim.setx.strata <- function(object, x, x1 = NULL, num = c(1000, 100),
-                         bootstrap = FALSE, ...){
+                            bootstrap = FALSE, ...){
   if (any(class(object) == "MCMCZelig"))
     num <- nrow(getcoef(object))
   if (length(num) == 2) {

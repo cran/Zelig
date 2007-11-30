@@ -16,20 +16,21 @@ library(Zelig)
 \section{{\tt twosls}: Two Stage Least Squares}
 \label{twosls}
 
-\texttt{twosls} provides consistent estimates for linear regression models with 
-some explanatory variable (the instrumental variable) correlated with the error term. 
-In this situation, ordinary least squares fails to provide consistent 
-estimates. The name two-stage least squares stems from the two regressions 
-in the estimation procedure. In stage one, an ordinary least squares 
-prediction of the instrumental variable is obtained from regressing it on
-the instrument variables. In stage two, the coefficients of interest are 
-estimated using ordinary least square after substituting the instrumental 
-variable by its predictions from stage one. 
+\texttt{twosls} provides consistent estimates for linear regression
+models with some explanatory variable correlated with the error term
+using instrumental variables.  In this situation, ordinary least
+squares fails to provide consistent estimates. The name two-stage
+least squares stems from the two regressions in the estimation
+procedure. In stage one, an ordinary least squares prediction of the
+instrumental variable is obtained from regressing it on the instrument
+variables. In stage two, the coefficients of interest are estimated
+using ordinary least square after substituting the instrumental
+variable by its predictions from stage one.
 
 \subsubsection{Syntax}
 \begin{verbatim}
-> fml <- list ("mu"  = Y ~ X + Z,
-               "inst" = Z ~ W + X)
+> fml <- list("mu1"  = Y ~ X + W, "mu2" = W ~ X + Z, 
+              "inst" = ~ X + Z)
 > z.out <- zelig(formula = fml, model = "twosls", data = mydata)
 > x.out <- setx(z.out)
 > s.out <- sim(z.out, x = x.out)
@@ -37,19 +38,22 @@ variable by its predictions from stage one.
 \subsubsection{Inputs}
 \texttt{twosls} regression take the following inputs:
 \begin{itemize}
-\item \texttt{formula}:a list of the main equation and instrumental variable 
-equation. The first object in the list \texttt{mu} corresponds to the 
-regression model needs to be estimated. The second list object \texttt{inst} 
-specifies the regression model for the instrumental variable \texttt{Z}.
+\item \texttt{formula}: A list of the formula for the main equation,
+the formula for the endogenous variable, and the (one-sided) formula
+for instrumental variables (including covariates). The first object in
+the list \texttt{mu} corresponds to the main regression model needs to
+be estimated. Alternatively, a system of simultaneous equations can be
+used. See the help file of {\tt systemfit} for more information. 
 For example:
 <<Inputs.list>>=
- fml <- list ("mu"  = Y ~ X + Z,
-               "inst" = Z ~ W + X)
+ fml <- list("mu1"  = Y ~ X + W, "mu2" = W ~ X + Z, 
+             "inst" = ~ X + Z)
 @ 
 \begin{itemize}
 \item \texttt{Y}: the dependent variable of interest.
-\item \texttt{Z}: the instrumental variable.
-\item \texttt{W}: exogenous instrument variables.
+\item \texttt{X}: the covariate.
+\item \texttt{W}: the endogenous variable.
+\item \texttt{Z}: the exogenous instrumental variable.
 \end{itemize}
 \end{itemize}
 \subsubsection{Additional Inputs}
@@ -222,8 +226,8 @@ Ferdinand Alimadhi, Ying Lu, and Elena Villalon. 2007. ``twosls: Two Stage Least
 \input{citeZelig}
 
 \subsection* {See also}
-The twosls function is adapted from the \texttt{systemfit} library by Jeff Hamann
-and Arne Henningsen \citep{HamaHenn05}.
+The twosls function is adapted from the \texttt{systemfit} library
+\citep{HamHen05}.
 
 \bibliographystyle{asa}
 \bibliography{gk,gkpubs}

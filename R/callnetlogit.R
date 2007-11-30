@@ -1,4 +1,4 @@
-callnetlogit <- function(formula, data, family = binomial(link=logit), ...)
+calllogit.net <- function(formula, data, family = binomial(link=logit), ...)
 {
     Terms <- terms(formula)
     intercept.value <- attr(Terms, "intercept") 
@@ -24,10 +24,10 @@ callnetlogit <- function(formula, data, family = binomial(link=logit), ...)
 	for(i in 2:length(D)) {
 		x[i - 1,,] <- D[[i]]	}
 	if (intercept == TRUE){
-	fit <- netlogit.zelig(y, x, intercept=TRUE,...)
+	fit <- logit.net.zelig(y, x, intercept=TRUE,...)
 		}
 	if (intercept == FALSE){
-	fit <- netlogit.zelig(y, x, intercept=FALSE, ...)
+	fit <- logit.net.zelig(y, x, intercept=FALSE, ...)
 		}
 	fit$names <- names(mf[2:stackcount(mf)])  # paste("x", 1:(nx - intercept), sep = "")
     if (intercept) 
@@ -47,6 +47,6 @@ callnetlogit <- function(formula, data, family = binomial(link=logit), ...)
 	fit$mod.coefficients <- so$coefficients
 	fit$cov.unscaled <- so$cov.unscaled
 	fit$cov.scaled <- so$cov.scaled
-    class(fit) <- "netlogit"
+    class(fit) <- "logit.net"
     return(fit)
 }

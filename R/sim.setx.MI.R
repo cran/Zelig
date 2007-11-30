@@ -10,15 +10,18 @@ sim.setx.MI <- function(object, x, x1 = NULL, num = c(1000, 100), prev = NULL,
   }
   ca <- match.call()
   if (!any(class(x) == "cond")) {
-    simpar <- MIsimulation(object, num, prev, bootstrap, bootfn, ...)
-    simqi <- qi(object[[1]], simpar = simpar, x = as.matrix(x), 
+    simpar <- MIsimulation(object, num, prev, bootstrap, bootfn=bootfn, x=x, x1=x1, ...)
+    if(any(class(object[[1]]) == "coxph"))
+      simqi <- qi.coxph(object, simpar = simpar, x = x, x1 = x1)
+    else
+      simqi <- qi(object[[1]], simpar = simpar, x = as.matrix(x), 
                 x1 = if (!is.null(x1)) as.matrix(x1))
     ca$num <- num
     res <- list(x = x, x1 = x1, call = ca, zelig.call = getcall(object[[1]]), 
                 par = simpar, qi = simqi$qi, qi.name = simqi$qi.name)
   }
   else {
-    simpar <- MIsimulation(object, num, prev, bootstrap, bootfn, ...)
+    simpar <- MIsimulation(object, num, prev, bootstrap, bootfn=bootfn, x=x, x1=NULL, ...)
     tmp.qi <- list()
     for (i in 1:length(x)) {
       if (!is.null(x1)) {
@@ -28,10 +31,12 @@ sim.setx.MI <- function(object, x, x1 = NULL, num = c(1000, 100), prev = NULL,
       if (object[[i]]$call$model %in% c("bprobit", "blogit")) {
         yvar <- x[[i]][,1:2]
         x[[i]] <- x[[i]][,3:ncol(x[[i]])]
+	  x[[i]] <- cbind(1,x[[i]])
       }
       else {
         yvar <- x[[i]][,1]
         x[[i]] <- x[[i]][,2:ncol(x[[i]])]
+	  x[[i]] <- cbind(1,x[[i]])
       }
       tmp.qi[[i]] <- qi(object[[1]], simpar = simpar, x = x[[i]], x1 =
                         x1[[i]], y = yvar)

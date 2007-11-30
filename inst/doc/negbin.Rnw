@@ -89,7 +89,11 @@ Simulate fitted values:
 <<Example.summary.sim>>= 
 summary(s.out)
 @ 
-
+\begin{center}
+<<label=Example1Plot,fig=true>>= 
+ plot(s.out)
+@ 
+\end{center}
 \subsubsection{Model}
 Let $Y_i$ be the number of independent events that occur during a
 fixed time period. This variable can take any non-negative integer value.

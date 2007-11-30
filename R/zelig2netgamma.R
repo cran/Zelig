@@ -1,11 +1,8 @@
-zelig2netgamma <- function(formula, model, data, M, ...) {
-  check <- library()
-  if(any(check$results[,"Package"] == "sna")) 
-    require(sna)
-  else
-        stop("Please install sna using \n	install.packages(\"sna\")")
+zelig2gamma.net <- function(formula, model, data, M, ...) {
+        
 	mf <- match.call(expand.dots = TRUE)
-	mf[[1]] <- as.name("netgamma")	
+	mf[[1]] <- as.name("gamma.net")	
 	mf$M <- mf$model  <- NULL
 	mf$formula <- formula
-	as.call(mf)	}
+	as.call(mf)
+}

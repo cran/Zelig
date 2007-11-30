@@ -1,4 +1,4 @@
-plot.zelig.gam.probit <- function(x, xlab = "", user.par = FALSE, alt.col = "red", ...){
+plot.zelig.probit.gam <- function(x, xlab = "", user.par = FALSE, alt.col = "red", ...){
   k <- length(x$qi)
   op <- par(no.readonly = TRUE)
   if (!user.par) 

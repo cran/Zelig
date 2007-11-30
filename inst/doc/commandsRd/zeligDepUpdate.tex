@@ -9,7 +9,7 @@ installed locally.
 Downloads packages that are locally installed with lower versions and
 those from the Zelig-matrix that are not installed.
 The download repository is taken from either the default
-\code{repos} argument or from the \sQuote{URL} column of
+\code{\var{repos}} argument or from the \sQuote{URL} column of
 the Zelig-matrix of dependencies.
 \end{Description}
 \begin{Usage}
@@ -38,7 +38,7 @@ No return value.
 \end{Value}
 \begin{Note}\relax
 Installs first level dependencies packages of \pkg{Zelig} using R function
-\code{install.packages} with the variable \code{dependencies} set
+\code{install.packages} with the variable \code{\var{dependencies}} set
 equal to TRUE.  If the installed packages have versions higher than the
 corresponding entry in Zelig-matrix, they are reported with a
 message. If the R version in the local environment is different from

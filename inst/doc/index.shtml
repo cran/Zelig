@@ -12,7 +12,7 @@
 <a href="http://www.people.fas.harvard.edu/~olau/">Olivia Lau</a>
 <br /><br />
 <!-- rbuild: replace 'Version:' '</b>' version -->
-<b>Version:3.0-1</b>
+<b>Version:3.1-0</b>
 
 <table border='0' cellpadding='0' cellspacing='8'><tr><td valign='top' width='200'>
 <p !style="float:left; width: 200; margin: 1.5em;"> <a
@@ -62,7 +62,7 @@ inference.</p>
 href="/zelig/docs/zelig.pdf">Download PDF</a></li>
 
 <li><a href="/zelig/docs/static/install.pdf">Installation</a>, <a
-href="/zelig/docs/static/install.pdf">Frequently Asked
+href="/zelig/docs/static/faq.pdf">Frequently Asked
 Questions</a></li>
 
 <li>All questions, bugs and requests: Zelig Mailing List, <a
