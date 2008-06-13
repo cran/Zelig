@@ -14,6 +14,7 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
     cuts[i,,] <- t(object$inv.link(eta[i,], sim.zeta[i,]))
   tmp0[,(2:k),] <- cuts[,(1:(k-1)),]
   ev <- cuts - tmp0
+  if (dim(ev)[3] == 1) ev <- ev[,,1]
   pr <- matrix(NA, nrow = num, ncol = nrow(x))
   tmp <- matrix(runif(length(cuts[,1,]), 0, 1),
                 nrow = num , ncol = nrow(x))
@@ -36,6 +37,7 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
       cuts[i,,] <- t(object$inv.link(eta1[i,], sim.zeta[i,]))
     tmp0[,(2:k),] <- cuts[,(1:(k-1)),]
     ev1 <- cuts - tmp0
+    if (dim(ev1)[3] == 1) ev1 <- ev1[,,1]
     qi$fd <- ev1 - ev
     qi$rr <- ev1 / ev
     qi.name$fd <- "First Differences: P(Y=j|X1)-P(Y=j|X)"

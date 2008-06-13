@@ -38,22 +38,6 @@ duration is censored ({\it e.g.}, the subject is still alive at the
 end of the study).  If $c_i$ is omitted, all Y are assumed to be
 completed; that is, $c_i$ defaults to 1 for all observations.
 
-\subsubsection{Stratified Cox Model}
-
-In addition, {\tt zelig()} also supports the stratified Cox model, where the baseline hazards are assumed to be different across different strata but the coefficients are restricted to be the same across strata.  Let {\tt id} be a variable that consists of either discrete numeric values, character strings, or factors that define the strata.  Then the stratified Cox model can be estimated using {\tt strata()} in the formula.  The user can then find quantities of interest for a specific stratum by defining the stratum of choice in {\tt setx()}.  If no strata are defined, {\tt setx} takes the mode.  Strata on {\tt setx} are defined as followed:
-
-\begin{itemize}
-\item If strata were defined by a variable ({\tt strata(id)}), then strata should be defined as {\tt strata = "id=5"}.
-\item If strata were defined by a mathematical expression ({\tt strata(id>10)}), then strata should be defined as {\tt strata = "id>10=TRUE"} or {\tt strata = "id>10=FALSE"}.
-\end{itemize}
-
-\begin{verbatim}
-> z.out <- zelig(Surv(Y,C) ~ X1 + X2 + strata(id), model = "coxph", 
-                 data = mydata)
-> x.out <- setx(z.out, strata = "id=5")
-> s.out <- sim(z.out, x = x.out)
-\end{verbatim}
-
 
 \subsubsection{Additional Inputs}
 
@@ -100,6 +84,76 @@ means that the observations can be correlated within the clusters defined by the
 %where $A_{jm}$ is a set of observations that represents one combination of $d_j$ number of 1s in $R_j$.  There are $M$ possible combinations for each risk set.  For example, in the case where there are two events among a risk set of four observations $\{1,2,3,4\}$, there are 6 combinations of choosing 2 events out of 4 observations.  Therefore, $M = 6$ and $A_{j1} = \{1,2\}, A_{j2} = \{1,3\}, A_{j3} = \{1,4\} ,A_{j4} = \{2,3\}, A_{j5} = \{2,4\}, A_{j6} = \{3,4\}$.  The partial likelihood then takes the conditional probability over each $j$ risk set.  Note that the exact discrete approximation method is equivalent to a conditional logit model.
 \end{itemize}
 \end{itemize}
+
+\subsubsection{Stratified Cox Model}
+
+In addition, {\tt zelig()} also supports the stratified Cox model, where the baseline hazards are assumed to be different across different strata but the coefficients are restricted to be the same across strata.  Let {\tt id} be a variable that consists of either discrete numeric values, character strings, or factors that define the strata.  Then the stratified Cox model can be estimated using {\tt strata()} in the formula.  The user can then find quantities of interest for a specific stratum by defining the stratum of choice in {\tt setx()}.  If no strata are defined, {\tt setx} takes the mode.  Strata on {\tt setx} are defined as followed:
+
+\begin{itemize}
+\item If strata were defined by a variable ({\tt strata(id)}), then strata should be defined as {\tt strata = "id=5"}.
+\item If strata were defined by a mathematical expression ({\tt strata(id>10)}), then strata should be defined as {\tt strata = "id>10=TRUE"} or {\tt strata = "id>10=FALSE"}.
+\end{itemize}
+
+\begin{verbatim}
+> z.out <- zelig(Surv(Y,C) ~ X1 + X2 + strata(id), model = "coxph", 
+                 data = mydata)
+> x.out <- setx(z.out, strata = "id=5")
+> s.out <- sim(z.out, x = x.out)
+\end{verbatim}
+
+
+\subsubsection{Time-Varying Covariates}
+
+{\tt zelig()} also supports the use of time-varying covariates for the Cox model, where some or all of the covariates change over time for each case.  Let ``case'' refer to each unit in the data.  Then each case can have one or more ``observations'', where each observation has a different value for one or more covariates for a specific case.  \\ 
+
+\noindent Estimating a time-varying covariate model with {\tt zelig()} involves setting up the data differently to reflect a counting process.  In the typical non-time-varying covariate model, the cases include a duration time ($Y$), a censoring mechanism ($C$), and covariates ($X$).  A typical dataset would look like this:
+
+\begin{table}[!htp]
+ \begin{center}
+\begin{tabular}{lllll}
+\hline
+Case & Y & C & X1 & X2 \\ 
+\hline
+1 & 35 & 0 & 4 & 7 \\ 
+2 & 56 & 1 & 6 & 11\\
+\hline
+\end{tabular}
+ \end{center}
+\end{table}
+
+\noindent The user would then estimate the model and find quantities of interest using the following syntax:
+
+\begin{verbatim}
+> z.out <- zelig(Surv(Y,C) ~ X1 + X2, model = "coxph", data = mydata)
+> x.out <- setx(z.out)
+> s.out <- sim(z.out, x = x.out)
+\end{verbatim}
+
+\noindent With time-varying covariates, each case is composed of multiple observations with start times, stop times, censoring (event) mechanisms, and covariates.  The covariates are assumed to be constant within the intervals defined by the start and stop times.  The covariates change only between intervals.  Thus, the covariates are constant at each observation.  The censoring mechanism equals 1 when an event occurs at the stop time and equals 0 if the observation is censored or if no event occurs at the stop time.  A typical time-varying dataset would look like this:
+
+\begin{table}[!htp]
+ \begin{center}
+\begin{tabular}{llllll}
+\hline
+Case & Start & Stop & C & X1 & X2 \\ 
+\hline
+1 & 0 & 26 & 0 & 4 & 7 \\
+1 & 26 & 35 & 0 & 4 & 10 \\
+2 & 0 & 39 & 0 & 6 & 11 \\ 
+2 & 39 & 56 & 1 & 9 & 5 \\
+\hline
+\end{tabular}
+ \end{center}
+\end{table}
+
+\noindent The user would then estimate the model and find quantities of interest using the following syntax:
+
+\begin{verbatim}
+> z.out <- zelig(Surv(Start,Stop,C) ~ X1 + X2, model = "coxph", 
+                 data = mydata)
+> x.out <- setx(z.out)
+> s.out <- sim(z.out, x = x.out)
+\end{verbatim}
 
 
 \subsubsection{Examples}
@@ -155,8 +209,40 @@ summary(s.out2)
 plot(s.out2)
 @
 \end{center}
-\end{enumerate}
 
+\item {Example 3: Example with Time-Varying Covariates}
+
+Create sample toy dataset (from {\tt survival} package):
+<<Example3.data>>=
+toy <- as.data.frame(list(start=c(1, 2, 5, 2, 1, 7, 3, 4, 8, 8),
+            stop=c(2, 3, 6, 7, 8, 9, 9, 9,14,17),
+            event=c(1, 1, 1, 1, 1, 1, 1, 0, 0, 0),
+            x=c(1, 0, 0, 1, 0, 1, 1, 1, 0, 0),
+	    x1=c(5, 5, 7, 4, 5, 6, 3, 2, 7, 4) ))
+@
+Estimating parameter values for the coxph regression:
+<<Example3.zelig>>=
+z.out3 <- zelig(Surv(start, stop, event) ~ x + x1, model = "coxph", data = toy)
+@
+Setting values for the explanatory variables:
+<<Example3.setx>>=
+x.low3 <- setx(z.out3, x = 0)
+x.high3 <- setx(z.out3, x = 1)
+@
+Simulating quantities of interest:
+<<Example3.sim>>=
+s.out3 <- sim(z.out3, x = x.low3, x1 = x.high3)
+@
+<<Example3.summary.sim>>=
+summary(s.out3)
+@
+\begin{center}
+<<label=ExamplePlot3,fig=true,echo=true>>=
+plot(s.out3)
+@
+\end{center}
+
+\end{enumerate}
 
 \subsubsection{The Model}
 Let $Y_i^*$ be the survival time for observation $i$. This variable
@@ -182,13 +268,13 @@ h_i(t) = \lambda(t) \times \lambda_i
 \end{equation*}
 where $\lambda(t)$ is the baseline hazard (when all covariates equal 0), which varies over $t$ but not over $i$, and $\lambda_i$ is the parameterized part of the hazard function, which varies over $i$ but not over $t$ (the proportional hazards assumption).
 
-The model estimates the parameters without a distributional assumption on the duration times by focusing on the occurrence of events and ignoring the time between events.  The data are reconceptualized from duration times to $J$ discrete event times such that each $y_i^*$ corresponds to exactly one event time $t_i$.  The model assumes that no two $y_i^*$ have the same event times.  
+The model estimates the parameters without a distributional assumption on the duration times by focusing on the occurrence of events and ignoring the time between events.  The data are reconceptualized from duration times to $K$ discrete event times such that each $y_i$ corresponds to exactly one event time $t_i$.  The model assumes that no two $y_i$ have the same event times.  
 
-For each event time, denote $R_j$ as the set of all observations $k$ that are at risk at $t_i$.  Given that an event occurred at $t_i$, we are interested in the conditional probability that the event occurred in observation $i$.  The conditional probability is given by 
+For each event time, denote $R(t_i)$ as the set of all observations $j$ that are at risk at $t_i$.  Given that an event occurred at $t_i$, we are interested in the conditional probability that the event occurred in observation $i$.  The conditional probability is given by 
 \begin{eqnarray*}
-\mathrm{Pr}(y_i^* = t_i \mid \mathrm{an \: event \: at \:}t_i) &=&  \frac{h_i(t_i)}{\sum_{k \in R_j} h_k(t_i)}\\
-&=& \frac{\lambda(t_i) \, \lambda_i}{\sum_{k \in R_j} \lambda(t_i) \, \lambda_k}\\
-&=& \frac{\lambda_i}{\sum_{k \in R_j} \lambda_k}
+\mathrm{Pr}(y_i = t_i \mid \mathrm{an \: event \: at \:}t_i) &=&  \frac{h_i(t_i)}{\sum_{j \in R(t_i)} h_j(t_i)}\\
+&=& \frac{\lambda(t_i) \, \lambda_i}{\sum_{j \in R(t_i)} \lambda(t_i) \, \lambda_j}\\
+&=& \frac{\lambda_i}{\sum_{j \in R(t_i)} \lambda_j}
 \end{eqnarray*}
 where the numerator denotes the probability of observation $i$ experiencing the event at $t_i$ and the denominator denotes the probability that an event occurred at $t_i$.  
 %
@@ -210,29 +296,35 @@ where $x_i$ is the vector of explanatory variables, and $\beta$ is the vector of
 
 \item Each risk set (and thus each event time) contributes one conditional probability to the partial likelihood function, given by 
 \begin{equation*}
-L(\beta | y) = \prod_{j=1}^J \frac{\exp(x_i \beta)}{\sum_{k \in R_j} \exp(x_k \beta)} 
+L(\beta | y) = \prod_{i=1}^K \left[ \frac{\exp(x_i \beta)}{\sum_{j \in R(t_i)} \exp(x_j \beta)} \right] ^{c_i}
 \end{equation*}  
-where $J$ corresponds to the number of risk sets.  Note that censored observations are considered part of the risk sets $R_j$ for all event times prior to their censoring, but otherwise do not contribute to the partial likelihood since they do not have corresponding event times.  For an example, see \citet[53]{BoxJon04}.  
+where $c_i$ is the binary censoring variable.  Note that event times corresponding to censored observations are not counted since their corresponding terms for the partial likelihood are exponentiated to 0.  However, all censored observations are considered part of the risk sets $R(t_i)$ for all event times prior to their censoring, but otherwise do not contribute to the partial likelihood.  For an example, see \citet[53]{BoxJon04}.  
+
+\item In the case of the Cox model with time-varying covariates, the partial likelihood function is similarly given by  
+\begin{equation*}
+L(\beta | y) = \prod_{i=1}^K \left[ \frac{\exp(x_i(t_i) \; \beta)}{\sum_{j \in R(t_i)} \exp(x_j(t_i) \; \beta)} \right] ^{c_i}
+\end{equation*}  
+where $x_i(t_i)$ is the value of the covariates at time $t_i$.  Denote ``cases'' as the units in our data.  Each case is composed of one or more observations corresponding to different values in one or more covariates.  At each event time $t_i$, the partial likelihood evaluates the hazard of the case in which the event occurred in with its covariate values at $t_i$ (the numerator) and the hazard of all the other cases at risk at $t_i$ (risk set $R(t_i)$) with their covariate values at $t_i$ (the denominator).  See previous section for more information. 
+
 
 \item Although the model assumes that there are no tied event times, in practice, data often have tied event times due to imprecise measurement.  There are three commonly used methods to deal with tied event times.  
 \begin{itemize}
-\item \textbf{Breslow method}: The Breslow method simply treats the risk set as the same for all tied events in the risk set.  Suppose observations 1 and 3 are tied in a risk set of observations 1, 2, 3, and 4.  Theoretically, if the event occurred in 1 before in 3, then the risk set for observation 3 would have dropped observation 1.  However, since we cannot tell which event occurred first, in the partial likelihood, the risk set for observation 1 and observation 3 are the same, consisting of both observations 1 and 3 as well as 2 and 4.  For each risk set $R_j$, let $d_j$ equal the number of tied events in the $j$th risk set and let $D_j$ denote the set of $d_j$ tied events.  For risk sets with no tied events, $d_j = 1$.  The approximate partial likelihood for the Breslow method is given by
+\item \textbf{Breslow method}: The Breslow method simply treats the risk set as the same for all tied events in the risk set.  Suppose observations 1 and 3 are tied in a risk set of observations 1, 2, 3, and 4.  Theoretically, if the event occurred in 1 before in 3, then the risk set for observation 3 would have dropped observation 1.  However, since we cannot tell which event occurred first, in the partial likelihood, the risk set for observation 1 and observation 3 are the same, consisting of both observations 1 and 3 as well as 2 and 4.  For each risk set $R(t_i)$, let $d_i$ equal the number of tied events in the $i$th risk set and let $D_i$ denote the set of $d_i$ tied events.  For risk sets with no tied events, $d_i = 1$.  The approximate partial likelihood for the Breslow method is given by
 \begin{equation*}
-L(\beta | y) = \prod_{j=1}^J \frac{\prod_{i \in D_j}\exp(x_i \beta)}{\left[ \sum_{k \in R_j} \exp(x_k \beta)\right] ^{d_j}}
-\end{equation*}
-where $j$ indexes the $J$ number of risk sets, $k$ denotes the observations in the risk sets, and $i$ denotes the observations for which the events occur .  
+L(\beta | y) = \prod_{i=1}^K \left[ \frac{\prod_{i \in D_i}\exp(x_i \beta)}{\left[ \sum_{j \in R(t_i)} \exp(x_j \beta)\right] ^{d_i}} \right] ^ {c_i}
+\end{equation*} 
 
 \item \textbf{Efron method}: The Efron method is more precise because it tries to account for how the risk set changes depending on the sequence of tied events.  For an intuition behind the Efron approximation, suppose as in the previous example that observations 1 and 3 are tied in a risk set of observations 1, 2, 3, and 4.  If the event occurred in 1 before 3, then the risk set for the second event would consist of observations $\{2, 3, 4\}$.  On the other hand, if the event occurred in 3 before 1, then the risk set for the second event would consist of observations $\{1,2,4\}$.  Since both cases are equally plausible with the tied event times, the Efron approximation suggests that the second risk set would consist of $\{2, 3, 4\}$ with $0.5$ probability and $\{1,2,4\}$ with $0.5$ probability.  The Efron approximate partial likelihood is then given by
 \begin{equation*}
-L(\beta | y) = \prod_{j=1}^J \left(\frac{\prod_{i \in D_j}\exp(x_i \beta)}{\prod_{r=1}^{d_j} \left[\sum_{k \in R_j} \exp(x_k \beta) - \frac{r-1}{d_j} \sum_{k \in D_j} \exp(x_k \beta)\right] } \right)  
+L(\beta | y) = \prod_{i=1}^K \left[\frac{\prod_{i \in D_i}\exp(x_i \beta)}{\prod_{r=1}^{d_i} \left[\sum_{j \in R(t_i)} \exp(x_j \beta) - \frac{r-1}{d_i} \sum_{j \in D_i} \exp(x_j \beta)\right] } \right] ^ {c_i}  
 \end{equation*}
-where $r$ indexes $D_j$, which is the set of $d_j$ tied events for the $j$th risk set.
+where $r$ indexes $D_i$, which is the set of $d_i$ tied events for the $i$th risk set.
 
-\item \textbf{Exact discrete method}: Unlike the Breslow and Efron methods, which assume a continuous time process, the exact discrete method assumes a discrete time process where the tied events actually do occur at exactly the same time.  The method begins by assuming that the data are grouped into risk sets $R_j$.  In each risk set and for each observation, denote a binary dependent variable which takes on the value of 1 for each observation that experiences the event and 0 for each observation that does not experience the event.  Denote $d_j$ as the number of 1s in $R_j$ and $D_j$ as the set of observations with 1s in $R_j$.  $D_j$ represents a specific pattern of 0s and 1s (in our previous example, the specific pattern of 0s and 1s is that observations 1 and 3 experienced an event while 2 and 4 did not, so $D_j$ is the set $\{1,3\}$).  Then for each $R_j$, we are interested in the conditional probability of getting the specific pattern of 0s and 1s given the total number of 1s in $R_j$.  Thus, the conditional probability for each risk set is given as
+\item \textbf{Exact discrete method}: Unlike the Breslow and Efron methods, which assume a continuous time process, the exact discrete method assumes a discrete time process where the tied events actually do occur at exactly the same time.  The method begins by assuming that the data are grouped into risk sets $R(t_i)$.  In each risk set and for each observation, denote a binary dependent variable which takes on the value of 1 for each observation that experiences the event and 0 for each observation that does not experience the event.  Denote $d_i$ as the number of 1s in $R(t_i)$ and $D_i$ as the set of observations with 1s in $R(t_i)$.  $D_i$ represents a specific pattern of 0s and 1s (in our previous example, the specific pattern of 0s and 1s is that observations 1 and 3 experienced an event while 2 and 4 did not, so $D_i$ is the set $\{1,3\}$).  Then for each $R(t_i)$, we are interested in the conditional probability of getting the specific pattern of 0s and 1s given the total number of 1s in $R(t_i)$.  Thus, the conditional probability for each risk set is given as
 \begin{eqnarray*}
-\mathrm{Pr}(D_j | d_j) = \frac{\prod_{i \in D_j} \exp(x_i \beta)}{\sum_{m=1}^M \left[\prod_{k \in A_{jm}}\exp(x_k \beta)\right] }
+\mathrm{Pr}(D_i | d_i) = \frac{\prod_{i \in D_i} \exp(x_i \beta)}{\sum_{m=1}^M \left[\prod_{j \in A_{im}}\exp(x_j \beta)\right] }
 \end{eqnarray*}  
-where $A_{jm}$ is a set of observations that represents one combination of $d_j$ number of 1s in $R_j$.  There are $M$ possible combinations for each risk set.  The partial likelihood then takes the conditional probability over each $j$ risk set.  Note that the exact discrete approximation method is equivalent to a conditional logit model.
+where $A_{im}$ is a set of observations that represents one combination of $d_i$ number of 1s in $R(t_i)$.  There are $M$ possible combinations for each risk set.  The partial likelihood then takes the conditional probability over each $i$ risk set.  Note that the exact discrete approximation method is equivalent to a conditional logit model.
 \end{itemize}
 \end{itemize}
 
@@ -306,7 +398,7 @@ To cite the \emph{coxph} Zelig model:
 Patrick Lam. 2007. ``coxph: Cox Proportional Hazards Regression for Duration Dependent Variables,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
 
 \end{verse}
-\input{citeZelig}
+%\input{citeZelig}
 
 \subsection*{See also}
 

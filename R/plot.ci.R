@@ -3,10 +3,16 @@ plot.ci <- function(x, CI=95, qi = "ev", main = "",
                     ylim = NULL, col = c("red", "blue"), ...) {
   if (class(x) != "zelig")
     stop(" plot.ci() works only for sim() output.")
-  if (!(x$zelig.call$model) %in% c("ls", "logit", "probit", "exp", "gamma", "lognorm",
-                                        "weibull", "normal", "poisson", "relogit",
-                                        "negbin", "MCMCregress", "MCMClogit", "MCMCprobit",
-                                        "MCMCpoisson", "MCMCregress"))
+  if (!(x$zelig.call$model) %in% 
+        c("ls", "logit", "probit", "exp", "gamma", "lognorm",
+          "weibull", "normal", "poisson", "tobit", "relogit",
+          "negbin", "logit.bayes", "probit.bayes",
+          "poisson.bayes", "normal.bayes", "tobit.bayes",
+          "ls.mixed", "logit.mixed", "probit.mixed",
+          "gamma.mixed", "poisson.mixed",
+          "logit.gam", "gamma.gee", "normal.gam", "poisson.gam",
+          "probit.gam", "logit.gee", "normal.gee",
+          "poisson.gee", "probit.gee"))
     stop("\n  plot.ci() is valid only for non-categorical, univariate response models.")
   var <- var1 <- list()
   idx1 <- idx <- NULL

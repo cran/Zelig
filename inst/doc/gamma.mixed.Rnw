@@ -17,17 +17,17 @@ library(Zelig)
 \section{{\tt gamma.mixed}: Mixed effects gamma regression}
 \label{gamma.mixed}
 
-Use generalized multi-level linear regression if you have covariates that are grouped according to one or more classification factors. Gamma regression models a continuous, positive dependent variable. 
+Use generalized multi-level linear regression if you have covariates that are grouped according to one or more classification factors. Gamma regression models a continuous, positive dependent variable.
 
 While generally called multi-level models in the social sciences, this class of models is often referred to as mixed-effects models in the statistics literature and as hierarchical models in a Bayesian setting. This general class of models consists of linear models that are expressed as a function of both \emph{fixed effects}, parameters corresponding to an entire population or certain repeatable levels of experimental factors, and \emph{random effects}, parameters corresponding to individual experimental units drawn at random from a population.
 
 \subsubsection{Syntax}
 
 \begin{verbatim}
-z.out <- zelig(formula= y ~ x1 + x2 + tag(z1 + z2 | g),  
+z.out <- zelig(formula= y ~ x1 + x2 + tag(z1 + z2 | g),
                data=mydata, model="gamma.mixed")
 
-z.out <- zelig(formula= list(mu=y ~ xl + x2 + tag(z1, delta | g), 
+z.out <- zelig(formula= list(mu=y ~ xl + x2 + tag(z1, delta | g),
                delta= ~ tag(w1 + w2 | g)), data=mydata, model="gamma.mixed")
 \end{verbatim}
 
@@ -45,10 +45,10 @@ In addition, {\tt zelig()} accepts the following additional arguments for model 
 
 \begin{itemize}
 \item {\tt data:} An optional data frame containing the variables named in {\tt formula}. By default, the variables are taken from the environment from which {\tt zelig()} is called.
-\item {\tt method:} a character string. The criterion is always the log-likelihood but this criterion does not have a closed form expression and must be approximated. The default approximation is {\tt "PQL"} or penalized quasi-likelihood. Alternatives are {\tt "Laplace"} or {\tt "AGQ"} indicating the Laplacian and adaptive Gaussian quadrature approximations respectively. 
+\item {\tt method:} a character string. The criterion is always the log-likelihood but this criterion does not have a closed form expression and must be approximated. The default approximation is {\tt "PQL"} or penalized quasi-likelihood. Alternatives are {\tt "Laplace"} or {\tt "AGQ"} indicating the Laplacian and adaptive Gaussian quadrature approximations respectively.
 \item {\tt na.action:} A function that indicates what should happen when the data contain {\tt NAs}. The default action ({\tt na.fail}) causes {\tt zelig()} to print an error message and terminate if there are any incomplete observations.
 \end{itemize}
-Additionally, users may with to refer to {\tt lmer} in the package {\tt Matrix} for more information, including control parameters for the estimation algorithm and their defaults.
+Additionally, users may with to refer to {\tt lmer} in the package {\tt lme4} for more information, including control parameters for the estimation algorithm and their defaults.
 
 \subsubsection{Examples}
 
@@ -58,29 +58,29 @@ Additionally, users may with to refer to {\tt lmer} in the package {\tt Matrix} 
 Attach sample data: \\
 <<Examples.data>>=
 data(coalition2)
-@ 
+@
 
-Estimate model using optional arguments to specify approximation method for the log-likelihood, and the log link function for the Gamma family: 
-<<Examples.zelig>>= 
+Estimate model using optional arguments to specify approximation method for the log-likelihood, and the log link function for the Gamma family:
+<<Examples.zelig>>=
 z.out1 <- zelig(duration ~ invest + fract + polar + numst2 + crisis + tag(1 | country), data=coalition2, model="gamma.mixed", method="PQL",family=Gamma(link=log))
-@ 
+@
 
 \noindent Summarize regression coefficients and estimated variance of random effects:\\
 <<Examples.summary>>=
 summary(z.out1)
-@ 
+@
 
 Set the baseline values (with the ruling coalition in the minority) and the alternative values (with the ruling coalition in the majority) for X:\\
 <<Examples.setx>>=
 x.high <- setx(z.out1, numst2 = 1)
 x.low <- setx(z.out1, numst2 = 0)
 @
- 
+
 Simulate expected values ({\tt qi\$ev}) and first differences({\tt qi\$fd}): \\
 <<Examples.sim>>=
 s.out1 <- sim(z.out1, x=x.high, x1=x.low)
 summary(s.out1)
-@ 
+@
 
 \end{enumerate}
 
@@ -102,7 +102,7 @@ for $\alpha, \; \lambda_{ij}, \; y_{ij} \; > 0$.
 \begin{equation*}
 b_i \sim Normal(0, \Psi)
 \end{equation*}
-\item The \emph{systematic component} is 
+\item The \emph{systematic component} is
 \begin{equation*}
 \lambda_{ij} \equiv \frac{1}{X_{ij} \beta + Z_{ij} b_i}
 \end{equation*}
@@ -162,7 +162,7 @@ The output of each Zelig command contains useful information which you may view.
 \end{itemize}
 
 
-\subsection* {How to Cite} 
+\subsection* {How to Cite}
 
 To cite the \emph{gamma.mixed} Zelig model:
 \begin{verse}
@@ -183,6 +183,3 @@ Mixed effects gamma regression is part of {\tt lme4} package by Douglas M. Bates
  detach(pos=match(pkg,search()))
 @
 \end{document}
-
-
-

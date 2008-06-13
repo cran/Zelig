@@ -72,27 +72,33 @@ setx.coxph <- function(object, fn = list(numeric = mean, ordered =
   else
     dta <- as.data.frame(data)
 
-################################ create new terms without strata 
-  if(!is.null(tt.attr$specials$strata)){
-    no.strata <- rownames(tt.attr$factors)[-tt.attr$specials$strata]
-    ind.var <- paste(no.strata[-tt.attr$response], collapse="+")
-    nf <- as.formula(paste(paste(no.strata[tt.attr$response]), paste("~"), ind.var)) #new formula for terms
+################################ create new terms without strata or cluster
+  if(!is.null(tt.attr$specials$strata) | !is.null(tt.attr$specials$cluster)){
+    no.st.cl <- colnames(tt.attr$factors)[-c(tt.attr$specials$strata - 1,
+                                       tt.attr$specials$cluster - 1)]
+    rhs <- paste(no.st.cl, collapse="+")
+    lhs <- rownames(tt.attr$factors)[1]
+    nf <- as.formula(paste(paste(lhs), paste("~"), rhs)) #new formula for terms
 #####extract strata
     mf1 <- model.frame(tt, data = dta, na.action = na.pass)
-    stratas <- mf1[complete.cases(mf1),tt.attr$specials$strata]
-    st <- na.omit(pmatch(names(mc), as.character("strata")))
-    if (length(st>0))
-	strata <- mc[["strata"]]
-    else
-	strata <- mode(stratas)
 
+    if(!is.null(tt.attr$specials$strata)){
+      stratas <- mf1[complete.cases(mf1),tt.attr$specials$strata]
+      st <- na.omit(pmatch(names(mc), as.character("strata")))
+      if (length(st>0))
+	strata <- mc[["strata"]]
+      else
+	strata <- mode(stratas)
+    }
+    else
+      strata <- NULL
+    
     tt <- terms(nf)
     tt.attr <- attributes(tt)
   }
   else
-	strata <- NULL
+    strata <- NULL
   #################################################
-
 
   ## extract variables we need
   mf <- model.frame(tt, data = dta, na.action = na.pass)
@@ -166,10 +172,7 @@ setx.coxph <- function(object, fn = list(numeric = mean, ordered =
     }
   data <- data[1:maxl,,drop = FALSE]
   
-  X <- as.data.frame(model.matrix(tt, data = data))[-1]
-  k <- length(coef(object))
-  if(length(X)>k)	#delete cluster variable
-	X <- X[-(k+1)]
+  X <- as.data.frame(model.matrix(tt, data = data))[-1] #delete cluster
   if(!is.null(strata))
       X <- as.data.frame(cbind(X, strata))
   class(X) <- c("data.frame", "coxph")

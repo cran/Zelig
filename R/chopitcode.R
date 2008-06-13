@@ -73,7 +73,7 @@ prechop <- function(formula, data, ...) {
     for (i in miss2) { D1[[i]] <- rep(NA, length = nrow(D1)) } 
     data <- rbind(D1, D2)
   } else if (is.data.frame(data)) {
-    data <- data
+    D1 <- data <- data
   }
   else { stop("data must be either a data frame or list of data frames") } 
   out <- chopit(formula, data = data, ...)

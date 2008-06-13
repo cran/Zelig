@@ -17,10 +17,11 @@ the {\tt setx()} command.  (Occasionally, you may need to use, for example, {\tt
 
 \chapter{Supplementary Commands}
 
-\input{commands/matchit}
+\include{matchit}
 \include{commandsRd/mi}
 \include{commandsRd/network}
 \include{commandsRd/plot.ci}
+\include{commandsRd/plot.surv}
 \include{commandsRd/rocplot}
 \include{commandsRd/ternaryplot}
 \include{commandsRd/ternarypoints}
@@ -97,14 +98,18 @@ of simulations increases.
 \include{gamma.gee}
 \include{gamma.mixed}
 \include{gamma.net}
+\include{gamma.survey}
 \include{irt1d}
 \include{irtkd}
 \include{logit}
 \include{logit.bayes}
 \include{logit.gam}
 \include{logit.gee}
+\include{logit.gee}
+\include{logit.mixed}
 \include{logit.mixed}
 \include{logit.net}
+\include{logit.survey}
 \include{lognorm}
 \include{ls}
 \include{ls.mixed}
@@ -118,6 +123,7 @@ of simulations increases.
 \include{normal.gam}
 \include{normal.gee}
 \include{normal.net}
+\include{normal.survey}
 \include{ologit}
 \include{oprobit}
 \include{oprobit.bayes}
@@ -127,12 +133,14 @@ of simulations increases.
 \include{poisson.gee}
 \include{poisson.mixed}
 \include{poisson.net}
+\include{poisson.survey}
 \include{probit}
 \include{probit.bayes}
 \include{probit.gam}
 \include{probit.gee}
 \include{probit.mixed}
 \include{probit.net}
+\include{probit.survey}
 \include{relogit}
 \include{sur}
 \include{threesls}
@@ -144,7 +152,7 @@ of simulations increases.
 
 \chapter{Commands for Programmers and Contributors}
 
-\input{commands/describe.mymodel}
+\include{describe.mymodel}
 \include{commands/model.end}
 \include{commands/model.frame.multiple}
 \include{commands/model.matrix.multiple}

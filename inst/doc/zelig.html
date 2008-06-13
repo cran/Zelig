@@ -198,7 +198,8 @@ left: 100px;
 	</li>
 	<li class="mainindx"> <a href=""> Advanced Zelig uses </a>
 	       <ul id="advancedzeliguses">
-	              <li><a href="static/advancedR.pdf" title="Advanced R">R programming</a></li>
+	              <li><a href="static/robjects.pdf" title="Advanced R">R Objects</a></li>
+	              <li><a href="static/programmingstatements.pdf" title="Advanced R">Programming statements</a></li>
 	              <li><a href="static/newModels.pdf" title="Writing new Models">Writing new Models</a></li>
 	              <li><a href="static/addingModels.pdf" title="Adding Models and Methods to Zelig">Adding Models and Methods to Zelig</a></li>
 	       </ul>
@@ -216,9 +217,11 @@ left: 100px;
 		        </li>
 		        <li class="mainindx"><a href="">Supplementary Commands </a>
 		             <ul id="supplementarycommands">
+			             <li><a href="static/matchitref.pdf" title="">matchit: Create matched data</a></li>
 			             <li><a href="commandsRd/mi.pdf" title="mi">mi: Bundle multiply imputed data sets as a list</a></li>
 				     <li><a href="commandsRd/network.pdf" title="network">network: Format matricies into data frame for social network analysis</a></li>
 				     <li><a href="commandsRd/plot.ci.pdf" title="plot.ci">plot.ci: Plotting Vertical confidence Intervals</a></li>
+				     <li><a href="commandsRd/plot.surv.pdf" title="plot.surv">plot.surv: Plotting Coefidence Intervals for Survival Curves</a></li>
 				     <li><a href="commandsRd/rocplot.pdf" title="rocplot">rocplot: Receiver Operator Characteristic Plots</a></li>
 				     <li><a href="commandsRd/ternaryplot.pdf" title="ternaryplot">ternaryplot: Ternary diagram</a></li>
 				     <li><a href="commandsRd/ternarypoints.pdf" title="ternarypoints">ternarypoints: Adding Points To Ternary Diagrams</a></li>
@@ -245,6 +248,7 @@ left: 100px;
 		<li><a href="normal.gam.pdf">normal.gam : Generalized Additive Model for Continuous Dependent Variables</a></li>
 		<li><a href="normal.gee.pdf">normal.gee : General Estimating Equation for Normal Regression</a></li>
 		<li><a href="normal.net.pdf">normal.net : Social Network Normal Regression for Continuous Dependent Variables</a></li>
+		<li><a href="normal.survey.pdf">normal.survey : Survey-Weighted Normal Regression for Continuous Dependent Variables</a></li>
 		<li><a href="sur.pdf">sur : Seemingly Unrelated Regression</a></li>
 		<li><a href="threesls.pdf">threesls : Three Stage Least Squares</a></li>
 		<li><a href="tobit.pdf">tobit : Linear regression for Left-Censored Dependent Variable</a></li>
@@ -265,12 +269,14 @@ left: 100px;
 		<li><a href="logit.gee.pdf">logit.gee : General Estimating Equation for Logistic Regression</a></li>
 		<li><a href="logit.mixed.pdf">logit.mixed : Mixed effects logistic model</a></li>
 		<li><a href="logit.net.pdf">logit.net : Social Network Logistic Regression for Dichotomous Dependent Variables</a></li>
+		<li><a href="logit.survey.pdf">logit.survey : Survey-Weighted Logistic Regression for Dichotomous Dependent Variables</a></li>
 		<li><a href="probit.pdf">probit : Probit Regression for Dichotomous Dependent Variables</a></li>
 		<li><a href="probit.bayes.pdf">probit.bayes : Bayesian Probit Regression for Dichotomous Dependent Variables</a></li>
 		<li><a href="probit.gam.pdf">probit.gam : Generalized Additive Model for Dichotomous Dependent Variables</a></li>
 		<li><a href="probit.gee.pdf">probit.gee : General Estimating Equation for Probit Regression</a></li>
 		<li><a href="probit.mixed.pdf">probit.mixed : Mixed effects probit model</a></li>
 		<li><a href="probit.net.pdf">probit.net : Social Network Probit Regression for Dichotomous Dependent Variables</a></li>
+		<li><a href="probit.survey.pdf">probit.survey : Probit Regression for Dichotomous Dependent Variables</a></li>
 		<li><a href="relogit.pdf">relogit : Rare Events Logistic Regression for Dichotomous Dependent Variables</a></li>
 	</ul>
 </li>
@@ -291,6 +297,7 @@ left: 100px;
 		<li><a href="gamma.gee.pdf">gamma.gee : General Estimating Equation for Gamma Regression</a></li>
 		<li><a href="gamma.mixed.pdf">gamma.mixed : Mixed effects gamma model</a></li>
 		<li><a href="gamma.net.pdf">gamma.net : Social Network Gamma Regression for Continuous, Positive Dependent Variables</a></li>
+		<li><a href="gamma.survey.pdf">gamma.survey : Survey-Weighted Gamma Regression for Continuous, Positive Dependent Variables</a></li>
 		<li><a href="lognorm.pdf">lognorm : Log-Normal Regression for Duration Dependent Variables</a></li>
 		<li><a href="weibull.pdf">weibull : Weibull Regression for Duration Dependent Variables</a></li>
 	</ul>
@@ -310,6 +317,7 @@ left: 100px;
 		<li><a href="poisson.gee.pdf">poisson.gee : General Estimating Equation for Poisson Regression</a></li>
 		<li><a href="poisson.mixed.pdf">poisson.mixed : Mixed effects poisson model</a></li>
 		<li><a href="poisson.net.pdf">poisson.net : Social Network Poisson Regression for Event Count Dependent Variables</a></li>
+		<li><a href="poisson.survey.pdf">poisson.survey : Survey-Weighted Poisson Regression for Event Count Dependent Variables</a></li>
 	</ul>
 </li>
 <li class="mainindx"><a href="">Models for Mixed Dependent Variables</a>
@@ -330,7 +338,7 @@ left: 100px;
 
 	       <li class="mainindx"><a href="">Commands for Programmers and Contributors </a>
 	       <ul id="contribcommands">
-
+		    <li><a href="static/describemymodel.pdf" title="describemymodel">describe: Describe a model's systematic and stochastic parameters</a></li>
 		    <li><a href="commandsRd/model.end.pdf" title="model.end">model.end: Cleaning up after optimization</a></li>
 		    <li><a href="commandsRd/model.frame.multiple.pdf" title="model.frame.multiple">model.frame.multiple: Extracting the "environment" of a model formula</a></li>
 		    <li><a href="commandsRd/model.matrix.multiple.pdf" title="model.matrix.multiple">model.matrix.multiple: Desing matrix for multivariate models</a></li>
@@ -345,6 +353,7 @@ left: 100px;
 	</li> <!-- end of refman li  -->
 	<li class="mainindx"> <a href=""> Appendices </a>
 	       <ul id="Appendices">
+		    <li><a href="static/whatsnew.pdf" title="faq">What's new? What's next? </a></li>
 		    <li><a href="static/faq.pdf" title="faq">Frequently Asked Questions</a></li>
 	       </ul>
 	       </li>

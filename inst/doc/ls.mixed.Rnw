@@ -1,5 +1,6 @@
 \SweaveOpts{results=hide, prefix.string=vigpics/lmmixed}
 \include{zinput}
+% \usepackage{Sweave}
 %\VignetteIndexEntry{Mixed effects linear regression}
 %\VignetteDepends{Zelig}
 %\VignetteKeyWords{mixed,linear, linear regression}
@@ -24,10 +25,10 @@ While generally called multi-level models in the social sciences, this class of 
 \subsubsection{Syntax}
 
 \begin{verbatim}
-z.out <- zelig(formula= y ~ x1 + x2 + tag(z1 + z2 | g),  
+z.out <- zelig(formula= y ~ x1 + x2 + tag(z1 + z2 | g),
                data=mydata, model="lm.multi")
 
-z.out <- zelig(formula= list(mu=y ~ xl + x2 + tag(z1, gamma | g), 
+z.out <- zelig(formula= list(mu=y ~ xl + x2 + tag(z1, gamma | g),
                gamma= ~ tag(w1 + w2 | g)), data=mydata, model="lm.multi")
 \end{verbatim}
 
@@ -45,10 +46,11 @@ In addition, {\tt zelig()} accepts the following additional arguments for model 
 
 \begin{itemize}
 \item {\tt data:} An optional data frame containing the variables named in {\tt formula}. By default, the variables are taken from the environment from which {\tt zelig()} is called.
-\item {\tt method:} a character string. For a linear mixed model the default is {\tt "REML"} indicating that the model should be fit by maximizing the restricted log-likelihood. The alternative is {\tt "ML"} indicating that the log-likelihood should be maximized.
+\item {\tt family:} A GLM family, see {\tt glm} and {\tt family} in the {\tt stats} package. If {\tt family} is missing then a linear mixed model is fit; otherwise a generalized linear mixed model is fit. In the later case only {\tt gaussian} family with {\tt "log"} link is supported at the moment.
+\item {\tt method:} A character string. For a linear mixed model the default is {\tt "REML"} indicating that the model should be fit by maximizing the restricted log-likelihood. The alternative is {\tt "ML"} indicating that the log-likelihood should be maximized.
 \item {\tt na.action:} A function that indicates what should happen when the data contain {\tt NAs}. The default action ({\tt na.fail}) causes {\tt zelig()} to print an error message and terminate if there are any incomplete observations.
 \end{itemize}
-Additionally, users may with to refer to {\tt lmer} in the package {\tt Matrix} for more information, including control parameters for the estimation algorithm and their defaults.
+Additionally, users may wish to refer to {\tt lmer} in the package {\tt lme4} for more information, including control parameters for the estimation algorithm and their defaults.
 
 \subsubsection{Examples}
 
@@ -59,8 +61,8 @@ Attach sample data: \\
 <<Examples.data>>=
 data(voteincome)
 @
- 
-Estimate model: 
+
+Estimate model:
 
 <<Examples.zelig>>=
 z.out1 <- zelig(income ~ education + age + female + tag(1 | state), data=voteincome, model="ls.mixed")
@@ -69,18 +71,18 @@ z.out1 <- zelig(income ~ education + age + female + tag(1 | state), data=voteinc
 \noindent Summarize regression coefficients and estimated variance of random effects:\\
 <<Examples.summary>>=
 summary(z.out1)
-@ 
+@
 Set explanatory variables to their default values, with high (80th percentile) and low (20th percentile) values for education:\\
 <<Examples.setx>>=
 x.high <- setx(z.out1, education=quantile(voteincome$education, 0.8))
 x.low <- setx(z.out1, education=quantile(voteincome$education, 0.2))
-@ 
+@
 
 Generate first differences for the effect of high versus low education on income: \\
 <<Examples.sim>>=
 s.out1 <- sim(z.out1, x=x.high, x1=x.low)
 summary(s.out1)
-@ 
+@
 \begin{center}
 <<label=ExamplesPlot, fig=true, echo=true>>=
 plot(s.out1)
@@ -102,7 +104,7 @@ Y_{ij} \sim \mathrm{Normal}(y_{ij} | \mu_{ij}, \sigma^2)
 \begin{equation*}
 b_i \sim Normal(0, \Psi)
 \end{equation*}
-\item The \emph{systematic component} is 
+\item The \emph{systematic component} is
 \begin{equation*}
 \mu_{ij} \equiv X_{ij} \beta + Z_{ij} b_i
 \end{equation*}
@@ -112,11 +114,12 @@ where $X_{ij}$ is the $(n_i \times p \times M)$ array of known fixed effects exp
 \subsubsection{Quantities of Interest}
 
 \begin{itemize}
-\item The predicted values ({\tt qi\$pr}) are calculated as 
+
+\item The predicted values ({\tt qi\$pr}) are draws from the normal distribution defined by mean $\mu_{ij}$ and variance $\sigma^2$,
 \begin{equation*}
-Y_{ij} = X_{ij} \beta + Z_{ij} b_i 
+\mu_{ij} = X_{ij} \beta + Z_{ij} b_{i}
 \end{equation*}
-given $X_{ij}$ and $Z_{ij}$ and simulations of of $\beta$ and $b_i$ from their posterior distributions. The estimated variance covariance matrices are taken as correct and are themselves not simulated.
+given $X_{ij}$ and $Z_{ij}$ and simulations of $\beta$ and $b_i$ from their posterior distributions. The estimated variance covariance matrices are taken as correct and are themselves not simulated.
 
 \item The expected values ({\tt qi\$ev}) are averaged over the stochastic components and are given by
 \begin{equation*}
@@ -139,6 +142,8 @@ where $t_{ij}$ is a binary explanatory variable defining the treatment $(t_{ij} 
 \frac{1}{\sum_{i = 1}^M \sum_{j = 1}^{n_i} t_{ij}} \sum_{i = 1}^M \sum_{j:t_{ij} = 1}^{n_i} \{ Y_{ij} (t_{ij} = 1) - E[Y_{ij}(t_{ij} = 0)] \},
 \end{equation*}
 where $t_{ij}$ is a binary explanatory variable defining the treatment $(t_{ij} = 1)$ and control $(t_{ij} = 0)$ groups. Variation in the simulations is due to uncertainty in simulating $E[Y_{ij}(t_{ij} = 0)]$, the counterfactual expected value of $Y_{ij}$ for observations in the treatment group, under the assumption that everything stays the same except that the treatment indicator is switched to $t_{ij} = 0$.
+
+\item If {\tt "log"} link is used, expected values are computed as above and then exponentiated, while predicted values are draws from the log-normal distribution whose logarithm has mean and variance equal to $\mu_{ij}$ and $\sigma^2$, respectively.
 
 \end{itemize}
 
@@ -165,7 +170,7 @@ The output of each Zelig command contains useful information which you may view.
 
 
 
-\subsection* {How to Cite} 
+\subsection* {How to Cite}
 
 To cite the \emph{ls.mixed} Zelig model:
 \begin{verse}
@@ -186,5 +191,3 @@ Mixed effects linear regression is part of {\tt lme4} package by Douglas M. Bate
  detach(pos=match(pkg,search()))
 @
 \end{document}
-
-

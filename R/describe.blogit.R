@@ -2,8 +2,7 @@ describe.blogit<-function(){
 category <- "dichotomous"
 description  <- "Bivariate Logistic Regression for Dichotomous Dependent Variables"
 package <-list(	name 	="VGAM",
-		version	="0.6",
-		CRAN    ="http://www.stat.auckland.ac.nz/~yee"
+		version	="0.6"
 		)
 parameters<-list(mu="mu",phi="phi")
 parameters$mu<-list(equations=c(2,2),

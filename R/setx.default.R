@@ -4,7 +4,7 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   mc <- match.call()
   if (class(object)[1]=="MI")
     object <- object[[1]]
- 
+
   mode <- function(x){
     tb <- tapply(x, x, length)
     if(is.factor(x))
@@ -97,24 +97,22 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
     if(is.numeric(treat)) {
       data[treat==1, names(data)==counter] <- 0
       data[treat==0, names(data)==counter] <- 1
-    }
-    else if(is.factor(treat)) {
+    } else if(is.factor(treat)) {
       lev <- levels(treat)
       if(length(lev)==2) {
         treat <- as.numeric(treat) - 1 
         data[treat==1, names(data)==counter] <- lev[1]
         data[treat==0, names(data)==counter] <- lev[2]
-      }
-      else
+      } else {
         stop("counter only takes a binary variable")
-    }
-    else if(is.logical(treat)) {
+      }
+    } else if(is.logical(treat)) {
       treat <- as.numeric(treat)
       data[treat==1, names(data)==counter] <- FALSE
       data[treat==0, names(data)==counter] <- TRUE
-    }
-    else
+    } else {
       stop("not supported variable type for counter")
+    }
     if(!cond)
       stop("if counter is specified, cond must be TRUE")
   }
@@ -137,13 +135,13 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
         identical(mean, fn$ordered)) {
       warning("fn$ordered coreced to median().")
       fn$ordered <- median
-    }
-    else if (identical(min.default, fn$ordered)) 
+    } else if (identical(min.default, fn$ordered)) {
       fn$ordered <- min
-    else if (identical(max.default, fn$ordered)) 
+    } else if (identical(max.default, fn$ordered)) {
       fn$ordered <- max
-    else if (identical(median.default, fn$ordered)) 
-      fn$ordered <- median			
+    } else if (identical(median.default, fn$ordered)) {
+      fn$ordered <- median
+    }
     if (is.null(fn$other) || !is.function(fn$other)) { 
       warning("the only available fn for other is mode.")
       fn$other <- mode

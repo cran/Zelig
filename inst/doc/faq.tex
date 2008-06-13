@@ -26,7 +26,15 @@ why you may have installation problems:
   download the appropriate version of R to work with the last release
   of Zelig.  You may have to manually download and install Zelig.  
 
-\item \textbf{On Mac or Linux systems}:  If you get the following
+\item \textbf{On Mac}: If the latest version of Zelig is not yet
+  available at CRAN but you would like to install it on your Mac, try
+  typing the following at your R prompt:
+\begin{verbatim}
+   install.packages("Zelig", repos = "http://gking.harvard.edu", type = "source")
+\end{verbatim}
+
+\item \textbf{On Mac or Linux systems}:  
+If you get the following
   warning message at the end of your installation:  
 \begin{verbatim}
 Installation of package VGAM had non-zero exit status in ...
