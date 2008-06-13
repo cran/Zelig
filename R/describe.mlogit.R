@@ -2,8 +2,7 @@ describe.mlogit<-function(){
 category <- "multinomial"
 description  <- "Multinomial Logistic Regression for Dependent Variables with Unordered Categorical Values"
 package <-list(	name 	="VGAM",
-		version	="0.6",
-		CRAN="http://www.stat.auckland.ac.nz/~yee"
+		version	="0.6"
 		)
 parameters<-list(mu="mu")
 parameters$mu<-list(equations=c(1,Inf),

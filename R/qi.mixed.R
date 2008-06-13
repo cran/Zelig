@@ -1,5 +1,6 @@
 ## dbailey@wustl.edu
-## modeified by Ferdi  10/30/07
+## modified by Gregor Gorjanc 2008-01-07
+## modified by Ferdi  10/30/07
 ################################
 
 qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
@@ -20,6 +21,7 @@ qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
 
 
         fTermsNames <- colnames(model.matrix(parsefml$fixed, data = D))
+        cat(fTermsNames, "\n")
          
         fTerms <- x[,fTermsNames]
         rTerms <- list()
@@ -43,12 +45,13 @@ qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
                         ##rTermsNames <- colnames(model.matrix(parsefml$random[[i]],data=D))
                         ##rTerms.x1[[i]] <- x1[, rTermsNames]
                 }
-        names(rTerms.x1) <- names(parsefml$random)
+                names(rTerms.x1) <- names(parsefml$random)
         }
         
         ## Expected Values and Predicted Values    
         if (class(object) == "glmer"){
-                family <- object@family[[1]]    ## is a list, is family name always the first element ? -Ferdi
+                family <- object@family$family
+                link <- object@family$link
                 eta <- betas %*% t(as.matrix(fTerms))
                 theta <- matrix(object@family$linkinv(eta), nrow=nrow(betas))
                 mu <- eta
@@ -60,10 +63,11 @@ qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
                 ev <- matrix(NA, nrow=nrow(theta), ncol=ncol(theta))
                 pr <- matrix(NA, nrow=nrow(mut), ncol=ncol(mut))
                 dimnames(ev) <- dimnames(pr) <- dimnames(theta)
+                n <- length(mut[, 1])
                 if (family == "binomial"){
                         ev <- theta
                         for (i in 1:ncol(mut)){
-                                pr[,i] <- as.character(rbinom(length(mut[,i]), 1, mut[,i]))
+                                pr[,i] <- as.character(rbinom(n, 1, mut[,i]))
                         }
                         if (!is.null(y)) {
                                 if (NCOL(y) > 1) {
@@ -73,15 +77,28 @@ qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
                 }
                 else if (family == "Gamma"){
                         ev <- theta * 1/alpha
+                        n <- length(mut[i,])
                         for (i in 1:nrow(mut)){
-                                pr[i,] <- rgamma(length(mut[i,]), shape = mut[i,], scale= 1/alpha)
+                                pr[i,] <- rgamma(n, shape = mut[i,], scale= 1/alpha)
+                        }
+                }
+                else if (family == "gaussian"){
+                        ev <- theta
+                        if (link == "log"){
+                                for (i in 1:ncol(mut)){
+                                        pr[,i] <- rlnorm(n, meanlog=mut[,i], sdlog=alpha)
+                                }
+                        } else {
+                                stop(sprintf("no method for %s family and %s link", family, link))
                         }
                 }
                 else if (family == "poisson"){
                         ev <- theta
                         for (i in 1:ncol(mut)){
-                                pr[,i] <- rpois(length(mut[,i]), lambda = mut[,i])
+                                pr[,i] <- rpois(n, lambda = mut[,i])
                         }
+                } else {
+                        stop(sprintf("no method for %s family", family))
                 }
         }
         else if (class(object) == "lmer"){
@@ -91,7 +108,11 @@ qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
                 for (i in 1:length(rTerms)){
                         mu <- mu + gammas[[names(rTerms[i])]] %*% t(as.matrix(rTerms[[i]]))
                 }
-                pr <- mu
+                n <- length(mu[,1])
+                pr <- matrix(NA, nrow=nrow(mu), ncol=ncol(mu))
+                for (i in 1:ncol(mu)){
+                        pr[,i] <- rnorm(n, mean=mu[,i], sd=alpha)
+                }
         }
         
         qi <- list(ev=ev, pr = pr)
@@ -120,10 +141,11 @@ qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
         if (!is.null(y)) {
                 yvar <- matrix(rep(y, nrow(simpar)), nrow = nrow(simpar), byrow = TRUE)
                 tmp.ev <- yvar - qi$ev
-                if (family == "binomial")
-                  tmp.pr <- yvar - as.integer(qi$pr)
-                else
-                  tmp.pr <- yvar - qi$pr
+                if (family == "binomial"){ 
+                        tmp.pr <- yvar - as.integer(qi$pr)
+                } else {
+                        tmp.pr <- yvar - qi$pr
+                }
                 qi$att.ev <- matrix(apply(tmp.ev, 1, mean), nrow = nrow(simpar))
                 qi$att.pr <- matrix(apply(tmp.pr, 1, mean), nrow = nrow(simpar))
                 qi.name$att.ev <- "Average Treatment Effect for the Treated: Y - EV"
@@ -133,5 +155,3 @@ qi.lmer <- qi.glmer <- function(object, simpar, x, x1 = NULL, y = NULL) {
 }
 
     
-
-

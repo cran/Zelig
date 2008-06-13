@@ -40,7 +40,10 @@ summary.MI <- function(object, subset = NULL, ...){
       }
     }
     class(ans) <- "summary.MI"
+  } else if (length(M) == 1) {
+    ans <- summary(object[[M]])
+  } else {
+    stop("invalid input for `subset'")
   }
-  else ans <- summary(object)
-  ans
+  return(ans)
 }

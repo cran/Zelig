@@ -66,20 +66,20 @@ qi.coxph <- function(object, simpar, x, x1 = NULL, y = NULL) {
   #}
   
   if (!is.null(x))
-      x <- as.matrix(x)
+      x.mat <- as.matrix(x)
   if (!is.null(x1))
-      x1 <- as.matrix(x1)
+      x1.mat <- as.matrix(x1)
 
   
   coef <- as.matrix(simpar[,1:k])
-  eta <- coef%*%t(x)
+  eta <- coef%*%t(x.mat)
   risk <- exp(eta)
   qi <- qi.name <- list()
 
 
 ## Rate Ratio
   if(!is.null(x1)){
-	eta1 <- coef%*%t(x1)
+	eta1 <- coef%*%t(x1.mat)
 	risk1 <- exp(eta1)
 	qi$hr <- risk1/risk
 	qi.name$hr <- "Hazard Ratios: h(t|X1)/h(t|X)"

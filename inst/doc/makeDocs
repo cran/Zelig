@@ -8,7 +8,7 @@
 ## 3.convert all Rd files to tex file so that they are ready for inclusion by zelig.tex
 ##
 
-STATICTEXFILES="acknowledgments.tex advancedR.tex graphs.tex install.tex intro.tex Zcommands.tex addingModels.tex newModels.tex syntax.tex faq.tex"
+STATICTEXFILES="acknowledgments.tex robjects.tex programmingstatements.tex graphs.tex matchitref.tex describemymodel.tex install.tex intro.tex Zcommands.tex addingModels.tex newModels.tex syntax.tex faq.tex whatsnew.tex"
 
 ## get name of the models and save them in a file
 ## for now exclude models which are not complete

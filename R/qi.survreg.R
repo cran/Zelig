@@ -82,14 +82,14 @@ qi.survreg <- function(object, simpar, x, x1 = NULL, y = NULL) {
       count <- 1
       while ((sum(idx) < length(idx)) & count < 1001) {
         count <- count + 1
-        tmp.idx <- which(!idx, arr.ind = TRUE)
+        tmp.idx <- which(!idx, TRUE)
         y.imp[tmp.idx] <- pr.surv(model, tmp$theta[tmp.idx],
                                   sim.scale[tmp.idx[,1]], tmp$ev[tmp.idx])
         idx[tmp.idx] <- y.imp[tmp.idx] >= y.c[tmp.idx[,2]]
       }
       if (count == 1001) {
         warning("    Maximum number of imputed values (1000) reached for censored Y.  \n    Using censoring point as observed value, since Pr(Y > Yc | sims) <= 0.001.")
-        y.imp[which(idx == 0, arr.ind = TRUE)] <- y.c[which(idx == 0, arr.ind == TRUE)[,2]]
+        y.imp[which(idx == 0, TRUE)] <- y.c[which(idx == 0, TRUE)[,2]]
       }
       yvar <- matrix(NA, ncol = length(y), nrow = nrow(qi$ev))
       yvar[, which(status == 1)] <- y.obs

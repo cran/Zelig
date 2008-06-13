@@ -15,6 +15,6 @@ zelig2threesls <- function(formula, model, data, M,...) {
         mf$inst<-inst
         mf$model<- mf$M<-NULL
         mf$formula<-formula[names(attr(tt,"depVars"))]
-        class(mf$formula)<-c("multiple","list")
+        #class(mf$formula)<-c("multiple","list")
         as.call(mf)
 }

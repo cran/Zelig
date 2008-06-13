@@ -5,6 +5,7 @@ zelig2sur <- function(formula, model, data, M,...) {
         tt<-terms(formula)
         mf$method<-"SUR"
         mf$model<- mf$M<-NULL
-        mf$formula<-formula
+        #mf$formula<-formula
+        mf$formula<-formula[names(attr(tt,"depVars"))]
         as.call(mf)
 }

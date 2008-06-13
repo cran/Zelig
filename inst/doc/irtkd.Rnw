@@ -269,8 +269,11 @@ Ben Goodrich and Ying Lu. 2007. ``irtkd: K-Dimensional Item Response Model,'' in
 \end{verse}
 \input{citeZelig}
 \subsection*{See also}
-The $k$ dimensional item-response function is part of the MCMCpack library by Andrew D. Martin and Kevin M. Quinn \citep{MarQui05}.
-The convergence diagnostics are part of the CODA library by Martyn Plummer, Nicky Best, Kate Cowles, and Karen Vines \citep{PluBesCowVin05}. Sample date are adapted from \cite{MarQui05}.
+The $k$ dimensional item-response function is part of the MCMCpack
+library by Andrew D. Martin and Kevin M. Quinn \citep{MarQui05}.  The
+convergence diagnostics are part of the CODA library by Martyn
+Plummer, Nicky Best, Kate Cowles, and Karen Vines
+\citep{PluBesCowVin05}. Sample data are adapted from \cite{MarQui05}.
 
 
 \bibliographystyle{asa}

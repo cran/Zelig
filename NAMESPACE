@@ -24,6 +24,7 @@ export( current.packages,
 	parse.formula, 
 	parse.par,
         plot.ci,
+        plot.surv,
         plot.zelig,
 	put.start,
         repl,
@@ -84,6 +85,9 @@ S3method(plot.zelig, oprobit)
 S3method(plot.zelig, probit)
 S3method(plot.zelig, poisson)
 S3method(plot.zelig, relogit)
+S3method(plot.zelig, logit.survey)
+S3method(plot.zelig, probit.survey)
+S3method(plot.zelig, poisson.survey)
 S3method(print, arimaSummary)
 S3method(print, BetaReg)
 S3method(print, coxhazard)

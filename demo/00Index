@@ -69,7 +69,11 @@ gamma.mixed        Mixed effects gamma regression
 poisson.mixed      Mixed effects poisson regression
 probit.mixed       Mixed effects probit regression
 coxph              Cox Proportional Hazard Regression for Duration Dependent Variables
-
+normal.survey	       Survey-Weighted Normal Regression for Continuous Dependent Variables
+logit.survey	       Survey-Weighted Logistic Regression for Dichotomous Dependent Variables
+probit.survey	       Survey-Weighted Probit Regression for Dichotomous Dependent Variables
+poisson.survey       Survey-Weighted Poisson Regression for Event-count Dependent Variables
+gamma.survey       Survey-Weighted Poisson Regression for Positive Continuous Dependent Variables
 
 
 

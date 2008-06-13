@@ -1,15 +1,10 @@
 approval                U.S. Presidential Approval Data
-bivariate               Sample data for bivariate probit regression
 coalition               Coalition Dissolution in Parliamentary
                         Democracies
-coalition2              Coalition Dissolution in Parliamentary
-                        Democracies, Modified Version
 current.packages        Find all packages in a dependency chain
 dims                    Return Dimensions of Vectors, Arrays, and Data
                         Frames
 eidat                   Simulation Data for Ecological Inference
-free1                   Freedom of Speech Data
-free2                   Freedom of Speech Data
 friendship              Simulated Example of Schoolchildren Friendship
                         Network
 grunfeld                Simulation Data for model Seemingly Unrelated
@@ -18,8 +13,6 @@ grunfeld                Simulation Data for model Seemingly Unrelated
 gsource                 Read Data As a Space-Delimited Table
 help.zelig              HTML Help for Zelig Commands and Models
 hoff                    Social Security Expenditure Data
-homerun                 Sample Data on Home Runs Hit By Mark McGwire
-                        and Sammy Sosa in 1998.
 immigration             Individual Preferences Over Immigration Policy
 klein                   Simulation Data for model Two-Stage Least
                         Square (twosls) that corresponds to method 2SLS
@@ -66,8 +59,6 @@ tobin                   Tobin's Tobit Data
 turnout                 Turnout Data Set from the National Election
                         Survey
 user.prompt             Pause in demo files
-voteincome              Sample Turnout and Demographic Data from the
-                        2000 Current Population Survey
 Weimar                  1932 Weimar election data
 zelig                   Estimating a Statistical Model
 zeligDepStatus          Zelig Dependencies Packages Client Status
