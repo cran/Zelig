@@ -45,7 +45,6 @@ In addition, {\tt zelig()} accepts the following additional arguments for model 
 
 \begin{itemize}
 \item {\tt data:} An optional data frame containing the variables named in {\tt formula}. By default, the variables are taken from the environment from which {\tt zelig()} is called.
-\item {\tt method:} a character string. The criterion is always the log-likelihood but this criterion does not have a closed form expression and must be approximated. The default approximation is {\tt "PQL"} or penalized quasi-likelihood. Alternatives are {\tt "Laplace"} or {\tt "AGQ"} indicating the Laplacian and adaptive Gaussian quadrature approximations respectively.
 \item {\tt na.action:} A function that indicates what should happen when the data contain {\tt NAs}. The default action ({\tt na.fail}) causes {\tt zelig()} to print an error message and terminate if there are any incomplete observations.
 \end{itemize}
 Additionally, users may with to refer to {\tt lmer} in the package {\tt lme4} for more information, including control parameters for the estimation algorithm and their defaults.
@@ -169,11 +168,7 @@ The output of each Zelig command contains useful information which you may view.
 
 \subsection* {How to Cite}
 
-To cite the \emph{probit.mixed} Zelig model:
-\begin{verse}
-Delia Bailey, Ferdinand Alimadhi. 2007. ``probit.mixed: Mixed effects probit regression'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/probit.mixed}
 \input{citeZelig}
 
 \subsection* {See also}

@@ -8,18 +8,20 @@
 
 \usage{data(Weimar)}
 
-\format{A table containing 11 variables and 10 observations.  The variables are {
-{Nazi}{Number of votes for the Nazi party}
-{Government}{Number of votes for the Government}
-{Communists}{Number of votes for the Communist party}
-{FarRight}{Number of votes for far right parties}
-{Other}{Number of votes for other parties, and non-voters}
-{shareunemployed}{Proportion unemployed}
-{shareblue}{Proportion working class}
-{sharewhite}{Proportion white-collar workers}
-{sharedomestic}{Proportion domestic servants}
-{shareprotestants}{Proportion Protestant} 
-}}
+\format{A table containing 11 variables and 10 observations.  The variables are
+\describe{
+\item{Nazi}{Number of votes for the Nazi party}
+\item{Government}{Number of votes for the Government}
+\item{Communists}{Number of votes for the Communist party}
+\item{FarRight}{Number of votes for far right parties}
+\item{Other}{Number of votes for other parties, and non-voters}
+\item{shareunemployed}{Proportion unemployed}
+\item{shareblue}{Proportion working class}
+\item{sharewhite}{Proportion white-collar workers}
+\item{sharedomestic}{Proportion domestic servants}
+\item{shareprotestants}{Proportion Protestant}
+}
+}
 
 \source{ICPSR}
 

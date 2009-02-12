@@ -1,4 +1,4 @@
-\SweaveOpts{results=hide, prefix.string=vigpics/gammamixed}
+\SweaveOpts{eval=false, results=hide, prefix.string=vigpics/gammamixed}
 \include{zinput}
 %\VignetteIndexEntry{Gamma mixed effects linear regression}
 %\VignetteDepends{Zelig}
@@ -164,11 +164,7 @@ The output of each Zelig command contains useful information which you may view.
 
 \subsection* {How to Cite}
 
-To cite the \emph{gamma.mixed} Zelig model:
-\begin{verse}
-Delia Bailey, Ferdinand Alimadhi. 2007. ``gamma.mixed: Mixed effects gamma regression'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/gamma.mixed}
 \input{citeZelig}
 
 \subsection* {See also}

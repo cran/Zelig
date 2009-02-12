@@ -1,6 +1,9 @@
 describe.factor.ord<-function(){
 category <- "ordinal"
 description  <- "Ordinal Data Factor Analysis"
+authors <- c("Ben Goodrich", "Ying Lu")
+year <- 2007
+
 package <-list(	name 	="MCMCpack",
 		version	="0.6"
 		)
@@ -13,5 +16,5 @@ parameters$mu<-list(equations=c(1,1),
 			varInSpecialFunction=c(2,Inf)
 		)
 			
-list(category=category,description=description,package=package,parameters=parameters)
+list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
 }

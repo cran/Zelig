@@ -257,11 +257,7 @@ the {\tt \$} operator are listed below.
 
 \subsection* {How to Cite} 
 
-To cite the \emph{lognorm} Zelig model:
-\begin{verse}
-Kosuke Imai, Gary King, and Olivia Lau. 2007. ``lognorm: Log-Normal Regression for Duration Dependent Variable,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/lognorm}
 \input{citeZelig}
 
 \subsection* {See also}

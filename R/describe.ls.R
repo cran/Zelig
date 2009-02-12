@@ -1,6 +1,8 @@
 describe.ls<-function(){
 category <- "continuous"
 description  <- "Least Squares Regression for Continuous Dependent Variables"
+authors <- c()
+year <- 2007
 package <-list(	name 	="stats",
 		version	="0.1"
 		)
@@ -11,5 +13,5 @@ parameters$mu<-list(equations=c(1,1),
 			expVar=TRUE
 			)
 			
-list(category=category,description=description,package=package,parameters=parameters)
+list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
 }

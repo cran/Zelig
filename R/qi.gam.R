@@ -1,4 +1,7 @@
-qi.gam <- function(object, simpar, x, x1 = NULL, y = NULL) {
+qi.gam <- function(object, simpar, x, x1 = NULL, y = NULL, num = NULL) {
+num=nrow(simpar)
+x <- as.data.frame(x)
+if(!is.null(x1)){x1 <- as.data.frame(x1)}
   check <- FALSE
   model <- getzelig(object)
   k <- length(object$coef)
@@ -7,48 +10,42 @@ qi.gam <- function(object, simpar, x, x1 = NULL, y = NULL) {
     alpha <- simpar[,(k+1):ncol(simpar)]
   eta <- coef %*% t(x)				## Here is the nonconformability problem
   theta <- matrix(object$family$linkinv(eta), nrow = nrow(coef))
-  pr <- ev <- matrix(NA, nrow = nrow(theta), ncol = ncol(theta))
+  pr <- ev <- matrix(NA, nrow = nrow(theta), ncol = ncol(theta)) ## 1000 by 1 matrix
   dimnames(pr) <- dimnames(ev) <- dimnames(theta)
   if (model %in% c("logit.gam", "probit.gam")) { 
     check <- TRUE
-    ev <- theta
-    for (i in 1:ncol(theta)) 
-      pr[,i] <- as.character(rbinom(length(ev[,i]), 1, ev[,i]))
+	evfit <- predict.gam(object, x, se.fit=TRUE, type="link")$fit
+	evse <-  predict.gam(object, x, se.fit=TRUE, type="link")$se.fit
+	ev <- rnorm(num, mean=object$family$linkinv(evfit), sd=evse)
+	prfit <- predict.gam(object, x, se.fit=TRUE, type="response")$fit 
+	pr <- rbinom(num, 1, prfit)
     if (!is.null(y)) {
       if (NCOL(y) > 1)
         y <- y[,1]
     }
   }
   else if (model == "normal.gam") {
-    ev <- theta
-    for (i in 1:nrow(ev)) 
-      pr[i,] <- rnorm(length(ev[i,]), mean = ev[i,], sd = alpha[i])
-  }
-  else if (model == "gam.gamma") {
-    ev <- theta * 1/alpha
-    for (i in 1:nrow(ev))  
-      pr[i,] <- rgamma(length(ev[i,]), shape = theta[i,], scale = 1/alpha[i])
+	evfit <- predict.gam(object, x, se.fit=TRUE, type="link")$fit
+	evse <-  predict.gam(object, x, se.fit=TRUE, type="link")$se.fit
+	ev <- rnorm(num, mean=object$family$linkinv(evfit), sd=evse)
+	prfit <- predict.gam(object, x, se.fit=TRUE, type="response")$fit 
+	prse <- predict.gam(object, x, se.fit=TRUE, type="response")$se.fit 
+	pr <- rnorm(num, mean=prfit, sd=prse)
   }
   else if (model == "poisson.gam") {
-    ev <- theta
-    for (i in 1:ncol(ev))
-      pr[,i] <- rpois(length(ev[,i]), lambda = ev[,i])
-  }
-  else if (model == "gam.negbin") {  
-    ev <- theta
-    for (i in 1:nrow(ev)) 
-      pr[i,] <- rnegbin(length(ev[i,]), mu = ev[i,], theta = alpha[i])
+	evfit <- predict.gam(object, x, se.fit=TRUE, type="link")$fit
+	evse <-  predict.gam(object, x, se.fit=TRUE, type="link")$se.fit
+	ev <- rnorm(num, mean=object$family$linkinv(evfit), sd=evse)
+	prfit <- predict.gam(object, x, se.fit=TRUE, type="response")$fit 
+	pr <- rpois(num, prfit)
   }
   qi <- list(ev = ev, pr = pr)
   qi.name <- list(ev = "Expected Values: E(Y|X)",
                   pr = "Predicted Values: Y|X")
   if (!is.null(x1)){
-    theta1 <- matrix(object$family$linkinv(coef %*% t(as.matrix(x1))),
-                     nrow = nrow(coef))
-    if (model == "gamma")
-      ev1 <- theta1 * 1/alpha
-    else
-      ev1 <- theta1
+	evfit1 <- predict.gam(object, x1, se.fit=TRUE, type="link")$fit
+	evse1 <-  predict.gam(object, x1, se.fit=TRUE, type="link")$se.fit
+	ev1 <- rnorm(num, mean=object$family$linkinv(evfit), sd=evse)
     qi$fd <- ev1-ev
     qi.name$fd <- "First Differences in Expected Values: E(Y|X1)-E(Y|X)"
     if (model %in% c("logit.gam", "probit.gam")) {

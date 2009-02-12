@@ -17,11 +17,13 @@ summary(object, subset = NULL, CI = 95, stats = c("mean", "sd"), ...)
 \item[\code{object}] output object from \code{\LinkA{sim}{sim}} (of class
 \code{"zelig"}).
 \item[\code{subset}] takes one of three values:
+\Itemize{
 \item[NULL] (default) for more than one observation, summarizes all the
 observations at once for each quantity of interest.
 \item[a numeric vector] indicates which observations to summarize,
 and summarizes each one independently.
 \item[all] summarizes all the observations independently.
+}
 
 \item[\code{stats}] summary statistics to be calculated.
 \item[\code{CI}] a confidence interval to be calculated.

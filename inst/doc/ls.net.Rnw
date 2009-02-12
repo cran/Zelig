@@ -176,11 +176,7 @@ expected values) for the specified values of {\tt x} and {\tt x1}.
 
 \subsection* {How to Cite} 
 
-To cite the \emph{ls.net} Zelig model:
-\begin{verse}
-Skyler J. Cranmer. 2007. ``ls.net: Network Least Squares Regression for Continuous Proximity Matrix Dependent Variables,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/ls.net}
 \input{citeZelig}
 \subsection* {See also}
 The network least squares regression is part of the sna package by

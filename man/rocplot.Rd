@@ -50,7 +50,7 @@ items (see below).}
 
 \value{ If \code{plot = TRUE}, \code{rocplot} generates an ROC plot for
 two logit or probit models.  If \code{plot = FALSE}, \code{rocplot}
-returns a list with the following elements: {
+returns a list with the following elements:
   \item{roc1}{a matrix containing a vector of x-coordinates and
     y-coordinates corresponding to the number of ones and zeros correctly
     predicted for the first model.}
@@ -61,7 +61,6 @@ returns a list with the following elements: {
     Reimann sums.}
   \item{area2}{the area under the second ROC curve, calculated using
     Reimann sums.}
-} 
 }
 
 \examples{

@@ -244,10 +244,7 @@ below.
 \end{itemize}
 
 \subsection*{How to Cite}
-To cite the \emph{oprobit} Zelig model use:
-\begin{verse}
-Kosuke Imai,Gary King, and Olivia Lau. 2007. ``oprobit: Ordinal Probit Regression for Ordered Categorical Dependent Variables,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-\end{verse}
+\input{cites/oprobit}
 \input{citeZelig}
 \subsection*{See also}
 The ordinal probit function is part of the VGAM package by Thomas Yee \citep{YeeHas03}. In addition, advanced users may wish to refer to \texttt{help(vglm)} 

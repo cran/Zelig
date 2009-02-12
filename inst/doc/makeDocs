@@ -27,9 +27,11 @@ for f in `cat models.txt`
   if [ $# -eq 0 ]
   then
   	echo "Sweave(\"$f.Rnw\")" | R --slave
+	echo "sweaving $f"
   fi
   
   ## create pdfs for all the tex file produced by sweave
+  echo "pdflatexing $f"
   pdflatex $f
   bibtex $f
   pdflatex $f
@@ -181,6 +183,10 @@ for f in `cat models.txt`
 do
   rm -f $f.tex
 done
+
+## remove cites dir (created by a007.Rnw
+rm -rf cites
+
 ###rm models.txt
 
 #### here is how u delete the \end{document}

@@ -15,11 +15,11 @@
     \item{\code{homeruns}}{an integer vector denoting the number of homeruns hit in that game for that player}
     \item{\code{playerstatus}}{an integer vector equal to "0" if the player played in the game, and "1" if they did not.}
     \item{\code{player}}{an  integer vector equal to "0" (McGwire) or "1" (Sosa)}
-}
+  }
 }
 
 \source{\url{http://www.amstat.org}}
 
-\references{Simonoff, Jeffrey S. 1998. ``Move Over, Roger Maris: Breaking Baseball's Most Famous Record.'' {\it Journal of Statistics Education} 6(3). Data used are a subset of the data in the article. \\}
+\references{Simonoff, Jeffrey S. 1998. ``Move Over, Roger Maris: Breaking Baseball's Most Famous Record.'' \emph{Journal of Statistics Education} 6(3). Data used are a subset of the data in the article.}
 
 \keyword{datasets}

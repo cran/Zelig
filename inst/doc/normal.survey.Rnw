@@ -483,39 +483,31 @@ object called {\tt .survey.prob.weights} is created in the global environment.
 are therefore advised to re-name any object called {\tt .survey.prob.weights} before using {\tt normal.survey} models in {\tt Zelig}.
 
 \subsection* {How to Cite}
-
-To cite the \emph{normal.survey} Zelig model:
-\begin{verse}
-Nicholas Carnes. 2008. ``normal.survey: Survey-weighted Normal
-Regression  for Continuous Dependent Variables,'' in Kosuke Imai,
-Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical
-Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
-\input{citeZelig}
-
-\subsection* {See also}
-
-Survey-weighted linear models and the sample data used in the
-examples above are a part of the {\tt survey} package by Thomas
-Lumley. Users may wish to refer to the help files for the three
-functions that Zelig draws upon when estimating survey-weighted
-models, namely, {\tt help(svyglm)}, {\tt help(svydesign)}, and {\tt
-help(svrepdesign)}.  The normal model is part of the stats package
-by \citet{VenRip02}. Advanced users may wish to refer to
-\texttt{help(glm)} and \texttt{help(family)}, as well as
-\cite{McCNel89}.
-
-
-
-
-
-\bibliographystyle{asa}
-\bibliography{gk,gkpubs}
-<<afterpkgs, echo=FALSE>>=
- after<-search()
- torm<-setdiff(after,before)
- for (pkg in torm)
- detach(pos=match(pkg,search()))
-@
- \end{document}
+\input{cites/normal.survey}
+ \input{citeZelig}
+ 
+ \subsection* {See also}
+ 
+ Survey-weighted linear models and the sample data used in the
+ examples above are a part of the {\tt survey} package by Thomas
+ Lumley. Users may wish to refer to the help files for the three
+ functions that Zelig draws upon when estimating survey-weighted
+ models, namely, {\tt help(svyglm)}, {\tt help(svydesign)}, and {\tt
+ help(svrepdesign)}.  The Gamma model is part of the stats package
+ by \citet{VenRip02}. Advanced users may wish to refer to
+ \texttt{help(glm)} and \texttt{help(family)}, as well as
+ \cite{McCNel89}.
+ 
+ 
+ 
+ 
+ 
+ \bibliographystyle{asa}
+ \bibliography{gk,gkpubs}
+ <<afterpkgs, echo=FALSE>>=
+  after<-search()
+  torm<-setdiff(after,before)
+  for (pkg in torm)
+  detach(pos=match(pkg,search()))
+ @
+  \end{document}

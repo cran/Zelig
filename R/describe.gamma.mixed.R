@@ -1,6 +1,9 @@
 describe.gamma.mixed <- function(){
   category <- "bounded"
   description  <- "Mixed effects gamma model"
+  authors <- c("Delia Bailey","Ferdinand Alimadhi")
+  year <- 2007
+  
   parameters <- list(mu="mu", delta="delta", sigma2="sigma2")
 
   parameters$mu <- list(equations=c(1,1),
@@ -23,7 +26,7 @@ describe.gamma.mixed <- function(){
   package <- list(name="lme4", version="0.99875-9")
   
 
-  list(category=category, description = description, package=package, parameters=parameters)
+  list(category = category, authors = authors, year = year, description = description, package=package, parameters=parameters)
 }
 
   

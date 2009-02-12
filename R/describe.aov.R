@@ -1,6 +1,8 @@
 describe.aov<-function(){
 category <- "continuous"
 description  <- "Fit an Analysis of Variance Model"
+authors <- c()
+year <- 2007
 package <-list(	name 	="stats",
 		version	="2.5.0"
 		)
@@ -13,5 +15,5 @@ parameters$mu<-list(equations=c(1,1),
                     ##varInSpecialFunction= c(2,Inf)
                     )
 			
-list(category=category,description=description,package=package,parameters=parameters)
+list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
 }

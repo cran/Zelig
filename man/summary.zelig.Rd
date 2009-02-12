@@ -17,12 +17,14 @@
   \item{object}{output object from \code{\link{sim}} (of class
     \code{"zelig"}).}
   \item{subset}{takes one of three values:
+    \itemize{
     \item{NULL}{(default) for more than one observation, summarizes all the
       observations at once for each quantity of interest.}
     \item{a numeric vector}{indicates which observations to summarize,
       and summarizes each one independently.}
     \item{all}{summarizes all the observations independently.}
     }
+  }
   \item{stats}{summary statistics to be calculated.}
   \item{CI}{a confidence interval to be calculated.}
   \item{\ldots}{further arguments passed to or from other methods.}

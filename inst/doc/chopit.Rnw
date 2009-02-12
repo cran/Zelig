@@ -1,7 +1,7 @@
 \SweaveOpts{eval=false, results=hide, prefix.string=vigpics/chopit}
 \include{zinput}
 %\VignetteIndexEntry{Compound Hierarchical Ordered Probit for Survey Vignettes}
-%\VignetteDepends{Zelig, stats, anchors}
+%\VignetteDepends{Zelig, stats}
 %\VignetteKeyWords{model,chopit,anchors,regression}
 %\VignettePackage{Zelig}
 \begin{document}
@@ -352,12 +352,7 @@ output from {\tt zelig()}, but no items can be extracted.
 
 \subsection* {How to Cite} 
 
-To cite the \emph{chopit} Zelig model:
-\begin{verse}
-Kosuke Imai, Gary King, and Olivia Lau. 2007. ``chopit: Compound Hierarchical
-Ordered Probit for Survey Vignettes'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/chopit}
 \input{citeZelig}
 
 \subsection* {See also}

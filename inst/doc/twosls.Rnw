@@ -218,11 +218,7 @@ available through the \texttt{\$} operator are listed below:
 
 \subsection* {How to Cite} 
 
-To cite the \emph{twosls} Zelig model:
-\begin{verse}
-Ferdinand Alimadhi, Ying Lu, and Elena Villalon. 2007. ``twosls: Two Stage Least Squares,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/twosls}
 \input{citeZelig}
 
 \subsection* {See also}

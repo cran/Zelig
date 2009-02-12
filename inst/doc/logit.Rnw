@@ -262,11 +262,7 @@ below.
 
 \subsection* {How to Cite} 
 
-To cite the \emph{logit} Zelig model:
-\begin{verse}
-Kosuke Imai, Gary King, and Olivia Lau. 2007. ``logit: Logistic Regression for Dichotomous Dependent Variables,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/logit}
 \input{citeZelig}
 
 

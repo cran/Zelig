@@ -246,11 +246,7 @@ for the treated from conditional prediction models.
 
 \subsection* {How to Cite} 
 
-To cite the \emph{poisson.bayes} Zelig model:
-\begin{verse}
-Ben Goodrich and Ying Lu. 2007. ``poisson.bayes: Bayesian Poisson Regression,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/poisson.bayes}
 \input{citeZelig}
 \subsection*{See also}
 Bayesian poisson regression is part of the MCMCpack library by Andrew D. Martin and Kevin M. Quinn \citep{MarQui05}. The convergence diagnostics are part of the CODA library by Martyn Plummer, Nicky Best, Kate Cowles, and Karen Vines \citep{PluBesCowVin05}.

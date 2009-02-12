@@ -195,11 +195,7 @@ available through the \texttt{\$} operator are listed below:
 
 \subsection* {How to Cite} 
 
-To cite the \emph{sur} Zelig model:
-\begin{verse}
-Ferdinand Alimadhi, Ying Lu, and Elena Villalon. 2007. ``sur: Seemingly Unrelated Regression,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/sur}
 \input{citeZelig}
 
 \subsection* {See also}

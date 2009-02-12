@@ -263,10 +263,7 @@ procedure is not applicable for item response models.
 \end{itemize}
 
 \subsection*{How to Cite}
-To cite the \emph{irtkd} Zelig model use:
-\begin{verse}
-Ben Goodrich and Ying Lu. 2007. ``irtkd: K-Dimensional Item Response Model,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-\end{verse}
+\input{cites/irtkd}
 \input{citeZelig}
 \subsection*{See also}
 The $k$ dimensional item-response function is part of the MCMCpack

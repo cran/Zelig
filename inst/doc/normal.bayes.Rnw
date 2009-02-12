@@ -249,11 +249,7 @@ for the treated from conditional prediction models.
 
 \subsection* {How to Cite} 
 
-To cite the \emph{normal.bayes} Zelig model:
-\begin{verse}
-Ben Goodrich and Ying Lu. 2007. ``normal.bayes: Bayesian Normal Linear Regression ,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/normal.bayes}
 \input{citeZelig}
 \subsection*{See also}
 Bayesian normal regression is part of the MCMCpack library by Andrew D. Martin and Kevin M. Quinn \citep{MarQui05}. The convergence diagnostics are part of the CODA library by Martyn Plummer, Nicky Best, Kate Cowles, and Karen Vines \citep{PluBesCowVin05}.

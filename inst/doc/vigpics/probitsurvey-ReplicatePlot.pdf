@@ -1,11 +1,11 @@
-%PDF-1.1
+%PDF-1.4
 %Å‚Å„ÅœÅ”\r
 1 0 obj
 <<
-/CreationDate (D:20080613182109)
-/ModDate (D:20080613182109)
+/CreationDate (D:20090212153117)
+/ModDate (D:20090212153117)
 /Title (R Graphics Output)
-/Producer (R 2.7.0)
+/Producer (R 2.8.1)
 /Creator (R)
 >>
 endobj
@@ -17,23 +17,15 @@ endobj
 endobj
 5 0 obj
 <<
-/Type /Font
-/Subtype /Type1
-/Name /F1
-/BaseFont /ZapfDingbats
+/Type /Page
+/Parent 3 0 R
+/Contents 6 0 R
+/Resources 4 0 R
 >>
 endobj
 6 0 obj
 <<
-/Type /Page
-/Parent 3 0 R
-/Contents 7 0 R
-/Resources 4 0 R
->>
-endobj
-7 0 obj
-<<
-/Length 8 0 R
+/Length 7 0 R
 >>
 stream
 q
@@ -51,12 +43,16 @@ Q q
 BT
 0.000 0.000 0.000 rg
 /F2 1 Tf 8.00 0.00 -0.00 8.00 13.41 371.76 Tm (Y = 0) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 13.41 397.50 Tm (Y = 1) Tj
 ET
 Q q 0.00 324.00 432.00 108.00 re W n
 BT
 0.000 0.000 0.000 rg
 /F3 1 Tf 10.00 0.00 -0.00 10.00 180.14 418.91 Tm (Predicted Values: Y|X) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 183.81 335.40 Tm (Percentage of Simulations) Tj
 ET
 Q q
@@ -76,10 +72,20 @@ Q q
 BT
 0.000 0.000 0.000 rg
 /F2 1 Tf 8.00 0.00 -0.00 8.00 35.79 348.71 Tm (0) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 110.46 348.71 Tm (20) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 187.36 348.71 Tm (40) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 264.26 348.71 Tm (60) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 341.15 348.71 Tm (80) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 415.82 348.71 Tm (100) Tj
 ET
 Q q 38.02 254.02 384.48 50.98 re W n
@@ -620,10 +626,20 @@ Q q
 BT
 0.000 0.000 0.000 rg
 /F2 1 Tf 8.00 0.00 -0.00 8.00 71.43 240.71 Tm (1.0e-16) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 130.53 240.71 Tm (1.5e-16) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 189.63 240.71 Tm (2.0e-16) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 248.73 240.71 Tm (2.5e-16) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 307.83 240.71 Tm (3.0e-16) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 366.93 240.71 Tm (3.5e-16) Tj
 ET
 38.02 255.37 m 38.02 303.43 l S
@@ -634,6 +650,8 @@ ET
 38.02 303.43 m 35.64 303.43 l S
 BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 30.41 244.14 Tm (0e+00) Tj
+ET
+BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 30.41 280.18 Tm (6e+15) Tj
 ET
 38.02 254.02 m
@@ -646,6 +664,8 @@ Q q 0.00 216.00 432.00 108.00 re W n
 BT
 0.000 0.000 0.000 rg
 /F3 1 Tf 10.00 0.00 -0.00 10.00 173.43 310.91 Tm (Expected Values: E\(Y|X\)) Tj
+ET
+BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 17.11 266.17 Tm (Density) Tj
 ET
 Q q 38.02 254.02 384.48 50.98 re W n
@@ -1195,11 +1215,23 @@ Q q
 BT
 0.000 0.000 0.000 rg
 /F2 1 Tf 8.00 0.00 -0.00 8.00 67.22 132.71 Tm (0.4) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 119.71 132.71 Tm (0.6) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 172.20 132.71 Tm (0.8) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 224.70 132.71 Tm (1.0) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 277.19 132.71 Tm (1.2) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 329.68 132.71 Tm (1.4) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 382.17 132.71 Tm (1.6) Tj
 ET
 38.02 147.37 m 38.02 187.95 l S
@@ -1209,6 +1241,8 @@ ET
 38.02 187.95 m 35.64 187.95 l S
 BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 30.41 141.81 Tm (0.0) Tj
+ET
+BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 30.41 168.86 Tm (1.0) Tj
 ET
 38.02 146.02 m
@@ -1221,6 +1255,8 @@ Q q 0.00 108.00 432.00 108.00 re W n
 BT
 0.000 0.000 0.000 rg
 /F3 1 Tf 10.00 0.00 -0.00 10.00 106.44 202.91 Tm (First Differences in Expected Values: E\(Y|X1\)-E\(Y|X\)) Tj
+ET
+BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 17.11 158.17 Tm (Density) Tj
 ET
 Q q 38.02 146.02 384.48 50.98 re W n
@@ -1769,10 +1805,20 @@ Q q
 BT
 0.000 0.000 0.000 rg
 /F2 1 Tf 8.00 0.00 -0.00 8.00 73.12 24.71 Tm (2e+15) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 131.40 24.71 Tm (3e+15) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 189.68 24.71 Tm (4e+15) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 247.95 24.71 Tm (5e+15) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 306.23 24.71 Tm (6e+15) Tj
+ET
+BT
 /F2 1 Tf 8.00 0.00 -0.00 8.00 364.51 24.71 Tm (7e+15) Tj
 ET
 38.02 39.37 m 38.02 88.11 l S
@@ -1783,6 +1829,8 @@ ET
 38.02 88.11 m 35.64 88.11 l S
 BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 30.41 28.14 Tm (0e+00) Tj
+ET
+BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 30.41 64.69 Tm (3e-16) Tj
 ET
 38.02 38.02 m
@@ -1795,6 +1843,8 @@ Q q 0.00 0.00 432.00 108.00 re W n
 BT
 0.000 0.000 0.000 rg
 /F3 1 Tf 10.00 0.00 -0.00 10.00 154.93 94.91 Tm (Risk Ratios: P\(Y=1|X1\)/P\(Y=1|X\)) Tj
+ET
+BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 17.11 50.17 Tm (Density) Tj
 ET
 Q q 38.02 38.02 384.48 50.98 re W n
@@ -1809,14 +1859,14 @@ Q q 59.04 73.44 342.72 299.52 re W n
 Q
 endstream
 endobj
-8 0 obj
-29641
+7 0 obj
+29815
 endobj
 3 0 obj
 <<
 /Type /Pages
 /Kids [
-6 0 R
+5 0 R
 ]
 /Count 1
 /MediaBox [0 0 432 432]
@@ -1825,11 +1875,11 @@ endobj
 4 0 obj
 <<
 /ProcSet [/PDF /Text]
-/Font << /F1 5 0 R /F2 10 0 R /F3 11 0 R >>
+/Font <</F2 9 0 R /F3 10 0 R >>
 /ExtGState << >>
 >>
 endobj
-9 0 obj
+8 0 obj
 <<
 /Type /Encoding
 /BaseEncoding /WinAnsiEncoding
@@ -1838,40 +1888,39 @@ endobj
 /dieresis /.notdef /ring /cedilla /.notdef /hungarumlaut /ogonek /caron /space]
 >>
 endobj
-10 0 obj <<
+9 0 obj <<
 /Type /Font
 /Subtype /Type1
 /Name /F2
 /BaseFont /Helvetica
-/Encoding 9 0 R
+/Encoding 8 0 R
 >> endobj
-11 0 obj <<
+10 0 obj <<
 /Type /Font
 /Subtype /Type1
 /Name /F3
 /BaseFont /Helvetica-Bold
-/Encoding 9 0 R
+/Encoding 8 0 R
 >> endobj
 xref
-0 12
+0 11
 0000000000 65535 f 
 0000000021 00000 n 
 0000000163 00000 n 
-0000030090 00000 n 
-0000030173 00000 n 
+0000030181 00000 n 
+0000030264 00000 n 
 0000000212 00000 n 
-0000000295 00000 n 
-0000000375 00000 n 
-0000030069 00000 n 
-0000030277 00000 n 
-0000030534 00000 n 
-0000030631 00000 n 
+0000000292 00000 n 
+0000030160 00000 n 
+0000030356 00000 n 
+0000030613 00000 n 
+0000030709 00000 n 
 trailer
 <<
-/Size 12
+/Size 11
 /Info 1 0 R
 /Root 2 0 R
 >>
 startxref
-30733
+30811
 %%EOF

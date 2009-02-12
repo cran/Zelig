@@ -283,10 +283,7 @@ cell given the observed marginals.
 \end{itemize}
 
 \subsection*{How to Cite}
-To cite the \emph{ei.dynamic} Zelig model use:
-\begin{verse}
-Ben Goodrich and Ying Lu. 2007. ``ei.dynamic: Quinn's Dynamic Ecological Inference,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-\end{verse}
+\input{cites/ei.dynamic}
 \input{citeZelig}
 \subsection*{See also}
 \emph{ei.dynamic} function is part of the MCMCpack library by Andrew D. Martin and Kevin M. Quinn \citep{MarQui05}.

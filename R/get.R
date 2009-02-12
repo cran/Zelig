@@ -1,30 +1,43 @@
 getzelig <- function(x) {
-  check <- slotNames(x)
-  if (length(check) > 0) return(x@call$model)
-  else return(x$call$model)
+  if (zeligS4check(x)) return(eval(x@call$model))
+  else return(eval(x$call$model))
 }
 
 getcall <- function(x) {
-  check <- slotNames(x)
-  if (length(check) > 0) return(x@call)
-  else return(x$call)
+  if (zeligS4check(x)) {
+     return(x@call)
+  } else {
+      return(x$call)
+  }
 }
 
 getcoef <- function(x) {
-  check <- slotNames(x)
-  if (length(check) > 0) {
-    if ("coef3" %in% check) return(x@coef3)
-    else return(x@coef)
+  if (zeligS4check(x)) {
+    if ("coef3" %in% slotNames(x)) {
+        return(x@coef3)
+    } else {
+        return(x@coef)
+    }
+  } else {
+      return(x$coef)
   }
-  else return(x$coef)
 }
 
 getdata <- function(x) {
-  check <- slotNames(x)
-  if (length(check) > 0) {
-    if ("data" %in% check) return(x@data)
-    else if ("model" %in% check) return(x@model)
-    else return(NULL)
+  if (zeligS4check(x)) {
+    if ("data" %in% slotNames(x)) {
+      return(x@data)
+    } else if ("model" %in% slotNames(x)){
+       return(x@model)
+    } else {
+       return(NULL)
+    }
+  } else {
+      return(x$zelig.data)
   }
-  else return(x$zelig.data)
+}
+
+
+zeligS4check <- function(obj){
+   return(isS4(obj))
 }

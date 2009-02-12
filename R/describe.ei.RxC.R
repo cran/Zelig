@@ -1,6 +1,9 @@
 describe.ei.RxC <- function(){
 category <- "ei"
 description  <- "Hierarchical Multinomial-Dirichlet Ecological Inference Model for R x C Tables"
+authors <- c("Jason Wittenberg", "Ferdinand Alimadhi","Badri Narayan Bhaskar","Olivia Lau")
+year <- 2007
+
 package <-list( name    ="stats",
                 version ="0.1"
                 )
@@ -13,5 +16,5 @@ parameters$mu<-list(equations=c(1,1),
 			varInSpecialFunction=c(2,Inf)
 		)
 			
-list(category=category,description=description,package=package,parameters=parameters)
+list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
 }

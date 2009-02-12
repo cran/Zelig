@@ -20,7 +20,6 @@ model.end(res, mf)
 
 \value{
 A list of regression output, including: 
-\itemize{
 \item{coefficients}{the optimized parameters}
 \item{variance}{the variance-covariance matrix (the negative
   inverse of the Hessian matrix returned from the optimization
@@ -28,7 +27,7 @@ A list of regression output, including:
 \item{terms}{the terms object.  See \code{\link{terms.object}}
   for more information}
 \item{\dots}{additional elements passed from \code{res}}
-}}
+}
 
 \seealso{The full Zelig manual at \url{http://gking.harvard.edu/zelig} for examples.}
 

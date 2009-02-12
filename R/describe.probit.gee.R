@@ -1,6 +1,8 @@
 describe.probit.gee<-function(){
   category <- "dichotomous"
   description  <- "General Estimating Equation for Probit Regression"
+  authors <- c("Patrick Lam")
+  year <- 2007
   package <- list(name ="gee",
 		version	="4.13-12"
 		)
@@ -10,6 +12,6 @@ describe.probit.gee<-function(){
 			expVar=TRUE
 			)
 			
-  list(category=category,description=description,package=package,parameters=list(pi=pi))
+  list(category = category, authors = authors, year = year,description=description,package=package,parameters=list(pi=pi))
 }
 
