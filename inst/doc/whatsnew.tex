@@ -7,8 +7,31 @@ may contain bugs, but are usually replaced by stable releases within a
 few days. 
 
 \begin{itemize} 
+
+\item {3.4-2} (Feb 10, 2009): Small fixes in the Rd files as required 
+by new check in CRAN \\
+
+\item {3.4-0} (Jan 2, 2009): Bug-fix release for R 2.8.0
+Changed the Zelig citation \\
+Fixed zelig() signature to ensure that the formals() work properly 
+and all arguments remain documented. "save.data" and "cite" were not 
+documented (thanks to Micah Altman)\\
+Fixed some typos in model family names (thanks to Kevin Condon)\\
+Fixed the predicted values in gam.* models \\
+Fixed the plot functions in gam.* models \\
+
+\item {3.4-0} (Oct 27, 2008): Stable release for R 2.8.0.
+zelig() now takes a "citation" argument. If "citation" is "true" (default)
+the model citation is printed in each zelig run \\
+Introduced two new elemetns on the describe.mymodel function: authors and year \\
+Fixed the problems with lme4 package. Note that there is still a problem with 
+simulation step of "gamma.mixed" model. We are still working on that. \\
+Fixed the bug with "gam" models (wrong predicted values) \\
+Fixed the bug with when zelig model name was provided from a variable (reported from 
+Jeroen)
+
   
-\item {\bf 3.3-1} (June 13, 2008): Bug-fix release for R.2.7.0. A bug
+\item {\bf 3.3-1} (June 12, 2008): Bug-fix release for R.2.7.0. A bug
   fix for {\rm plot.ci()} so that it works with mixed effects models
   (thanks to Keith Schnakenberg).
   

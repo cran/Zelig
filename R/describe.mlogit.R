@@ -1,6 +1,8 @@
 describe.mlogit<-function(){
 category <- "multinomial"
 description  <- "Multinomial Logistic Regression for Dependent Variables with Unordered Categorical Values"
+authors <- c()
+year <- 2007
 package <-list(	name 	="VGAM",
 		version	="0.6"
 		)
@@ -13,5 +15,5 @@ parameters$mu<-list(equations=c(1,Inf),
 			varInSpecialFunction=c(1,1)
 		)
 			
-list(category=category,description=description,package=package,parameters=parameters)
+list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
 }

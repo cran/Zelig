@@ -23,7 +23,7 @@
 }  
 
 \value{
-For survival models, {\tt plot.surv()} returns vertical
+For survival models, \code{plot.surv()} returns vertical
 confidence intervals or polygon survival regions for Kaplan-Meier survival curves.  You may save this plot using the commands described in the
 Zelig manual (\url{http://gking.harvard.edu/zelig}).  
 }

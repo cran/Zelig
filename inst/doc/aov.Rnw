@@ -232,11 +232,7 @@ below.
 
 
 \subsection* {How to Cite} 
-To cite the \emph{aov} Zelig model:
-\begin{verse}
-Kosuke Imai, Gary King, and Olivia Lau. 2007. ``aov: Analysis of Variance for Continuous Dependent Variables,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-Elena Villalon implemented the software.
-\end{verse}
+\input{cites/aov}
 \input{citeZelig}
 
 \subsection* {See also}

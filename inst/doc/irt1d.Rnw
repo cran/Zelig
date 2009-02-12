@@ -260,10 +260,8 @@ procedure is not applicable for item response models.
 \end{itemize}
 
 \subsection*{How to Cite}
-To cite the \emph{irt1d} Zelig model use:
-\begin{verse}
-Ben Goodrich and Ying Lu. 2007. ``irt1d: One Dimensional Item Response Mode,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-\end{verse}
+
+\input{cites/irt1d}
 \input{citeZelig}
 \subsection*{See also}
 The unidimensional item-response function is part of the MCMCpack

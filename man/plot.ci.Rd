@@ -35,7 +35,7 @@ plot.ci(x, CI = 95, qi = "ev", main = "", ylab = NULL, xlab = NULL,
 }  
 
 \value{
-For all univariate response models, {\tt plot.ci()} returns vertical
+For all univariate response models, \code{plot.ci()} returns vertical
 confidence intervals over a specified range of one explanatory
 variable.  You may save this plot using the commands described in the
 Zelig manual (\url{http://gking.harvard.edu/zelig}).  

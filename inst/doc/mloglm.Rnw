@@ -85,10 +85,7 @@ below.
 \end{itemize}
 
 \subsection*{How to Cite}
-To cite the \emph{mloglm} Zelig model use:
-\begin{verse}
-Kosuke Imai, Gary King, and Olivia Lau. 2007. ``mloglm: Multinomial Log-Linear Regression for Contingency Table Models,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-\end{verse}
+\input{cites/mloglm}
 \input{citeZelig}
 \subsection*{See also}
 The multinomial logit model is part of the nnet library by Brian D.

@@ -11,7 +11,7 @@ first differences, along with the associated measures of uncertainty
 (standard errors and confidence intervals). }
 
 \usage{
-z.out <- zelig(formula, model, data, by, \dots) 
+z.out <- zelig(formula, model, data, by, save.data, cite, \dots) 
 }
 
 \arguments{
@@ -31,7 +31,15 @@ z.out <- zelig(formula, model, data, by, \dots)
   models.  }
 \item{data}{the name of a data frame containing the variables
   referenced in the formula, or a list of multiply imputed data frames
-  each having the same variable names and row numbers (created by \code{mi}). }
+  each having the same variable names and row numbers (created by
+  \code{mi}). }
+
+\item{save.data}{If is set to "TRUE", the input dataframe will be saved
+  as an attribute ("zelig.data") of the zelig output object. }
+
+\item{cite}{If is set to "TRUE" (default), the model citation will be
+  will be printed out when this function is called. }
+
 \item{by}{a factor variable contained in \code{data}.  Zelig will subset
 the data frame based on the levels in the \code{by} variable, and
 estimate a model for each subset.  This a particularly powerful option

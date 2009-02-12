@@ -19,6 +19,7 @@ x.out <- setx(object, fn = list(numeric = mean, ordered = median,
 \arguments{
   \item{object}{the saved output from \code{\link{zelig}}. }
   \item{fn}{a list of functions to apply to three types of variables:
+      \itemize{
       \item{numeric}{\code{numeric} variables are set to their mean by
       default, but you may select any mathematical function to apply to
       numeric variables.}
@@ -31,6 +32,7 @@ x.out <- setx(object, fn = list(numeric = mean, ordered = median,
 	only be set to their mode.  If you wish to set one of the other
 	variables to a specific value, you may do so using \code{\dots}
 	below. }
+      }
     In the special case \code{fn = NULL}, \code{setx} will return all
     of the observations without applying any function to the data.  }
   \item{data}{a new data frame used to set the values of

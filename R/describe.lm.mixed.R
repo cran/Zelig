@@ -1,6 +1,9 @@
 describe.ls.mixed <- function(){
   category <- "continuous"
   description  <- "Mixed effects linear model"
+
+  authors <- c("Delia Bailey","Ferdinand Alimadhi")
+  year <- 2007
   parameters <- list(mu="mu", delta="delta", sigma2="sigma2")
 
   parameters$mu <- list(equations=c(1,1),
@@ -23,7 +26,7 @@ describe.ls.mixed <- function(){
   package <- list(name="lme4", version="0.99875-9")
   
 
-  list(category=category, package=package, description = description, parameters=parameters)
+  list(category = category, authors = authors, year = year, package=package, description = description, parameters=parameters)
 }
 
   

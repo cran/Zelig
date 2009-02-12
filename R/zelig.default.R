@@ -1,5 +1,5 @@
 zelig.default <- function(formula, model, data, by = NULL, save.data =
-                          FALSE, ...) {
+                          FALSE, cite = TRUE, ...) {
 
   fn1 <- paste("zelig2", model, sep = "")
   fn2 <- paste("zelig3", model, sep = "")
@@ -71,7 +71,8 @@ zelig.default <- function(formula, model, data, by = NULL, save.data =
                                        zcall = as.list(zelig.call)))
             
             ## check the class of the object (S3/S4)
-            check <- length(slotNames(res)) > 0
+            ##check <- length(slotNames(res)) > 0
+            check <- isS4(res)
             if (check) {                             #S4
               if ("call" %in% slotNames(res))
                 res@call <- as.call(zelig.call)
@@ -106,6 +107,9 @@ zelig.default <- function(formula, model, data, by = NULL, save.data =
   if (N > 1) {
     class(object) <- "strata"
     names(object) <- lev
+  }
+  if (cite){
+    cat(getModelCitation(model))
   }
   return(object)
 }

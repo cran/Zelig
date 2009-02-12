@@ -1,6 +1,9 @@
 describe.chopit <- function(){
   category <- "ordinal"
   description  <- "Compound Hierarchical Ordinal Probit Regression for Survey Vignettes"
+  authors <- c()
+  year <- 2007
+  
   package <-list(name    = "anchors",
                  version = "2.0",
                  CRAN    = "http://wand.stanford.edu/R/CRAN")
@@ -21,7 +24,7 @@ describe.chopit <- function(){
                          depVar = FALSE,
                          expVar = TRUE)
 
-  list(category = category,
+  list(category = category, authors = authors, year = year,
        description = description,
        package = package,
        parameters = parameters)

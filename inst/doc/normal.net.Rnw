@@ -146,11 +146,7 @@ The output of each Zelig command contains useful information which you may view.
 
  \subsection* {How to Cite} 
 
-To cite the \emph{normal.net} Zelig model:
-\begin{verse}
-Skyler J. Cranmer. 2007. ``normal.net: Network Normal Regression for Continuous Proximity Matrix Dependent Variables,'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/normal.net}
 \input{citeZelig}
 \subsection* {See also}
 The network normal regression is part of the {\tt netglm} package by Skyler J. Cranmer and is built using some of the functionality of the  {\tt sna} package by Carter T. Butts \citep{ButCar01}.In addition, advanced users may wish to refer to {\tt help(normal.net)}. Sample data are fictional. 

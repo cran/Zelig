@@ -302,12 +302,7 @@ counterfactual values specified in {\tt x}.
 
 \subsection* {How to Cite} 
 
-To cite the ARIMA Zelig module:
-\begin{verse}
-Justin Grimmer. 2007. ``ARIMA: Models for Time Series Data,'' in Kosuke Imai,
-Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/arima}
 \input{citeZelig}
 
 \subsection* {See also}

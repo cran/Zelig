@@ -1,6 +1,8 @@
 describe.coxph<-function(){
   category <- "bounded"
   description  <- "Cox Proportional Hazard Regression for Duration Dependent Variables"
+  authors <- c("Patrick Lam")
+  year <- 2007
   package <- list(name ="survival",
 		version	="2.34"
 		)
@@ -13,5 +15,5 @@ describe.coxph<-function(){
                       varInSpecialFunction=c(2,2)
 		)
 			
-  list(category=category,description=description,package=package,parameters=parameters)
+  list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
 }

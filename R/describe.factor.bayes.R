@@ -1,6 +1,8 @@
 describe.factor.bayes<-function(){
 category <- "continuous"
 description  <- "Bayesian Factor Analysis"
+authors <- c("Ben Goodrich", "Ying Lu")
+year <- 2007
 package <-list(	name 	="MCMCpack",
 		version	="0.6"
 		)
@@ -13,5 +15,5 @@ parameters$mu<-list(equations=c(1,1),
                     varInSpecialFunction=c(3,Inf)
 		)
 			
-list(category=category,description=description,package=package,parameters=parameters)
+list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
 }

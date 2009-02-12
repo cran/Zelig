@@ -208,10 +208,7 @@ view. For example, if you run
 \end{itemize}
 
 \subsection*{How to Cite}
-To cite the \emph{ei.RxC} Zelig model use:
-\begin{verse}
-Jason Wittenberg, Ferdinand Alimadhi, Badri Narayan Bhaskar, and Olivia Lau. 2007. ``ei.RxC:Hierarchical Multinomial-Dirichlet Ecological Inference Model,'' in Kosuke Imai,Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-\end{verse}
+\input{cites/ei.RxC}
 \input{citeZelig}
 \subsection*{See also}
 For more information please see \cite{RosJiaKin01}

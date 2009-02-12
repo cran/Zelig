@@ -12,7 +12,9 @@
 <a href="http://www.people.fas.harvard.edu/~olau/">Olivia Lau</a>
 <br /><br />
 <!-- rbuild: replace 'Version:' '</b>' version -->
-<b>Version:3.3-1</b>
+<b>Version:3.4-3</b>
+<!-- rbuild: replace 'Zelig_' '.tar.gz' version -->
+<a href="/src/contrib/Zelig_3.4-3.tar.gz">(Download)</a>
 <a href="docs/static/whatsnew.pdf"> (What's new) </a>
 <table border='0' cellpadding='0' cellspacing='8'><tr><td valign='top' width='200'>
 <p !style="float:left; width: 200; margin: 1.5em;"> <a
@@ -76,7 +78,7 @@ target="gkingext">Browse/Search Archives</a></li>
 Kosuke Imai, Gary King, and Olivia Lau. <span class="bg">"Toward A
 Common Framework for Statistical Analysis and Development"</span>
     <em>Journal of Computational and Graphical Statistics</em>,
-    forthcoming (<span class="bg">Abstract:</span> <a
+    Vol. 17, No. 4 (December), pp. 892-913 (<span class="bg">Abstract:</span> <a
     href="/files/abs/z-abs.shtml">HTML</a> | <span
     class="bg">Paper:</span> <a href="/files/z.pdf">PDF</a>)
     

@@ -1,6 +1,5 @@
 \SweaveOpts{results=hide, prefix.string=vigpics/lmmixed}
 \include{zinput}
-% \usepackage{Sweave}
 %\VignetteIndexEntry{Mixed effects linear regression}
 %\VignetteDepends{Zelig}
 %\VignetteKeyWords{mixed,linear, linear regression}
@@ -47,7 +46,6 @@ In addition, {\tt zelig()} accepts the following additional arguments for model 
 \begin{itemize}
 \item {\tt data:} An optional data frame containing the variables named in {\tt formula}. By default, the variables are taken from the environment from which {\tt zelig()} is called.
 \item {\tt family:} A GLM family, see {\tt glm} and {\tt family} in the {\tt stats} package. If {\tt family} is missing then a linear mixed model is fit; otherwise a generalized linear mixed model is fit. In the later case only {\tt gaussian} family with {\tt "log"} link is supported at the moment.
-\item {\tt method:} A character string. For a linear mixed model the default is {\tt "REML"} indicating that the model should be fit by maximizing the restricted log-likelihood. The alternative is {\tt "ML"} indicating that the log-likelihood should be maximized.
 \item {\tt na.action:} A function that indicates what should happen when the data contain {\tt NAs}. The default action ({\tt na.fail}) causes {\tt zelig()} to print an error message and terminate if there are any incomplete observations.
 \end{itemize}
 Additionally, users may wish to refer to {\tt lmer} in the package {\tt lme4} for more information, including control parameters for the estimation algorithm and their defaults.
@@ -172,11 +170,7 @@ The output of each Zelig command contains useful information which you may view.
 
 \subsection* {How to Cite}
 
-To cite the \emph{ls.mixed} Zelig model:
-\begin{verse}
-Delia Bailey, Ferdinand Alimadhi. 2007. ``ls.mixed: Mixed effects linear regression'' in Kosuke Imai, Gary King, and Olivia Lau, ``Zelig: Everyone's Statistical Software,'' \url{http://gking.harvard.edu/zelig}.
-
-\end{verse}
+\input{cites/ls.mixed}
 \input{citeZelig}
 
 \subsection* {See also}

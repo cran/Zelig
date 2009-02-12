@@ -54,7 +54,7 @@ s.out <- sim(object, x, x1 = NULL, num = c(1000, 100), prev = NULL,
 
 \value{ The output stored in \code{s.out} varies by model.  Use the
   \code{names} command to view the output stored in \code{s.out}.
-  Common elements include:  {
+  Common elements include: 
   \item{x}{the \code{\link{setx}} values for the explanatory variables,
     used to calculate the quantities of interest (expected values,
     predicted values, etc.). }
@@ -108,7 +108,7 @@ s.out <- sim(object, x, x1 = NULL, num = c(1000, 100), prev = NULL,
     \eqn{\widehat{Y_i(t_i=0)}}, the counterfactual predicted value of
     \eqn{Y_i} for observations in the treatment group, under the
     assumption that everything stays the same except that the
-    treatment indicator is switched to \eqn{t_i=0}. }
+    treatment indicator is switched to \eqn{t_i=0}. 
 }
 
 In the case of censored $Y$ in the exponential, Weibull, and lognormal
