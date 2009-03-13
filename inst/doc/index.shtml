@@ -12,9 +12,9 @@
 <a href="http://www.people.fas.harvard.edu/~olau/">Olivia Lau</a>
 <br /><br />
 <!-- rbuild: replace 'Version:' '</b>' version -->
-<b>Version:3.4-3</b>
+<b>Version:3.4-5</b>
 <!-- rbuild: replace 'Zelig_' '.tar.gz' version -->
-<a href="/src/contrib/Zelig_3.4-3.tar.gz">(Download)</a>
+<a href="/src/contrib/Zelig_3.4-5.tar.gz">(Download)</a>
 <a href="docs/static/whatsnew.pdf"> (What's new) </a>
 <table border='0' cellpadding='0' cellspacing='8'><tr><td valign='top' width='200'>
 <p !style="float:left; width: 200; margin: 1.5em;"> <a
