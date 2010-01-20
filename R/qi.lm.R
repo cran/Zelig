@@ -1,8 +1,8 @@
 qi.lm <- function(object, simpar, x, x1 = NULL, y = NULL) {
 
   k <- length(getcoef(object))
-  coef <- simpar[,1:k]
-  alpha <- simpar[,(k+1):ncol(simpar)]
+  coef <- simpar[,1:k,drop = FALSE]
+  alpha <- simpar[,ncol(simpar)]
   if (k < ncol(x))
     x <- as.data.frame(x[,names(coef(object)),drop = FALSE])
   ev <- coef %*% t(x)

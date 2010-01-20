@@ -165,7 +165,14 @@ setx.default <- function(object, fn = list(numeric = mean, ordered =
   }
   if (length(opt) > 0)
     for (i in 1:length(opt)) {
-      value <- eval(mc[[opt[i]]], envir = env)
+      arg_frame <- 1
+      value <- NULL
+      while((is.null(value) || class(value)=="try-error")
+             && ((arg_frame == 1) || !identical(parent.frame(n=arg_frame-1),.GlobalEnv))){
+        value <- try(eval(mc[[opt[i]]], envir = parent.frame(n=arg_frame)), TRUE)
+        arg_frame <- arg_frame+1
+      }
+      if(class(value)=="try-error") stop(value) 
       lv <- length(value)
       if (lv>1)
         if (maxl==1 || maxl==lv) {

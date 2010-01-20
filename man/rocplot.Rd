@@ -36,10 +36,10 @@ rocplot(y1, y2, fitted1, fitted2, cutoff = seq(from=0, to=1, length=100),
 \item{col1, col2}{The colors of the line for the first
   model (\code{col1}) and the second model (\code{col2}), defaulting to
   black for both.}
-\item{main}{a title for the plot.  Defaults to \code{ROC Curve}.}
-\item{xlab}{a label for the x-axis.  Defaults to \code{Proportion of 1's 
+\item{main}{a title for the plot.  Defaults to \samp{ROC Curve}.}
+\item{xlab}{a label for the x-axis.  Defaults to \samp{Proportion of 1's 
     Correctly Predicted}.}
-\item{ylab}{a label for the y-axis.  Defaults to \code{Proportion of 0's 
+\item{ylab}{a label for the y-axis.  Defaults to \samp{Proportion of 0's 
     Correctly Predicted}.}
 \item{plot}{defaults to \code{TRUE}, which generates a plot to the
   selected device.  If \code{FALSE}, returns a list of

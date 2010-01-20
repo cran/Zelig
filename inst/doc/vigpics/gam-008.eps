@@ -27,10 +27,13 @@
 /p1  { stroke } def
 /p2  { gsave bg fill grestore newpath } def
 /p3  { gsave bg fill grestore stroke } def
-/t   { 6 -2 roll moveto gsave rotate
-       ps mul neg 0 2 1 roll rmoveto
+/p6  { gsave bg eofill grestore newpath } def
+/p7  { gsave bg eofill grestore stroke } def
+/t   { 5 -2 roll moveto gsave rotate
        1 index stringwidth pop
        mul neg 0 rmoveto show grestore } def
+/ta  { 4 -2 roll moveto gsave rotate show } def
+/tb  { 2 -1 roll 0 rmoveto show } def
 /cl  { grestore gsave newpath 3 index 3 index moveto 1 index
        4 -1 roll lineto  exch 1 index lineto lineto
        closepath clip newpath } def
@@ -90,16 +93,19 @@ bp
 57.60 278.40 168.70 54.55 r p3
 57.60 343.85 623.30 54.55 r p3
 0.00 0.00 864.00 432.00 cl
-/ps 12 def /Font1 findfont 12 s
+/Font1 findfont 12 s
 0 setgray
-48.96 301.36 (Y = 0) 1 0 0 t
-48.96 366.82 (Y = 1) 1 0 0 t
+48.96 301.36 (Y = 0) 1 0 t
+48.96 366.82 (Y = 1) 1 0 t
 0.00 216.00 864.00 432.00 cl
-/ps 14 def /Font2 findfont 14 s
+/Font2 findfont 14 s
 0 setgray
-453.60 412.57 (Predicted Values: Y|X) .5 0 0 t
-/ps 12 def /Font1 findfont 12 s
-453.60 233.28 (Percentage of Simulations) .5 0 0 t
+381.61 412.57 (Predicted V) 0 ta
+-0.840 (alues: Y|X) tb gr
+/Font1 findfont 12 s
+383.57 233.28 (P) 0 ta
+-0.600 (ercentage of Sim) tb
+-0.120 (ulations) tb gr
 0.00 0.00 864.00 432.00 cl
 0 setgray
 0.75 setlinewidth
@@ -135,13 +141,13 @@ np
 849.60 273.60 m
 0 -3.60 l
 o
-/ps 12 def /Font1 findfont 12 s
-57.60 253.44 (0) .5 0 0 t
-216.00 253.44 (20) .5 0 0 t
-374.40 253.44 (40) .5 0 0 t
-532.80 253.44 (60) .5 0 0 t
-691.20 253.44 (80) .5 0 0 t
-849.60 253.44 (100) .5 0 0 t
+/Font1 findfont 12 s
+57.60 253.44 (0) .5 0 t
+216.00 253.44 (20) .5 0 t
+374.40 253.44 (40) .5 0 t
+532.80 253.44 (60) .5 0 t
+691.20 253.44 (80) .5 0 t
+849.60 253.44 (100) .5 0 t
 57.60 57.60 849.60 187.20 cl
 57.60 57.60 849.60 187.20 cl
 0 setgray
@@ -672,76 +678,76 @@ o
 1 setlinejoin
 10.00 setmiterlimit
 np
-146.12 57.60 m
-651.85 0 l
+148.31 57.60 m
+647.39 0 l
 o
 np
-146.12 57.60 m
+148.31 57.60 m
 0 -3.60 l
 o
 np
-254.76 57.60 m
+256.21 57.60 m
 0 -3.60 l
 o
 np
-363.41 57.60 m
+364.11 57.60 m
 0 -3.60 l
 o
 np
-472.05 57.60 m
+472.01 57.60 m
 0 -3.60 l
 o
 np
-580.69 57.60 m
+579.91 57.60 m
 0 -3.60 l
 o
 np
-689.33 57.60 m
+687.81 57.60 m
 0 -3.60 l
 o
 np
-797.97 57.60 m
+795.70 57.60 m
 0 -3.60 l
 o
-/ps 12 def /Font1 findfont 12 s
-146.12 37.44 (0.2) .5 0 0 t
-254.76 37.44 (0.4) .5 0 0 t
-363.41 37.44 (0.6) .5 0 0 t
-472.05 37.44 (0.8) .5 0 0 t
-580.69 37.44 (1.0) .5 0 0 t
-689.33 37.44 (1.2) .5 0 0 t
-797.97 37.44 (1.4) .5 0 0 t
+/Font1 findfont 12 s
+148.31 37.44 (0.2) .5 0 t
+256.21 37.44 (0.4) .5 0 t
+364.11 37.44 (0.6) .5 0 t
+472.01 37.44 (0.8) .5 0 t
+579.91 37.44 (1.0) .5 0 t
+687.81 37.44 (1.2) .5 0 t
+795.70 37.44 (1.4) .5 0 t
 np
 57.60 62.39 m
-0 123.91 l
+0 124.76 l
 o
 np
 57.60 62.39 m
 -3.60 0 l
 o
 np
-57.60 87.17 m
+57.60 87.35 m
 -3.60 0 l
 o
 np
-57.60 111.95 m
+57.60 112.30 m
 -3.60 0 l
 o
 np
-57.60 136.74 m
+57.60 137.25 m
 -3.60 0 l
 o
 np
-57.60 161.52 m
+57.60 162.20 m
 -3.60 0 l
 o
 np
-57.60 186.30 m
+57.60 187.15 m
 -3.60 0 l
 o
-46.08 62.39 (0.0) .5 0 90 t
-46.08 111.95 (1.0) .5 0 90 t
-46.08 161.52 (2.0) .5 0 90 t
+46.08 62.39 (0.0) .5 90 t
+46.08 112.30 (1.0) .5 90 t
+46.08 162.20 (2.0) .5 90 t
 np
 57.60 57.60 m
 792.00 0 l
@@ -750,11 +756,12 @@ np
 0 -129.60 l
 o
 0.00 0.00 864.00 216.00 cl
-/ps 14 def /Font2 findfont 14 s
+/Font2 findfont 14 s
 0 setgray
-453.60 196.57 (Expected Values: E\(Y|X\)) .5 0 0 t
-/ps 12 def /Font1 findfont 12 s
-25.92 122.40 (Density) .5 0 90 t
+373.06 196.57 (Expected V) 0 ta
+-0.840 (alues: E\(Y|X\)) tb gr
+/Font1 findfont 12 s
+25.92 122.40 (Density) .5 90 t
 57.60 57.60 849.60 187.20 cl
 0.7451 setgray
 0.08 setlinewidth

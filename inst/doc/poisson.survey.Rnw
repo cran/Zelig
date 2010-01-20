@@ -500,17 +500,14 @@ are therefore advised to re-name any object called {\tt .survey.prob.weights} be
  by \citet{VenRip02}. Advanced users may wish to refer to
  \texttt{help(glm)} and \texttt{help(family)}, as well as
  \cite{McCNel89}.
- 
- 
- 
- 
- 
- \bibliographystyle{asa}
- \bibliography{gk,gkpubs}
- <<afterpkgs, echo=FALSE>>=
+  
+\bibliographystyle{asa}
+\bibliography{gk,gkpubs}
+<<afterpkgs, echo=FALSE>>=
   after<-search()
   torm<-setdiff(after,before)
   for (pkg in torm)
   detach(pos=match(pkg,search()))
- @
-  \end{document}
+@
+
+\end{document}

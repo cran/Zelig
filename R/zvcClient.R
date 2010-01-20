@@ -403,7 +403,7 @@ zelig.new.packages <- function(lib.loc=NULL,zmat=matrixDependencies(),matin=NULL
   lrw   <- unlist(suppressWarnings(sapply(lrw, FUN="trim.blanks")))
   lrwuq <- unique.default(lrw)
   dec <- 0
-  if(length(grep("^R",lrwuq[length(lrwuq)], extended=TRUE)) > 0) dec <- 1
+  if(length(grep("^R",lrwuq[length(lrwuq)])) > 0) dec <- 1
 ###  print(zrwuq)
 
   ind <- sapply(lrwuq, match, zrwuq)
@@ -441,7 +441,7 @@ zelig.new.packages <- function(lib.loc=NULL,zmat=matrixDependencies(),matin=NULL
 
   newpkgmat <- NULL
   pkgmod <- sapply(pkgsnoinst,function(m) paste("^",m,"$",sep=""))
-  ind <- unlist(sapply(pkgmod,grep,zrw,extended=TRUE))
+  ind <- unlist(sapply(pkgmod,grep,zrw))
   
   if(length(ind) > 0){
     ind <- unlist(ind)
@@ -612,7 +612,7 @@ selectLevels <- function(mat, depth){
     nmcol <- colnames(mat)
     ix  <- unique.default(c(grep("depth", nmvec),grep("depth", nmcol)))
     mat.depth <- mat[[ix]]
-    if(length(grep("^1[z-Z]$",mat.depth,extended=TRUE))<=0){
+    if(length(grep("^1[z-Z]$",mat.depth))<=0){
       bool1 <-  as.numeric(mat.depth) <= depth 
     }else{
       bool1 <- mat.depth <= "1z" || mat.depth <= "1Z"

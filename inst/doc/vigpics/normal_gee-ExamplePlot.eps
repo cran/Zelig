@@ -27,10 +27,13 @@
 /p1  { stroke } def
 /p2  { gsave bg fill grestore newpath } def
 /p3  { gsave bg fill grestore stroke } def
-/t   { 6 -2 roll moveto gsave rotate
-       ps mul neg 0 2 1 roll rmoveto
+/p6  { gsave bg eofill grestore newpath } def
+/p7  { gsave bg eofill grestore stroke } def
+/t   { 5 -2 roll moveto gsave rotate
        1 index stringwidth pop
        mul neg 0 rmoveto show grestore } def
+/ta  { 4 -2 roll moveto gsave rotate show } def
+/tb  { 2 -1 roll 0 rmoveto show } def
 /cl  { grestore gsave newpath 3 index 3 index moveto 1 index
        4 -1 roll lineto  exch 1 index lineto lineto
        closepath clip newpath } def
@@ -627,11 +630,11 @@ np
 349.02 273.60 m
 0 -3.60 l
 o
-/ps 12 def /Font1 findfont 12 s
-102.32 253.44 (3) .5 0 0 t
-184.55 253.44 (4) .5 0 0 t
-266.78 253.44 (5) .5 0 0 t
-349.02 253.44 (6) .5 0 0 t
+/Font1 findfont 12 s
+102.32 253.44 (3) .5 0 t
+184.55 253.44 (4) .5 0 t
+266.78 253.44 (5) .5 0 t
+349.02 253.44 (6) .5 0 t
 np
 57.60 278.39 m
 0 98.13 l
@@ -652,10 +655,10 @@ np
 57.60 376.52 m
 -3.60 0 l
 o
-46.08 278.39 (0.0) .5 0 90 t
-46.08 311.10 (0.2) .5 0 90 t
-46.08 343.81 (0.4) .5 0 90 t
-46.08 376.52 (0.6) .5 0 90 t
+46.08 278.39 (0.0) .5 90 t
+46.08 311.10 (0.2) .5 90 t
+46.08 343.81 (0.4) .5 90 t
+46.08 376.52 (0.6) .5 90 t
 np
 57.60 273.60 m
 360.00 0 l
@@ -664,11 +667,12 @@ np
 0 -129.60 l
 o
 0.00 216.00 432.00 432.00 cl
-/ps 14 def /Font2 findfont 14 s
+/Font2 findfont 14 s
 0 setgray
-237.60 412.57 (Expected Values: E\(Y|X\)) .5 0 0 t
-/ps 12 def /Font1 findfont 12 s
-25.92 338.40 (Density) .5 0 90 t
+157.06 412.57 (Expected V) 0 ta
+-0.840 (alues: E\(Y|X\)) tb gr
+/Font1 findfont 12 s
+25.92 338.40 (Density) .5 90 t
 57.60 273.60 417.60 403.20 cl
 0.7451 setgray
 0.08 setlinewidth
@@ -1229,11 +1233,11 @@ np
 387.28 57.60 m
 0 -3.60 l
 o
-/ps 12 def /Font1 findfont 12 s
-135.96 37.44 (-2) .5 0 0 t
-219.73 37.44 (-1) .5 0 0 t
-303.51 37.44 (0) .5 0 0 t
-387.28 37.44 (1) .5 0 0 t
+/Font1 findfont 12 s
+135.96 37.44 (-2) .5 0 t
+219.73 37.44 (-1) .5 0 t
+303.51 37.44 (0) .5 0 t
+387.28 37.44 (1) .5 0 t
 np
 57.60 62.39 m
 0 106.19 l
@@ -1258,9 +1262,9 @@ np
 57.60 168.58 m
 -3.60 0 l
 o
-46.08 62.39 (0.0) .5 0 90 t
-46.08 115.49 (0.4) .5 0 90 t
-46.08 168.58 (0.8) .5 0 90 t
+46.08 62.39 (0.0) .5 90 t
+46.08 115.49 (0.4) .5 90 t
+46.08 168.58 (0.8) .5 90 t
 np
 57.60 57.60 m
 360.00 0 l
@@ -1269,11 +1273,14 @@ np
 0 -129.60 l
 o
 0.00 0.00 432.00 216.00 cl
-/ps 14 def /Font2 findfont 14 s
+/Font2 findfont 14 s
 0 setgray
-237.60 196.57 (First Differences in Expected Values: E\(Y|X1\)-E\(Y|X\)) .5 0 0 t
-/ps 12 def /Font1 findfont 12 s
-25.92 122.40 (Density) .5 0 90 t
+63.10 196.57 (Fir) 0 ta
+-0.210 (st Diff) tb
+-0.140 (erences in Expected V) tb
+-0.840 (alues: E\(Y|X1\)-E\(Y|X\)) tb gr
+/Font1 findfont 12 s
+25.92 122.40 (Density) .5 90 t
 57.60 57.60 417.60 187.20 cl
 0.7451 setgray
 0.08 setlinewidth

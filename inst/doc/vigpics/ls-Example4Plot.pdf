@@ -2,10 +2,10 @@
 %Å‚Å„ÅœÅ”\r
 1 0 obj
 <<
-/CreationDate (D:20090313101507)
-/ModDate (D:20090313101507)
+/CreationDate (D:20100120204408)
+/ModDate (D:20100120204408)
 /Title (R Graphics Output)
-/Producer (R 2.8.1)
+/Producer (R 2.10.1)
 /Creator (R)
 >>
 endobj
@@ -620,7 +620,7 @@ S
 Q q 0.00 216.00 270.00 216.00 re W n
 BT
 0.000 0.000 0.000 rg
-/F3 1 Tf 12.00 0.00 -0.00 12.00 84.73 415.74 Tm (Expected Values: E\(Y|X\)) Tj
+/F3 1 Tf 12.00 0.00 -0.00 12.00 84.25 415.74 Tm [(Expected V) 60 (alues: E\(Y|X\))] TJ
 ET
 BT
 /F2 1 Tf 0.00 10.00 -10.00 0.00 21.51 319.28 Tm (Density) Tj
@@ -1216,7 +1216,7 @@ S
 Q q 270.00 216.00 270.00 216.00 re W n
 BT
 0.000 0.000 0.000 rg
-/F3 1 Tf 12.00 0.00 -0.00 12.00 354.73 415.74 Tm (Expected Values: E\(Y|X\)) Tj
+/F3 1 Tf 12.00 0.00 -0.00 12.00 354.25 415.74 Tm [(Expected V) 60 (alues: E\(Y|X\))] TJ
 ET
 BT
 /F2 1 Tf 0.00 10.00 -10.00 0.00 291.51 319.28 Tm (Density) Tj
@@ -1813,7 +1813,7 @@ S
 Q q 0.00 0.00 270.00 216.00 re W n
 BT
 0.000 0.000 0.000 rg
-/F3 1 Tf 12.00 0.00 -0.00 12.00 4.34 199.74 Tm (First Differences in Expected Values: E\(Y|X1\)-E\(Y|X\)) Tj
+/F3 1 Tf 12.00 0.00 -0.00 12.00 3.86 199.74 Tm [(Fir) 15 (st Diff) 10 (erences in Expected V) 60 (alues: E\(Y|X1\)-E\(Y|X\))] TJ
 ET
 BT
 /F2 1 Tf 0.00 10.00 -10.00 0.00 21.51 103.28 Tm (Density) Tj
@@ -2410,7 +2410,7 @@ S
 Q q 270.00 0.00 270.00 216.00 re W n
 BT
 0.000 0.000 0.000 rg
-/F3 1 Tf 12.00 0.00 -0.00 12.00 274.34 199.74 Tm (First Differences in Expected Values: E\(Y|X1\)-E\(Y|X\)) Tj
+/F3 1 Tf 12.00 0.00 -0.00 12.00 273.86 199.74 Tm [(Fir) 15 (st Diff) 10 (erences in Expected V) 60 (alues: E\(Y|X1\)-E\(Y|X\))] TJ
 ET
 BT
 /F2 1 Tf 0.00 10.00 -10.00 0.00 291.51 103.28 Tm (Density) Tj
@@ -2428,7 +2428,7 @@ Q
 endstream
 endobj
 7 0 obj
-39210
+39266
 endobj
 3 0 obj
 <<
@@ -2474,15 +2474,15 @@ xref
 0 11
 0000000000 65535 f 
 0000000021 00000 n 
-0000000163 00000 n 
-0000039576 00000 n 
-0000039659 00000 n 
-0000000212 00000 n 
-0000000292 00000 n 
-0000039555 00000 n 
-0000039751 00000 n 
-0000040008 00000 n 
-0000040104 00000 n 
+0000000164 00000 n 
+0000039633 00000 n 
+0000039716 00000 n 
+0000000213 00000 n 
+0000000293 00000 n 
+0000039612 00000 n 
+0000039808 00000 n 
+0000040065 00000 n 
+0000040161 00000 n 
 trailer
 <<
 /Size 11
@@ -2490,5 +2490,5 @@ trailer
 /Root 2 0 R
 >>
 startxref
-40206
+40263
 %%EOF

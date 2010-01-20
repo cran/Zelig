@@ -30,7 +30,8 @@ callnetlm <- function (formula, data, ...)
 	if (intercept == FALSE){
 	fit <- netlm(y, x, intercept=FALSE, ...)
 		}
-	fit$names <- names(mf[2:stackcount(mf)])  
+    fit$names <- names(mf[2:length(mf)])
+	#fit$names <- names(mf[2:stackcount(mf)])  
     if (intercept) 
         fit$names <- c("(intercept)", fit$names)
     fit$intercept <- intercept

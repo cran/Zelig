@@ -26,7 +26,7 @@ model.frame.multiple <- function (formula,data,eqn=NULL,...){
       rhs<-as.formula(paste("~",rhs))
      Xs[[eqns[[i]]]]<-model.matrix.default(rhs,data=data)
       tlNew[[eqns[[i]]]]<-colnames(Xs[[eqns[[i]]]])
-      tlNew[[eqns[[i]]]]<-gsub("as.factor\\(.*\\)","",tlNew[[eqns[[i]]]],extended=TRUE)
+      tlNew[[eqns[[i]]]]<-gsub("as.factor\\(.*\\)","",tlNew[[eqns[[i]]]])
       colnames(Xs[[eqns[[i]]]])<-tlNew[[eqns[[i]]]]
     }
   }
@@ -41,7 +41,7 @@ model.frame.multiple <- function (formula,data,eqn=NULL,...){
     lhs<-as.formula(paste("~",lhs))
     Ys<-model.matrix.default(lhs,data=data)
     dvNew<-colnames(Ys)
-    dvNew<-gsub("as.factor\\(.*\\)","",dvNew,extended=TRUE)
+    dvNew<-gsub("as.factor\\(.*\\)","",dvNew)
     colnames(Ys)<-dvNew
   }
   attr(terms,"term.labels")[names(tlNew)]<-tlNew
