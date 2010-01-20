@@ -43,7 +43,7 @@ qi.vglm <- function (object, simpar, x, x1=NULL, y = NULL) {
     sim.eta <- NULL
     for (i in 1:ndim)
       sim.eta <- cbind(sim.eta, all.coef[[i]] %*% as.matrix(xm[[i]]))
-    ev <- object@family@inverse(sim.eta)
+    ev <- object@family@linkinv(sim.eta)
     colnames(ev) <- cnames
     ev
   }
