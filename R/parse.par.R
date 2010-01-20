@@ -12,8 +12,8 @@ parse.par <- function(par, terms,shape = "matrix", eqn=NULL) {
     stop("not a valid 'shape' for parameters.  Choose from \"matrix\" or \"vector\".")
   if (any(class(terms) == "multiple")) {
     allidx <- make.parameters(terms = terms, shape = "vector")
-    idx <- make.parameters(terms = terms,eqn=eqn, shape = "vector")
-    mat <- t(make.parameters(terms = terms,eqn=eqn, shape = "matrix"))
+    idx <- make.parameters(terms = terms,eqns=eqn, shape = "vector")
+    mat <- t(make.parameters(terms = terms,eqns=eqn, shape = "matrix"))
     if(length(par)==length(allidx))
       par.names<-allidx
     else

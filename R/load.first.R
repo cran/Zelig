@@ -1,7 +1,7 @@
 .onAttach <- function(...) {
   mylib <- dirname(system.file(package = "Zelig"))
-  ver <- packageDescription("Zelig", lib = mylib)$Version
-  builddate <- packageDescription("Zelig", lib = mylib)$Date
+  ver <- packageDescription("Zelig", lib.loc = mylib)$Version
+  builddate <- packageDescription("Zelig", lib.loc = mylib)$Date
 
   packageStartupMessage(
     paste(

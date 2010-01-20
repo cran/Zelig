@@ -223,15 +223,15 @@ setx.default <- function(object,
 ###
 updatefn <- function(fn, operVec=c("mode", "median","min", "max"), ev=parent.frame(), global=.GlobalEnv)
    {
-     mode   <- get("mode", env=ev)
-     median <- get("median", env=ev)
-     max   <- get("max", env=ev)
-     min   <- get("min", env=ev)
+     mode   <- get("mode", envir = ev)
+     median <- get("median", envir = ev)
+     max   <- get("max", envir = ev)
+     min   <- get("min", envir = ev)
       
-     modeG   <- get("mode", env=global)
-     medianG <- get("median.default", env=global)
-     minG <- get("min", env=global)
-     maxG <-  get("max", env=global)
+     modeG   <- get("mode", envir = global)
+     medianG <- get("median.default", envir = global)
+     minG <- get("min", envir = global)
+     maxG <-  get("max", envir = global)
     if(!identical(sort(c("max", "median", "min", "mode")), sort(operVec)))
       stop("updatefn missing some operations from setx")
      

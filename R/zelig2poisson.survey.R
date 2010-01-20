@@ -22,7 +22,7 @@ zelig2poisson.survey <- function(formula, model, data, M,
 						
                 mf$design <- svydesign(data=data, ids=ids, probs=probs,		
                                        strata=strata, fpc=fpc, nest=nest, check.strata=check.strata,
-						   weight=weights)
+						   weights=weights)
                 
                 mf$weights <- mf$ids <- mf$probs <- mf$strata <- mf$fpc <- NULL
                 mf$nest <- mf$check.strata <- mf$repweights <- mf$type <- NULL

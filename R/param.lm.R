@@ -6,7 +6,7 @@ param.lm <-function(object, num, bootstrap = FALSE) {
     df <- object$df.residual
     sig2 <- summary.lm(object)$sigma^2
     alpha <- sqrt(df*sig2/rchisq(num, df=df))
-    res <- cbind(matrix(coef, nr=num), alpha)
+    res <- cbind(matrix(coef, nrow=num), alpha)
     #res <- cbind(coef, alpha)
   }
   else {

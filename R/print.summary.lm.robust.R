@@ -58,7 +58,7 @@ print.summary.lm.robust <-
 	if (p > 1) {
 	    cat("\nCorrelation of Coefficients:\n")
 	    if(is.logical(symbolic.cor) && symbolic.cor) {# NULL < 1.7.0 objects
-		print(symnum(correl, abbr.col = NULL))
+		print(symnum(correl, abbr.colnames = NULL))
 	    } else {
                 correl <- format(round(correl, 2), nsmall = 2, digits = digits)
                 correl[!lower.tri(correl)] <- ""
