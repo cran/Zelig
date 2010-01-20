@@ -1,5 +1,5 @@
 Package: Zelig
-Version: 3.5.3
+Version: 3.5.4
 Date: 2010-01-20
 Title: Everyone's Statistical Software
 Author: Kosuke Imai <kimai@Princeton.Edu>, Gary King
@@ -25,5 +25,5 @@ Suggests: VGAM (>= 0.8-4), MCMCpack (>= 0.8-2), mvtnorm, survival,
         sandwich (>= 2.1-0), zoo (>= 1.5-0), coda, nnet, sna, gee,
         systemfit, mgcv, lme4, anchors (>= 2.0), survey, quantreg
 Repository: CRAN
-Date/Publication: 2012-01-15 12:18:34
-Packaged: 2012-01-15 12:12:49 UTC; ripley
+Date/Publication: 2012-02-22 08:39:46
+Packaged: 2012-02-21 19:37:28 UTC; matt

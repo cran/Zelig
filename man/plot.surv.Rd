@@ -7,7 +7,7 @@
 \description{ The \code{plot.surv} command generates confidence intervals for Kaplan-Meier survival curves}
 
 \usage{
-     plot.surv(x, duration, censor, type = "line", plotcensor=TRUE,
+     \method{plot}{surv}(x, duration, censor, type = "line", plotcensor=TRUE,
                plottimes = FALSE, int = c(0.025,0.975), ...) 
 }
 

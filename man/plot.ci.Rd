@@ -9,7 +9,7 @@
   response models.  }
 
 \usage{
-plot.ci(x, CI = 95, qi = "ev", main = "", ylab = NULL, xlab = NULL,
+\method{plot}{ci}(x, CI = 95, qi = "ev", main = "", ylab = NULL, xlab = NULL,
         xlim = NULL, ylim = NULL, col = c("red", "blue"), ...) 
 }
 

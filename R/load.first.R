@@ -2,11 +2,19 @@
   mylib <- dirname(system.file(package = "Zelig"))
   ver <- packageDescription("Zelig", lib = mylib)$Version
   builddate <- packageDescription("Zelig", lib = mylib)$Date
-  cat(paste("## \n##  Zelig (Version ", ver, ", built: ", builddate, ")\n", sep = "")) 
-  cat("##  Please refer to http://gking.harvard.edu/zelig for full\n",
+
+  packageStartupMessage(
+    paste(
+          "## \n##  Zelig (Version ", ver, ", built: ", builddate, ")\n",
+          sep = ""
+          )
+  )
+  packageStartupMessage(
+      "##  Please refer to http://gking.harvard.edu/zelig for full\n",
       "##  documentation or help.zelig() for help with commands and\n",
       "##  models supported by Zelig.\n##\n\n", sep="")
-  cat("##  Zelig project citations:\n",
+  packageStartupMessage(
+      "##  Zelig project citations:\n",
       "##    Kosuke Imai, Gary King, and Olivia Lau. (2009).\n", 
       "##    ``Zelig: Everyone's Statistical Software,''\n", 
       "##    http://gking.harvard.edu/zelig.\n",
