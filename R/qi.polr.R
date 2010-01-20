@@ -3,23 +3,39 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
   m <- length(getcoef(object))
   sim.coef <- simpar[,1:m,drop=F]
   sim.zeta <- sim.theta <- simpar[,(m+1):ncol(simpar), drop=F]
-  sim.zeta[,-1] <- exp(sim.theta[,-1])
-  sim.zeta <- t(apply(sim.zeta, 1, cumsum))
+
+  # zeta's coefficients should hold the transformed results
+  # This was a change that was added for some unknown version of 'polr'
+  # (Changed by Matt Owen at the request of Kosuke Imai 11-15-2011)
+
+  #sim.zeta[,-1] <- exp(sim.theta[,-1])
+
+  #sim.zeta <- t(apply(sim.zeta, 1, cumsum))
+
+
   k <- length(object$zeta) + 1
   lev <- object$lev
   eta <- t(x[,-1] %*% t(sim.coef)) 
   Ipr <- cuts <- tmp0 <- array(0, dim = c(num, k, nrow(x)),
                         dimnames = list(1:num, lev, rownames(x)))
+
   for (i in 1:num) 
     cuts[i,,] <- t(object$inv.link(eta[i,], sim.zeta[i,]))
+
   tmp0[,(2:k),] <- cuts[,(1:(k-1)),]
   ev <- cuts - tmp0
   if (dim(ev)[3] == 1) ev <- ev[,,1]
   pr <- matrix(NA, nrow = num, ncol = nrow(x))
-  tmp <- matrix(runif(length(cuts[,1,]), 0, 1),
-                nrow = num , ncol = nrow(x))
+
+  tmp <- matrix(
+                runif(length(cuts[,1,]), 0, 1),
+                nrow = num,
+                ncol = nrow(x)
+                )
+
   for (i in 1:k)
     Ipr[,i,] <- as.integer(tmp > cuts[,i,])
+
   for (n in 1:nrow(x))
     pr[,n] <- 1 + rowSums(Ipr[,,n,drop=F])
   pr <- matrix(factor(pr, labels = lev[1:length(lev) %in% sort(unique(pr))],
@@ -68,6 +84,19 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
 
 
 
+rejection.sample <- function (num, size, cuts) {
+
+  # Define how to produce a single sample
+  single.sample <- function(size, cuts) {
+    repeat {
+      samps <- runif(length(cuts))
+    }
+  }
+
+  #
+
+
+}
 
 
 
