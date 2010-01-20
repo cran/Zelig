@@ -18,13 +18,7 @@
       "##    pp. 892-913. \n\n",
       "##  To cite individual Zelig models, please use the citation format printed with\n",
       "##  each model run and in the documentation.\n##\n", sep="")
-  if(!any(search()=="package:MASS"))
-    require(MASS) 
-  if(!any(search()=="package:boot"))
-    require(boot) 
-  library.dynam("stats")
 
   ## add viggnettes menu
   addVigs2WinMenu("Zelig")
-
 }

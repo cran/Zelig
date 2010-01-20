@@ -1,6 +1,7 @@
 \name{setx}
 
 \alias{setx}
+\alias{setx.default}
 
 \title{Setting Explanatory Variable Values}
 
@@ -11,9 +12,14 @@
   interest.  }
 
 \usage{
-x.out <- setx(object, fn = list(numeric = mean, ordered = median, 
-                                others = mode), 
-              data = NULL, cond = FALSE, \dots)
+setx(object, ...)
+
+\method{setx}{default}(object, 
+             fn = list(numeric = mean, ordered = median, other = mode), 
+             data = NULL, 
+             cond = FALSE, counter = NULL,
+             \dots
+             )
 }
 
 \arguments{
@@ -44,6 +50,7 @@ x.out <- setx(object, fn = list(numeric = mean, ordered = median,
     will coerce \code{fn = NULL} and ignore the additional arguments in 
     \code{\dots}.  If \code{cond = TRUE} and \code{data = NULL},
     \code{setx} will prompt you for a data frame.  }  
+  \item{counter}{a deprecated parameter}
   \item{\dots}{user-defined values of specific variables
     overwriting the default values set by the function \code{fn}.  For
     example, adding \code{var1 = mean(data\$var1)} or \code{x1 = 12}
