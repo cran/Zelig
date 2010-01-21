@@ -29,7 +29,8 @@ calllogit.net <- function(formula, data, family = binomial(link=logit), ...)
 	if (intercept == FALSE){
 	fit <- logit.net.zelig(y, x, intercept=FALSE, ...)
 		}
-	fit$names <- names(mf[2:stackcount(mf)])  # paste("x", 1:(nx - intercept), sep = "")
+    fit$names <- names(mf[2:length(mf)])
+	#fit$names <- names(mf[2:stackcount(mf)])  # paste("x", 1:(nx - intercept), sep = "")
     if (intercept) 
         fit$names <- c("(intercept)", fit$names)
     fit$intercept <- intercept

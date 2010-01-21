@@ -31,6 +31,7 @@ ologit             Ordinal Logit regression and simulation
 oprobit            Ordinal Probit regression and simulation
 poisson            Poisson regression and simulation
 probit             Probit regression and simulation
+quantile	   Quantile regresion model
 relogit            Rare events logit regression and simulation
 robust	           Robust estimation and simulation
 strata             Regression and simulation in a stratified model

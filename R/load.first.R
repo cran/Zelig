@@ -22,7 +22,6 @@
     require(MASS) 
   if(!any(search()=="package:boot"))
     require(boot) 
-  options(digits = 4)
   library.dynam("stats")
 
   ## add viggnettes menu

@@ -170,10 +170,10 @@ cat zeligheader.html zeligmodels.html zeligfooter.html > zelig.html
 #rm models.txt
 
 ## do some cleanup
-rm -f *.aux *.toc *.log *.out *.blg *.bbl
+rm -f *.aux *.toc *.out *.blg *.bbl #*.log 
 
 ## clean commandsRd directory
-rm -f commandsRd/*.aux commandsRd/*.out commandsRd/*.log
+rm -f commandsRd/*.aux commandsRd/*.out commandsRd/*.log commandsRd/*.tex
 ## clean statis folder
 rm -f static/*.aux static/*.out static/*.log static/*.tex static/Rd.sty static/zinput.*
 

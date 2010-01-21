@@ -2,10 +2,10 @@
 %Å‚Å„ÅœÅ”\r
 1 0 obj
 <<
-/CreationDate (D:20090313101856)
-/ModDate (D:20090313101856)
+/CreationDate (D:20100120204642)
+/ModDate (D:20100120204642)
 /Title (R Graphics Output)
-/Producer (R 2.8.1)
+/Producer (R 2.10.1)
 /Creator (R)
 >>
 endobj
@@ -50,10 +50,10 @@ ET
 Q q 0.00 324.00 432.00 108.00 re W n
 BT
 0.000 0.000 0.000 rg
-/F3 1 Tf 10.00 0.00 -0.00 10.00 180.14 418.91 Tm (Predicted Values: Y|X) Tj
+/F3 1 Tf 10.00 0.00 -0.00 10.00 179.14 418.91 Tm [(Predicted V) 60 (alues: Y|X)] TJ
 ET
 BT
-/F2 1 Tf 8.00 0.00 -0.00 8.00 183.81 335.40 Tm (Percentage of Simulations) Tj
+/F2 1 Tf 8.00 0.00 -0.00 8.00 183.81 335.40 Tm [(P) 50 (ercentage of Sim) 10 (ulations)] TJ
 ET
 Q q
 0.000 0.000 0.000 RG
@@ -671,7 +671,7 @@ S
 Q q 0.00 216.00 432.00 108.00 re W n
 BT
 0.000 0.000 0.000 rg
-/F3 1 Tf 10.00 0.00 -0.00 10.00 173.43 310.91 Tm (Expected Values: E\(Y|X\)) Tj
+/F3 1 Tf 10.00 0.00 -0.00 10.00 173.03 310.91 Tm [(Expected V) 60 (alues: E\(Y|X\))] TJ
 ET
 BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 17.11 266.17 Tm (Density) Tj
@@ -1254,7 +1254,7 @@ S
 Q q 0.00 108.00 432.00 108.00 re W n
 BT
 0.000 0.000 0.000 rg
-/F3 1 Tf 10.00 0.00 -0.00 10.00 106.44 202.91 Tm (First Differences in Expected Values: E\(Y|X1\)-E\(Y|X\)) Tj
+/F3 1 Tf 10.00 0.00 -0.00 10.00 106.04 202.91 Tm [(Fir) 15 (st Diff) 10 (erences in Expected V) 60 (alues: E\(Y|X1\)-E\(Y|X\))] TJ
 ET
 BT
 /F2 1 Tf 0.00 8.00 -8.00 0.00 17.11 158.17 Tm (Density) Tj
@@ -1863,7 +1863,7 @@ Q
 endstream
 endobj
 7 0 obj
-29821
+29871
 endobj
 3 0 obj
 <<
@@ -1909,15 +1909,15 @@ xref
 0 11
 0000000000 65535 f 
 0000000021 00000 n 
-0000000163 00000 n 
-0000030187 00000 n 
-0000030270 00000 n 
-0000000212 00000 n 
-0000000292 00000 n 
-0000030166 00000 n 
-0000030362 00000 n 
-0000030619 00000 n 
-0000030715 00000 n 
+0000000164 00000 n 
+0000030238 00000 n 
+0000030321 00000 n 
+0000000213 00000 n 
+0000000293 00000 n 
+0000030217 00000 n 
+0000030413 00000 n 
+0000030670 00000 n 
+0000030766 00000 n 
 trailer
 <<
 /Size 11
@@ -1925,5 +1925,5 @@ trailer
 /Root 2 0 R
 >>
 startxref
-30817
+30868
 %%EOF

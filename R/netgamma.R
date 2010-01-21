@@ -218,7 +218,8 @@ gamma.net <- function (formula, data, LF= "inverse", family=Gamma(link=LF), ...,
             ">="), 2, mean)
     }
     fit$nullhyp <- nullhyp
-	fit$names <- names(mf[2:stackcount(mf)])  # paste("x", 1:(nx - intercept), sep = "")
+    fit$names <- names(mf[2:length(mf)])
+	#fit$names <- names(mf[2:stackcount(mf)])  # paste("x", 1:(nx - intercept), sep = "")
     if (intercept) 
         fit$names <- c("(intercept)", fit$names)
     fit$intercept <- intercept

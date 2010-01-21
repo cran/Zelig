@@ -1,0 +1,1604 @@
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=pdflatex 2009.9.1)  20 JAN 2010 20:48
+entering extended mode
+**zelig
+(./zelig.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+\@input{zinput.aux}
+\openout2 = `zinput.aux'.
+
+(./zinput.tex (/usr/share/texmf/tex/latex/base/book.cls
+Document Class: book 2004/02/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/bk12.clo
+File: bk12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (./Rd.sty
+Package: Rd 
+
+(/usr/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf/tex/latex/tools/longtable.sty
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip43
+\LTright=\skip44
+\LTpre=\skip45
+\LTpost=\skip46
+\LTchunksize=\count88
+\LTcapwidth=\dimen103
+\LT@head=\box26
+\LT@firsthead=\box27
+\LT@foot=\box28
+\LT@lastfoot=\box29
+\LT@cols=\count89
+\LT@rows=\count90
+\c@LT@tables=\count91
+\c@LT@chunks=\count92
+\LT@p@ftn=\toks14
+)
+(/usr/share/texmf/tex/latex/tools/bm.sty
+Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup4
+\symboldletters=\mathgroup5
+\symboldsymbols=\mathgroup6
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 137.
+LaTeX Info: Redefining \bm on input line 203.
+)
+(/usr/share/texmf/tex/latex/base/alltt.sty
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+)
+(/usr/share/texmf/tex/latex/tools/verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks15
+\verbatim@line=\toks16
+\verbatim@in@stream=\read1
+)
+(/usr/share/latex2html/texinputs/url.sty
+Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
+ names
+) (./upquote.sty
+Package: upquote 2003/08/11 v1.1 Covington's upright-quote modification to verb
+atim and verb
+
+(/usr/share/texmf/tex/latex/base/textcomp.sty
+Package: textcomp 2004/02/22 v1.99f Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+(/usr/share/texmf/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 311.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 312.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 313.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 314.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 315.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 316.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 317.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 318.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 319.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 320.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 321.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 322.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 323.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
+))
+\ldescriptionwidth=\skip47
+ NOT loading ae
+NOT loading times NOT loading lmodern)
+(/usr/share/texmf/tex/latex/natbib/bibentry.sty
+Package: bibentry 2000/06/20 1.4 (PWD)
+)
+(/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 80.
+
+(/usr/share/texmf/tex/latex/graphics/pdftex.def
+File: pdftex.def 2002/06/19 v0.03k graphics/color for pdftex
+\Gread@gobject=\count93
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(/usr/share/texmf/tex/latex/natbib/natbib.sty
+Package: natbib 2003/06/06 7.1 (PWD)
+\bibhang=\skip48
+\bibsep=\skip49
+LaTeX Info: Redefining \cite on input line 518.
+\c@NAT@ctr=\count94
+)
+(/usr/share/texmf/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks18
+\ex@=\dimen106
+))
+(/usr/share/texmf/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+LaTeX Info: Redefining \boldsymbol on input line 54.
+\pmbraise@=\dimen107
+)
+(/usr/share/texmf/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count95
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count96
+\leftroot@=\count97
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count98
+\DOTSCASE@=\count99
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box30
+\strutbox@=\box31
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count100
+\c@MaxMatrixCols=\count101
+\dotsspace@=\muskip10
+\c@parentequation=\count102
+\dspbrk@lvl=\count103
+\tag@help=\toks19
+\row@=\count104
+\column@=\count105
+\maxfields@=\count106
+\andhelp@=\toks20
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks21
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2002/01/22 v2.2d
+
+(/usr/share/texmf/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2001/10/25 v2.2f
+\symAMSa=\mathgroup7
+\symAMSb=\mathgroup8
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 132.
+LaTeX Info: Redefining \bold on input line 139.
+))
+(/usr/share/texmf/tex/generic/epsf/epsf.tex
+This is `epsf.tex' v2.7k <10 July 1997>
+\epsffilein=\read2
+\epsfframemargin=\dimen115
+\epsfframethickness=\dimen116
+\epsfrsize=\dimen117
+\epsftmp=\dimen118
+\epsftsize=\dimen119
+\epsfxsize=\dimen120
+\epsfysize=\dimen121
+\pspoints=\dimen122
+\epsfnoopenhelp=\toks23
+) (/usr/share/latex2html/texinputs/html.sty
+(/usr/share/texmf/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
+\@linkdim=\dimen123
+\Hy@linkcounter=\count107
+\Hy@pagecounter=\count108
+
+(/usr/share/texmf/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/share/texmf/tex/latex/hyperref/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive and teTeX
+)
+Package hyperref Info: Hyper figures OFF on input line 1880.
+Package hyperref Info: Link nesting OFF on input line 1885.
+Package hyperref Info: Hyper index ON on input line 1888.
+Package hyperref Info: Plain pages ON on input line 1893.
+Package hyperref Info: Backreferencing OFF on input line 1900.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 2004.
+LaTeX Info: Redefining \href on input line 2130.
+LaTeX Info: Redefining \url on input line 2143.
+\Fld@menulength=\count109
+\Field@Width=\dimen124
+\Fld@charsize=\dimen125
+\Choice@toks=\toks24
+\Field@toks=\toks25
+Package hyperref Info: Hyper figures OFF on input line 2618.
+Package hyperref Info: Link nesting OFF on input line 2623.
+Package hyperref Info: Hyper index ON on input line 2626.
+Package hyperref Info: backreferencing OFF on input line 2633.
+Package hyperref Info: Link coloring OFF on input line 2638.
+\c@Item=\count110
+\c@Hfootnote=\count111
+)
+*hyperref using default driver hpdftex*
+(/usr/share/texmf/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2003/11/30 v6.74m Hyperref driver for pdfTeX
+
+(/usr/share/texmf/tex/latex/psnfss/pifont.sty
+Package: pifont 2004/09/15 PSNFSS-v9.2 Pi font support (SPQR) 
+LaTeX Font Info:    Try loading font information for U+pzd on input line 63.
+
+(/usr/share/texmf/tex/latex/psnfss/upzd.fd
+File: upzd.fd 2001/06/04 font definitions for U/pzd.
+)
+LaTeX Font Info:    Try loading font information for U+psy on input line 64.
+
+(/usr/share/texmf/tex/latex/psnfss/upsy.fd
+File: upsy.fd 2001/06/04 font definitions for U/psy.
+))
+\Fld@listcount=\count112
+\@outlinefile=\write3
+)
+Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
+
+
+*** Warning: \HTML had an incompatible definition ***
+*** instead use \HTMLcode for raw HTML code ***
+\c@lpart=\count113
+\c@lchapter=\count114
+\c@lsection=\count115
+\c@lsubsection=\count116
+\c@lsubsubsection=\count117
+\c@lparagraph=\count118
+\c@lsubparagraph=\count119
+\c@lsubsubparagraph=\count120
+\ptrfile=\write4
+) (/usr/share/texmf/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2001/05/28 v1.06 decimal alignment package (DPC)
+
+(/usr/share/texmf/tex/latex/tools/array.sty
+Package: array 2003/12/17 v2.4a Tabular extension package (FMi)
+\col@sep=\dimen126
+\extrarowheight=\dimen127
+\NC@list=\toks26
+\extratabsurround=\skip53
+\backup@length=\skip54
+))
+(/usr/share/texmf/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen128
+)
+(/usr/share/texmf/tex/latex/preprint/fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip55
+)
+(/usr/share/texmf/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+(/usr/share/texmf/tex/generic/xypic/xy.sty
+(/usr/share/texmf/tex/generic/xypic/xy.tex Bootstrap'ing: catcodes, docmode,
+(/usr/share/texmf/tex/generic/xypic/xyrecat.tex)
+(/usr/share/texmf/tex/generic/xypic/xyidioms.tex)
+
+ Xy-pic version 3.7 <1999/02/16>
+ Copyright (c) 1991-1998 by Kristoffer H. Rose <krisrose@ens-lyon.fr>
+ Xy-pic is free software: see the User's Guide for details.
+
+Loading kernel: messages; fonts; allocations: state,
+\X@c=\dimen129
+\Y@c=\dimen130
+\U@c=\dimen131
+\D@c=\dimen132
+\L@c=\dimen133
+\R@c=\dimen134
+\Edge@c=\toks27
+\X@p=\dimen135
+\Y@p=\dimen136
+\U@p=\dimen137
+\D@p=\dimen138
+\L@p=\dimen139
+\R@p=\dimen140
+\Edge@p=\toks28
+\X@origin=\dimen141
+\Y@origin=\dimen142
+\X@xbase=\dimen143
+\Y@xbase=\dimen144
+\X@ybase=\dimen145
+\Y@ybase=\dimen146
+\X@min=\dimen147
+\Y@min=\dimen148
+\X@max=\dimen149
+\Y@max=\dimen150
+\lastobjectbox@=\box32
+\zerodotbox@=\box33
+\almostz@=\dimen151
+ direction,
+\d@X=\dimen152
+\d@Y=\dimen153
+\K@=\count121
+\KK@=\count122
+\Direction=\count123
+\K@dXdY=\dimen154
+\K@dYdX=\dimen155
+\xyread@=\read3
+\xywrite@=\write5
+\csp@=\count124
+\quotPTK@=\dimen156
+
+utility macros; pictures: \xy, positions,
+\swaptoks@@=\toks29
+\connectobjectbox@@=\box34
+ objects,
+\styletoks@=\toks30
+ decorations;
+kernel objects: directionals, circles, text; options; algorithms: directions,
+edges, connections;  Xy-pic loaded)
+Package: xy 1999/02/16 Xy-pic version 3.7
+
+(/usr/share/texmf/tex/generic/xypic/xyall.tex
+ Xy-pic option: All features v.3.3
+(/usr/share/texmf/tex/generic/xypic/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.7 curve,
+\crv@cnt@=\count125
+\crvpts@=\toks31
+\splinebox@=\box35
+\splineval@=\dimen157
+\splinedepth@=\dimen158
+\splinetol@=\dimen159
+\splinelength@=\dimen160
+ circles,
+\L@=\dimen161
+ loaded)
+(/usr/share/texmf/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 loaded)
+(/usr/share/texmf/tex/generic/xypic/xycmtip.tex
+ Xy-pic option: Computer Modern tip extension v.3.3
+(/usr/share/texmf/tex/generic/xypic/xytips.tex
+ Xy-pic option: More Tips extension v.3.3 loaded) loaded)
+(/usr/share/texmf/tex/generic/xypic/xyline.tex
+ Xy-pic option: Line styles extension v.3.6
+\xylinethick@=\dimen162
+ loaded)
+(/usr/share/texmf/tex/generic/xypic/xyrotate.tex
+ Xy-pic option: Rotate and Scale extension v.3.3 loaded)
+(/usr/share/texmf/tex/generic/xypic/xycolor.tex
+ Xy-pic option: Colour extension v.3.3 loaded)
+(/usr/share/texmf/tex/generic/xypic/xymatrix.tex
+ Xy-pic option: Matrix feature v.3.4
+\Row=\count126
+\Col=\count127
+\queue@=\toks32
+\queue@@=\toks33
+\qcount@=\count128
+\qcount@@=\count129
+\matrixsize@=\count130
+ loaded)
+(/usr/share/texmf/tex/generic/xypic/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded)
+(/usr/share/texmf/tex/generic/xypic/xygraph.tex
+ Xy-pic option: Graph feature v.3.7 loaded) loaded))) (./Sweave.sty
+Package: Sweave 
+
+(/usr/share/texmf/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 1998/07/17
+
+Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
+\FV@CodeLineNo=\count131
+\FV@InFile=\read4
+\FV@TabBox=\box36
+\c@FancyVerbLine=\count132
+\FV@StepNumber=\count133
+\FV@OutFile=\write6
+
+No file fancyvrb.cfg.
+) (/usr/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+
+(/usr/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/share/texmf/tex/latex/ae/ae.sty
+Package: ae 2001/02/12 1.3 Almost European Computer Modern
+
+(/usr/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+
+(/usr/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
+
+(/usr/share/texmf/tex/latex/ae/t1aer.fd
+File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
+)))) (./zelig.aux (./acknowledgments.aux) (./commandsRd/zelig.aux) (./commandsR
+d/setx.aux) (./commandsRd/sim.aux)
+(./commandsRd/summary.aux) (./commandsRd/plot.zelig.aux) (./commands/print.aux)
+(./commandsRd/repl.aux) (./commands/matchit.aux))
+\openout1 = `zelig.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 27.
+
+(/usr/share/texmf/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+
+(/usr/share/texmf/tex/context/base/supp-pdf.tex
+(/usr/share/texmf/tex/context/base/supp-mis.tex
+loading : Context Support Macros / Miscellaneous (2004.10.26)
+\protectiondepth=\count134
+\scratchcounter=\count135
+\scratchtoks=\toks34
+\scratchdimen=\dimen163
+\scratchskip=\skip56
+\scratchmuskip=\muskip11
+\scratchbox=\box37
+\scratchread=\read5
+\scratchwrite=\write7
+\zeropoint=\dimen164
+\onepoint=\dimen165
+\onebasepoint=\dimen166
+\minusone=\count136
+\thousandpoint=\dimen167
+\onerealpoint=\dimen168
+\emptytoks=\toks35
+\nextbox=\box38
+\nextdepth=\dimen169
+\everyline=\toks36
+\!!counta=\count137
+\!!countb=\count138
+\recursecounter=\count139
+)
+loading : Context Support Macros / PDF (2004.03.26)
+\nofMPsegments=\count140
+\nofMParguments=\count141
+\MPscratchCnt=\count142
+\MPscratchDim=\dimen170
+\MPnumerator=\count143
+\everyMPtoPDFconversion=\toks37
+)
+Package hyperref Info: Link coloring OFF on input line 27.
+ (/usr/share/texmf/tex/latex/hyperref/nameref.sty
+Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
+\c@section@level=\count144
+)
+LaTeX Info: Redefining \ref on input line 27.
+LaTeX Info: Redefining \pageref on input line 27.
+ (./zelig.out) (./zelig.out)
+\openout3 = `zelig.out'.
+
+LaTeX Font Info:    Try loading font information for U+msa on input line 29.
+(/usr/share/texmf/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2002/01/19 v2.2g AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 29.
+
+(/usr/share/texmf/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2002/01/19 v2.2g AMS font definitions
+)
+LaTeX Font Info:    Try loading font information for T1+aett on input line 29.
+
+(/usr/share/texmf/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+) [1
+
+
+
+
+{/usr/share/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./zelig.toc)
+\tf@toc=\write8
+\openout8 = `zelig.toc'.
+
+ (./zelig.bbl)
+! pdfTeX warning (ext4): destination with the same identifier (name{page.1}) ha
+s been already used, duplicate ignored
+<to be read again> 
+                   \penalty 
+l.39 \include{acknowledgments}
+                               [1
+
+]
+\openout2 = `acknowledgments.aux'.
+
+ (./acknowledgments.tex) [2
+
+] (./intro.tex
+Chapter 1.
+
+Package natbib Warning: Citation `KinTomWit00' undefined on input line 41.
+
+
+Package natbib Warning: Citation `KinHonJos01' undefined on input line 57.
+
+
+Package natbib Warning: Citation `King95' undefined on input line 62.
+
+[3
+
+
+] [4]
+Overfull \hbox (25.97044pt too wide) in paragraph at lines 125--133
+[]\T1/aer/m/n/12 Please di-rect in-quiries and prob-lems about Zelig to our lis
+t-serv at []zelig@lists.gking.harvard.edu[].
+ []
+
+(./citeZelig.tex)) [5] [6
+
+] (./install.tex
+Chapter 2.
+
+Overfull \hbox (7.46567pt too wide) in paragraph at lines 46--54
+\T1/aer/m/n/12 down-load the lat-est []in-staller for Win-dows[] at [][]$\T1/ae
+tt/m/n/12 http : / / cran . us . r-[]project . org / bin / windows /
+ []
+
+[7
+
+] [8] [9] [10]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 237.
+
+[11] [12] [13]
+Overfull \hbox (1034.93843pt too wide) in paragraph at lines 416--416
+ []\T1/aett/m/n/12 % rm Zelig_XX.tar.gz zoo_XX.tar.gz sandwich_XX.tar.gz MCMCpa
+ck_XX.tar.gz coda_XX.tar.gz lattice_XX.tar.gz mvtnorm_XX.tar.gz mvtnorm_XX.tar.
+gz VGAM_XX.tar.gz sna_XX.tar.gz systemfit_XX.tar.gz nnet_XX.tar.gz  gee_XX.tar.
+gz mgcv_XX.tar.gz[] 
+ []
+
+
+LaTeX Warning: Reference `table.compat' on page 14 undefined on input line 455.
+
+
+) (./syntax.tex [14]
+Chapter 3.
+[15
+
+]
+LaTeX Font Info:    Try loading font information for TS1+aer on input line 72.
+ (/usr/lib64/R/share/texmf/ts1aer.fd
+File: ts1aer.fd 
+)
+LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <12> not available
+(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 72.
+LaTeX Font Info:    Try loading font information for TS1+aett on input line 87.
+
+ (/usr/lib64/R/share/texmf/ts1aett.fd
+File: ts1aett.fd 
+)
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 87.
+
+(/usr/share/texmf/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `TS1/aett/m/n' in size <12> not available
+(Font)              Font shape `TS1/cmtt/m/n' tried instead on input line 87.
+ [16]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 92.
+
+[17]
+Overfull \hbox (17.68726pt too wide) in paragraph at lines 159--161
+[]\T1/aer/m/n/12 If your dataset is in a \T1/aer/bx/n/12 tab- or space-delimite
+d .txt file\T1/aer/m/n/12 , use \T1/aett/m/n/12 read.table("mydata.txt") 
+ []
+
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 169--169
+ []\T1/aett/m/n/12 > library(foreign)                           # Load the fore
+ign package. 
+ []
+
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 171--171
+ []\T1/aett/m/n/12 > spss.data <- read.spss("mydata.sav", to.data.frame = TRUE)
+ # For SPSS.[] 
+ []
+
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 182--182
+ []\T1/aett/m/n/12 > library(Zelig)                              # Loads the Ze
+lig library. 
+ []
+
+[18] [19]
+Overfull \hbox (5.18848pt too wide) in paragraph at lines 282--282
+[]\T1/aett/m/n/12 > logic <- c(TRUE, FALSE, TRUE, TRUE, TRUE) # Creates \TS1/cm
+tt/m/n/12 `\T1/aett/m/n/12 logic\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 (5 T/F value
+s).[] 
+ []
+
+
+Overfull \hbox (5.1774pt too wide) in paragraph at lines 283--283
+[]\T1/aett/m/n/12 > var1 <- 10:20                             # All integers be
+tween 10 and 20.[] 
+ []
+
+
+Overfull \hbox (3.7234pt too wide) in paragraph at lines 300--300
+ []\T1/aett/m/n/12 > var3 <- log(var2) - 2*var1      # Create \TS1/cmtt/m/n/12 
+`\T1/aett/m/n/12 var3\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 using math operations.[
+] 
+ []
+
+[20]
+Overfull \hbox (5.21063pt too wide) in paragraph at lines 366--366
+[]\T1/aett/m/n/12 > var <- data$var1               # Copies \TS1/cmtt/m/n/12 `\
+T1/aett/m/n/12 var1\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 from \TS1/cmtt/m/n/12 `\T
+1/aett/m/n/12 data\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 , creating \TS1/cmtt/m/n/12
+ `\T1/aett/m/n/12 var\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 .[] 
+ []
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 367.
+
+[21]
+Overfull \hbox (5.21063pt too wide) in paragraph at lines 376--376
+[]\T1/aett/m/n/12 > data$new.var <- var             # Generate \TS1/cmtt/m/n/12
+ `\T1/aett/m/n/12 new.var\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 in \TS1/cmtt/m/n/12
+ `\T1/aett/m/n/12 data\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 using \TS1/cmtt/m/n/12
+ `\T1/aett/m/n/12 var\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 .[] 
+ []
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 383.
+
+
+Overfull \hbox (3.7234pt too wide) in paragraph at lines 402--402
+ []\T1/aett/m/n/12 > x == y                               # Only the 3rd \TS1/c
+mtt/m/n/12 `\T1/aett/m/n/12 x\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 exactly equals[
+] 
+ []
+
+
+Overfull \hbox (9.89136pt too wide) in paragraph at lines 419--419
+ []  \T1/aett/m/n/12 [1] FALSE FALSE FALSE FALSE  TRUE       #  than its counte
+rpart in \TS1/cmtt/m/n/12 `\T1/aett/m/n/12 y\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 .
+[] 
+ []
+
+
+Overfull \hbox (9.89136pt too wide) in paragraph at lines 429--429
+ []\T1/aett/m/n/12 [1]  TRUE  TRUE FALSE  TRUE FALSE #  less than their counter
+parts in \TS1/cmtt/m/n/12 `\T1/aett/m/n/12 y\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 .
+[] 
+ []
+
+[22]
+Overfull \hbox (3.7234pt too wide) in paragraph at lines 461--461
+ []\T1/aett/m/n/12 > v1 <- a > 3                    # Creates the matrix \TS1/c
+mtt/m/n/12 `\T1/aett/m/n/12 v1\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 (T/F values).[
+] 
+ []
+
+
+Overfull \hbox (3.7234pt too wide) in paragraph at lines 462--462
+ []\T1/aett/m/n/12 > v2 <- b > 3                    # Creates the matrix \TS1/c
+mtt/m/n/12 `\T1/aett/m/n/12 v2\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 (T/F values).[
+] 
+ []
+
+
+Overfull \hbox (3.7234pt too wide) in paragraph at lines 463--463
+ []\T1/aett/m/n/12 > v1 & v2                        # Checks if the (i,j) value
+ in \TS1/cmtt/m/n/12 `\T1/aett/m/n/12 v1\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 and[
+] 
+ []
+
+
+Overfull \hbox (3.7234pt too wide) in paragraph at lines 464--464
+ []      \T1/aett/m/n/12 [,1] [,2] [,3]  [,4]       #  \TS1/cmtt/m/n/12 `\T1/ae
+tt/m/n/12 v2\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 are both TRUE.  Because columns[
+] 
+ []
+
+
+Overfull \hbox (9.89136pt too wide) in paragraph at lines 465--465
+ []\T1/aett/m/n/12 [1,] FALSE TRUE TRUE FALSE       #  2-4 of \TS1/cmtt/m/n/12 
+`\T1/aett/m/n/12 v1\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 are TRUE, and columns 1-3
+[] 
+ []
+
+[23]
+Overfull \hbox (5.1774pt too wide) in paragraph at lines 501--501
+[]\T1/aett/m/n/12 > var3 <- var1 < var2               # Creates a vector of n T
+/F observations.[] 
+ []
+
+
+Overfull \hbox (5.19955pt too wide) in paragraph at lines 530--530
+[]\T1/aett/m/n/12 > var1[var1 == "don\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 t know"]
+ <- NA   # Replaces all "don\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 t know"\TS1/cmtt/
+m/n/12 '\T1/aett/m/n/12 s with NA\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 s.[] 
+ []
+
+[24]) (./Zcommands.tex [25]
+Chapter 4.
+<xymatrix 3x5 368> [26
+
+]
+
+Package natbib Warning: Citation `KinZen06' on page 27 undefined on input line 
+51.
+
+
+Package natbib Warning: Citation `KinZen07' on page 27 undefined on input line 
+52.
+
+
+Package natbib Warning: Citation `StoKinZen05' on page 27 undefined on input li
+ne 52.
+
+[27]
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 92--92
+ []\T1/aett/m/n/12 > z.out <- zelig(vote ~ race + educate, model = "logit", dat
+a = turnout)[] 
+ []
+
+
+Overfull \hbox (9.88028pt too wide) in paragraph at lines 96--96
+ []\T1/aett/m/n/12 > summary(s.out)                                     # Numer
+ical summary.[] 
+ []
+
+
+Overfull \hbox (9.88028pt too wide) in paragraph at lines 97--97
+ []\T1/aett/m/n/12 > plot(s.out)                                        # Graph
+ical summary.[] 
+ []
+
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 103--103
+ []\T1/aett/m/n/12 > z.out <- zelig(vote ~ race + educate, model = "logit", dat
+a = turnout)[] 
+ []
+
+
+Package natbib Warning: Citation `SchSla01' on page 28 undefined on input line 
+109.
+
+[28]
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 141--141
+ []\T1/aett/m/n/12 > z.out <- zelig(vote ~ race + educate, model = "logit", dat
+a = turnout)[] 
+ []
+
+[29]
+Overfull \hbox (9.88028pt too wide) in paragraph at lines 224--226
+[]\T1/aett/m/n/12 x.out <- setx(z.out, fn = list(numeric = mean, ordered = medi
+an, others =
+ []
+
+
+Package natbib Warning: Citation `HoImaKin07' on page 30 undefined on input lin
+e 253.
+
+
+Package natbib Warning: Citation `KinAltBur90' on page 30 undefined on input li
+ne 256.
+
+
+Package natbib Warning: Citation `King97' on page 30 undefined on input line 26
+0.
+
+
+Package natbib Warning: Citation `AdoKinHer03' on page 30 undefined on input li
+ne 260.
+
+
+Package natbib Warning: Citation `GelKin94a' on page 30 undefined on input line
+ 265.
+
+
+Package natbib Warning: Citation `KinMurSal04' on page 30 undefined on input li
+ne 274.
+
+[30]
+Overfull \hbox (4.8902pt too wide) in paragraph at lines 292--292
+ []\T1/aett/m/n/12 > z.out <- zelig(vote ~ age + race, model = "logit", data = 
+turnout)[] 
+ []
+
+[31]
+Overfull \hbox (9.88028pt too wide) in paragraph at lines 374--376
+[]\T1/aett/m/n/12 s.out <- sim(z.out, x = x.out, x1 = NULL, num = c(1000, 100),
+ bootstrap =
+ []
+
+[32]
+Overfull \hbox (0.73853pt too wide) in paragraph at lines 401--412
+[]\T1/aer/m/n/12 Zelig sim-u-lates pa-ram-e-ters from clas-si-cal \T1/aer/m/it/
+12 max-i-mum like-li-hood \T1/aer/m/n/12 mod-els us-ing asymp-
+ []
+
+[33]
+
+LaTeX Warning: Reference `ls' on page 34 undefined on input line 485.
+
+
+LaTeX Warning: Reference `normal' on page 34 undefined on input line 491.
+
+
+LaTeX Warning: Reference `normal.bayes' on page 34 undefined on input line 498.
+
+
+
+LaTeX Warning: Reference `netls' on page 34 undefined on input line 503.
+
+
+LaTeX Warning: Reference `tobit' on page 34 undefined on input line 509.
+
+
+LaTeX Warning: Reference `tobit.bayes' on page 34 undefined on input line 512.
+
+
+LaTeX Warning: Reference `arima' on page 34 undefined on input line 516.
+
+[34]
+
+LaTeX Warning: Reference `factor.bayes' on page 35 undefined on input line 519.
+
+
+
+LaTeX Warning: Reference `logit' on page 35 undefined on input line 526.
+
+
+LaTeX Warning: Reference `relogit' on page 35 undefined on input line 530.
+
+
+LaTeX Warning: Reference `logit.bayes' on page 35 undefined on input line 536.
+
+
+LaTeX Warning: Reference `probit' on page 35 undefined on input line 539.
+
+
+LaTeX Warning: Reference `probit.bayes' on page 35 undefined on input line 543.
+
+
+
+LaTeX Warning: Reference `netlogit' on page 35 undefined on input line 548.
+
+
+LaTeX Warning: Reference `blogit' on page 35 undefined on input line 554.
+
+
+LaTeX Warning: Reference `bprobit' on page 35 undefined on input line 558.
+
+
+LaTeX Warning: Reference `irt1d' on page 35 undefined on input line 561.
+
+
+LaTeX Warning: Reference `irtkd' on page 35 undefined on input line 564.
+
+[35]
+
+LaTeX Warning: Reference `ologit' on page 36 undefined on input line 576.
+
+
+LaTeX Warning: Reference `oprobit' on page 36 undefined on input line 579.
+
+
+LaTeX Warning: Reference `oprobit.bayes' on page 36 undefined on input line 582
+.
+
+
+LaTeX Warning: Reference `factor.ord' on page 36 undefined on input line 586.
+
+
+LaTeX Warning: Reference `mlogit' on page 36 undefined on input line 595.
+
+
+LaTeX Warning: Reference `mlogit.bayes' on page 36 undefined on input line 599.
+
+
+
+LaTeX Warning: Reference `poisson' on page 36 undefined on input line 612.
+
+
+LaTeX Warning: Reference `poisson.bayes' on page 36 undefined on input line 618
+.
+
+
+LaTeX Warning: Reference `negbin' on page 36 undefined on input line 622.
+
+[36]
+
+LaTeX Warning: Reference `gamma' on page 37 undefined on input line 636.
+
+
+LaTeX Warning: Reference `exp' on page 37 undefined on input line 640.
+
+
+LaTeX Warning: Reference `weibull' on page 37 undefined on input line 646.
+
+
+LaTeX Warning: Reference `lognorm' on page 37 undefined on input line 657.
+
+
+LaTeX Warning: Reference `ei.hier' on page 37 undefined on input line 679.
+
+
+LaTeX Warning: Reference `ei.dynamic' on page 37 undefined on input line 682.
+
+
+LaTeX Warning: Reference `eiRxC' on page 37 undefined on input line 684.
+
+
+Package natbib Warning: Citation `King95' undefined on input line 708.
+
+[37] [38]
+Overfull \hbox (5.1774pt too wide) in paragraph at lines 792--792
+[]\T1/aett/m/n/12 # Check that the expected values are identical.  You may do t
+his for each qi.[] 
+ []
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 794.
+
+) (./graphs.tex [39]
+Chapter 5.
+[40
+
+] [41]
+Overfull \hbox (5.97571pt too wide) in paragraph at lines 111--111
+[]\T1/aer/bx/n/17.28 Adding Points, Lines, and Leg-ends to Ex-ist-ing Plots 
+ []
+
+[42] [43] <figs/sample1.pdf, id=786, 451.6875pt x 289.08pt>
+File: figs/sample1.pdf Graphic file (type pdf)
+
+<use figs/sample1.pdf> [44 <./figs/sample1.pdf>]
+<figs/sample2.pdf, id=800, 325.215pt x 252.945pt>
+File: figs/sample2.pdf Graphic file (type pdf)
+ <use figs/sample2.pdf>
+Overfull \hbox (5.1774pt too wide) in paragraph at lines 234--234
+[]\T1/aett/m/n/12 > lines(density(turnout$income))              # Adds the kern
+el density line.[] 
+ []
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 235.
+
+[45 <./figs/sample2.pdf>]
+
+Package natbib Warning: Citation `KatKin99' undefined on input line 252.
+
+
+LaTeX Warning: Reference `ternary' on page 46 undefined on input line 252.
+
+
+LaTeX Warning: Reference `ternary' on page 46 undefined on input line 254.
+
+<figs/ternary.pdf, id=814, 289.08pt x 289.08pt>
+File: figs/ternary.pdf Graphic file (type pdf)
+ <use figs/ternary.pdf> [46 <./figs/ternary.pdf>]
+
+Package natbib Warning: Citation `KinZen02' undefined on input line 268.
+
+
+LaTeX Warning: Reference `ROC' on page 47 undefined on input line 269.
+
+<figs/roc.pdf, id=829, 289.08pt x 289.08pt>
+File: figs/roc.pdf Graphic file (type pdf)
+ <use figs/roc.pdf> [47 <./figs/roc.pdf>]
+
+Package natbib Warning: Citation `KinTomWit00' undefined on input line 282.
+
+<figs/vertci.pdf, id=844, 433.62pt x 289.08pt>
+File: figs/vertci.pdf Graphic file (type pdf)
+ <use figs/vertci.pdf>) [48 <./figs/vertci.pdf>] [49
+
+] (./robjects.tex
+Chapter 6.
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 27--27
+ []\T1/aett/m/n/12 > 2 > 3                         # Basic logical operations, 
+including >,[] 
+ []
+
+
+Overfull \hbox (9.88028pt too wide) in paragraph at lines 29--29
+ []                                \T1/aett/m/n/12 #   <= (less than or equals)
+, == (exactly[] 
+ []
+
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 31--31
+ []\T1/aett/m/n/12 > 3 >= 2 && 100 == 1000/10      # Advanced logical operation
+s, including[] 
+ []
+
+
+Overfull \hbox (9.88028pt too wide) in paragraph at lines 32--32
+ []   \T1/aett/m/n/12 [1] TRUE                     #   & (and), && (if and only
+ if), | (or),[] 
+ []
+
+[50
+
+]
+Overfull \hbox (34.5521pt too wide) in paragraph at lines 78--78
+ []\T1/aett/m/n/12 > a <- 1:5               # Creates a vector of integers from
+ 1 to 5 inclusive[] 
+ []
+
+
+Overfull \hbox (3.7234pt too wide) in paragraph at lines 84--84
+ []\T1/aett/m/n/12 > a[5] <- 3.14         # Inserts 3.14 as the 5th value in th
+e vector \TS1/cmtt/m/n/12 `\T1/aett/m/n/12 a\TS1/cmtt/m/n/12 '[] 
+ []
+
+
+Overfull \hbox (34.5521pt too wide) in paragraph at lines 85--85
+ []\T1/aett/m/n/12 > a[5:7] <- c(2, 4, 7) # Replaces the 5th through 7th values
+ with 2, 4, and 7[] 
+ []
+
+[51]
+Overfull \hbox (28.38968pt too wide) in paragraph at lines 112--112
+ []\T1/aett/m/n/12 > x <- c("like", "dislike", "hate", "like", "don\TS1/cmtt/m/
+n/12 '\T1/aett/m/n/12 t know", "like", "dislike")[] 
+ []
+
+
+Overfull \hbox (11.05815pt too wide) in paragraph at lines 144--144
+ []        \T1/aett/m/n/12 [,1] [,2] [,3]       # Note that when assigning a ve
+ctor to a[] 
+ []
+
+[52]
+Overfull \hbox (17.23718pt too wide) in paragraph at lines 154--154
+ []\T1/aett/m/n/12 > y <- c(55, 33, 12)         # Creates another vector \TS1/c
+mtt/m/n/12 `\T1/aett/m/n/12 y\TS1/cmtt/m/n/12 ' \T1/aett/m/n/12 of 3 values.[] 
+
+ []
+
+
+Overfull \hbox (11.05815pt too wide) in paragraph at lines 155--155
+ []\T1/aett/m/n/12 > rbind(x, y)                # Creates a 2 x 3 matrix.  Note
+ that row[] 
+ []
+
+
+Overfull \hbox (11.05815pt too wide) in paragraph at lines 159--159
+ []\T1/aett/m/n/12 > cbind(x, y)                # Creates a 3 x 2 matrix.  Note
+ that the[] 
+ []
+
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 176--176
+ []\T1/aett/m/n/12 > loo[1,3] <- 13          # Inserts 13 as the value for row 
+1, column 3.[] 
+ []
+
+
+Overfull \hbox (9.88582pt too wide) in paragraph at lines 188--188
+ []\T1/aett/m/n/12 > a <- matrix(8, 2, 3)       # Creates a 2 x 3 matrix popula
+ted with 8\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 s.[] 
+ []
+
+
+Overfull \hbox (9.88582pt too wide) in paragraph at lines 189--189
+ []\T1/aett/m/n/12 > b <- matrix(9, 2, 3)       # Creates a 2 x 3 matrix popula
+ted with 9\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 s.[] 
+ []
+
+
+Overfull \hbox (16.05377pt too wide) in paragraph at lines 191--191
+ []   \T1/aett/m/n/12 , , 1                     #  level [,,1] populated with m
+atrix a (8\TS1/cmtt/m/n/12 '\T1/aett/m/n/12 s),[] 
+ []
+
+
+Overfull \hbox (16.04823pt too wide) in paragraph at lines 195--195
+ []   \T1/aett/m/n/12 [2,]    8    8    8       # Use square brackets to extrac
+t values.  For[] 
+ []
+
+[53]
+Overfull \hbox (22.21619pt too wide) in paragraph at lines 197--197
+ []   \T1/aett/m/n/12 , , 2                     #  value in the first row of th
+e second level.[] 
+ []
+
+
+Overfull \hbox (9.89136pt too wide) in paragraph at lines 230--230
+ []\T1/aett/m/n/12 > c[1, 2]     # Pull out the value in the first row, second 
+column of \TS1/cmtt/m/n/12 `\T1/aett/m/n/12 c\TS1/cmtt/m/n/12 '[] 
+ []
+
+[54]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 252.
+
+
+Overfull \hbox (5.1774pt too wide) in paragraph at lines 268--268
+[]\T1/aett/m/n/12 > L[[4]] <- c(1, 4, 6, 8)          # Inserts the vector into 
+the 4th position[] 
+ []
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 272.
+
+
+Overfull \hbox (11.34535pt too wide) in paragraph at lines 291--291
+[]\T1/aett/m/n/12 > dat[1:10,]         # Extracts observations 1-10 and all ass
+ociated variables 
+ []
+
+[55]) (./programmingstatements.tex [56]
+Chapter 7.
+[57
+
+]
+Overfull \hbox (5.1774pt too wide) in paragraph at lines 84--84
+[]\T1/aett/m/n/12 > x <- array(dim = c(5,2,3))       # A 3D array of 3 stacked 
+5 by 2 matrices.[] 
+ []
+
+[58]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 128.
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 147.
+
+[59]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 160.
+
+
+Overfull \hbox (36.4869pt too wide) in paragraph at lines 161--166
+\T1/aer/m/n/12 The sin-gle loop pro-ce-dure eval-u-ates each el-e-ment in \T1/a
+ett/m/n/12 idx \T1/aer/m/n/12 against the vec-tor \T1/aett/m/n/12 mydata$state\
+T1/aer/m/n/12 .
+ []
+
+
+Overfull \hbox (22.21619pt too wide) in paragraph at lines 186--186
+ []\T1/aett/m/n/12 z.out <- zelig(y ~ x1 + x2 + x3, by = "state", data = mydata
+, model = "ls")[] 
+ []
+
+
+Overfull \hbox (28.38414pt too wide) in paragraph at lines 192--192
+ []\T1/aett/m/n/12 se <- array()                          # Initalize the empty
+ data structure.[] 
+ []
+
+
+Overfull \hbox (22.21619pt too wide) in paragraph at lines 193--193
+ []\T1/aett/m/n/12 for (i in 1:50) {                      # vcov() creates the 
+variance matrix[] 
+ []
+
+
+Overfull \hbox (28.38414pt too wide) in paragraph at lines 194--194
+ []  \T1/aett/m/n/12 se[i] <- sqrt(vcov(z.out[[i]])[2,2]) # Since we have an in
+tercept, the 2nd[] 
+ []
+
+
+Overfull \hbox (16.04823pt too wide) in paragraph at lines 195--195
+ []\T1/aett/m/n/12 }                                      # diagonal value corr
+esponds to x1.[] 
+ []
+
+[60]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 211.
+
+) (./newModels.tex [61]
+Chapter 8.
+[62
+
+]
+Overfull \hbox (11.34535pt too wide) in paragraph at lines 48--48
+[]\T1/aett/m/n/12 # Given the formula above, programmers can use the following 
+standard commands[] 
+ []
+
+
+LaTeX Warning: Reference `categories' on page 63 undefined on input line 88.
+
+[63]
+
+LaTeX Warning: Reference `describe.mymodel' on page 64 undefined on input line 
+112.
+
+
+Overfull \hbox (0.7662pt too wide) in paragraph at lines 115--115
+[]\T1/aer/bx/n/14.4 Single Re-sponse Vari-able Mod-els: Nor-mal Re-gres-sion Mo
+del 
+ []
+
+
+Overfull \hbox (19.04494pt too wide) in paragraph at lines 123--127
+\T1/aer/m/n/12 im-plies two sets of pa-ram-e-ters in your model, and the fol-lo
+w-ing \T1/aett/m/n/12 describe.normal.regression()
+ []
+
+[64] [65]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 228.
+
+[66] [67] [68] [69] [70] [71] [72]
+Overfull \hbox (16.04823pt too wide) in paragraph at lines 588--588
+ []\T1/aett/m/n/12 X <- model.matrix(fml, data = D, shape = "stacked", eqn = c(
+"mu1", "mu2"))[] 
+ []
+
+
+Overfull \hbox (3.71233pt too wide) in paragraph at lines 598--598
+ []\T1/aett/m/n/12 X <- model.matrix(fml, data = D, shape = "array", eqn = c("m
+u1", "mu2"))[] 
+ []
+
+) (./addingModels.tex [73]
+Chapter 9.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: Reference `describe.mymodel' on page 74 undefined on input line 
+76.
+
+[74
+
+] [75]
+Overfull \hbox (39.2998pt too wide) in paragraph at lines 145--154
+\T1/aett/m/n/12 zelig2normal.regression()\T1/aer/m/n/12 , in-clud-ing the ex-tr
+a ar-gu-ments taken by \T1/aett/m/n/12 normal.regression()\T1/aer/m/n/12 ,
+ []
+
+
+Overfull \hbox (6.41313pt too wide) in paragraph at lines 145--154
+\T1/aer/m/n/12 but not by \T1/aett/m/n/12 zelig()\T1/aer/m/n/12 . All wrap-pers
+ must take the same stan-dard-ized ar-gu-ments (\T1/aett/m/n/12 formula\T1/aer/
+m/n/12 ,
+ []
+
+
+Overfull \hbox (58.76842pt too wide) in paragraph at lines 145--154
+\T1/aett/m/n/12 zelig() \T1/aer/m/n/12 call into the \T1/aett/m/n/12 normal.reg
+ression() \T1/aer/m/n/12 call. Ad-di-tional ar-gu-ments to \T1/aett/m/n/12 norm
+al.regression()\T1/aer/m/n/12 ,
+ []
+
+[76] [77]
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 248.
+
+
+LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 254.
+
+[78] [79] [80]
+
+LaTeX Warning: Reference `describe.mymodel' on page 81 undefined on input line 
+396.
+
+[81] [82]
+Overfull \hbox (16.04823pt too wide) in paragraph at lines 475--475
+ []\T1/aett/m/n/12 \item The first difference in expected values, given when x1
+ is specified.[] 
+ []
+
+) [83] [84
+
+] (./refman.tex
+Chapter 10.
+[85
+
+]
+\openout2 = `commandsRd/zelig.aux'.
+
+
+No file commandsRd/zelig.tex.
+\openout2 = `commandsRd/setx.aux'.
+
+No file commandsRd/setx.tex.
+\openout2 = `commandsRd/sim.aux'.
+
+No file commandsRd/sim.tex.
+\openout2 = `commandsRd/summary.aux'.
+
+No file commandsRd/summary.tex.
+\openout2 = `commandsRd/plot.zelig.aux'.
+
+No file commandsRd/plot.zelig.tex.
+\openout2 = `commands/print.aux'.
+
+(./commands/print.tex
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@encoding' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<let>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@family' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@series' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@shape' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\font@name' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\T1/aett/m/n/17.28' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\ignorespaces' on input line 1.
+
+) [86
+
+
+
+
+
+
+
+
+
+
+
+]
+\openout2 = `commandsRd/repl.aux'.
+
+
+No file commandsRd/repl.tex.
+Chapter 11.
+[87
+
+
+
+
+]
+\openout2 = `commands/matchit.aux'.
+
+ (./commands/matchit.tex
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@encoding' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<let>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@family' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@series' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\f@shape' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\<def>-command' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\font@name' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\T1/aett/m/n/17.28' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDFDocEncoded string,
+(hyperref)                removing `\ignorespaces' on input line 1.
+
+
+Package natbib Warning: Citation `HoImaKin05b' on page 88 undefined on input li
+ne 6.
+
+[88
+
+] [89]
+
+Package natbib Warning: Citation `Imai05' on page 90 undefined on input line 14
+7.
+
+[90] [91]
+Overfull \hbox (5.78813pt too wide) in paragraph at lines 259--264
+\T1/aer/m/n/12 pack-age. See \T1/aett/m/n/12 help(fullmatch) \T1/aer/m/n/12 or 
+[]http://www.stat.lsa.umich.edu/^^Cbbh/optmatch.html[]
+ []
+
+
+Overfull \hbox (5.78813pt too wide) in paragraph at lines 270--274
+\T1/aer/m/n/12 pack-age. See \T1/aett/m/n/12 help(fullmatch) \T1/aer/m/n/12 or 
+[]http://www.stat.lsa.umich.edu/^^Cbbh/optmatch.html[]
+ []
+
+
+Overfull \hbox (164.73892pt too wide) in paragraph at lines 283--288
+\T1/aett/m/n/12 Matching \T1/aer/m/n/12 pack-age. See \T1/aett/m/n/12 help(GenM
+atch) \T1/aer/m/n/12 or []http://sekhon.polisci.berkeley.edu/library/Matching/h
+tml/GenMatch.html[]
+ []
+
+
+Overfull \hbox (39.64076pt too wide) in paragraph at lines 304--308
+[]\T1/aett/m/n/12 model\T1/aer/m/n/12 : the out-put of the model used to es-ti-
+mate the dis-tance mea-sure. \T1/aett/m/n/12 summary(m.out$model)
+ []
+
+[92]
+
+Package natbib Warning: Citation `HoImaKin07' undefined on input line 359.
+
+! Undefined control sequence.
+<argument> ...G., and Stuart, E. (2007), \enquote 
+                                                  {Matching as Nonparametric...
+l.359 \bibentry{HoImaKin07}
+                           
+? 
+! Emergency stop.
+<argument> ...G., and Stuart, E. (2007), \enquote 
+                                                  {Matching as Nonparametric...
+l.359 \bibentry{HoImaKin07}
+                           
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 8792 strings out of 94500
+ 109010 string characters out of 1176767
+ 203345 words of memory out of 1000000
+ 11192 multiletter control sequences out of 10000+50000
+ 68026 words of font info for 166 fonts, out of 500000 for 2000
+ 580 hyphenation exceptions out of 1000
+ 38i,15n,43p,259b,593s stack positions out of 1500i,500n,5000p,200000b,5000s
+PDF statistics:
+ 1171 PDF objects out of 300000
+ 439 named destinations out of 131072
+ 594 words of extra memory for PDF output out of 65536
+!  ==> Fatal error occurred, the output PDF file is not finished!

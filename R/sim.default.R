@@ -28,8 +28,7 @@ sim.default <- function(object, x=NULL, x1=NULL, num=c(1000, 100),
       colnames(res$t) <- names(res$t0)
       simpar <- res$t
     }
-  }
-  else {
+  } else {
     if (bootstrap)
       stop("Error: Choosing 'bootstrap = TRUE' generates new parameters.  \nIf you wish to use previously generated parameters, \nplease specify only 'prev'.")
     else
@@ -40,9 +39,8 @@ sim.default <- function(object, x=NULL, x1=NULL, num=c(1000, 100),
     if(!bootstrap)
       simpar <- do.call(fn, list(object=object, simpar=simpar, x=x, x1=x1, bootstrap=bootstrap, bootfn=bootfn))
     else
-	simpar <- do.call(fn, list(object=object, simpar=simpar, x=x, x1=x1, bootstrap=bootstrap, bootfn=bootfn, dta=dta))
+      simpar <- do.call(fn, list(object=object, simpar=simpar, x=x, x1=x1, bootstrap=bootstrap, bootfn=bootfn, dta=dta))
   }
-    
   simqi <- qi(object, simpar = simpar, x = x, x1 = x1, y = NULL)
   c <- match.call()
   c[[1]] <- as.name("sim")

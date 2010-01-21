@@ -1,8 +1,8 @@
 qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
   num <- nrow(simpar)
   m <- length(getcoef(object))
-  sim.coef <- simpar[,1:m]
-  sim.zeta <- sim.theta <- simpar[,(m+1):ncol(simpar)]
+  sim.coef <- simpar[,1:m,drop=F]
+  sim.zeta <- sim.theta <- simpar[,(m+1):ncol(simpar), drop=F]
   sim.zeta[,-1] <- exp(sim.theta[,-1])
   sim.zeta <- t(apply(sim.zeta, 1, cumsum))
   k <- length(object$zeta) + 1
@@ -21,7 +21,7 @@ qi.polr <- function(object, simpar, x, x1 = NULL, y = NULL) {
   for (i in 1:k)
     Ipr[,i,] <- as.integer(tmp > cuts[,i,])
   for (n in 1:nrow(x))
-    pr[,n] <- 1 + rowSums(Ipr[,,n])
+    pr[,n] <- 1 + rowSums(Ipr[,,n,drop=F])
   pr <- matrix(factor(pr, labels = lev[1:length(lev) %in% sort(unique(pr))],
                       ordered = TRUE),
                nrow = num, ncol = nrow(x))

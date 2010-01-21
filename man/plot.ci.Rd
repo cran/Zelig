@@ -55,6 +55,10 @@ plot.ci(s.out, xlab = "Age in Years",
 legend(45, 0.52, legend = c("College Education (16 years)",
        "High School Education (12 years)"), col = c("blue","red"), 
        lty = c("solid"))
+
+## adding lines connecting point estimates
+lines(age.range, apply(s.out$qi$ev, 2, mean))
+lines(age.range, apply(s.out$qi$fd+s.out$qi$ev, 2, mean))
 }
 
 \seealso{

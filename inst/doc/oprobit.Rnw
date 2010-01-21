@@ -204,7 +204,8 @@ below.
      fitted values.
    \item {\tt predictors}: an $n \times (J-1)$ matrix of the linear
      predictors $x_i \beta_j$.
-   \item {\tt residuals}: an $n \times (J-1)$ matrix of the residuals.  
+   \item {\tt residuals}: an $n \times (J-1)$ matrix of the residuals. 
+   \item {\tt zeta}: a vector containing the estimated class boundaries. 
    \item {\tt df.residual}: the residual degrees of freedom.  
    \item {\tt df.total}: the total degrees of freedom.
    \item {\tt rss}: the residual sum of squares.  
