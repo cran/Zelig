@@ -1,0 +1,106 @@
+
+\include{zinput}
+%\VignetteIndexEntry{Ordinal Logistic Regression  for Ordered Categorical Dependent Variables}
+%\VignetteDepends{Zelig, MASS}
+%\VignetteKeyWords{model, logistic,regression,ordinal, ordered,categorical}
+%\VignettePackage{Zelig}
+\usepackage{Sweave}
+\begin{document}
+\nobibliography*
+
+
+\section{{\tt ologit}: Ordinal Logistic Regression for Ordered
+Categorical Dependent Variables}\label{ologit}
+
+Use the ordinal logit regression model if your dependent variable is
+ordered and categorical, either in the form of integer values or character strings.  
+
+\subsubsection{Syntax}
+
+\begin{verbatim}
+> z.out <- zelig(as.factor(Y) ~ X1 + X2, model = "ologit", data = mydata)
+> x.out <- setx(z.out)
+> s.out <- sim(z.out, x = x.out)
+\end{verbatim}
+If {\tt Y} takes discrete integer values, the {\tt as.factor()}
+command will order automatically order the values.  If {\tt Y} takes
+on values composed of character strings, such as ``strongly agree'',
+``agree'', and ``disagree'', {\tt as.factor()} will order the values
+in the order in which they appear in {\tt Y}.  You will need to
+replace your dependent variable with a factored variable prior to
+estimating the model through {\tt zelig()}.  See Section \ref{factors}
+for more information on creating ordered factors and Example
+\ref{ord.fact} below.
+
+\subsubsection{Example}
+
+\begin{enumerate}
+
+\item {Creating An Ordered Dependent Variable} \label{ord.fact}
+
+Load the sample data:  
+\begin{Schunk}
+\begin{Sinput}
+> data(sanction)
+\end{Sinput}
+\end{Schunk}
+Create an ordered dependent variable: 
+\begin{Schunk}
+\begin{Sinput}
+> sanction$ncost <- factor(sanction$ncost, ordered = TRUE, levels = c("net gain", 
++     "little effect", "modest loss", "major loss"))
+\end{Sinput}
+\end{Schunk}
+Estimate the model:
+\begin{Schunk}
+\begin{Sinput}
+> z.out <- zelig(ncost ~ mil + coop, model = "ologit", data = sanction)
+\end{Sinput}
+\end{Schunk}
+Set the explanatory variables to their observed values:  
+\begin{Schunk}
+\begin{Sinput}
+> x.out <- setx(z.out, fn = NULL)
+\end{Sinput}
+\end{Schunk}
+Simulate fitted values given {\tt x.out} and view the results:
+\begin{Schunk}
+\begin{Sinput}
+> s.out <- sim(z.out, x = x.out)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+> summary(s.out)
+\end{Sinput}
+\end{Schunk}
+
+\item {First Differences}
+
+Using the sample data \texttt{sanction}, estimate the empirical model and returning the coefficients:
+\begin{Schunk}
+\begin{Sinput}
+> z.out <- zelig(as.factor(cost) ~ mil + coop, model = "ologit", 
++     data = sanction)
+\end{Sinput}
+\end{Schunk}
+\begin{Schunk}
+\begin{Sinput}
+> summary(z.out)
+\end{Sinput}
+\end{Schunk}
+Set the explanatory variables to their means, with {\tt mil} set
+to 0 (no military action in addition to sanctions) in the baseline
+case and set to 1 (military action in addition to sanctions) in the
+alternative case:
+\begin{Schunk}
+\begin{Sinput}
+> x.low <- setx(z.out, mil = 0)
+> x.high <- setx(z.out, mil = 1)
+\end{Sinput}
+\end{Schunk}
+Generate simulated fitted values and first differences, and view the results:
+\begin{Schunk}
+\begin{Sinput}
+> s.out <- sim(z.out, x = x.low, x1 = x.high)
+> summary(s.out)
