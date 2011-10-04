@@ -11,7 +11,7 @@ first differences, along with the associated measures of uncertainty
 (standard errors and confidence intervals). }
 
 \usage{
-z.out <- zelig(formula, model, data, by, save.data, cite, \dots) 
+zelig(formula, model, data, by, save.data, cite, \dots) 
 }
 
 \arguments{

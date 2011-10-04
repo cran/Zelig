@@ -1,6 +1,10 @@
-setx.default <- function(object, fn = list(numeric = mean, ordered =
-                                   median, other = mode), data = NULL,
-                         cond = FALSE, counter = NULL, ...){
+setx.default <- function(object,
+                         fn = list(numeric = mean, ordered = median, other = mode),
+                         data = NULL,
+                         cond = FALSE, counter = NULL,
+                         ...) {
+
+
   mc <- match.call()
   if (class(object)[1]=="MI")
     object <- object[[1]]
