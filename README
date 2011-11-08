@@ -1,3 +1,7 @@
+3.5-2 (Nov. 8, 2011): Bug-fix release for R 2.13. Updated qi method to
+  correspond with a change to VGAM 0.8-4. This bugfix should not affect Mac
+  users.
+
 2.8-3 (May 29, 2007):  Stable release for R 2.4.0-2.5.0.  Fixed bugs in 
   help.zelig(), and summary for multinomial logit, bivariate probit, 
   and bivariate logit with multiple imputation.  First version 
