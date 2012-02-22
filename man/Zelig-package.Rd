@@ -23,7 +23,7 @@ quantities of direct interest.
 \details{
 \tabular{ll}{
 Package: \tab Zelig\cr
-Version: \tab 3.5-2\cr
+Version: \tab 3.5.4\cr
 Date: \tab 2007-06-12\cr
 Depends: \tab R (>= 2.4.0), MASS, boot\cr
 Suggests: \tab VGAM (>= 0.7-1), MCMCpack (>= 0.7-4), mvtnorm, survival,

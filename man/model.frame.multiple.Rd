@@ -7,7 +7,7 @@ data frame of the unique variables identified in the formula (or list
 of formulas).}
   
 \usage{
-model.frame.multiple(formula, data, eqn = NULL, ...)
+\method{model.frame}{multiple}(formula, data, eqn = NULL, ...)
 }
 
 \arguments{

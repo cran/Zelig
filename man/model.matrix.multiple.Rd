@@ -6,7 +6,7 @@
 create a design matrix for multiple-equation models.  }
   
 \usage{
-model.matrix.multiple(object, data, shape = "compact", eqn = NULL, ...)
+\method{model.matrix}{multiple}(object, data, shape = "compact", eqn = NULL, ...)
 }
 
 \arguments{
