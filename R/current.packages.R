@@ -2,7 +2,7 @@ current.packages <- function(package){
 
   required.packages <- function(pack) { 
     mylib <- dirname(system.file(package = pack))
-    description <- packageDescription(pack, lib = mylib)       
+    description <- packageDescription(pack, lib.loc = mylib)       
     depends <- description$Depends
     if (!is.null(depends)) {
       depends <- strsplit(depends, ", ")[[1]]
@@ -49,8 +49,8 @@ current.packages <- function(package){
   ver <- array(NA, length(packages) + 1)
   for (i in 1:length(packages)) {
     mylib <- dirname(system.file(package = packages[i]))
-    if (sum(!is.na(packageDescription(packages[i], lib = mylib))))
-      ver[i+1] <- packageDescription(packages[i], lib = mylib)$Ver
+    if (sum(!is.na(packageDescription(packages[i], lib.loc = mylib))))
+      ver[i+1] <- packageDescription(packages[i], lib.loc = mylib)$Ver
     else
       stop()
     names(ver)[i+1] <- packages[i]

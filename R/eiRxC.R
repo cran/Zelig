@@ -199,7 +199,7 @@ calc.fractions <- function(object, simpar) {
 cmei <- function(formula, data, covar = NULL, ...){
   if (is.null(rownames(data))) {
     rownames(data) <- 1:nrow(data)
-    assign(data, as.character(data), env = .GlobalEnv)
+    assign(data, as.character(data), envir = .GlobalEnv)
   }
   res<-NULL
   myVars<-all.vars(formula[[2]])

@@ -4,5 +4,5 @@ setx.rq <- function(object, fn=list(numeric=mean, ordered=median, other=mode), d
   if(cond==TRUE)
     stop("Conditional prediction is not supported for quantile regression. Please set cond=FALSE.")
   mc[[1]] <- setx.default
-  return(eval(mc, env=env))
+  return(eval(mc, envir=env))
 }

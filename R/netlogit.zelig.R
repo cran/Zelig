@@ -9,7 +9,7 @@ logit.net.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FA
         for (i in 2:length(glist)) x <- cbind(x, gvectorize(glist[[i]], 
             mode = mode, diag = diag, censor.as.na = TRUE))
         if (!is.matrix(x)) 
-            x <- matrix(x, nc = 1)
+            x <- matrix(x, ncol = 1)
         mis <- is.na(y) | apply(is.na(x), 1, any)
         glm.fit(x[!mis, ], y[!mis], family = binomial(), intercept = FALSE)
     }
@@ -20,7 +20,7 @@ logit.net.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FA
         for (i in 2:length(glist)) x <- cbind(x, gvectorize(glist[[i]], 
             mode = mode, diag = diag, censor.as.na = TRUE))
         if (!is.matrix(x)) 
-            x <- matrix(x, nc = 1)
+            x <- matrix(x, ncol = 1)
         mis <- is.na(y) | apply(is.na(x), 1, any)
         list(qr(x[!mis, ], tol = tol), y[!mis])
     }
@@ -101,7 +101,7 @@ logit.net.zelig <- function (y, x, intercept = TRUE, mode = "digraph", diag = FA
                 gr[[i + 1]] <- switch(nullhyp, cugtie <- rgraph(n, 
                   mode = mode, diag = diag, replace = FALSE, 
                   tielist = g[[i + 1]]), cugden <- rgraph(n, 
-                  tp = gden(g[[i + 1]], mode = mode, diag = diag), 
+                  tprob = gden(g[[i + 1]], mode = mode, diag = diag), 
                   mode = mode, diag = diag), cuguman <- (function(dc, 
                   n) {
                   rguman(1, n, mut = x[1], asym = x[2], null = x[3], 

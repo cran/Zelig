@@ -4,7 +4,7 @@ setx.rqs <- function(object, ...){
     mc <- match.call(expand.dots=T)
     mc[[1]] <- setx.rq
     for(i in 1:length(object)){
-        x[[i]] <- eval(mc,env = parent.frame()) 
+        x[[i]] <- eval(mc,envir = parent.frame()) 
     }
     names(x) <- names(object) 
     class(x) <- c("setx.rqs", "data.frame")

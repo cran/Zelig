@@ -5,7 +5,7 @@ param.polr <- function(object, num, bootstrap=FALSE) {
   k <- length(coef)
   if (!bootstrap) {
     theta <- zeta
-    res <- matrix(mvrnorm(num, mu=c(coef,theta), Sigma=vcov(object)),nr=num)
+    res <- matrix(mvrnorm(num, mu=c(coef,theta), Sigma=vcov(object)),nrow=num)
   }
   else
     res <- c(coef, zeta)
