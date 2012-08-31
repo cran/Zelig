@@ -1,5 +1,23 @@
-relogit <- function(formula, data = sys.parent(), tau = NULL,
-                    bias.correct = TRUE, case.control = "prior", ...){
+#' Fit a rare-event logistic model in Zelig
+#' 
+#' Fits a rare-event (``relogit'') model.
+#' @param formula a formula object
+#' @param data ...
+#' @param tau ...
+#' @param bias.correct ...
+#' @param case.control ...
+#' @param ... ???
+#' @return a ``relogit'' ``glm'' object
+#' @export
+relogit <- function(
+                    formula,
+                    data = sys.parent(),
+                    tau = NULL,
+                    bias.correct = TRUE,
+                    case.control = "prior",
+                    ...
+                    ){
+
   mf <- match.call()
   mf$tau <- mf$bias.correct <- mf$case.control <- NULL
   if (!is.null(tau)) {
@@ -9,7 +27,8 @@ relogit <- function(formula, data = sys.parent(), tau = NULL,
     ck1 <- grep("p", case.control)
     ck2 <- grep("w", case.control)
     if (length(ck1) == 0 & length(ck2) == 0)
-      stop("choose either case.control = \"prior\" or case.control = \"weighting\"")
+      stop("choose either case.control = \"prior\" ",
+           "or case.control = \"weighting\"")
     if (length(ck2) == 0)
       weighting <- FALSE
     else 
@@ -26,7 +45,8 @@ relogit <- function(formula, data = sys.parent(), tau = NULL,
     res$lower.estimate <- eval(as.call(mf))
     mf$tau <- max(tau)
     res$upper.estimate <- eval(as.call(mf))
-    class(res) <- c("relogit2", "relogit")
+    res$formula <- formula
+    class(res) <- c("Relogit2", "Relogit")
     return(res)
   }
   else {
@@ -90,8 +110,8 @@ relogit <- function(formula, data = sys.parent(), tau = NULL,
 
     res$linear.predictors <- t(res$coefficients) %*% t(X) 
     res$fitted.values <- 1/(1+exp(-res$linear.predictors))
-    res$zelig <- "relogit"
-    class(res) <- c("relogit", "glm")
+    res$zelig <- "Relogit"
+    class(res) <- c("Relogit", "glm")
     return(res)
   }
 }

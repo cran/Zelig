@@ -1,17 +1,25 @@
-describe.ls<-function(){
-category <- "continuous"
-description  <- "Least Squares Regression for Continuous Dependent Variables"
-authors <- c()
-year <- 2007
-package <-list(	name 	="stats",
-		version	="0.1"
-		)
-parameters<-list(mu="mu")
-parameters$mu<-list(equations=c(1,1),
-			tagsAllowed=FALSE,
-			depVar=TRUE,
-			expVar=TRUE
-			)
-			
-list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
+#' Describe a \code{ls} model to Zelig
+#' @note \code{ls} stands for "least squares fit"
+#' @usage \method{describe}{ls}(...)
+#' @S3method describe ls
+#' @param ... ignored parameters
+#' @return a list to be processed by \code{as.description}
+#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+#' @export
+describe.ls <- function(...){
+  parameters <-list(mu = list(
+                      equations = c(1,1),
+                      tags.allowed = FALSE,
+                      dep.vars = TRUE,
+                      exp.vars = TRUE
+                      )
+                    )
+  
+  # return
+  list(authors  = c("Kosuke Imai", "Gary King", "Olivia Lau"),
+       year     = 2007,
+       category = "continuous",
+       parameters = parameters,
+       text = "Least Squares Regression for Continuous Dependent Variables"
+       )
 }

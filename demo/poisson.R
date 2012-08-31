@@ -1,16 +1,26 @@
+# Attach the data frame
 data(sanction)
-user.prompt()
+
+# Fit the statistical model
 
 z.out <- zelig(num ~ target + coop, model = "poisson", data = sanction)
-user.prompt()
-summary(z.out)
-user.prompt()
+
+# Set explanatory variables (in this case non are explicitly set)
 
 x.out <- setx(z.out)
-user.prompt()
+
+# Simulate the quantities of interest
 
 s.out <- sim(z.out, x = x.out)
-user.prompt()
+
+# Summary of the statistical model
+
+summary(z.out)
+
+# Summary of the simulated quantities of interest
+
 summary(s.out)
-user.prompt()
+
+# Plot the simulated quantities of interest
+
 plot(s.out)

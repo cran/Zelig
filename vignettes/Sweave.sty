@@ -30,10 +30,4 @@
   \ifx\pdfoutput\undefined%
   \csname newcount\endcsname\pdfoutput\fi%
   \ifcase\pdfoutput\special{#1}%
-  \else%
-   \begingroup%
-     \pdfcompresslevel=0%
-     \immediate\pdfobj stream{#1}%
-     \pdfcatalog{/SweaveConcordance \the\pdflastobj\space 0 R}%
-   \endgroup%
-  \fi}
+  \else\immediate\pdfobj{#1}\fi}

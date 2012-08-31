@@ -1,0 +1,38 @@
+#' Zelig Everyone's Statistical Software
+#'
+#' Zelig is an easy-to-use program that can estimate, and
+#' help interpret the results of, an enormous range of statistical models. It
+#' literally is ``everyone's statistical software'' because Zelig's simple
+#' unified framework incorporates everyone else's (R) code. We also hope it will 
+#' become ``everyone's statistical software'' for applications and teaching,
+#' and so have designed Zelig so that anyone can easily use it or add their
+#' programs to it.  Zelig also comes with infrastructure that facilitates the
+#' use of any existing method, such as by allowing multiply imputed data for
+#' any model, and mimicking the program Clarify (for Stata) that takes the raw
+#' output of existing statistical procedures and translates them into
+#' quantities of direct interest.
+#' 
+#' \tabular{ll}{
+#' Package: \tab Zelig\cr
+#' Version: \tab 4.0-11\cr
+#' Date: \tab 2011-08-31\cr
+#' Depends: \tab R (>= 2.14), boot, MASS, methods, sandwich, survival\cr
+#' Suggests: \tab mvtnorm, Formula \cr
+#' License: \tab GPL version 2 or newer\cr
+#' URL: \tab http://gking.harvard.edu/zelig\cr
+#' }
+#'
+#' @name Zelig-package
+#' @aliases Zelig
+#' @docType package
+#' @author Matt Owen \email{mowen@@iq.harvard.edu}, Kosuke Imai, Olivia Lau,
+#'   and Gary King 
+#'         Maintainer: Matt Owen \email{monwe@@iq.harvard.edu}
+#' @keywords package
+#' @seealso zelig setx sim
+NULL
+
+# SUPER SECRET VARIABLES...
+# These squelch "R CMD CHECK" issues for dynamically (though constantly added)
+# local variables to the "bootstrap", "param" and "qi" functions.
+.fitted <- .object <- NULL

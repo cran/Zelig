@@ -1,18 +1,25 @@
-describe.logit<-function(){
-category <- "dichotomous"
-description  <- "Logistic Regression for Dichotomous Dependent Variables"
-authors <- c()
-year <- 2008
+#' Describe a `logit' model to Zelig
+#' @usage \method{describe}{logit}(...)
+#' @S3method describe logit
+#' @param ... ignored parameters
+#' @return a list to be processed by `as.description'
+#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+#' @export
+describe.logit <- function(...) {
+  # parameters object
+  parameters <- list(pi = list(
+                       equations = c(1, 1),
+                       tags.allowed = FALSE,
+                       dep.var = TRUE,
+                       exp.var = TRUE
+                       )
+                     )
 
-package <-list(	name 	="stats",
-		version	="0.1"
-		)
-parameters<-list(pi="pi")
-parameters$pi<-list(equations=c(1,1),
-			tagsAllowed=FALSE,
-			depVar=TRUE,
-			expVar=TRUE
-			)
-			
-list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
+  # return list
+  list(authors  = c("Kosuke Imai", "Gary King", "Olivia Lau"),
+       year     = 2008,
+       category = "dichotomous",
+       parameters = parameters,
+       text = "Logistic Regression for Dichotomous Dependent Variables"
+       )
 }
