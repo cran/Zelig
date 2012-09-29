@@ -1,253 +1,233 @@
-setx.default <- function(object,
-                         fn = list(numeric = mean, ordered = median, other = mode),
-                         data = NULL,
-                         cond = FALSE, counter = NULL,
-                         ...) {
+#' Set explanatory variables
+#'
+#' Set explanatory variables
+#' @usage \method{setx}{default}(obj, fn=NULL, data=NULL, cond=FALSE, ...)
+#' @S3method setx default
+#' @param obj a 'zelig' object
+#' @param fn a list of key-value pairs specifying which function apply to
+#'           columns of the keys data-types
+#' @param data a data.frame
+#' @param cond ignored
+#' @param ... parameters specifying what to explicitly set each column as. This
+#'            is used to produce counterfactuals
+#' @return a 'setx' object
+#' @author Matt Owen \email{mowen@@iq.harvard.edu}, Kosuke Imai, and Olivia Lau 
+setx.default <- function(obj, fn=NULL, data=NULL, cond=FALSE, ...) {
+
+  # Warnings and errors
+  if (!missing(cond))
+    warning('"cond" is not currently supported by this version of Zelig')
+
+  # Get formula used for the call to the model
+  form <- formula(obj)
+
+  # Parsed formula. This is an intermediate for used for processin design
+  # matrices, etc.
+  parsed.formula <- parseFormula(form, data)
+
+  # If data.frame is not explicitly set, use the one from the Zelig call
+  if (is.null(data))
+    data <- obj$data
+
+  # Create a variable to hold the values of the dot parameters
+  dots <- list()
+
+  # Get the dots as a set of expressions
+  symbolic.dots <- match.call(expand.dots = FALSE)[["..."]]
+
+  # Assign values to the dot parameters
+  for (key in names(symbolic.dots)) {
+    result <- with(data, eval(symbolic.dots[[key]]))
+    dots[[key]] <- result
+  }
+
+  # Extract information about terms
+  # Note: the functions 'getPredictorTerms' and 'getOutcomeTerms' are in need
+  # of a rewrite. At the moment, they are pretty kludgey (written by Matt O.).
+  vars.obj <- getPredictorTerms(form)
+  not.vars <- getResponseTerms(form)
+
+  # Default the environment to the parent
+  env.obj <- parent.frame()
+
+  # explanatory variables
+  explan.obj <- Filter(function (x) x %in% vars.obj, names(dots))
+
+  # defaults for fn
+  if (missing(fn) || !is.list(fn))
+    # set fn to appropriate values, if NULL
+    fn <- list(numeric = mean,
+               ordered = Median,
+               other   = Mode
+               )
+
+  # res
+  res <- list()
+
+  # compute values
+  # if fn[[mode(data(, key))]] exists,
+  # then use that function to compute result
+  for (key in all.vars(form[[3]])) {
+    # skip values that are explicitly set
+    if (key %in% names(dots) || key %in% not.vars)
+      next
+
+    m <- class(data[,key])[[1]]
+
+    # Match the class-type with the correct function to call
+    if (m %in% names(fn))
+      res[[key]] <- fn[[m]](data[ ,key])
+
+    # If it is a numeric, then we just evaluate it like a numeric
+    else if (is.numeric(data[,key]))
+      res[[key]] <- fn$numeric(data[ ,key])
+
+    # If it's ordered, then we take the median, because that's the best we got
+    else if (is.ordered(data[,key]))
+      res[[key]] <- fn$ordered(data[ ,key])
+
+    # Otherwise we take the mode, because that always kinda makes sense.
+    else
+      res[[key]] <- fn$other(data[ ,key])
+  }
+
+  # Add explicitly set values
+  for (key in names(symbolic.dots)) {
+    if (! key %in% colnames(data)) {
+      warning("`", key,
+              "` is not an column in the data-set, and will be ignored")
+      next
+    }
+
+    res[[key]] <- if (is.factor(data[,key])) {
+      factor(dots[[key]], levels=levels(data[,key]))
+    }
+    else
+      dots[[key]]
+  }
+
+  # 
+  res <- do.call("mix", res)
+
+  # A list containing paired design matrices and their corresponding data.frame's
+  frames.and.designs <- list()
+
+  # Iterate through all the results
+  for (k in 1:length(res)) {
+    #
+    label <- paste(names(res[[k]]), "=", res[[k]], sep="", collapse=", ")
+
+    # Get specified explanatory variables
+    specified <- res[[k]]
+
+    # Construct data-frame
+    d <- constructDataFrame(data, specified)
+
+    # Construct model/design matrix
+    m <- constructDesignMatrix(d, parsed.formula)
+
+    # Model matrix, as a data.frame
+    dat <- tryCatch(as.data.frame(m), error = function (e) NA)
+
+    frames.and.designs[[label]] <- list(
+      label = label,
+      data.frame = d,
+      model.matrix = m,
+      as.data.frame = dat
+      )
+  }
 
 
-  mc <- match.call()
-  if (class(object)[1]=="MI")
-    object <- object[[1]]
+  # Phonetically... setx's
+  setexes <- list()
 
-  mode <- function(x){
-    tb <- tapply(x, x, length)
-    if(is.factor(x))
-      value <- factor(unlist(labels(tb[seq(along=tb)[tb==max(tb)]])),
-                      levels=levels(x))
-    else if (is.logical(x))
-      value <- as.logical(unlist(labels(tb[seq(along=tb)[tb==max(tb)]])))
-    else if (is.character(x))
-      value <- as.character(unlist(labels(tb[seq(along=tb)[tb==max(tb)]])))
-    else
-      stop(paste(vars[i], "is not a supported variable type."))
-    if (length(value)>1) {
-      warning("There is more than one mode. The first level is selected.")
-      value <- sort(value)[1]
-    }
-    return(value)
+  for (key in names(frames.and.designs)) {
+    mod <- frames.and.designs[[key]]$model.matrix
+    d <- frames.and.designs[[key]]$data.frame
+    dat <- frames.and.designs[[key]]$as.data.frame
+    specified <- res[[k]]
+
+    setexes[[key]] <- list(
+      name   = obj$name,
+      call   = match.call(),
+      formula= form,
+      matrix = mod,
+      updated = d,
+      data   = dat,
+      values = specified,
+      fn     = fn,
+      cond   = cond,
+      new.data = data,
+      special.parameters = dots,
+      symbolic.parameters = symbolic.dots,
+      label = obj$label,
+      explan = vars.obj,
+      pred   = not.vars,
+      package.name = obj$package.name
+    )
+    attr(setexes[[key]], "pooled") <- F
+    class(setexes[[key]]) <- c(obj$name, "setx")
   }
-  
-  median.default <- median
-  median <- function(x) {
-    if(is.numeric(x))
-      value <- median.default(x)
-    else if (is.ordered(x)) {
-      value <- factor(levels(x)[quantile(as.integer(x), type = 1, prob = 0.5)],
-                      levels=levels(x)) 
-    } else
-      stop("median cannot be calculated for this data type")
-    return(value)
-  }
-  
- 
-  max.default <- max
-  max <- function(x, na.rm=FALSE) {
-    if(is.numeric(x))
-      value <- max.default(x, na.rm=na.rm)
-    else if (is.ordered(x)) 
-      value <- factor(levels(x)[length(levels(x))], levels=levels(x))
-    else
-      stop("max cannot be calculated for this data type")
-    return(value)
-  }
-  
-  min.default <- min
-  min <- function(x, na.rm=FALSE) {
-    if(is.numeric(x))
-      value <- min.default(x, na.rm = na.rm)
-    else if (is.ordered(x))
-      value <- factor(levels(x)[1], levels=levels(x))
-    else
-      stop("min cannot be calculated for this data type")
-    return(value)
-  }
- 
-  
-  # Testing From Here
-  if(length(fn))
-    fn <- updatefn(fn, operVec=c("mode", "median","min", "max"),
-                   ev=environment(), global=parent.frame())
-  
-  tt <- terms(object)
-  tt.attr <- attributes(tt)
-  env <- tt.attr$.Environment
-  if (is.null(env))
-    env <- parent.frame()
-  ## original data
-  if (is.null(data)) {
-    if (nrow(as.data.frame(getdata(object))) > 0)
-      dta <- getdata(object)
-    else
-      dta <- eval(getcall(object)$data, envir = env)
-  }
-  else
-    dta <- as.data.frame(data)
-  ## extract variables we need
-  mf <- model.frame(tt, data = dta, na.action = na.pass)
-  if(any(class(tt)=="multiple"))
-    vars<-unlist(c(attr(tt,"depVars"),attr(tt,"indVars")),use.names=FALSE)
-  else
-  vars <- all.vars(tt)
-  if (!is.null(tt.attr$response) && tt.attr$response)
-    resvars <- all.vars(tt.attr$variables[[1+tt.attr$response]])
-  else
-    resvars <- NULL
-  opt <- vars[na.omit(pmatch(names(mc), vars))]
-  data <- dta[complete.cases(mf), names(dta)%in%vars, drop=FALSE]
-  if (!is.null(counter)) {
-    if (!any(counter == vars))
-      stop("the variable specified for counter is not used in the model")
-    treat <- data[, names(data)==counter]
-    if(is.numeric(treat)) {
-      data[treat==1, names(data)==counter] <- 0
-      data[treat==0, names(data)==counter] <- 1
-    } else if(is.factor(treat)) {
-      lev <- levels(treat)
-      if(length(lev)==2) {
-        treat <- as.numeric(treat) - 1 
-        data[treat==1, names(data)==counter] <- lev[1]
-        data[treat==0, names(data)==counter] <- lev[2]
-      } else {
-        stop("counter only takes a binary variable")
-      }
-    } else if(is.logical(treat)) {
-      treat <- as.numeric(treat)
-      data[treat==1, names(data)==counter] <- FALSE
-      data[treat==0, names(data)==counter] <- TRUE
-    } else {
-      stop("not supported variable type for counter")
-    }
-    if(!cond)
-      stop("if counter is specified, cond must be TRUE")
-  }
-  if (cond) {
-    if (is.null(data)) 
-      stop("if cond = TRUE, you must specify the data frame.")
-    if (is.null(mc$fn))
-      fn <- NULL
-    if (!is.null(fn)) {
-      warning("when cond = TRUE, fn is coerced to NULL")
-      fn <- NULL
-    }
-    maxl <- nrow(data)
-  } else if (!is.null(fn)) {
-    if (is.null(fn$numeric) || !is.function(fn$numeric)) {
-      warning("fn$numeric coerced to mean().")
-      fn$numeric <- mean
-    }
-    if (is.null(fn$ordered) || !is.function(fn$ordered) || 
-        identical(mean, fn$ordered)) {
-      warning("fn$ordered coreced to median().")
-      fn$ordered <- median
-    } else if (identical(min.default, fn$ordered)) {
-      fn$ordered <- min
-    } else if (identical(max.default, fn$ordered)) {
-      fn$ordered <- max
-    } else if (identical(median.default, fn$ordered)) {
-      fn$ordered <- median
-    }
-    if (is.null(fn$other) || !is.function(fn$other)) { 
-      warning("the only available fn for other is mode.")
-      fn$other <- mode
-    }
-    for (i in 1:ncol(data)) {
-      if (!(colnames(data)[i] %in% opt)) {
-        if (!(colnames(data)[i] %in% resvars)) {
-          if (is.numeric(data[,i]))
-            value <- lapply(list(data[,i]), fn$numeric)[[1]]
-          else if (is.ordered(data[,i])) 
-            value <- lapply(list(data[,i]), fn$ordered)[[1]]
-          else 
-            value <- lapply(list(data[,i]), fn$other)[[1]]
-          data[,i] <- value
-        }
-      }
-    }
-    maxl <- 1
-  } else {
-    maxl <- nrow(data)
-  }
-  if (length(opt) > 0)
-    for (i in 1:length(opt)) {
-      arg_frame <- 1
-      value <- NULL
-      while((is.null(value) || class(value)=="try-error")
-             && ((arg_frame == 1) || !identical(parent.frame(n=arg_frame-1),.GlobalEnv))){
-        value <- try(eval(mc[[opt[i]]], envir = parent.frame(n=arg_frame)), TRUE)
-        arg_frame <- arg_frame+1
-      }
-      if(class(value)=="try-error") stop(value) 
-      lv <- length(value)
-      if (lv>1)
-        if (maxl==1 || maxl==lv) {
-          maxl <- lv
-          data <- data[1:lv,,drop = FALSE]
-        }
-        else
-          stop("vector inputs should have the same length.")
-      if (is.factor(data[,opt[i]]))
-        data[,opt[i]] <- list(factor(value, levels=levels(data[,opt[i]])))
-      else if (is.numeric(data[,opt[i]]))
-        data[,opt[i]] <- list(as.numeric(value))
-      else if (is.logical(data[,opt[i]]))
-        data[,opt[i]] <- list(as.logical(value))
-      else
-        data[,opt[i]] <- list(value)
-    }
-  data <- data[1:maxl,,drop = FALSE]
-  
-  if (cond) {
-    X <- model.frame(tt, data = dta)
-    if (!is.null(counter)) {
-      X <- list(treat=X[treat==1,,drop=FALSE],
-                control=X[treat==0,,drop=FALSE])
-      class(X$treat) <- class(X$control) <- c("data.frame", "cond")
-      class(X) <- "setx.counter"
-    }
-    else
-      class(X) <- c("data.frame", "cond")
+
+  if (length(setexes) == 1) {
+    attr(setexes, "pooled") <- FALSE
+    setexes <- setexes[[1]]
+    class(setexes) <- c(obj$name, "setx")
   }
   else {
-    X <- as.data.frame(model.matrix(tt, data = data))
+    attr(setexes, "pooled") <- TRUE
+    class(setexes) <- c(obj$name, "pooled.setx", "setx")
   }
-  return(X)
+
+  # Return
+  setexes
 }
-### DESCRIPTION: Takes the operations in vector operVec and updates list fn
-###              so that list elements "numeric", "ordered", and "other" in fn
-###              are as defined in setx rather
-###              than those taken from .GlobalEnv or namespace:base
-###
-### INPUTS: fn a list with default operations for numeric, ordered, other
-###         operVec a vector of chars with operations, e.g max, min, median, mode
-###         ev, parent environment; global, granparent environment
-###
-updatefn <- function(fn, operVec=c("mode", "median","min", "max"), ev=parent.frame(), global=.GlobalEnv)
-   {
-     mode   <- get("mode", envir = ev)
-     median <- get("median", envir = ev)
-     max   <- get("max", envir = ev)
-     min   <- get("min", envir = ev)
-      
-     modeG   <- get("mode", envir = global)
-     medianG <- get("median.default", envir = global)
-     minG <- get("min", envir = global)
-     maxG <-  get("max", envir = global)
-    if(!identical(sort(c("max", "median", "min", "mode")), sort(operVec)))
-      stop("updatefn missing some operations from setx")
-     
-    for(oper in operVec){     
-      operGlob <- switch(EXPR=oper,"mode"=, "mode.default"=modeG,"median"=, "median.default"=medianG,
-                         "min"=,"min.default"= minG,"max"=, "max.default"=maxG)
-      operSetx <- switch(EXPR=oper,"mode"=, "mode.default"=mode,"median"=, "median.default"=median,
-                         "min"=,"min.default"= min,"max"=, "max.default"=max)
-      if(identical(fn$other, operGlob))
-        fn$other <-  operSetx
-   
-      if(identical(fn$numeric, operGlob))
-        fn$numeric <-  operSetx
-      
-      if(identical(fn$ordered, operGlob))
-        fn$ordered <- operSetx
-    }
-     fn
-   }
+
+
+#' Construct Data Frame
+#' Construct and return a tiny (single-row) data-frame from a larger data-frame,
+#' a list of specified values, and a formula
+#' @param data a ``data.frame'' that will be used to create a small design matrix
+#' @param specified a list with key-value pairs that will be used to explicitly
+#' set several values
+#' @return a ``data.frame'' containing a single row
+constructDataFrame <- function (data, specified) {
+  # Make a tiny data-frame with all the necessary columns
+  d <- data[1,]
+
+  # Give the computed values to those entries
+  for (key in names(specified)) {
+    val <- specified[[key]]
+
+    if (is.factor(val) || !(is.numeric(val) || is.ordered(val)))
+      val <- factor(val, levels=levels(data[,key]))
+
+    d[,key] <- val
+  }
+
+  # Return tiny data-frame
+  d
+}
+
+#' Construct Design Matrix from
+#' Construct and return a design matrix based on a tiny data-frame (single-row).
+#' @param data a ``data.frame'' (preferably single-rowed) that will be used to
+#' create a small design matrix
+#' @param formula a formula, whose predictor variables will be used to create a
+#' design matrix
+#' @return a design (model) matrix
+constructDesignMatrix <- function (data, formula) {
+  tryCatch(
+           # Attempt to generate the design matrix of the formula
+           model.matrix(formula, data), 
+
+           # If there is a warning... probably do nothing
+           # warning = function (w) w,
+
+           # If there is an error, warn the user and specify the design
+           # matrix as NA
+           error = function (e) {
+             NA
+           }
+           )
+}

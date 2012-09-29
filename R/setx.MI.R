@@ -1,43 +1,26 @@
-setx.MI <- function(object, fn = list(numeric = mean, ordered =
-                              median, other = mode), data = NULL,
-                    cond = FALSE, counter = NULL, ...) {
-  M <- length(object)
-  dta <- NULL
-  obj <- object[[1]]
-  mf <- match.call()
-  if (!cond) {# unconditional predition
-    tt.attr <- attributes(terms(obj))
-    for (i in 1:M) {
-      if(is.null(data)) {
-        #tmp <- as.data.frame(eval(getcall(obj)$data,
-        #                          sys.parent())[[i]])
-        tmp <- as.data.frame(eval(getcall(obj)$data,
-                                  tt.attr$.Environment)[[i]])
-      } else {
-        tmp <- data[[i]]
-      }
-      dta <- rbind(dta, tmp)
-    }
-    X <- NextMethod("setx", object = object[[1]], fn = fn, data = dta, cond = FALSE,
-                    counter = NULL, ...)
-    class(X) <- c("setx.MI", "setx", "data.frame")
-  } else { # conditional prediction
-    X <- list()
-    if (is.null(data)) {
-      ## data <- eval(getcall(obj)$data, sys.parent())
-      tt.attr <- attributes(terms(obj))
-      data <- eval(getcall(obj)$data, tt.attr$.Environment)
-    }
-    for (i in 1:M){
-      X[[i]] <- NextMethod("setx", object = object[[i]], fn = NULL,
-                           data = data[[i]], cond = TRUE,
-                           counter = counter, ...)
-      #X[[i]] <- setx(object[[i]], fn = NULL, data = data[[i]], cond = TRUE,
-      #                        counter = counter, ...)
-      class(X[[i]]) <- c("cond", "data.frame")
-    }
-    class(X) <- c("setx.MI", "setx.cond", "cond")
-  }
-  return(X)
-}
+#' Set Explanatory Variables for Multiply Imputed Data-sets
+#' This function simply calls setx.default once for every fitted model
+#' within the 'zelig.MI' object
+#' @usage \method{setx}{MI}(obj, ..., data=NULL)
+#' @S3method setx MI
+#' @param obj a 'zelig' object
+#' @param ... user-defined values of specific variables for overwriting the
+#'   default values set by the function \code{fn}
+#' @param data a new data-frame
+#' @return a 'setx.mi' object used for computing Quantities of Interest by the
+#'   'sim' method
+#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+#' @seealso \link{setx}
+setx.MI <- function(obj, ..., data = NULL) {
 
+  results.list <- list()
+
+
+  for (key in names(obj)) {
+    object <- obj[[key]]
+    results.list[[key]] <- setx(object, ..., data = data)
+  }
+
+  class(results.list) <- c("setx.mi", "setx")
+  results.list
+}

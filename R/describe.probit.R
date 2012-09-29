@@ -1,18 +1,24 @@
-describe.probit<-function(){
-category <- "dichotomous"
-description  <- "Probit Regression for Dichotomous Dependent Variables"
-authors <- c()
-year <- 2007
-
-package <-list(	name 	="stats",
-		version	="0.1"
-		)
-parameters<-list(mu="mu")
-parameters$mu<-list(equations=c(1,1),
-			tagsAllowed=FALSE,
-			depVar=TRUE,
-			expVar=TRUE
-			)
-			
-list(category = category, authors = authors, year = year,description=description,package=package,parameters=parameters)
+#' Describe the `probit' model to Zelig
+#' @usage \method{describe}{probit}(...)
+#' @S3method describe poisson
+#' @param ... ignored parameters
+#' @return a list to be processed by `as.description'
+#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+#' @export
+describe.probit <- function(...){
+  parameters <-list(mu = list(
+                      equations = c(1,1),
+                      tags.allowed = FALSE,
+                      dep.vars = TRUE,
+                      exp.vars = TRUE
+                      )
+                    )
+  
+  # return
+  list(authors  = c("Kosuke Imai", "Gary King", "Olivia Lau"),
+       year     = 2007,
+       category = "dichotomous",
+       parameters = parameters,
+       text = "Probit Regression for Dichotomous Dependent Variables"
+       )
 }

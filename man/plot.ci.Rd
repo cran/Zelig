@@ -1,80 +1,46 @@
 \name{plot.ci}
-
 \alias{plot.ci}
-
-\title{Plotting Vertical confidence Intervals}
-
-\description{ The \code{plot.ci} command generates vertical
-  confidence intervals for linear or generalized linear univariate
-  response models.  }
-
+\title{Method for plotting pooled simulations by confidence intervals}
 \usage{
-\method{plot}{ci}(x, CI = 95, qi = "ev", main = "", ylab = NULL, xlab = NULL,
-        xlim = NULL, ylim = NULL, col = c("red", "blue"), ...) 
+  plot.ci(x, qi = "ev", var = NULL, ..., legcol = "gray20",
+    col = NULL, leg = 1, legpos = NULL)
 }
-
 \arguments{
-  \item{x}{stored output from \code{sim}.  The \code{x$x} and optional
-  \code{x$x1} values used to generate the \code{sim} output object must
-  have more than one observation.}  
-\item{CI}{the selected confidence interval.  Defaults to 95
-  percent.}
-\item{qi}{the selected quantity of interest.  Defaults to
-  expected values.}
-\item{main}{a title for the plot.}
-\item{ylab}{label for the y-axis.}
-\item{xlab}{label for the x-axis.}
-\item{xlim}{limits on the x-axis.}
-\item{ylim}{limits on the y-axis.}
-\item{col}{a vector of at most two colors for plotting the
-  expected value given by \code{x} and the alternative set of expected
-  values given by \code{x1} in \code{sim}.  If the quantity of
-  interest selected is not the expected value, or \code{x1 = NULL},
-  only the first color will be used.}
-\item{\dots}{Additional parameters passed to \code{plot}.}
-}  
+  \item{x}{A `sim' object}
 
+  \item{qi}{a character-string specifying the quantity of
+  interest to plot}
+
+  \item{var}{The variable to be used on the x-axis. Default
+  is the variable across all the chosen values with
+  smallest nonzero variance}
+
+  \item{...}{Parameters to be passed to the `truehist'
+  function which is implicitly called for numeric
+  simulations}
+
+  \item{legcol}{``legend color'', an valid color used for
+  plotting the line colors in the legend}
+
+  \item{col}{a valid vector of colors of at least length 3
+  to use to color the confidence intervals}
+
+  \item{leg}{``legend position'', an integer from 1 to 4,
+  specifying the position of the legend. 1 to 4 correspond
+  to ``SE'', ``SW'', ``NW'', and ``NE'' respectively}
+
+  \item{legpos}{``legend type'', exact coordinates and
+  sizes for legend. Overrides argment ``leg.type''}
+}
 \value{
-For all univariate response models, \code{plot.ci()} returns vertical
-confidence intervals over a specified range of one explanatory
-variable.  You may save this plot using the commands described in the
-Zelig manual (\url{http://gking.harvard.edu/zelig}).  
+  the current graphical parameters. This is subject to
+  change in future implementations of Zelig
 }
-
-\examples{
-data(turnout)
-z.out <- zelig(vote ~ race + educate + age + I(age^2) + income,
-               model = "logit", data = turnout)
-age.range <- 18:95
-x.low <- setx(z.out, educate = 12, age = age.range)
-x.high <- setx(z.out, educate = 16, age = age.range)
-s.out <- sim(z.out, x = x.low, x1 = x.high)
-plot.ci(s.out, xlab = "Age in Years",
-        ylab = "Predicted Probability of Voting",
-        main = "Effect of Education and Age on Voting Behavior")
-legend(45, 0.52, legend = c("College Education (16 years)",
-       "High School Education (12 years)"), col = c("blue","red"), 
-       lty = c("solid"))
-
-## adding lines connecting point estimates
-lines(age.range, apply(s.out$qi$ev, 2, mean))
-lines(age.range, apply(s.out$qi$fd+s.out$qi$ev, 2, mean))
+\description{
+  Plot confidence intervals of pooled simulated values.
 }
-
-\seealso{
-  The full Zelig manual is available at
-  \url{http://gking.harvard.edu/zelig}, and users may also wish to see
-  \code{plot}, \code{lines}.
-  }
-
 \author{
-  Kosuke Imai <\email{kimai@princeton.edu}>; Gary King
-  <\email{king@harvard.edu}>; Olivia Lau <\email{olau@fas.harvard.edu}>
+  James Honaker, adapted by Matt Owen
+  \email{mowen@iq.harvard.edu}
 }
-
-\keyword{hplot}
-
-
-
-
 

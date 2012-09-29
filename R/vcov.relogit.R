@@ -1,2 +1,2 @@
-vcov.relogit <- function(object, ...) 
-  summary.relogit(object, ...)$cov.scaled
+vcov.Relogit <- function(object, ...) 
+  summary.Relogit(object, ...)$cov.scaled

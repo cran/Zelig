@@ -1,27 +1,20 @@
 \name{user.prompt}
-
 \alias{user.prompt}
-
-\title{Pause in demo files}
-
-\description{
-  Use \code{user.prompt} while writing demo files to force users to hit
-  return before continuing.  
-}
-
+\title{Prompt User}
 \usage{
-user.prompt()
+  user.prompt(msg = NULL)
+}
+\arguments{
+  \item{msg}{a character-string, specifying a message to be
+  displayed}
+}
+\value{
+  This function is used for its side effects
+}
+\description{
+  Prompts user to hit enter
+}
+\note{
+  This function is primarily used by Zelig demo scripts
 }
 
-\seealso{\code{readline}}
-
-\author{Olivia Lau <\email{olau@fas.harvard.edu}>
-}
-
-\examples{
-\dontrun{
-user.prompt()
-}
-}
-
-\keyword{file}

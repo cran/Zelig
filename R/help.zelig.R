@@ -1,5 +1,9 @@
+#' Help system for Zelig models
+#' @param ... the help files to look-up
+#' @return results of calling the specific help function
+#' @export
+#' @author Matt Owen \emph{mowen@@iq.harvard.edu}
 help.zelig <- function (...)  {
-
         driver  <- match.call()
         driver  <- as.character(driver)
         name <- NULL
@@ -59,4 +63,3 @@ help.zelig <- function (...)  {
         ##message("Not valid input...Showing package description")
         do.call("help", c(list("Zelig"), list(package="Zelig")), envir=parent.frame())
 }
-

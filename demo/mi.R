@@ -1,32 +1,27 @@
-data(immi1, immi2, immi3, immi4, immi5)
-user.prompt()
+library(Zelig)
 
-z.out <- zelig(as.factor(ipip) ~ wage1992 + prtyid + ideol, model = "ologit",
-               data = mi(immi1, immi2, immi3, immi4, immi5), by = "gender")
-user.prompt()
-summary(z.out)
-user.prompt()
+##  Attaching the sample turnout dataset:
+data(turnout)
 
-x.out <- setx(z.out) 
-user.prompt()
-s.out <- sim(z.out, x = x.out)
-user.prompt()
+##  Generating empirical estimates:
+z.out1 <- zelig(vote ~ age,
+                model = "logit",
+                data = mi(turnout[1:500,], turnout[501:1000,]),
+                by = "race",
+                cite = FALSE
+                )
+
+##  Using setx to generate baseline and alternative velus for the
+##  explanatory variables.  
+
+x.out1 <- setx(z.out1, age = 36, race = "white")
+
+s.out <- sim(z.out1, x = x.out1)
+
+# Compute summaries for the fitted models
+
+Map(summary, z.out1$result)
+
+# Summary of multiply-imputed simulations of interest
+
 summary(s.out)
-user.prompt()
-plot(s.out)
-user.prompt()
-z.out <- zelig(as.factor(ipip) ~ wage1992 + prtyid + ideol, model = "mlogit",
-               data = mi(immi1, immi2, immi3, immi4, immi5))
-user.prompt()
-summary(z.out)
-user.prompt()
-               
-x.out <- setx(z.out)
-user.prompt()
-s.out <- sim(z.out, x = x.out)
-user.prompt()
-summary(s.out)
-user.prompt()
-plot(s.out)
-
-
