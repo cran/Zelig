@@ -154,22 +154,35 @@ plot.MI.sim <- function(...) {
 #' @usage \method{plot}{ci}(x, qi="ev", var=NULL, ..., legcol="gray20", col=NULL, leg=1, legpos=NULL)
 plot.ci <- function(x, qi="ev", var=NULL, ..., legcol="gray20", col=NULL, leg=1, legpos=NULL) {
 
+  if (! "pooled.sim" %in% class(x)) {
+    something <- list(x=x)
+    class(something) <- "pooled.sim"
+    attr(something, "titles") <- x$titles
+    x <- something
+  }
+
   xmatrix<-matrix(NA,nrow=length(x),ncol=length(x[[1]]$x$data))
 
   for(i in 1:length(x)){
     xmatrix[i,]<-as.matrix(x[[i]]$x$data)
   }
 
-  if(is.null(var)){
-    each.var<-apply(xmatrix,2,sd) 
-    flag<-each.var>0
+  if (length(x) == 1 && is.null(var)) {
+    warning("Must specify the `var` parameter when plotting the confidence interval of an unvarying model. Plotting nothing.")
+    return(invisible(FALSE))
+  }
+
+  if (is.null(var)) {
+    each.var <- apply(xmatrix,2,sd) 
+    flag <- each.var>0
     min.var<-min(each.var[flag])
     var.seq<-1:ncol(xmatrix)
     position<-var.seq[each.var==min.var]  
     position<-min(position)
     xseq<-xmatrix[,position]
+    return()
     xname<-names(x[[1]]$x$data[position])
-  }else{
+  } else {
 
     if(is.numeric(var)){
       position<-var
@@ -224,8 +237,52 @@ plot.ci <- function(x, qi="ev", var=NULL, ..., legcol="gray20", col=NULL, leg=1,
            ci.lower(ev[,i],0.999)
            )
 
-    history[i,] <- v
+    history[i, ] <- v
   }
+  if (k == 1) {
+    left <- c(
+           xseq[1]-.5,
+           median(ev[,1]),
+
+           ci.upper(ev[,1],0.8),
+           ci.lower(ev[,1],0.8),
+
+           ci.upper(ev[,1],0.95),
+           ci.lower(ev[,1],0.95),
+
+           ci.upper(ev[,1],0.999),
+           ci.lower(ev[,1],0.999)
+           )
+    right <- c(
+           xseq[1]+.5,
+           median(ev[,1]),
+
+           ci.upper(ev[,1],0.8),
+           ci.lower(ev[,1],0.8),
+
+           ci.upper(ev[,1],0.95),
+           ci.lower(ev[,1],0.95),
+
+           ci.upper(ev[,1],0.999),
+           ci.lower(ev[,1],0.999)
+           )
+    v <- c(
+           xseq[1],
+           median(ev[,1]),
+
+           ci.upper(ev[,1],0.8),
+           ci.lower(ev[,1],0.8),
+
+           ci.upper(ev[,1],0.95),
+           ci.lower(ev[,1],0.95),
+
+           ci.upper(ev[,1],0.999),
+           ci.lower(ev[,1],0.999)
+           )
+    k <- 3
+    history <- rbind(left, v, right)
+  }
+
   all.xlim<-c(min(history[,1]),max(history[,1]))
   all.ylim<-c(min(history[,-1]),max(history[,-1]))
 
@@ -453,8 +510,8 @@ plot.simulations <- function (x, ...) {
   qi <- x$qi
 
   # Define Relevant quantity of interest titles that have special properties
-  ev.titles <- c('Expected Values: E(Y|X)', 'Expected Values (for X1): E(Y|X1)')
-  pv.titles <- c('Predicted Values: Y|X', 'Predicted Values (for X1): Y|X1')
+  ev.titles <- c('Expected Values: E(Y|X)', 'Expected Values: E(Y|X1)')
+  pv.titles <- c('Predicted Values: Y|X', 'Predicted Values: Y|X1')
 
   # Determine whether two "Expected Values" qi's exist
   both.ev.exist <- all(ev.titles %in% names(qi))
@@ -510,32 +567,37 @@ plot.simulations <- function (x, ...) {
   layout(panels)
 
   titles <- list(
-    pv = "Predicted Values: Y|X",
-    pv1 = "Predicted Values (for X1): Y|X1",
-    ev = "Expected Values: E(Y|X)",
-    ev1 = "Expected Values (for X1): E(Y|X1)",
-    fd = "First Differences: E(Y|X1) - E(Y|X)"
+    ev  = "Expected Values: E(Y|X)",
+    ev1 = "Expected Values: E(Y|X1)",
+    pv  = "Predicted Values: Y|X",
+    pv1 = "Predicted Values: Y|X1",
+    fd  = "First Differences: E(Y|X1) - E(Y|X)"
     )
-
+  
+  # Plot each simulation
   simulations.plot(qi[[titles$pv]], main = titles$pv, col = color.x, line.col = "black")
+  simulations.plot(qi[[titles$pv1]], main = titles$pv, col = color.x1, line.col = "black")
   simulations.plot(qi[[titles$ev]], main = titles$ev, col = color.x, line.col = "black")
+  simulations.plot(qi[[titles$pv1]], main = titles$ev, col = color.x1, line.col = "black")
   simulations.plot(qi[[titles$fd]], main = titles$fd, col = color.mixed, line.col = "black")
 
   if (both.pv.exist) {
     simulations.plot(
       qi[["Predicted Values: Y|X"]],
-      qi[["Predicted Values (for X1): Y|X1"]],
+      qi[["Predicted Values: Y|X1"]],
       main = "Comparison of Y|X and Y|X1",
-      col = c(color.x, color.x1),
+      # Note that we are adding transparency to this
+      col = paste(c(color.x, color.x1), "80", sep=""),
       line.col = "black")
   }
 
   if (both.ev.exist) {
     simulations.plot(
       qi[["Expected Values: E(Y|X)"]],
-      qi[["Expected Values (for X1): E(Y|X1)"]],
+      qi[["Expected Values: E(Y|X1)"]],
       main = "Comparison of E(Y|X) and E(Y|X1)",
-      col = c(color.x, color.x1),
+      # Note that we are adding transparency to this
+      col = paste(c(color.x, color.x1), "80", sep=""),
       line.col = "black")
   }
 

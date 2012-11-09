@@ -278,13 +278,8 @@ qi.relogit2 <- function (obj, x = NULL, x1 = NULL, y = NULL, num=1000, param = N
   tmp0 <- object$result$lower.estimate
   tmp1 <- object$result$upper.estimate
   
-  message("VARIABLES [[[[")
-
-  #print(object)
   low <- qi.relogit(tmp0, simpar$par0, x, x1)
-  message("--")
   up <- qi.relogit(tmp1, simpar$par1, x, x1)
-  message("}}")
 
   PP <- PR <- array(NA, dim = c(num, 2, nrow(x)),
                     dimnames = list(NULL, c("Lower Bound", "Upper Bound"),
@@ -356,4 +351,19 @@ qi.relogit2 <- function (obj, x = NULL, x1 = NULL, y = NULL, num=1000, param = N
     qi.name$att.pr <- "Average Treatment Effect for the Treated: Y - PR"
   }
   return(list(qi = qi, qi.name = qi.name))
+}
+
+#' Describe a `logit' model to Zelig
+#' @usage \method{describe}{relogit}(...)
+#' @S3method describe relogit
+#' @param ... ignored parameters
+#' @return a list to be processed by `as.description'
+#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+describe.relogit <- function(...) {
+  # return list
+  list(authors  = c("Kosuke Imai", "Gary King", "Olivia Lau"),
+       year     = 2007,
+       category = "dichotomous",
+       text = "Rare Events Logistic Regression for Dichotomous Dependent Variables"
+       )
 }

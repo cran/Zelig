@@ -152,7 +152,13 @@ setx.default <- function(obj, fn=NULL, data=NULL, cond=FALSE, ...) {
       dots[[key]]
   }
 
-  # 
+  # Convert "res" into a list of lists. This makes atomic entries into lists.
+  for (k in 1:length(res)) {
+    if (!is.factor(res[[k]]))
+      res[[k]] <- as.list(res[[k]])
+  }
+
+  # Combine all the sublists
   res <- do.call("mix", res)
 
   # A list containing paired design matrices and their corresponding data.frame's
@@ -170,11 +176,13 @@ setx.default <- function(obj, fn=NULL, data=NULL, cond=FALSE, ...) {
     d <- constructDataFrame(data, specified)
 
     # Construct model/design matrix
+    # NOTE: THIS NEEDS TO BE MORE ROBUST
     m <- constructDesignMatrix(d, parsed.formula)
 
     # Model matrix, as a data.frame
     dat <- tryCatch(as.data.frame(m), error = function (e) NA)
 
+    # Specify information
     frames.and.designs[[label]] <- list(
       label = label,
       data.frame = d,
@@ -182,7 +190,6 @@ setx.default <- function(obj, fn=NULL, data=NULL, cond=FALSE, ...) {
       as.data.frame = dat
       )
   }
-
 
   # Phonetically... setx's
   setexes <- list()
@@ -248,9 +255,10 @@ constructDataFrame <- function (data, specified) {
     if (is.factor(val) || !(is.numeric(val) || is.ordered(val)))
       val <- factor(val, levels=levels(data[,key]))
 
-    d[,key] <- val
+    d[, key] <- val
   }
 
+ 
   # Return tiny data-frame
   d
 }
