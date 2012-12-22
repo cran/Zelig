@@ -1,3 +1,25 @@
+#' Print a Zelig Object
+#' @S3method print zelig
+print.zelig <- function (x, ...) {
+  name <- x$name
+  package.name <- x$package.name
+  call <- x$call
+
+  cat("Model Name: ", name, "\n")
+  cat("Package Name: ", package.name, "\n")
+  cat("Call:\n")
+  print(call)
+
+  # 
+  message("\nFor information about the fitted model, use the summary() function.")
+
+  # Return invisibly
+  invisible(x)
+}
+#' Print MI Zelig Object
+#' @S3method print mi
+print.mi <- function (x, ...) {
+}
 #' Print a Bundle of Data-sets
 #'
 #' @S3method print setx.mi
@@ -39,15 +61,32 @@ print.setx <- function(x, ...) {
   cat("Call:\n")
   print(x$call)
 
-  cat("Label      =", label, "\n")
-  cat("Model name =", model, "\n")
+  cat("Model name = ", model, "\n")
   cat("Formula    = ")
   print(formula)
 
   cat("\nComplete data.frame:\n")
   print(x$updated)
 
+  cat("\nModel Matrix (Design Matrix):\n")
+  print(x$matrix)
+
   invisible()
+}
+#' @S3method print summary.setx
+print.summary.setx <- function (x, ...) {
+  cat("\nModel name =", x$model.name, "\n")
+  cat("Label      =", x$label, "\n")
+  cat("Formula    = ")
+  print(x$formula)
+
+  cat("\nCall:\n")
+  print(x$call)
+
+  cat("\nModel Matrix (Design Matrix):\n")
+  print(x$model.matrix)
+
+  invisible(x)
 }
 #' Print values of `sim' objects
 #' 
@@ -95,7 +134,6 @@ print.summary.glm.robust <-
   cat("\n")
   invisible(x)
 }
-
 #' Print a Summary of a Set of Pooled Simulated Interests
 #'
 #' Prints the summary information from a set of pooled simulated interests. This

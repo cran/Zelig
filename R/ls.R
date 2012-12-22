@@ -50,6 +50,7 @@ qi.ls <- function(obj, x, x1=NULL, y=NULL, num=1000, param=NULL) {
 
   # compute expected value
   ev <- coefs %*% t(x)
+
   ev1 <- NA
   fd <- NA
   
@@ -59,9 +60,11 @@ qi.ls <- function(obj, x, x1=NULL, y=NULL, num=1000, param=NULL) {
   }
 
   # return
-  list("Expected Values: E(Y|X)" = ev,
-       "Expected Values (of X1): E(Y|X1)" = ev1,
-       "First Difference in Expected Values: E(Y|X1) - E(Y|X)" = fd
+  list("Expected Values: E(Y|X)"  = ev,
+       "Expected Values: E(Y|X1)" = ev1,
+       "Predicted Values: Y|X"    = ev,
+       "Predicted Values: Y|X1"   = ev1,
+       "First Differences: E(Y|X1) - E(Y|X)" = fd
        )
 }
 #' Describe a \code{ls} model to Zelig
