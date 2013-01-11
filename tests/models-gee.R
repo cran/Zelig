@@ -24,7 +24,6 @@ summary(z.out)
 x.low <- setx(z.out, numst2 = 0)
 x.high <- setx(z.out, numst2 = 1)
 
-
 # Simulate quantities of interest
 s.out <- sim(z.out, x = x.low, x1 = x.high)
 
@@ -32,12 +31,6 @@ summary(s.out)
 
 # Generate a plot of quantities of interest:
 plot(s.out)
-
-
-
-
-
-
 
 
 
@@ -69,7 +62,6 @@ s.out2 <- sim(z.out1, x = x.high, x1 = x.low)
 summary(s.out2)
 plot(s.out2)
 
-q()
 #####  Example 3:  Example with Fixed Correlation Structure
 
 ##  User-defined correlation structure
@@ -79,56 +71,13 @@ diag(corr.mat) <- 1
 ##  Generating empirical estimates:
 z.out2 <- zelig(vote ~ race + educate, model = "logit.gee", id = "cluster", 
 	data = sorted.turnout, robust = T, corstr = "fixed", R=corr.mat)
+
 ##  Viewing the regression output:
 summary(z.out2)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# NORMAL.GEE
+# NORMAL.GEE
+# NORMAL.GEE
 
 z.out <- zelig(unem ~ gdp + capmob + trade, model = "normal.gee", id = "country", data = macro, robust=TRUE, corstr="AR-M", Mv=1)
 summary(z.out)

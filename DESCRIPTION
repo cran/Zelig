@@ -18,12 +18,12 @@ Description: Zelig is an easy-to-use program that can estimate, and
         program Clarify (for Stata) that takes the raw output of
         existing statistical procedures and translates them into
         quantities of direct interest.
-Version: 4.1-1
+Version: 4.1-2
 URL: http://gking.harvard.edu/zelig
-Date: 2012-11-09
+Date: 2013-01-11
 Depends: R (>= 2.14), boot, MASS, methods, sandwich
-Suggests: mvtnorm, Formula, gee, survey, survival, systemfit, MCMCpack,
-        coda
-Packaged: 2012-12-19 21:39:58 UTC; matt
+Suggests: Amelia, mvtnorm, Formula, gee, survey, survival, systemfit,
+        MCMCpack, coda
+Packaged: 2013-01-24 18:21:27 UTC; matt
 Repository: CRAN
-Date/Publication: 2012-12-22 10:57:58
+Date/Publication: 2013-01-24 20:33:27

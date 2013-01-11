@@ -1,5 +1,4 @@
-#' Interface between the Zelig Model normal.bayes and 
-#' the Pre-existing Model-fitting Method
+#' Interface between the Zelig Model normal.bayes and the Pre-existing Model-fitting Method
 #' @param formula a formula
 #' @param ... additonal parameters
 #' @param data a data.frame 
@@ -8,7 +7,7 @@
 zelig2normal.bayes <- function (
                                formula, 
                                burnin = 1000, mcmc = 10000, 
-                               verbose= 0, 
+                               verbose = 0, 
                                ..., 
                                data
                                ) {
@@ -84,7 +83,8 @@ qi.normal.bayes <- function(obj, x=NULL, x1=NULL, y=NULL, num=1000, param=NULL) 
 #' @S3method describe normal.bayes
 describe.normal.bayes <- function(...) {
   list(
-       authors = "",
-       text = ""
+       authors = c("Ben Goodrich", "Ying Lu"),
+       text = "Bayesian Normal Linear Regression",
+       year = 2013
        )
 }
