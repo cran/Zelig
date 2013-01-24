@@ -28,7 +28,7 @@ zelig2factor.bayes <- function (
        mcmc   = mcmc,
        verbose= verbose,
        data   = data,
-
+       factors = factors,
        ...
        )
 }
@@ -48,7 +48,8 @@ qi.factor.bayes <- function(obj, x=NULL, x1=NULL, y=NULL, num=1000, param=NULL) 
 #' @S3method describe factor.bayes
 describe.factor.bayes <- function(...) {
   list(
-       authors = "",
-       text = ""
+       authors = c("Ben Goodrich", "Ying Lu"),
+       text = "Bayesian Factor Analysis",
+       year = 2013
        )
 }

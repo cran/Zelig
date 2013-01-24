@@ -1,11 +1,19 @@
+#' Interface between the Zelig Model poisson.bayes and the Pre-existing Model-fitting Method
+#' @param formula a formula
+#' @param ... additonal parameters
+#' @param data a data.frame 
+#' @return a list specifying '.function'
 #' @export
 zelig2poisson.bayes <- function (
                                formula, 
                                burnin = 1000, mcmc = 10000, 
-                               verbose=0, 
+                               verbose = 0, 
                                ..., 
                                data
                                ) {
+
+  loadDependencies("MCMCpack", "coda")
+
   if (missing(verbose))
     verbose <- round((mcmc + burnin)/10)
 
@@ -75,7 +83,8 @@ poisson.ev <- function (x, param) {
 #' @S3method describe poisson.bayes
 describe.poisson.bayes <- function(...) {
   list(
-       authors = "",
-       text = ""
+       description  = "Bayesian Poisson Regression",
+       authors = c("Ben Goodrich", "Ying Lu"),
+       year = 2013
        )
 }

@@ -52,20 +52,34 @@ zelig <- function (formula, model, data, ..., by=NULL, cite=T) {
   # Yea this forever
   model.warnings(model)
 
-
-  Call <- match.call()
-
+  # Split data.frame
   if (!missing(by)) {
-    if (any(by %in% all.vars(formula))) {
-      warning("by cannot list contain a variable from the model's formula")
-      by <- NULL
-    }
-
     if (length(by) > 1) {
       warning("by cannot have length greater than 1")
       by <- NULL
     }
+
+    if (!is.data.frame(data))
+      warning("")
+
+
+    else if (any(by %in% all.vars(formula))) {
+      warning("by cannot list contain a variable from the model's formula")
+      by <- NULL
+    }
+
+    else
+      data <- divide(data, by)
   }
+
+  # Almost equivalient to:
+  #   data <- multi.dataset(data)
+  # 
+  # but we want to keep the name of the original data object as our title (sometimes).
+  divided.data <- eval(call("multi.dataset", substitute(data)))
+
+  # 
+  Call <- match.call()
 
   # expand dot arguments
   dots <- list()
@@ -91,7 +105,7 @@ zelig <- function (formula, model, data, ..., by=NULL, cite=T) {
   #   mi(turnout[1:1000, ], )
   # will contain a data.frame labeled:
   #   turnout[1:1000, ]
-  m <- eval(call("make.mi", substitute(data), by=by))
+  # m <- eval(call("multi.dataset", substitute(data), by=by))
 
   # Ensure certain values remain consistent between any object on this list
   # by giving them all a pointer to the same environment object which contains
@@ -110,70 +124,81 @@ zelig <- function (formula, model, data, ..., by=NULL, cite=T) {
   package.name <- getPackageName(environment(zelig2), FALSE)
 
   # repeat
-  repeat {
-    # get the next data.frame
-    x <- NextFrame(m, as.pair = TRUE)
-    d.f <- x$data
-    label <- x$label
+  for (key in names(divided.data)) {
+    d.f <- divided.data[[key]]
+    label <- key
+
 
     # catch end-of-list error
     if (is.null(d.f))
-      break
+      next
 
-    # call zelig2* function
-
-    # print(formals(zelig2))
     zclist <- zelig2(formula, ..., data=d.f)
 
+    new.call <- zclist$call
+    env <- zclist$env
+
     if (!inherits(zclist, "z")) {
-      # list of parameters to be ignored by external models IF not in
-      # zelig2-return value
-      remove <- c("model", "by", "cite", "...")
+      if (!is.list(zclist))
+        warning("invalid object returned from `zelig2` method")
 
-      # construct the call object
-      zelig.call <- call("zelig.call", as.name("zclist"), as.name("remove"))
-      zelig.env <- new.env()
-      assign("zclist", zclist, zelig.env)
-      assign("remove", remove, zelig.env)
+      else {
+        wl <- zclist
 
+        # reserved words taken from the zelig2 method
+        .func <- as.name(wl$.function)
+        .hook <- wl$.hook
 
-      res.call <- zelig.call(Call, zclist, remove)
-      new.call <- res.call$call
-      env <- res.call$envir
+        # remove the reserved words
+        wl$.function <- NULL
+        wl$.hook <- NULL
+        wl$.post <- NULL
+        wl$.model.matrix <- NULL
+
+        new.call <- as.call(append(list(.func), wl))
+        mock.call <- match.call()
+        env <- NULL
+      }
     }
     else if (inherits(zclist, "z")) {
-      new.call <- zclist$call
-      env <- zclist$env
+      new.call <- zclist$literal.call
+      mock.call <- zclist$call
+      env <- NULL
     }
     else {
       warning("zelig2 function is returning an invalid type of object")
     }
 
-    attach(env)
-    attach(d.f)
+    # Default value for result object
+    new.res <- NULL
 
     tryCatch(
       {
-        new.res <- eval(new.call, env)
+        new.res <- eval(new.call)
       },
       error = function (e) {
-        message("There was an error fitting this statistical model.")
-        new.res <- NULL
+        warning("There was an error fitting this statistical model.")
+        print(e)
       }
       )
-
-    detach(d.f)
-    detach(env)
 
     # Apply first hook if it exists
     if (!is.null(zclist$.hook)) {
       zclist$.hook <- get(zclist$.hook, mode='function')
-      new.res <- zclist$.hook(new.res, new.call, match.call(), ...)
+      new.res <- zclist$.hook(new.res, new.call, match.call(), ..., data = d.f)
     }
-
+    else if (!is.null(zclist$hook) && is.function(zclist$hook)) {
+      new.res <- zclist$hook(new.res, new.call, match.call(), ..., data = d.f)
+    }
     # Determine whether this is an S4 object
     old.style.oop <- ! isS4(new.res)
 
+    if (exists("mock.call")) {
+      if (isS4(new.res))
+        new.res@call <- mock.call
+      else
+        new.res$call <- mock.call
+    }
 
     # This is the only "obj" assignment that matters
     obj <- makeZeligObject(new.res,
@@ -200,12 +225,6 @@ zelig <- function (formula, model, data, ..., by=NULL, cite=T) {
     attr(object, 'state') <- state
     class(object) <- c(model, paste(model, 'mi', sep='-'), "MI")
   }
-
-  # This used to be important, but we have API work-arounds now
-  # methods.env <- if(old.style.oop)
-  #   .RegisterMethodsS3(c("terms", register(obj)))
-  # else
-  #   .RegisterMethodsS4(c("terms", register(obj)))
 
   # Update the shared environment
   assign('old-formula', formula, state)

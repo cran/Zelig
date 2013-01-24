@@ -14,7 +14,6 @@ z.out <- zelig(
                model = "mlogit.bayes", 
                data = mexico
                )
-
 x.out <- setx(z.out)
 
 s.out <- sim(z.out, x = x.out)
@@ -109,21 +108,6 @@ x1.out <- setx(z.out, age=10, educate=5)
 s.out <- sim(z.out, x.out, x1.out)
 
 summary(s.out)
-
-# YOU NEVER WAIT SO LONG!
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 z.out <- zelig(cbind(Agr,Exam,Educ,Cath,InfMort)~NULL, 

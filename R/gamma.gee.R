@@ -13,7 +13,7 @@
 #' @param data a data.frame 
 #' @return a list specifying the call to the external model
 #' @export
-zelig2gamma.gee <- function (formula, id, robust, ..., R, corstr = "independence", data) {
+zelig2gamma.gee <- function (formula, id, robust = FALSE, ..., R = NULL, corstr = "independence", data) {
 
   loadDependencies("gee")
 
@@ -28,28 +28,28 @@ zelig2gamma.gee <- function (formula, id, robust, ..., R, corstr = "independence
     id <- sort(id)
   }
 
-  list(
-       .function = "gee",
-       .hook = "robust.hook",
-       .post = "clean.up.gamma.gee",
+  z(
+    .function = gee,
+    .hook = robust.gee.hook,
 
-       formula = formula,
-       id = id,
-       corstr = corstr,
-       family  = Gamma,
-       data = data,
-       ...
-       )
+    formula = formula,
+    id = id,
+    corstr = corstr,
+    family  = Gamma,
+    data = data,
+    ...
+    )
 }
 
 #' @S3method param gamma.gee
 param.gamma.gee <- function(obj, num=1000, ...) {
 
   # Extract means to compute maximum likelihood
-  mu <- coef(obj)
+  mu <- coef(.fitted)
 
   # Extract covariance matrix to compute maximum likelihood
-  Sigma <- vcov(obj)
+  Sigma <- .fitted$naive.variance
+
 
   #
   list(
