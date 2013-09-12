@@ -58,8 +58,10 @@ sim.default <- function(
     xes <- list()
     titles <- NULL
 
-    for (key in names(x)) {
-      xes[[key]] <- sim(obj, x[[key]], x1[[key]], y, num, bootstrap, bootfn, cond.data, ...)
+    # for (key in names(x)) {
+    for (k in 1:length(x)) {
+      key <- names(x)[[k]]
+      xes[[key]] <- sim(obj, x[[k]], x1[[k]], y, num, bootstrap, bootfn, cond.data, ...)
       attr(xes[[key]], "pooled") <- FALSE
       titles <- append(titles, xes[[key]]$titles)
     }
@@ -141,8 +143,22 @@ sim.default <- function(
 
     # If is.null then we just get the default bootstrap fn, which is merely to
     # simulate the systematic paramaters
-    if (is.null(bootstrapfn))
-      bootstrapfn <- Zelig:::bootstrap.default
+
+##   CRAN is opposed to ::: within same package, 
+##   but I'm opposed to S4 environment artifacts
+##    if (is.null(bootstrapfn))
+##      bootstrapfn <- Zelig:::bootstrap.default
+##   So this obviously makes my code better:
+
+    if (is.null(bootstrapfn)){
+      localbootstrap.default <- function (obj, ...)
+      list(
+         alpha = NULL,
+         beta = coef(obj)
+         )
+      bootstrapfn <- localbootstrap.default
+    }
+
 
     # Attach the appropriate environment to the function
     bootstrapfn <- attach.env(bootstrapfn, model.env)
