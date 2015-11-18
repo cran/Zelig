@@ -98,7 +98,7 @@ setval <- function(val, newval) {
   }
 } 
 
-#' Describe Here
+#' Summarize Quantities of Interest when Matricies
 #' @param qi quantity of interest in the discrete case
 #' @return a formatted qi
 #' @keywords internal
@@ -113,7 +113,7 @@ statmat <- function(qi) {
   return(p)
 }
 
-#' Describe Here
+#' Summarize Quantities of Interest when Factors
 #' @param qi quantity of interest in the discrete case
 #' @param num number of simulations
 #' @return a formatted qi
@@ -127,7 +127,7 @@ statlevel <- function(qi, num) {
   return(m)
 }
 
-#' 
+#' Pass Quantities of Interest to Appropriate Summary Function
 #' @param qi quantity of interest (e.g., estimated value or predicted value)
 #' @param num number of simulations
 #' @return a formatted qi

@@ -12,14 +12,14 @@ Description: A framework that brings together an abundance of common
     set of arguments.  Moreover, Zelig automates all the surrounding building
     blocks of a statistical workflow --procedures and algorithms that may be
     essential to one user's application but which the original package
-    developer did use in their own research and might not themselves support.
-    These include bootstrapping, jackknifing, and reweighting of data, and in
-    particular, Zelig automatically generates predicted and simulated
+    developer did not use in their own research and might not themselves
+    support. These include bootstrapping, jackknifing, and reweighting of data.
+    In particular, Zelig automatically generates predicted and simulated
     quantities of interest (such as relative risk ratios, average treatment
     effects, first differences and predicted and expected values) to interpret
     and visualize complex models.
-Version: 5.0-7
-Date: 2015-10-29
+Version: 5.0-8
+Date: 2015-11-18
 Imports: sandwich, methods, MASS, survival, VGAM, jsonlite, AER, plyr,
         dplyr (>= 0.3.0.2), quantreg, geepack, MCMCpack, Amelia,
         MatchIt, maxLik
@@ -37,6 +37,6 @@ Collate: 'utils.R' 'model-zelig.R' 'model-weibull.R' 'model-tobit.R'
         'model-gamma-gee.R' 'model-factor-bayes.R' 'model-exp.R'
         'create-json.R' 'plots.R' 'wrappers.R'
 NeedsCompilation: no
-Packaged: 2015-11-10 19:05:57 UTC; jhonaker
+Packaged: 2015-11-18 05:02:33 UTC; jhonaker
 Repository: CRAN
-Date/Publication: 2015-11-11 00:03:10
+Date/Publication: 2015-11-18 09:31:17
