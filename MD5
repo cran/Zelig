@@ -1,4 +1,4 @@
-ff424c33ae9c03dcfe793c5798e00748 *DESCRIPTION
+51e8814ffa088ba121e8a8c284eccf13 *DESCRIPTION
 cc8076ded09edd5e75572dc0931e8c31 *NAMESPACE
 9bdfdbb6aa04006cdb5696e799d0d0a5 *R/create-json.R
 894fd9b07c5db63aebf35dd2ba4cbe86 *R/model-bayes.R
@@ -32,9 +32,9 @@ fc21d931acb8b1b16cc33bd642725ce4 *R/model-relogit.R
 05afb39e5194a5254e932f511155c327 *R/model-tobit-bayes.R
 33aeaa9ef6264720cde6e0cd95a199a2 *R/model-tobit.R
 5c70b5d8c9f397542ca529104f7856e6 *R/model-weibull.R
-ea05a9b5a0dd4de7f838657c2ccf430a *R/model-zelig.R
-fbefb34ba8af7b6eca4ca165ded19275 *R/plots.R
-8d3d10dd2d45d9ec220a45873f02b5f6 *R/utils.R
+eb53cc5865b8657a3b8dfdf29d03db06 *R/model-zelig.R
+b0f49b112100d2e0b733c9e4eecf1521 *R/plots.R
+0b26a9bfc13d0aad9a703249b7fb109b *R/utils.R
 af1946aa88a6fb92de019c454b6a3f7d *R/wrappers.R
 d8568ae5389248b670f8c744a6393bc5 *data/MatchIt.url.tab.gz
 a6f9d73b7928a4b1b3098db3f47e5daa *data/PErisk.txt.gz

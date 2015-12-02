@@ -23,6 +23,11 @@
 #' @author James Honaker
 simulations.plot <-function(y, y1=NULL, xlab="", ylab="", main="", col=NULL, line.col=NULL, axisnames=TRUE) {
     
+    binarytest <- function(j){
+      if(!is.null(attr(j,"levels"))) return(identical( sort(levels(j)),c(0,1)))
+      return(FALSE)
+    }
+
     ## Univariate Plots ##
     if(is.null(y1)){
         
@@ -33,8 +38,12 @@ simulations.plot <-function(y, y1=NULL, xlab="", ylab="", main="", col=NULL, lin
         line.col <- "black"
         
         # Integer Values
-        if (length(unique(y))<11 & all(as.integer(y) == y)) {
+        if ((length(unique(y))<11 & all(as.integer(y) == y)) | is.factor(y) | is.character(y)) {
             
+                if(is.factor(y) | is.character(y)){
+                    y <- as.numeric(y)
+                }
+
                 # Create a sequence of names
                 nameseq <- paste("Y=", min(y):max(y), sep="")
                 
@@ -48,22 +57,91 @@ simulations.plot <-function(y, y1=NULL, xlab="", ylab="", main="", col=NULL, lin
                 output <- barplot(bar.heights, xlab=xlab, ylab=ylab, main=main, col=col[1],
                     axisnames=axisnames, names.arg=nameseq)
 
+        # Vector of 1's and 0's
+        } else if(ncol(as.matrix(y))>1 & binarytest(y) ){
+
+            n.y <- nrow(y)
+            # Precedence is names > colnames > 1:n
+            if(is.null(names(y))){
+                if(is.null(colnames(y) )){
+                    all.names <- 1:n.y
+                }else{
+                    all.names <- colnames(y)
+                }
+            }else{
+                all.names <- names(y)
+            }
+            
+            # Barplot with (potentially) some zero columns
+            output <- barplot( apply(y,2,sum)/n.y, xlab=xlab, ylab=ylab, main=main, col=col[1],
+                axisnames=axisnames, names.arg=all.names)
+
         # Continuous Values
         } else if(is.numeric(y)){
-            den.y <- density(y)
-            output <- plot(den.y, xlab=xlab, ylab=ylab, main=main, col=line.col[1])
-            if(!identical(col[1],"n")){
-                polygon(den.y$x, den.y$y, col=col[1])
+            if(ncol(as.matrix(y))>1){
+                ncoly <- ncol(y)
+                hold.dens <- list()
+                ymax <- xmax <- xmin <- rep(0,ncol(y))
+                for(i in 1:ncoly){
+                    hold.dens[[i]] <- density(y[,i])
+                    ymax[i] <- max(hold.dens[[i]]$y)
+                    xmax[i] <- max(hold.dens[[i]]$x)
+                    xmin[i] <- min(hold.dens[[i]]$x)
+                }
+                shift <- 0:ncoly
+                all.xlim <- c(min(xmin), max(xmax))
+                all.ylim <- c(0,ncoly)
+
+                # Precedence is names > colnames > 1:n
+                if(is.null(names(y))){
+                    if(is.null(colnames(y) )){
+                        all.names <- 1:ncoly
+                    }else{
+                        all.names <- colnames(y)
+                    }
+                }else{
+                    all.names <- names(y)
+                }
+                shrink <- 0.9
+                for(i in 1:ncoly ){
+                    if(i<ncoly){
+                        output <- plot(hold.dens[[i]]$x, shrink*hold.dens[[i]]$y/ymax[i] + shift[i], xaxt="n", yaxt="n", xlab="", ylab="", main="", col=line.col[1], xlim=all.xlim, ylim=all.ylim, type="l")
+                        if(!identical(col[1],"n")){
+                            polygon(hold.dens[[i]]$x, shrink*hold.dens[[i]]$y/ymax[i] + shift[i], col=col[1])
+                        }
+                        abline(h=shift[i+1])
+                        text(x=all.xlim[1], y=(shift[i] + shift[i+1])/2, labels=all.names[i], pos=4)
+                        par(new=TRUE)
+                    }else{
+                        output <- plot(hold.dens[[i]]$x, shrink*hold.dens[[i]]$y/ymax[i] + shift[i], yaxt="n", xlab=xlab, ylab=ylab, main=main, col=line.col[1], xlim=all.xlim, ylim=all.ylim, type="l")
+                        if(!identical(col[1],"n")){
+                            polygon(hold.dens[[i]]$x, shrink*hold.dens[[i]]$y/ymax[i] + shift[i], col=col[1])
+                        }
+                        text(x=all.xlim[1], y=(shift[i] + shift[i+1])/2, labels=all.names[i], pos=4)
+                    }
+                }
+
+            }else{
+                den.y <- density(y)
+                output <- plot(den.y, xlab=xlab, ylab=ylab, main=main, col=line.col[1])
+                if(!identical(col[1],"n")){
+                    polygon(den.y$x, den.y$y, col=col[1])
+                }
             }
         }
         
     ## Comparison Plots ##
         
-    } else {
+    }else{
         
         # Integer - Plot and shade a matrix
-        if( length(unique(y))<11 & all(as.integer(y) == y) ){
+        if(( length(unique(y))<11 & all(as.integer(y) == y) ) | is.factor(y) | is.character(y)){
             
+            if(is.factor(y) | is.character(y)){
+                y <- as.numeric(y)
+                y1 <- as.numeric(y1)
+            }
+
             yseq<-min(c(y,y1)):max(c(y,y1))
             nameseq<- paste("Y=",yseq,sep="")
             n.y<-length(yseq)
@@ -100,11 +178,65 @@ simulations.plot <-function(y, y1=NULL, xlab="", ylab="", main="", col=NULL, lin
             axis(side=2,labels=nameseq, at=seq(0,1,length=n.y), cex.axis=1, las=3)
             box()
             par(pty=old.pty,mai=old.mai)
-            
-            
-            ## Numeric - Plot two densities on top of each other
-        }else if(is.numeric(y) & is.numeric(y1)){
+        ##  Two Vectors of 1's and 0's
+        }else if( ncol(as.matrix(y))>1 & binarytest(y) & ncol(as.matrix(y1))>1 & binarytest(y1)   )  {
 
+            # Everything in this section assumes ncol(y)==ncol(y1)
+
+            # Precedence is names > colnames > 1:n
+            if(is.null(names(y))){
+                if(is.null(colnames(y) )){
+                    nameseq <- 1:n.y
+                }else{
+                    nameseq <- colnames(y)
+                }
+            }else{
+                nameseq <- names(y)
+            }
+
+            n.y <- ncol(y)
+            yseq <- 1:n.y
+
+            y <- y %*% yseq
+            y1 <- y1 %*% yseq
+
+            ## FROM HERE ON -- Replicates above.  Should address more generically
+            colors<-rev(heat.colors(n.y^2))
+            lab.colors<-c("black","white")
+            comp<-matrix(NA,nrow=n.y,ncol=n.y)
+            
+            for(i in 1:n.y){
+                for(j in 1:n.y){
+                    flag<- y==yseq[i] & y1==yseq[j]
+                    comp[i,j]<-mean(flag)
+                }
+            }
+            
+            old.pty<-par()$pty
+            old.mai<-par()$mai
+            
+            par(pty="s")
+            par(mai=c(0.3,0.3,0.3,0.1))
+            
+            image(z=comp, axes=FALSE, col=colors, zlim=c(min(comp),max(comp)),main=main )
+            
+            locations.x<-seq(from=0,to=1,length=nrow(comp))
+            locations.y<-locations.x
+            
+            for(m in 1:n.y){
+                for(n in 1:n.y){
+                    text(x=locations.x[m],y=locations.y[n],labels=paste(round(100*comp[m,n])), col=lab.colors[(comp[m,n]> ((max(comp)-min(comp))/2) )+1])
+                }
+            }
+            
+            axis(side=1,labels=nameseq, at=seq(0,1,length=n.y), cex.axis=1, las=1)
+            axis(side=2,labels=nameseq, at=seq(0,1,length=n.y), cex.axis=1, las=3)
+            box()
+            par(pty=old.pty,mai=old.mai)
+         
+        ## Numeric - Plot two densities on top of each other
+        }else if(is.numeric(y) & is.numeric(y1)){
+            
             if(is.null(col)){
                 semi.col.x <-rgb(142,229,238,150,maxColorValue=255)
                 semi.col.x1<-rgb(255,114,86,150,maxColorValue=255)
@@ -112,22 +244,79 @@ simulations.plot <-function(y, y1=NULL, xlab="", ylab="", main="", col=NULL, lin
             }else if(length(col)<2){
                 col<-c(col,col)
             }
+
+            if(ncol(as.matrix(y))>1){
+                shrink <- 0.9
+                ncoly <- ncol(y)  # Assumes columns of y match cols y1.  Should check or enforce.
+                # Precedence is names > colnames > 1:n
+                if(is.null(names(y))){
+                    if(is.null(colnames(y) )){
+                        all.names <- 1:ncoly
+                    }else{
+                        all.names <- colnames(y)
+                    }
+                }else{
+                    all.names <- names(y)
+                }
+
+                hold.dens.y <- hold.dens.y1 <- list()
+                ymax <- xmax <- xmin <- rep(0,ncoly)
+                for(i in 1:ncoly){
+                    hold.dens.y[[i]] <- density(y[,i])
+                    hold.dens.y1[[i]] <- density(y1[,i], bw=hold.dens.y[[i]]$bw)
+                    ymax[i] <- max(hold.dens.y[[i]]$y, hold.dens.y1[[i]]$y)
+                    xmax[i] <- max(hold.dens.y[[i]]$x, hold.dens.y1[[i]]$x)
+                    xmin[i] <- min(hold.dens.y[[i]]$x, hold.dens.y1[[i]]$x)
+                }
+                all.xlim <- c(min(xmin), max(xmax))
+                all.ylim <- c(0,ncoly)
+                shift <- 0:ncoly
+                for(i in 1:ncoly ){
+                    if(i<ncoly){
+                        output <- plot(hold.dens.y[[i]]$x, shrink*hold.dens.y[[i]]$y/ymax[i] + shift[i], xaxt="n", yaxt="n", xlab="", ylab="", main="", col=line.col[1], xlim=all.xlim, ylim=all.ylim, type="l")
+                        par(new=TRUE)
+                        output <- plot(hold.dens.y1[[i]]$x, shrink*hold.dens.y1[[i]]$y/ymax[i] + shift[i], xaxt="n", yaxt="n", xlab="", ylab="", main="", col=line.col[2], xlim=all.xlim, ylim=all.ylim, type="l")
+
+                        if(!identical(col[1],"n")){
+                            polygon(hold.dens.y[[i]]$x, shrink*hold.dens.y[[i]]$y/ymax[i] + shift[i], col=col[1])
+                        }
+                        if(!identical(col[2],"n")){
+                            polygon(hold.dens.y1[[i]]$x, shrink*hold.dens.y1[[i]]$y/ymax[i] + shift[i], col=col[2])
+                        }
+                        abline(h=shift[i+1])
+                        text(x=all.xlim[1], y=(shift[i] + shift[i+1])/2, labels=all.names[i], pos=4)
+                        par(new=TRUE)
+                    }else{
+                        output <- plot(hold.dens.y[[i]]$x, shrink*hold.dens.y[[i]]$y/ymax[i] + shift[i], yaxt="n", xlab=xlab, ylab=ylab, main=main, col=line.col[1], xlim=all.xlim, ylim=all.ylim, type="l")
+                        par(new=TRUE)
+                        output <- plot(hold.dens.y1[[i]]$x, shrink*hold.dens.y1[[i]]$y/ymax[i] + shift[i], yaxt="n", xlab=xlab, ylab=ylab, main=main, col=line.col[1], xlim=all.xlim, ylim=all.ylim, type="l")
+
+                        if(!identical(col[1],"n")){
+                            polygon(hold.dens.y[[i]]$x, shrink*hold.dens.y[[i]]$y/ymax[i] + shift[i], col=col[1])
+                        }
+                        if(!identical(col[2],"n")){
+                            polygon(hold.dens.y1[[i]]$x, shrink*hold.dens.y1[[i]]$y/ymax[i] + shift[i], col=col[2])
+                        }
+                        text(x=all.xlim[1], y=(shift[i] + shift[i+1])/2, labels=all.names[i], pos=4)
+                    }
+                } 
+            }else{
+                den.y<-density(y)
+                den.y1<-density(y1,bw=den.y$bw)
             
-            den.y<-density(y)
-            den.y1<-density(y1,bw=den.y$bw)
+                all.xlim<-c(min(c(den.y$x,den.y1$x)),max(c(den.y$x,den.y1$x)))
+                all.ylim<-c(min(c(den.y$y,den.y1$y)),max(c(den.y$y,den.y1$y)))
             
-            all.xlim<-c(min(c(den.y$x,den.y1$x)),max(c(den.y$x,den.y1$x)))
-            all.ylim<-c(min(c(den.y$y,den.y1$y)),max(c(den.y$y,den.y1$y)))
+                output<-plot(den.y,xlab=xlab,ylab=ylab,main=main,col=col[1],xlim=all.xlim,ylim=all.ylim)
+                par(new=TRUE)
+                output<-plot(den.y1,xlab=xlab,ylab=ylab,main="",col=col[2],xlim=all.xlim,ylim=all.ylim)
             
-            output<-plot(den.y,xlab=xlab,ylab=ylab,main=main,col=col[1],xlim=all.xlim,ylim=all.ylim)
-            par(new=TRUE)
-            output<-plot(den.y1,xlab=xlab,ylab=ylab,main="",col=col[2],xlim=all.xlim,ylim=all.ylim)
-            
-            if(!identical(col[1],"n")){
-                polygon(den.y$x,den.y$y,col=col[1])
-            }
-            if(!identical(col[1],"n")){
-                polygon(den.y1$x,den.y1$y,col=col[2])
+                if(!identical(col[1],"n")){
+                    polygon(den.y$x,den.y$y,col=col[1])
+                }
+                if(!identical(col[2],"n")){
+                    polygon(den.y1$x,den.y1$y,col=col[2])
+                }
             }
         }
     }

@@ -98,7 +98,7 @@ setval <- function(val, newval) {
   }
 } 
 
-#' Summarize Quantities of Interest when Matricies
+#' Describe Here
 #' @param qi quantity of interest in the discrete case
 #' @return a formatted qi
 #' @keywords internal
@@ -113,21 +113,24 @@ statmat <- function(qi) {
   return(p)
 }
 
-#' Summarize Quantities of Interest when Factors
+#' Describe Here
 #' @param qi quantity of interest in the discrete case
 #' @param num number of simulations
 #' @return a formatted qi
 #' @keywords internal
 #' @author Christine Choirat
 statlevel <- function(qi, num) {
-  if (is.matrix(qi))
-    m <- t(apply(qi, 2, table)) / num
-  else
-    m <- table(qi) / num
+    if (is.matrix(qi)){
+        #m <- t(apply(qi, 2, table)) / num
+        all.levels <- levels(qi)
+        m <- t(apply(qi, 2, function(x) table(factor(x, levels=all.levels)))) / num
+    }else{
+        m <- table(qi) / num
+    }
   return(m)
 }
 
-#' Pass Quantities of Interest to Appropriate Summary Function
+#' 
 #' @param qi quantity of interest (e.g., estimated value or predicted value)
 #' @param num number of simulations
 #' @return a formatted qi

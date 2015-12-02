@@ -136,6 +136,7 @@ z$methods(
     .self$vignette.url <- sub("-gee", "gee", .self$vignette.url)
     .self$vignette.url <- sub("-bayes", "bayes", .self$vignette.url)
     # .self$vignette.url <- paste(.self$url.docs, "zelig-", sub("-", "", .self$name), ".html", sep = "")
+    .self$category <- "undefined"
     .self$explanatory <- c("continuous",
                            "discrete",
                            "nominal",
@@ -205,7 +206,7 @@ z$methods(
 )
 
 z$methods(
-  zelig = function(formula, data, ..., weights=NULL, by) {
+  zelig = function(formula, data, model=NULL, ..., weights=NULL, by) {
     "The zelig command estimates a variety of statistical models"
     fn2 <- function(fc, data) {
       fc$data <- data
@@ -221,7 +222,15 @@ z$methods(
       .self$formula <- as.formula( .self$mcformula, env=environment(.self$formula) )
       .self$model.call$formula <- as.formula( .self$mcformula, env=globalenv() )
     }
-    
+    if(!is.null(model)){
+      cat("Argument model is only valid for the Zelig wrapper, but not the Zelig method, and will be ignored.\n")
+      flag <- !(names(.self$model.call)=="model")
+      .self$model.call <- .self$model.call[flag]
+      flag <- !(names(.self$zelig.call)=="model")
+      .self$zelig.call <- .self$zelig.call[flag]
+    }
+
+
     .self$by <- by
     .self$originaldata <- data
     .self$originalweights <- weights
@@ -354,12 +363,18 @@ z$methods(
   set = function(...) {
     "Setting Explanatory Variable Values"
     s <-list(...)
-    f <- update(.self$formula, 1 ~ .)
+    # This eliminates warning messages when factor rhs passed to lm() model in reduce() utility function
+    if(.self$category=="multinomial"){  # Perhaps find more robust way to test if dep.var. is factor
+      f2 <- update(.self$formula, as.numeric(.) ~ .)
+    }else{
+      f2 <- .self$formula
+    }
+      f <- update(.self$formula, 1 ~ .)      
     # update <- na.omit(.self$data) %>% # remove missing values
     update <- .self$data %>%
       group_by_(.self$by) %>%
       do(mm = model.matrix(f, reduce(dataset = ., s, 
-                                     formula = .self$formula,
+                                     formula = f2, 
                                      data = .self$data)))
     return(update)
   }
@@ -492,7 +507,11 @@ z$methods(
       # Current workaround to display call as $zelig.call rather than $model.call
       # should improve this approach in future:
       for(jj in 1:length(.self$zelig.out$z.out)){
-      	.self$zelig.out$z.out[[jj]]$call <- .self$zelig.call
+        if("S4" %in% typeof(.self$zelig.out$z.out[[jj]]) ){
+          slot(.self$zelig.out$z.out[[jj]],"call") <- .self$zelig.call
+        } else {
+      	  .self$zelig.out$z.out[[jj]]$call <- .self$zelig.call
+        }
       }	
       #############################################################################
 
@@ -548,7 +567,11 @@ z$methods(
           } else {
               print(.[.self$by])
           }
-          print(base::summary(.$z.out))
+          if("S4" %in% typeof(.$z.out)){  # Need to change summary method here for some classes
+              print(summary(.$z.out))    
+          }else{
+              print(base::summary(.$z.out))
+          }
         })
       }
 
@@ -789,7 +812,7 @@ z$methods(
         temp<-.self$sim.out$range[[i]]$ev[[1]]
         # This is for ev's that are a probability distribution across outcomes, like ordered logit/probit
         if(ncol(temp)>1){
-            temp <- temp %*% as.numeric(colnames(temp))
+          temp <- temp %*% as.numeric(sort(unique(data.sim$y.sim)))  #as.numeric(colnames(temp))
         }
         temp <- sort(temp)
         
