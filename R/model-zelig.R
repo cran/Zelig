@@ -78,12 +78,15 @@ z <- setRefClass("Zelig", fields = list(fn = "ANY", # R function to call to wrap
                                         bsetrange1 = "logical",
                                         range = "ANY",
                                         range1 = "ANY",
+                                        setforeveryby = "logical",
 
                                         test.statistics = "ANY",
                                         
                                         sim.out = "list", # simulated qi's
                                         simparam = "ANY", # simulated parameters
                                         num = "numeric", # nb of simulations
+                                        bootstrap = "logical", # use bootstrap
+                                        bootstrap.num = "numeric", # number of bootstraps to use
 
                                         authors = "character", # Zelig model description
                                         zeligauthors = "character",
@@ -131,6 +134,9 @@ z$methods(
     .self$bsetrange <- FALSE
     .self$bsetrange1 <- FALSE
     .self$acceptweights <- FALSE
+
+    .self$bootstrap <- FALSE
+    .self$bootstrap.num <- 100
     # JSON
     .self$vignette.url <- paste(.self$url.docs, tolower(class(.self)[1]), ".html", sep = "")
     .self$vignette.url <- sub("-gee", "gee", .self$vignette.url)
@@ -146,6 +152,7 @@ z$methods(
     .self$wrapper <- "wrapper"
     # Is 'ZeligFeedback' package installed?
     .self$with.feedback <- "ZeligFeedback" %in% installed.packages()
+    .self$setforeveryby <- TRUE
   }
 )
 
@@ -206,12 +213,13 @@ z$methods(
 )
 
 z$methods(
-  zelig = function(formula, data, model=NULL, ..., weights=NULL, by) {
+  zelig = function(formula, data, model=NULL, ..., weights=NULL, by, bootstrap=FALSE) {
     "The zelig command estimates a variety of statistical models"
     fn2 <- function(fc, data) {
       fc$data <- data
       return(fc)
     }
+
     .self$formula <- formula
     # Overwrite formula with mc unit test formula into correct environment, if it exists
     # Requires fixing R scoping issue
@@ -235,6 +243,23 @@ z$methods(
     .self$originaldata <- data
     .self$originalweights <- weights
     datareformed <- FALSE
+
+    if(is.numeric(bootstrap)){
+      .self$bootstrap <- TRUE
+      .self$bootstrap.num <- bootstrap
+    }else if(is.logical(bootstrap)){
+      .self$bootstrap <- bootstrap
+    }
+    # Remove bootstrap argument from model call
+    .self$model.call$bootstrap <- NULL
+    # Check if bootstrap possible by checking whether param method has method argument available
+    if(.self$bootstrap){
+      if(!("method" %in% names(formals(.self$param)))){
+        stop("The bootstrap does not appear to be implemented for this Zelig model.  Check that the param() method allows point predictions.")
+      }
+      .self$setforeveryby <- FALSE  # compute covariates in set() at the dataset-level
+    }
+
 
     # Matched datasets from MatchIt
     if ("matchit" %in% class(data)){
@@ -286,6 +311,7 @@ z$methods(
       datareformed <- TRUE
       .self$by <- c("imputationNumber", by)
       .self$mi <- TRUE
+      .self$setforeveryby <- FALSE  # compute covariates in set() at on the entire stacked dataset
       .self$refs<-c(.self$refs, citation("Amelia"))
     } else {
       .self$mi <- FALSE
@@ -332,12 +358,16 @@ z$methods(
     # Otherwise we pass the weights to the model call  
     if(!is.null(.self$weights)){
       if ((!.self$acceptweights)){
-        .self$buildDataByWeights2()  # Could use alternative method $buildDataByWeights() for duplication approach.  Maybe set as argument?\
+        .self$buildDataByWeights2()   # Could use alternative method $buildDataByWeights() for duplication approach.  Maybe set as argument?\
         .self$model.call$weights <- NULL
 	  } else {
 		.self$model.call$weights <- .self$weights   # NEED TO CHECK THIS IS THE NAME FOR ALL MODELS, or add more generic field containing the name for the weights argument
 	  }
 	}
+
+    if(.self$bootstrap){
+      .self$buildDataByBootstrap()
+    }
 
     .self$model.call[[1]] <- .self$fn
     .self$model.call$by <- NULL
@@ -371,11 +401,32 @@ z$methods(
     }
       f <- update(.self$formula, 1 ~ .)      
     # update <- na.omit(.self$data) %>% # remove missing values
-    update <- .self$data %>%
-      group_by_(.self$by) %>%
-      do(mm = model.matrix(f, reduce(dataset = ., s, 
+
+    # compute on each slice of the dataset defined by "by"
+    if(.self$setforeveryby){  
+      update <- .self$data %>%
+        group_by_(.self$by) %>%
+        do(mm = model.matrix(f, reduce(dataset = "MEANINGLESS ARGUMENT", s, 
                                      formula = f2, 
-                                     data = .self$data)))
+                                     data = .)))  # fix in last argument from data=.self$data to data=.  (JH)
+
+    # compute over the entire dataset  - currently used for mi and bootstrap.  Should be opened up to user.    
+    } else {  
+      if(.self$bootstrap){
+        flag <- .self$data$bootstrapIndex == (.self$bootstrap.num + 1) # These are the original observations
+        tempdata <- .self$data[flag,]  
+      }else{
+        tempdata <- .self$data # presently this is for mi.  And this is then the entire stacked dataset.
+      }
+
+      allreduce <- reduce(dataset = "MEANINGLESS ARGUMENT", s, 
+                                     formula = f2, 
+                                     data = tempdata)
+      allmm <- model.matrix(f, allreduce) 
+      update <- .self$data %>%
+        group_by_(.self$by) %>%
+        do(mm = allmm)  
+    }
     return(update)
   }
 )
@@ -427,12 +478,42 @@ z$methods(
 )
 
 z$methods(
+  param = function(z.out, method="mvn") {
+    if(identical(method,"mvn")){
+      return(mvrnorm(.self$num, coef(z.out), vcov(z.out))) 
+    } else if(identical(method,"point")){
+      return(t(as.matrix(coef(z.out))))
+    } else {
+      stop("param called with method argument of undefined type.")
+    }
+  }
+)
+
+
+z$methods(
   sim = function(num = 1000) {
     "Generic Method for Computing and Organizing Simulated Quantities of Interest"
+
     if (length(.self$num) == 0) 
       .self$num <- num
-    .self$simparam <- .self$zelig.out %>%
-      do(simparam = .self$param(.$z.out))
+
+    # Divide simulations among imputed datasets
+    if(.self$mi){
+      am.m<-length(.self$getcoef())
+      .self$num <- ceiling(.self$num/am.m)
+    }
+
+    # If bootstrapped, use distribution of estimated parameters, 
+    #  otherwise use $param() method for parametric bootstrap.    
+    if (.self$bootstrap & ! .self$mi){
+      .self$num <- 1 
+      .self$simparam <- .self$zelig.out %>%
+        do(simparam = .self$param(.$z.out, method="point"))
+    } else {
+      .self$simparam <- .self$zelig.out %>%
+        do(simparam = .self$param(.$z.out))
+    }
+
     if (.self$bsetx)
       .self$simx()
     if (.self$bsetx1)
@@ -495,7 +576,7 @@ z$methods(
 )
 
 z$methods(
-  show = function(signif.stars = FALSE, subset = NULL) {
+  show = function(signif.stars = FALSE, subset = NULL, bagging = FALSE) {
     "Display a Zelig object"
     .self$signif.stars <- signif.stars
     .self$signif.stars.default <- getOption("show.signif.stars")
@@ -552,6 +633,52 @@ z$methods(
       }else if ((.self$mi) & !is.null(subset)) {
         for(i in subset){
             cat("Imputed Dataset ",i,sep="")
+            print(base::summary(.self$zelig.out$z.out[[i]]))
+        }
+      }else if ((.self$bootstrap) & is.null(subset)) {  
+        # Much reuse of Rubin's Rules from above.  Probably able to better generalize across these two cases:
+        cat("Model: Combined Bootstraps \n")
+        vcovlist <-.self$getvcov()
+        coeflist <-.self$getcoef()
+        am.m<-length(coeflist) - 1
+        am.k<-length(coeflist[[1]])
+        q <- matrix(unlist(coeflist[-(am.m+1)]), nrow=am.m, ncol=am.k, byrow=TRUE)
+        #se <- matrix(NA, nrow=am.m, ncol=am.k)
+        #for(i in 1:am.m){
+        #  se[i,]<-sqrt(diag(vcovlist[[i]]))
+        #}
+        ones <- matrix(1, nrow = 1, ncol = am.m)
+        imp.q <- (ones %*% q)/am.m        # Slightly faster than "apply(b,2,mean)"
+        #ave.se2 <- (ones %*% (se^2))/am.m # Similarly, faster than "apply(se^2,2,mean)"
+        diff <- q - matrix(1, nrow = am.m, ncol = 1) %*% imp.q
+        sq2 <- (ones %*% (diff^2))/(am.m - 1)
+        #imp.se <- sqrt(ave.se2 + sq2 * (1 + 1/am.m))
+        imp.se <- sqrt(sq2 * (1 + 1/am.m))  # Note departure from Rubin's rules here.  
+        
+        if(bagging){    
+          Estimate<-as.vector(imp.q)
+        }else{
+          Estimate<-coeflist[[am.m+1]]
+        }
+        Std.Error<-as.vector(imp.se)
+        zvalue<-Estimate/Std.Error
+        Pr.z<-2*(1-pnorm(abs(zvalue)))
+        stars<-rep("",am.k)
+        stars[Pr.z<.05]<-"."
+        stars[Pr.z<.01]<-"*"
+        stars[Pr.z<.001]<-"**"
+        stars[Pr.z<.0001]<-"***"
+
+        results<-data.frame(Estimate,Std.Error,zvalue,Pr.z,stars,row.names=names(coeflist[[1]]))
+        names(results)<-c("Estimate","Std.Error","z value","Pr(>|z|)","")
+        print(results, digits=max(3, getOption("digits") - 3))
+        cat("---\nSignif. codes:  '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n")
+        cat("\n")
+        cat("For results from individual bootstrapped datasets, use summary(x, subset = i:j)\n")
+
+      }else if ((.self$bootstrap) & !is.null(subset)) {
+        for(i in subset){
+            cat("Bootstrapped Dataset ",i,sep="")
             print(base::summary(.self$zelig.out$z.out[[i]]))
         }
       }else{
@@ -661,7 +788,7 @@ z$methods(
 z$methods(
   summarise = function(...) {
     "Display a Zelig object"
-    summarize(...)
+    show(...)
   }
 )
 
@@ -717,21 +844,31 @@ z$methods(
 )
 
 z$methods(
-  getqi = function(qi="ev", xvalue="x"){
+  getqi = function(qi="ev", xvalue="x", subset=NULL){
     "Get quantities of interest"
     possiblexvalues <- names(.self$sim.out)
     if(!(xvalue %in% possiblexvalues)){
       stop(paste("xvalue must be ", paste(possiblexvalues, collapse=" or ") , ".", sep=""))
     }
-    possibleqivalues <- names(.self$sim.out[[xvalue]])
+    possibleqivalues <- c(names(.self$sim.out[[xvalue]]), names(.self$sim.out[[xvalue]][[1]]))
     if(!(qi %in% possibleqivalues)){
       stop(paste("qi must be ", paste(possibleqivalues, collapse=" or ") , ".", sep=""))
     }
-
     if(.self$mi){
-      tempqi <- do.call(rbind, .self$sim.out[[xvalue]][[qi]])
+      if(is.null(subset)){
+        am.m<-length(.self$getcoef())
+        subset <- 1:am.m
+      }
+      tempqi <- do.call(rbind, .self$sim.out[[xvalue]][[qi]][subset])
+    } else if(.self$bootstrap){
+      if(is.null(subset)){
+        subset <- 1:.self$bootstrap.num
+      }
+      tempqi <- do.call(rbind, .self$sim.out[[xvalue]][[qi]][subset])
+    } else if(xvalue %in% c("range", "range1")) {
+      tempqi <- do.call(rbind, .self$sim.out[[xvalue]])[[qi]]
     } else {
-      tempqi<- .self$sim.out[[xvalue]][[qi]][[1]]
+      tempqi<- .self$sim.out[[xvalue]][[qi]][[1]]   # also works:   tempqi <- do.call(rbind, .self$sim.out[[xvalue]][[qi]])
     }
     return(tempqi)
   }
@@ -884,7 +1021,7 @@ z$methods(
         n.obs <- nrow(idata)
         n.w   <- sum(iweights)
         iweights <- iweights/n.w
-        windex <- sample(x=1:n.obs, size=n.w, replace=TRUE, prob=iweights)
+        windex <- sample(x=1:n.obs, size=n.w, replace=TRUE, prob=iweights)  # Should size be n.w or n.obs?  Relatedly, n.w might not be integer.
         idata <- idata[windex,]
         .self$data <- idata
       }else{
@@ -893,6 +1030,42 @@ z$methods(
     }
   }
 )
+
+
+# rebuild dataset by bootstrapping using weights as probabilities
+#   might possibly combine this method with $buildDataByWeights2()
+z$methods(
+  buildDataByBootstrap = function() {
+      idata <- .self$data 
+      n.boot <- .self$bootstrap.num
+      n.obs <- nrow(idata)
+
+      if(!is.null(.self$weights)){
+        iweights <- .self$weights
+        n.w   <- sum(iweights)
+        iweights <- iweights/n.w
+      }else{
+        iweights <- NULL
+      }
+
+      windex <- bootstrapIndex <- NULL
+      for(i in 1:n.boot){
+        windex <- c(windex, sample(x=1:n.obs, size=n.obs, replace=TRUE, prob=iweights))
+        bootstrapIndex <- c(bootstrapIndex, rep(i,n.obs))
+      } 
+      # Last dataset is original data
+      idata <- rbind(idata[windex,], idata)
+      bootstrapIndex <- c(bootstrapIndex, rep(n.boot+1,n.obs))
+
+      idata$bootstrapIndex <- bootstrapIndex
+      .self$data <- idata
+      .self$by <- c("bootstrapIndex", .self$by)
+  }
+)
+
+
+
+
 
 z$methods(
   feedback = function() {

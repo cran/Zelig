@@ -30,7 +30,7 @@ zexp$methods(
 )
 
 zexp$methods(
-  zelig = function(formula, ..., robust = FALSE, cluster = NULL, data, weights = NULL, by = NULL) {
+  zelig = function(formula, ..., robust = FALSE, cluster = NULL, data, weights = NULL, by = NULL, bootstrap = FALSE) {
     .self$zelig.call <- match.call(expand.dots = TRUE)
     .self$model.call <- .self$zelig.call
     if (!(is.null(cluster) || robust))
@@ -41,15 +41,9 @@ zexp$methods(
     .self$model.call$dist <- "exponential"
     .self$model.call$model <- FALSE
     callSuper(formula = formula, data = data, ..., robust = robust,
-              cluster = cluster,  weights = weights, by = by)
+              cluster = cluster,  weights = weights, by = by, bootstrap = bootstrap)
     rse<-plyr::llply(.self$zelig.out$z.out, (function(x) vcovHC(x,type="HC0")))
     .self$test.statistics<- list(robust.se = rse)
-  }
-)
-
-zexp$methods(
-  param = function(z.out) {
-    return(mvrnorm(.self$num, coef(z.out), vcov(z.out)))
   }
 )
 

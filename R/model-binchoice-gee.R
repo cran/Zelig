@@ -19,15 +19,14 @@ zbinchoicegee$methods(
     .self$year <- 2011
     .self$category <- "continuous"
     .self$authors <- "Patrick Lam"
-    .self$description = "General Estimating Equation for Logistic Regression"
     .self$fn <- quote(geepack::geeglm)
     # JSON from parent
   }
 )
 
 zbinchoicegee$methods(
-  param = function(z.out) {
-    simparam.local <- callSuper(z.out)
+  param = function(z.out, method="mvn") {
+    simparam.local <- callSuper(z.out, method=method)
     return(simparam.local$simparam) # no ancillary parameter
   }
 )

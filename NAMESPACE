@@ -1,8 +1,8 @@
 import(sandwich, methods, survival, jsonlite, dplyr,
-       geepack, MCMCpack, Amelia, MatchIt, maxLik)
+       geepack, MCMCpack, Amelia, MatchIt, maxLik, survey)
 
 importFrom("plyr", "llply")
-importFrom("MASS", "glm.nb", "rnegbin", "mvrnorm")
+importFrom("MASS", "glm.nb", "rnegbin", "mvrnorm", "gamma.shape")
 importFrom("VGAM", "vglm")
 importFrom("AER", "tobit")
 importFrom("quantreg", "rq", "summary.rq", "bandwidth.rq")
@@ -12,7 +12,7 @@ importFrom("graphics", "abline", "axis", "barplot", "box", "image",
 importFrom("stats", "binomial", "complete.cases", "density", "glm",
              "lm", "lm.influence", "median", "model.frame",
              "model.matrix", "model.response", "na.omit", "quantile",
-             "sd", "terms", "update")
+             "sd", "terms", "update", "ARMAacf", "rnorm")
 
 importClassesFrom("VGAM", "vglm")
 importMethodsFrom("VGAM", "coef", "fitted", "predict", "vcov")
@@ -48,6 +48,10 @@ exportClasses(
      "Zelig-poisson-bayes",
      "Zelig-probit-bayes",
      "Zelig-tobit-bayes",
-     "Zelig-weibull"
+     "Zelig-weibull",
+     "Zelig-timeseries",
+     "Zelig-arima",
+     "Zelig-ar",
+     "Zelig-ma"
 )
 
