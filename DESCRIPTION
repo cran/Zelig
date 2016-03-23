@@ -18,8 +18,8 @@ Description: A framework that brings together an abundance of common
     quantities of interest (such as relative risk ratios, average treatment
     effects, first differences and predicted and expected values) to interpret
     and visualize complex models.
-Version: 5.0-10
-Date: 2016-03-14
+Version: 5.0-11
+Date: 2016-03-15
 Imports: sandwich, methods, MASS, survival, VGAM, jsonlite, AER, plyr,
         dplyr (>= 0.3.0.2), quantreg, geepack, MCMCpack, Amelia,
         MatchIt, maxLik, survey
@@ -41,6 +41,6 @@ Collate: 'utils.R' 'model-zelig.R' 'model-weibull.R' 'model-tobit.R'
         'model-probit-survey.R' 'model-timeseries.R' 'model-arima.R'
         'model-ar.R' 'model-ma.R' 'plots.R' 'wrappers.R'
 NeedsCompilation: no
-Packaged: 2016-03-14 16:07:06 UTC; jhonaker
+Packaged: 2016-03-22 05:50:29 UTC; jhonaker
 Repository: CRAN
-Date/Publication: 2016-03-14 17:58:17
+Date/Publication: 2016-03-23 00:24:47

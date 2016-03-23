@@ -1,6 +1,6 @@
-bc643ee81e70933f8990e699aea86dbf *DESCRIPTION
+34f7da1932c605d938562860b10bac62 *DESCRIPTION
 9eca1f98062f65cea4eb074126684584 *NAMESPACE
-e17eeb403c19fe21ec0c22a41c21f48f *R/create-json.R
+051a11b0783a6a6a0f4c57abd50259a0 *R/create-json.R
 c7d9a1d3b894bb729a56108024f4d594 *R/model-ar.R
 142e40927738a13a37318f1163cc9ac5 *R/model-arima.R
 03e5ce6ba51dfc85ce0674ab42b929ea *R/model-bayes.R
@@ -43,7 +43,7 @@ a08ed27844657009a9d117e69ac4077a *R/model-relogit.R
 05afb39e5194a5254e932f511155c327 *R/model-tobit-bayes.R
 2fb75077534b3895dde170227320a9c4 *R/model-tobit.R
 e9bd975aaf78acee9ad3db35b7706f4d *R/model-weibull.R
-2acd6ef479422402ec56f2878e4d06c5 *R/model-zelig.R
+65cefaddd75b7d8a7a8df9fd406a1f35 *R/model-zelig.R
 646c500af1a734d8304d7bcb2689e930 *R/plots.R
 db2417bb1d2aaf8806c762e92380960f *R/utils.R
 29372a7a9fd4debf826bc80381380bc6 *R/wrappers.R
@@ -124,7 +124,7 @@ faa230de3f733f092b0e164989bfbb9f *demo/demo-show.R
 802e49193f38523d4b2c53042eee31b6 *demo/demo-wrappers.R
 705ed5d9b2ba6b974c8fc62b2821d784 *demo/demo-zip.R
 1991a163805286e252e97ca46aaa36df *inst/CITATION
-4a6b5bd21db841e0e6329a7c65f35e96 *inst/JSON/zelig5models.json
+f6d6c1696388c3deea6e722c063aeb00 *inst/JSON/zelig5models.json
 6dffb5b20df0d6fa72529763c7f62a27 *man/MatchIt.url.Rd
 1b3aaacdbe0696c2819ef607d8b13201 *man/Median.Rd
 1db0da1384b99a428b1179cebd89c3f5 *man/Mode.Rd
