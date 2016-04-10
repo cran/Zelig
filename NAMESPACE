@@ -1,5 +1,5 @@
 import(sandwich, methods, survival, jsonlite, dplyr,
-       geepack, MCMCpack, Amelia, MatchIt, maxLik, survey)
+       geepack, MCMCpack, coda, Amelia, MatchIt, maxLik, survey)
 
 importFrom("plyr", "llply")
 importFrom("MASS", "glm.nb", "rnegbin", "mvrnorm", "gamma.shape")
@@ -16,6 +16,9 @@ importFrom("stats", "binomial", "complete.cases", "density", "glm",
 
 importClassesFrom("VGAM", "vglm")
 importMethodsFrom("VGAM", "coef", "fitted", "predict", "vcov")
+
+
+S3method(summary, Arima)
 
 exportPattern("^[[:alpha:]]+")
 exportClasses(
