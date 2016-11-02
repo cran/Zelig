@@ -1,5 +1,5 @@
 Package: Zelig
-Maintainer: James Honaker <zelig-zee@iq.harvard.edu>
+Maintainer: James Honaker <zelig.zee@gmail.com>
 License: GPL (>= 2)
 Title: Everyone's Statistical Software
 Author: Christine Choirat, James Honaker, Kosuke Imai, Gary King, Olivia Lau
@@ -18,8 +18,8 @@ Description: A framework that brings together an abundance of common
     quantities of interest (such as relative risk ratios, average treatment
     effects, first differences and predicted and expected values) to interpret
     and visualize complex models.
-Version: 5.0-12
-Date: 2016-04-10
+Version: 5.0-13
+Date: 2016-11-01
 Imports: sandwich, methods, MASS, survival, VGAM, jsonlite, AER, plyr,
         dplyr (>= 0.3.0.2), quantreg, geepack, MCMCpack, coda, Amelia,
         MatchIt, maxLik, survey
@@ -41,6 +41,6 @@ Collate: 'utils.R' 'model-zelig.R' 'model-weibull.R' 'model-tobit.R'
         'model-probit-survey.R' 'model-timeseries.R' 'model-arima.R'
         'model-ar.R' 'model-ma.R' 'plots.R' 'wrappers.R'
 NeedsCompilation: no
-Packaged: 2016-04-10 02:11:29 UTC; jhonaker
+Packaged: 2016-11-01 23:23:33 UTC; tercer
 Repository: CRAN
-Date/Publication: 2016-04-10 17:34:00
+Date/Publication: 2016-11-02 18:19:57

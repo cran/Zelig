@@ -1,4 +1,4 @@
-ab37fe601cbaada4d7c1975fd79f3032 *DESCRIPTION
+2eec4c44bb7644239e0318f840972f97 *DESCRIPTION
 5342f221cbe89af530fac3f4edd2771c *NAMESPACE
 051a11b0783a6a6a0f4c57abd50259a0 *R/create-json.R
 c7d9a1d3b894bb729a56108024f4d594 *R/model-ar.R
@@ -43,10 +43,10 @@ b0696658a8de3573066d890eebf75898 *R/model-timeseries.R
 05afb39e5194a5254e932f511155c327 *R/model-tobit-bayes.R
 2fb75077534b3895dde170227320a9c4 *R/model-tobit.R
 e9bd975aaf78acee9ad3db35b7706f4d *R/model-weibull.R
-3557cd55d3e4655c3fa02aa0d2600425 *R/model-zelig.R
+7e78e6542e26dcf540fa5ed944219481 *R/model-zelig.R
 646c500af1a734d8304d7bcb2689e930 *R/plots.R
-db2417bb1d2aaf8806c762e92380960f *R/utils.R
-29372a7a9fd4debf826bc80381380bc6 *R/wrappers.R
+b9d05ac25338f2a01f6e644ffb4274d5 *R/utils.R
+7bd01d83a73c55cd11df638525488274 *R/wrappers.R
 d8568ae5389248b670f8c744a6393bc5 *data/MatchIt.url.tab.gz
 a6f9d73b7928a4b1b3098db3f47e5daa *data/PErisk.txt.gz
 92a23a476e24f1cd6d24d0da91400dfd *data/SupremeCourt.txt.gz
@@ -82,7 +82,7 @@ e68f058f062c39262205a8284c04322f *data/swiss.txt.gz
 6ac34a147ed09bb7cbc393d35382cd85 *data/tobin.txt.gz
 e479597b35b8b696e886e90a37946a5a *data/turnout.tab.gz
 4ee261cada9146f1cabf2df5066c2e24 *data/voteincome.txt.gz
-2fbc9cded21351be237bd9c2de200d86 *demo/00Index
+e525746279fd027400ee48d568771f03 *demo/00Index
 a9fad624825d526e5067e2409df97f85 *demo/demo-amelia.R
 c611996fadb7b4ed335bba95d05fda9e *demo/demo-data-table.R
 e0c8634e970b08cc9dc653051fe51110 *demo/demo-dplyr.R
@@ -115,6 +115,7 @@ b35646cfb2c447f91e46d9d5c83de9a2 *demo/demo-probit.R
 684ba2bc133f88bfaa6abfce5d0ef768 *demo/demo-roc.R
 4d1fc7a299e0167dbb838ac37afe9af1 *demo/demo-scope.R
 7248c3b2455d37e95d1aaf195e32a11a *demo/demo-setx-2.R
+c24ecf5eeb027bfaa9282eb4a8d786b9 *demo/demo-setx-fn.R
 843fafd67c3b006d54fcc8b808025f17 *demo/demo-setx.R
 faa230de3f733f092b0e164989bfbb9f *demo/demo-show.R
 8d17688b76ea32f350d8ace43b6f7e5c *demo/demo-signif-stars.R
@@ -128,7 +129,7 @@ faa230de3f733f092b0e164989bfbb9f *demo/demo-show.R
 527a6a05ae881a3a54cba0522a4212df *inst/JSON/zelig5models.json
 6dffb5b20df0d6fa72529763c7f62a27 *man/MatchIt.url.Rd
 1b3aaacdbe0696c2819ef607d8b13201 *man/Median.Rd
-1db0da1384b99a428b1179cebd89c3f5 *man/Mode.Rd
+6fa194c4d41f831d93268af800d29e71 *man/Mode.Rd
 0641d8ba40e205316b2d2fbe0fb5eaf5 *man/PErisk.Rd
 58172f8c13fe9864a8ac2e26fbd391de *man/SupremeCourt.Rd
 fe15364db9b4e80c56722eec238629e7 *man/Weimar.Rd
@@ -138,7 +139,7 @@ c17aa3158358198923ec2f73cc016e00 *man/Zelig-arima-class.Rd
 f00cb4b7c0b1269a0bcf3fcda1ff6c9b *man/Zelig-binchoice-class.Rd
 adcc9bafd98950ad536552665d2427ac *man/Zelig-binchoice-gee-class.Rd
 c2b68fcdf0e3ec8ce12a63f8976fde74 *man/Zelig-binchoice-survey-class.Rd
-02f8a8903fdd04ed3c5887c11f43b4c7 *man/Zelig-class.Rd
+e39cad5afe0e83f67853143be8995719 *man/Zelig-class.Rd
 4efd286f6d5304a753b4b0e0a77735fc *man/Zelig-exp-class.Rd
 5d358e886b8eae38c565296dfeb99dd0 *man/Zelig-factor-bayes-class.Rd
 c0ff271634bcdfd4fb203c40195239dd *man/Zelig-gamma-class.Rd
@@ -171,7 +172,7 @@ a406fafcf4da6a6541912c5f17a71533 *man/Zelig-probit-class.Rd
 740d614e76dc353c792bf035262ad17b *man/Zelig-quantile-class.Rd
 fd22d33254e8cd3a29aef34684bfdb3b *man/Zelig-relogit-class.Rd
 34081b184244f98fe869dc25860dd3b5 *man/Zelig-survey-class.Rd
-7d3b4ef61eb4c61fea710f369da2f7a4 *man/Zelig-timeseries-class.Rd
+2a84e12cc3707485041f7e39acdfbc27 *man/Zelig-timeseries-class.Rd
 013ea0128c082056761dbfca462a9e35 *man/Zelig-tobit-bayes-class.Rd
 263884e6e68641f86c4be6b4ba2c9695 *man/Zelig-tobit-class.Rd
 b0629bf43b9a3e9618c9a84c5b274358 *man/Zelig-weibull-class.Rd
@@ -192,7 +193,7 @@ d8e4df6b181afc5e10fee0d774850c90 *man/free1.Rd
 9308b489e0e1fa78db5aa3a0267058c1 *man/friendship.Rd
 1f77e073ad9ed30b57064d284fe0f2a6 *man/grunfeld.Rd
 2c288905c76033d24c8f7f57b0d65d40 *man/hoff.Rd
-5f0c67b452fcfdfb90eb29a5d8ed1097 *man/homerun.Rd
+83362d717a9795a33d0e11c8d90ad7cc *man/homerun.Rd
 20131069ca801fde8baa331de4b7657e *man/immigration.Rd
 81c4ba627b9e0c72a52277a18b8baa7a *man/klein.Rd
 e01f00d574aa52df6ae5c03e836c79b3 *man/kmenta.Rd
@@ -203,7 +204,7 @@ d7905236f8793559d3c452facbc3ea4c *man/newpainters.Rd
 62e0a89586494f63f6426970bbff06ae *man/plot-Zelig-ANY-method.Rd
 87f7797532b2ed947e9eaa6105f275b7 *man/predict-Zelig-method.Rd
 2e6e3f9fe17f7bfa8f0e510faeaaf712 *man/qi.plot.Rd
-76d61a9486d897673af4330cdeb175af *man/reduce.Rd
+bca3950a9907c24c0ae3bc18305f474d *man/reduce.Rd
 f6d36f6ea7a798aa490d001001ec16f8 *man/relogit.Rd
 8b86a9fbfbf8b5f39958b3cc4d8f5ed4 *man/rocplot.Rd
 685e8fe4738e2aad2ad73d7f2388570b *man/sanction.Rd
