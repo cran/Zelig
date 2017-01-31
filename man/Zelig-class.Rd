@@ -15,7 +15,7 @@ Zelig website: \url{http://zeligproject.org/}
 
 \item{\code{formula}}{Zelig formula}
 
-\item{\code{weights}}{forthcoming}
+\item{\code{weights}}{[forthcoming]}
 
 \item{\code{name}}{name of the Zelig model}
 
@@ -93,6 +93,7 @@ Zelig website: \url{http://zeligproject.org/}
 
 \item{\code{with.feedback}}{Feedback}
 }}
+
 \section{Methods}{
 
 \describe{
@@ -120,7 +121,7 @@ Zelig website: \url{http://zeligproject.org/}
 
 \item{\code{set(..., fn = list(numeric = mean, ordered = Median, other = Mode))}}{Setting Explanatory Variable Values}
 
-\item{\code{sim(num = NULL)}}{Generic Method for Computing and Organizing Simulated Quantities of Interest}
+\item{\code{sim(num = 1000)}}{Generic Method for Computing and Organizing Simulated Quantities of Interest}
 
 \item{\code{simATT(simparam, data, depvar, treatment, treated)}}{Simulate an Average Treatment on the Treated}
 
@@ -131,6 +132,6 @@ Zelig website: \url{http://zeligproject.org/}
 \item{\code{toJSON()}}{Convert Zelig object to JSON format}
 
 \item{\code{zelig(formula, data, model = NULL, ..., weights = NULL, by,
-  bootstrap = FALSE)}}{The zelig command estimates a variety of statistical models}
+  bootstrap = FALSE)}}{The zelig function estimates a variety of statistical models}
 }}
 

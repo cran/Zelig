@@ -4,8 +4,8 @@
 \alias{ci.plot}
 \title{Method for plotting qi simulations across a range within a variable, with confidence intervals}
 \usage{
-ci.plot(obj, qi="ev", var=NULL, ..., main = NULL, sub = 
- NULL, xlab = NULL, ylab = NULL, xlim = NULL, ylim = 
+ci.plot(obj, qi="ev", var=NULL, ..., main = NULL, sub =
+ NULL, xlab = NULL, ylab = NULL, xlim = NULL, ylim =
  NULL, legcol="gray20", col=NULL, leg=1, legpos=
  NULL, ci = c(80, 95, 99.9), discont=NULL)
 }
@@ -40,14 +40,14 @@ confidence intervals}
 
 \item{leg}{``legend position'', an integer from 1 to 4, specifying the
 position of the legend. 1 to 4 correspond to ``SE'', ``SW'', ``NW'', and
-``NE'' respectively}
+``NE'' respectively.  Setting to 0 or ``n'' turns off the legend.}
 
 \item{legpos}{``legend type'', exact coordinates and sizes for legend.
 Overrides argment ``leg.type''}
 
 \item{ci}{vector of length three of confidence interval levels to draw.}
 
-\item{discont}{optional point of discontinuity along the x-axis at which 
+\item{discont}{optional point of discontinuity along the x-axis at which
 to interupt the graph}
 }
 \value{
@@ -60,4 +60,3 @@ Method for plotting qi simulations across a range within a variable, with confid
 \author{
 James Honaker
 }
-

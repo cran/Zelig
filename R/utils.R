@@ -19,7 +19,8 @@ Mode <- function (x) {
 }
 
 ## Zelig 3 and 4 backward compatibility
-mode <- Mode
+## This enables backward compatibility, but results in a warning when library attached
+# mode <- Mode
 
 #' Compute the Statistical Median of a Vector
 #' @param x a vector of numeric or ordered values
@@ -29,7 +30,7 @@ mode <- Mode
 #' @author Matt Owen \email{mowen@@iq.harvard.edu}
 Median <- function (x, na.rm=NULL) {
   v <- ifelse(is.numeric(x),
-              median(v),
+              median(x),
               levels(x)[ceiling(median(as.numeric(x)))]
   )
   if (is.ordered(x))
@@ -100,12 +101,12 @@ setval <- function(val, newval) {
       stop("Wrong factor")
     return(factor(newval, levels = lev))
   }
-} 
+}
 
 #' Calculate the reduced dataset to be used in code{\link{setx}}
-#' 
+#'
 #' #' This method is used internally
-#' 
+#'
 #' @param dataset Zelig object data, possibly split to deal with \code{by} argument
 #' @param s list of variables and their tentative \code{setx} values
 #' @param formula a simplified version of the Zelig object formula (typically with 1 on the lhs)
@@ -173,7 +174,7 @@ statlevel <- function(qi, num) {
 }
 
 #' Pass Quantities of Interest to Appropriate Summary Function
-#' 
+#'
 #' @param qi quantity of interest (e.g., estimated value or predicted value)
 #' @param num number of simulations
 #' @return a formatted qi
@@ -193,7 +194,7 @@ stat <- function(qi, num) {
 #' @param formula a formula object
 #' @param cluster a vector
 #' @return a formula object describing clustering
-cluster.formula <- function (formula, cluster) { 
+cluster.formula <- function (formula, cluster) {
   # Convert LHS of formula to a string
   lhs <- deparse(formula[[2]])
   cluster.part <- if (is.null(cluster))
@@ -207,8 +208,12 @@ cluster.formula <- function (formula, cluster) {
 
 
 #' Zelig Copy of plyr::mutate to avoid namespace conflict with dplyr
+#'
+#' @source Hadley Wickham (2011). The Split-Apply-Combine Strategy for Data
+#' Analysis. Journal of Statistical Software, 40(1), 1-29. URL
+#' \url{http://www.jstatsoft.org/v40/i01/}.
 #' @keywords internal
-zeligPlyrMutate<-function (.data, ...) 
+zelig_mutate <- function (.data, ...)
 {
     stopifnot(is.data.frame(.data) || is.list(.data) || is.environment(.data))
     cols <- as.list(substitute(list(...))[-1])
@@ -219,3 +224,77 @@ zeligPlyrMutate<-function (.data, ...)
     .data
 }
 
+#' Convenience function for setrange and setrange
+#'
+#' @param x data passed to setrange or setrange1
+#' @keywords internal
+
+expand_grid_setrange <- function(x) {
+    m <- expand.grid(x)
+    if (nrow(m) == 1)
+        warning('Only one fitted observation provided to setrange.\nConsider using setx instead.',
+                call. = FALSE)
+    return(m)
+}
+
+#' Bundle Multiply Imputed Data Sets into an Object for Zelig
+#'
+#' This object prepares multiply imputed data sets so they can be used by
+#'   \code{zelig}.
+#' @note This function creates a list of \code{data.frame} objects, which
+#'   resembles the storage of imputed data sets in the \code{amelia} object.
+#' @param ... a set of \code{data.frame}'s
+#' @return an \code{mi} object composed of a list of data frames.
+#' @author Matt Owen, James Honaker, and Christopher Gandrud
+#' @export
+#' @examples
+#' # create datasets
+#' n <- 100
+#' x1 <- runif(n)
+#' x2 <- runif(n)
+#' y <- rnorm(n)
+#' data.1 <- data.frame(y = y, x = x1)
+#' data.2 <- data.frame(y = y, x = x2)
+#'
+#' # merge datasets into one object as if imputed datasets
+#'
+#' mi.out <- to_zelig_mi(data.1, data.2)
+#'
+#' # pass object in place of data argument
+#' z.out <- zelig(y ~ x, model = "ls", data = mi.out)
+
+to_zelig_mi <- function (...) {
+
+    # Get arguments as list
+    imputations <- list(...)
+    names(imputations) <- paste("imp", 1:length(imputations), sep = "")
+
+      # Ensure that everything is data.frame
+    for (k in length(imputations):1) {
+        if (!is.data.frame(imputations[[k]])){
+            imputations[[k]] <- NULL
+            warning("Item ", k, " of the provided objects is not a data.frame and will be ignored.\n")
+        }
+    }
+
+    if(length(imputations) < 1){
+        stop("The resulting object contains no data.frames, and as such is not a valid multiple imputation object.",
+        call. = FALSE)
+      }
+    if(length(imputations) < 2){
+        stop("The resulting object contains only one data.frame, and as such is not a valid multiple imputation object.",
+        call. = FALSE)
+    }
+    class(imputations) <-c("mi", "list")
+
+    return(imputations)
+}
+
+#' Enables backwards compatability for preparing non-amelia imputed data sets
+#' for \code{zelig}. 
+#' 
+#' See \code{\link{to_zelig_mi}}
+#' 
+#' @param ... a set of \code{data.frame}'s
+#' @return an \code{mi} object composed of a list of data frames.
+mi <- to_zelig_mi
