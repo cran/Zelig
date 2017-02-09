@@ -32,16 +32,18 @@ zweibull$methods(
 
 zweibull$methods(
   zelig = function(formula, ..., robust = FALSE, cluster = NULL, data, weights = NULL, by = NULL, bootstrap = FALSE) {
+
+    localFormula <- formula # avoids CRAN warning about deep assignment from formula existing separately as argument and field
     .self$zelig.call <- match.call(expand.dots = TRUE)
     .self$model.call <- .self$zelig.call
     if (!(is.null(cluster) || robust))
       stop("If cluster is specified, then `robust` must be TRUE")
     # Add cluster term
     if (robust || !is.null(cluster))
-      formula <- cluster.formula(formula, cluster)
+      localFormula <- cluster.formula(localFormula, cluster)
     .self$model.call$dist <- "weibull"
     .self$model.call$model <- FALSE
-    callSuper(formula = formula, data = data, ..., robust = robust,
+    callSuper(formula = localFormula, data = data, ..., robust = robust,
               cluster = cluster,  weights = weights, by = by, bootstrap = bootstrap)
 
     if(!robust){
@@ -65,15 +67,15 @@ zweibull$methods(
   param = function(z.out, method="mvn") {
     if(identical(method,"mvn")){
       coeff <- coef(z.out)
-      mu <- c(coeff, z.out$scale)
+      mu <- c(coeff, log(z.out$scale) )  # JH this is the scale of the vcov used below
       cov <- vcov(z.out)
       simulations <- mvrnorm(.self$num, mu = mu, Sigma = cov)
       simparam.local <- as.matrix(simulations[, 1:length(coeff)])
-      simalpha.local <- as.matrix(simulations[, -(1:length(coeff))])
+      simalpha.local <- as.matrix(simulations[, (length(coeff)+1)])
       simparam.local <- list(simparam = simparam.local, simalpha = simalpha.local)
       return(simparam.local)
     } else if(identical(method,"point")){
-      return(list(simparam = t(as.matrix(coef(z.out))), simalpha = z.out$scale))
+      return(list(simparam = t(as.matrix(coef(z.out))), simalpha = log(z.out$scale)))
     }
   }
 )
@@ -82,8 +84,8 @@ zweibull$methods(
   qi = function(simparam, mm) {
     eta <- simparam$simparam %*% t(mm)
     theta <- as.matrix(apply(eta, 2, linkinv))
-    ev <- theta * gamma(1 + 1/exp(simparam$simalpha))
-    pv <- as.matrix(rweibull(length(ev), shape = exp(simparam$simalpha), scale = theta))
+    ev <- theta * gamma(1 + exp(simparam$simalpha))
+    pv <- as.matrix(rweibull(length(ev), shape = 1/exp(simparam$simalpha), scale = theta))
     return(list(ev = ev, pv = pv))
   }
 )
@@ -93,17 +95,17 @@ zweibull$methods(
     .self$mcformula <- as.formula("Surv(y.sim, event) ~ x.sim")
     
     
-    lambda <-exp(b0 + b1 * x)
+    mylambda <-exp(b0 + b1 * x)
     event <- rep(1, length(x))
-    y.sim <- rweibull(n=length(x), shape=alpha, scale=lambda)
-    y.hat <- lambda * gamma(1 + (1/alpha))
+    y.sim <- rweibull(n=length(x), shape=alpha, scale=mylambda)
+    y.hat <- mylambda * gamma(1 + (1/alpha))
     
     if(sim){
-        data <- data.frame(y.sim=y.sim, event=event, x.sim=x)
-        return(data)
+        mydata <- data.frame(y.sim=y.sim, event=event, x.sim=x)
+        return(mydata)
     }else{
-        data <- data.frame(y.hat=y.hat, event=event, x.seq=x)
-        return(data)
+        mydata <- data.frame(y.hat=y.hat, event=event, x.seq=x)
+        return(mydata)
     }
   }
 )

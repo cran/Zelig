@@ -103,6 +103,8 @@ Zelig website: \url{http://zeligproject.org/}
 
 \item{\code{feedback()}}{Send feedback to the Zelig team}
 
+\item{\code{from_zelig_model()}}{Extract the original fitted model object from a zelig call. Note only works for models using directly wrapped functions.}
+
 \item{\code{getcoef()}}{Get estimated model coefficients}
 
 \item{\code{getpredict()}}{Get predicted values}
@@ -119,9 +121,9 @@ Zelig website: \url{http://zeligproject.org/}
 
 \item{\code{references(style = "sphinx")}}{Construct a reference list specific to a Zelig model.}
 
-\item{\code{set(..., fn = list(numeric = mean, ordered = Median, other = Mode))}}{Setting Explanatory Variable Values}
+\item{\code{set(..., fn = list(numeric = mean, ordered = Median))}}{Setting Explanatory Variable Values}
 
-\item{\code{sim(num = 1000)}}{Generic Method for Computing and Organizing Simulated Quantities of Interest}
+\item{\code{sim(num = NULL)}}{Generic Method for Computing and Organizing Simulated Quantities of Interest}
 
 \item{\code{simATT(simparam, data, depvar, treatment, treated)}}{Simulate an Average Treatment on the Treated}
 

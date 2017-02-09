@@ -227,12 +227,22 @@ z$methods(
   zelig = function(formula, data, model = NULL, ..., weights = NULL, by,
                     bootstrap = FALSE) {
     "The zelig function estimates a variety of statistical models"
+
     fn2 <- function(fc, data) {
       fc$data <- data
       return(fc)
     }
-    
-    .self$formula <- formula
+
+    # Convert factors converted internally to the zelig call
+    if (factorize(formula, check = TRUE)) {
+        localformula <- factorize(formula, data, f_out = TRUE)
+        localdata <- factorize(formula, data, d_out = TRUE)
+        .self$formula <- localformula
+        .self$data <- localdata
+    }
+    else
+      .self$formula <- formula
+
     # Overwrite formula with mc unit test formula into correct environment, if it exists
     # Requires fixing R scoping issue
     if("formula" %in% class(.self$mcformula)){
@@ -349,24 +359,25 @@ z$methods(
               if(weights %in% names(.self$data)){
                   .self$weights <- .self$data[[weights]]  # This is a way to convert data.frame portion to type numeric (as data.frames are lists)
               } else {
-                  cat("Variable name given for weights not found in dataset, so will be ignored.\n\n")
+                  warning("Variable name given for weights not found in dataset, so will be ignored.\n\n", .call=FALSE)
                   .self$weights <- NULL  # No valid weights
             .self$model.call$weights <- NULL
               }
           } else if(is.vector(weights)){
               if(length(weights)==nrow(.self$data) & is.vector(weights)){
-                  if(min(weights)<0){
-                      weights[weights < 0] <- 0
-                      cat("Negative valued weights were supplied and will be replaced with zeros.")
+                  localWeights <- weights # avoids CRAN warning about deep assignment from weights existing separately as argument and field
+                  if(min(localWeights)<0){
+                      localWeights[localWeights < 0] <- 0
+                      warning("Negative valued weights were supplied and will be replaced with zeros.", .call=FALSE)
                   }
-                  .self$weights <- weights # Weights
+                  .self$weights <- localWeights # Weights
               } else{
-                  cat("Length of vector given for weights is not equal to number of observations in dataset, and will be ignored.\n\n")
+                  warning("Length of vector given for weights is not equal to number of observations in dataset, and will be ignored.\n\n", .call=FALSE)
                   .self$weights <- NULL # No valid weights
             .self$model.call$weights <- NULL
               }
           } else {
-              cat("Supplied weights argument is not a vector or a variable name in the dataset, and will be ignored.\n\n")
+              warning("Supplied weights argument is not a vector or a variable name in the dataset, and will be ignored.\n\n", .call=FALSE)
               .self$weights <- NULL # No valid weights
           .self$model.call$weights <- NULL
           }
@@ -414,19 +425,20 @@ z$methods(
 )
 
 z$methods(
-  set = function(..., fn = list(numeric = mean, ordered = Median, other = Mode)) {
+  set = function(..., fn = list(numeric = mean, ordered = Median)) {
     "Setting Explanatory Variable Values"
     is_uninitializedField(.self$zelig.out)
 
     .self$avg <- function(val) {
       if (is.numeric(val))
-        ifelse(is.null(fn$numeric), mean(val), fn$numeric(val))
+          ifelse(is.null(fn$numeric), mean(val), fn$numeric(val))
       else if (is.ordered(val))
-        ifelse(is.null(fn$ordered), Median(val), fn$ordered(val))
+          ifelse(is.null(fn$ordered), Median(val), fn$ordered(val))
       else
-        ifelse(is.null(fn$other), Mode(val), fn$other(val))
+          Mode(val)
     }
     s <- list(...)
+
     # This eliminates warning messages when factor rhs passed to lm() model in reduce() utility function
     if(.self$category=="multinomial"){  # Perhaps find more robust way to test if dep.var. is factor
       f2 <- update(.self$formula, as.numeric(.) ~ .)
@@ -530,20 +542,22 @@ z$methods(
 )
 
 z$methods(
-  sim = function(num = 1000) {
+  sim = function(num = NULL) {
     "Generic Method for Computing and Organizing Simulated Quantities of Interest"
     is_zelig(.self)
     is_uninitializedField(.self$zelig.out)
 
     ## If num is defined by user, it overrides the value stored in the .self$num field.
     ## If num is not defined by user, but is also not yet defined in .self$num, then it defaults to 1000.
+
+    localNum <- num # avoids CRAN warning about deep assignment from num existing separately as argument and field
     if (length(.self$num) == 0){
-      if(is.null(num)){
-        num <<- 1000
+      if(is.null(localNum)){
+        localNum <- 1000
       }
     }
-    if(!is.null(num)){
-      .self$num <- num
+    if(!is.null(localNum)){
+      .self$num <- localNum
     }
 
     # This was previous version, that assumed sim only called once, or only method to access/write .self$num field:
@@ -555,7 +569,6 @@ z$methods(
       am.m <- length(.self$getcoef())
       .self$num <- ceiling(.self$num/am.m)
     }
-
     # If bootstrapped, use distribution of estimated parameters,
     #  otherwise use $param() method for parametric bootstrap.
     if (.self$bootstrap & ! .self$mi){
@@ -666,14 +679,15 @@ z$methods(
 
     ## If num is defined by user, it overrides the value stored in the .self$num field.
     ## If num is not defined by user, but is also not yet defined in .self$num, then it defaults to 1000.
+    localNum <- num
     if (length(.self$num) == 0){
-      if(is.null(num)){
-        num <<- 1000
+      if(is.null(localNum)){
+        localNum <- 1000
       }
     }
-    if(!is.null(num)){
-      if(!identical(num,.self$num)){   # .self$num changed, so regenerate simparam
-        .self$num <- num
+    if(!is.null(localNum)){
+      if(!identical(localNum,.self$num)){   # .self$num changed, so regenerate simparam
+        .self$num <- localNum
         .self$simparam <- .self$zelig.out %>%
           do(simparam = .self$param(.$z.out))
       }
@@ -701,13 +715,14 @@ z$methods(
   simATT = function(simparam, data, depvar, treatment, treated){
     "Simulate an Average Treatment on the Treated"
 
-    flag <- data[[treatment]]==treated
-    data[[treatment]] <- 1-treated
+    localData <- data # avoids CRAN warning about deep assignment from data existing separately as argument and field
+    flag <- localData[[treatment]]==treated
+    localData[[treatment]] <- 1-treated
 
-    cf.mm <- model.matrix(.self$formula, data) # Counterfactual model matrix
+    cf.mm <- model.matrix(.self$formula, localData) # Counterfactual model matrix
     cf.mm <- cf.mm[flag,]
 
-    y1 <- data[flag, depvar]
+    y1 <- localData[flag, depvar]
     y1.n <- sum(flag)
 
     ATT <- matrix(NA, nrow=y1.n, ncol= .self$num)
@@ -961,9 +976,36 @@ z$methods(
   }
 )
 
+z$methods(from_zelig_model = function() {
+    "Extract the original fitted model object from a zelig call. Note only works for models using directly wrapped functions."
+    is_uninitializedField(.self$zelig.out)
+    result <- try(.self$zelig.out$z.out, silent = TRUE)
+
+    if ("try-error" %in% class(result)) {
+        stop("from_zelig_model not available for this fitted model.")
+    } else {
+        if (length(result) == 1) {
+            result <- result[[1]]
+            result <- strip_package_name(result)
+        } else if (length(result) > 1) {
+            if (.self$mi) {
+                message("Returning fitted model objects for each imputed data set in a list.")
+            } else if (.self$bootstrap) {
+                message("Returning fitted model objects for each bootstrapped data set in a list.")
+            } else {
+                message("Returning fitted model objects for each subset of the data created from the 'by' argument, in a list.")
+            }
+            result <- lapply(result, strip_package_name)
+        }
+        return(result)
+    }
+})
+
+
 z$methods(
   getcoef = function() {
     "Get estimated model coefficients"
+    is_uninitializedField(.self$zelig.out)
     result <- try(lapply(.self$zelig.out$z.out, coef), silent = TRUE)
     if ("try-error" %in% class(result))
       stop("'coef' method' not implemented for model '", .self$name, "'")
@@ -975,6 +1017,7 @@ z$methods(
 z$methods(
   getvcov = function() {
     "Get estimated model variance-covariance matrix"
+    is_uninitializedField(.self$zelig.out)
     result <- lapply(.self$zelig.out$z.out, vcov)
     if ("try-error" %in% class(result))
       stop("'vcov' method' not implemented for model '", .self$name, "'")
@@ -985,6 +1028,7 @@ z$methods(
 
 z$methods(
   getfitted = function() {
+    is_uninitializedField(.self$zelig.out)
     result <- lapply(.self$zelig.out$z.out, fitted)
     if ("try-error" %in% class(result))
       stop("'predict' method' not implemented for model '", .self$name, "'")
@@ -1090,7 +1134,10 @@ z$methods(
     .self$mcformula <- NULL
     if(.self$name %in% c("exp", "weibull", "lognorm")){
       .self$zelig(Surv(y.sim,event) ~ x.sim, data = data.sim)
-    } else{
+    } else if (.self$name %in% c("relogit")) {
+        tau <- sum(data.sim$y.sim)/nsim
+          .self$zelig(y.sim ~ x.sim, tau = tau, data = data.sim)
+    } else {
       .self$zelig(y.sim ~ x.sim, data = data.sim)
     }
 
@@ -1098,7 +1145,12 @@ z$methods(
     .self$setrange(x.sim = x.short.seq)
     .self$sim()
 
-    data.short.hat <- .self$mcfun(x=x.short.seq, b0=b0, b1=b1, alpha=alpha, ..., sim=FALSE)
+    if (.self$name %in% c("relogit")) {
+      data.short.hat <- .self$mcfun(x=x.short.seq, b0=b0, b1=b1, alpha=alpha, keepall=TRUE, ..., sim=FALSE)
+    } else {
+      data.short.hat <- .self$mcfun(x=x.short.seq, b0=b0, b1=b1, alpha=alpha, ..., sim=FALSE)
+    }
+
     if(!is.data.frame(data.short.hat)){
         data.short.hat<-data.frame(x.seq=x.short.seq, y.hat=data.short.hat)
     }
