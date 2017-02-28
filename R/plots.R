@@ -343,7 +343,7 @@ qi.plot <- function (obj, ...) {
 
     if(is_timeseries(obj)){
         par(mfcol=c(3,1))
-        zeligACFplot(obj$getqi("acf", xvalue="x1"))
+        zeligACFplot(obj$get_qi("acf", xvalue="x1"))
         ci.plot(obj, qi="pvseries.shock")
         ci.plot(obj, qi="pvseries.innovation")
         return()
@@ -425,25 +425,25 @@ qi.plot <- function (obj, ...) {
 
     # Plot each simulation
     if(length(obj$sim.out$x$pv)>0)
-        simulations.plot(obj$getqi(qi="pv", xvalue="x"), main = titles$pv, col = color.x, line.col = "black")
+        simulations.plot(obj$get_qi(qi="pv", xvalue="x"), main = titles$pv, col = color.x, line.col = "black")
 
     if(length(obj$sim.out$x1$pv)>0)
-        simulations.plot(obj$getqi(qi="pv", xvalue="x1"), main = titles$pv1, col = color.x1, line.col = "black")
+        simulations.plot(obj$get_qi(qi="pv", xvalue="x1"), main = titles$pv1, col = color.x1, line.col = "black")
 
     if(length(obj$sim.out$x$ev)>0)
-        simulations.plot(obj$getqi(qi="ev", xvalue="x"), main = titles$ev, col = color.x, line.col = "black")
+        simulations.plot(obj$get_qi(qi="ev", xvalue="x"), main = titles$ev, col = color.x, line.col = "black")
 
     if(length(obj$sim.out$x1$ev)>0)
-        simulations.plot(obj$getqi(qi="ev", xvalue="x1"), main = titles$ev1, col = color.x1, line.col = "black")
+        simulations.plot(obj$get_qi(qi="ev", xvalue="x1"), main = titles$ev1, col = color.x1, line.col = "black")
 
     if(length(obj$sim.out$x1$fd)>0)
-        simulations.plot(obj$getqi(qi="fd", xvalue="x1"), main = titles$fd, col = color.mixed, line.col = "black")
+        simulations.plot(obj$get_qi(qi="fd", xvalue="x1"), main = titles$fd, col = color.mixed, line.col = "black")
 
     if(both.pv.exist)
-        simulations.plot(y=obj$getqi(qi="pv", xvalue="x"), y1=obj$getqi(qi="pv", xvalue="x1"), main = "Comparison of Y|X and Y|X1", col = paste(c(color.x, color.x1), "80", sep=""), line.col = "black")
+        simulations.plot(y=obj$get_qi(qi="pv", xvalue="x"), y1=obj$get_qi(qi="pv", xvalue="x1"), main = "Comparison of Y|X and Y|X1", col = paste(c(color.x, color.x1), "80", sep=""), line.col = "black")
 
     if(both.ev.exist)
-        simulations.plot(y=obj$getqi(qi="ev", xvalue="x"), y1=obj$getqi(qi="ev", xvalue="x1"), main = "Comparison of E(Y|X) and E(Y|X1)", col = paste(c(color.x, color.x1), "80", sep=""), line.col = "black")
+        simulations.plot(y=obj$get_qi(qi="ev", xvalue="x"), y1=obj$get_qi(qi="ev", xvalue="x1"), main = "Comparison of E(Y|X) and E(Y|X1)", col = paste(c(color.x, color.x1), "80", sep=""), line.col = "black")
 
 
     # Restore old state
@@ -554,7 +554,6 @@ ci.plot <- function(obj, qi = "ev", var = NULL, ..., main = NULL, sub = NULL,
     }
     ci<-sort(ci)
 
-
     ## Timeseries:
     if(is_timeseries(obj)){
         #xmatrix<-              ## Do we need to know the x in which the shock/innovation occcured?  For secondary graphs, titles, legends?
@@ -564,7 +563,7 @@ ci.plot <- function(obj, qi = "ev", var = NULL, ..., main = NULL, sub = NULL,
             cat(paste("Error: For Timeseries models, argument qi must be one of ", paste(qiseries, collapse=" or ") ,".\n", sep="") )
             return()
         }
-        ev<-t( obj$getqi(qi=qi, xvalue="x1") )   # NOTE THE NECESSARY TRANSPOSE.  Should we more clearly standardize this?
+        ev<-t( obj$get_qi(qi=qi, xvalue="x1") )   # NOTE THE NECESSARY TRANSPOSE.  Should we more clearly standardize this?
         d<-ncol(ev)
         xseq<-1:d
         ev1 <- NULL  # Maybe want to add ability to overlay another graph?
@@ -586,23 +585,24 @@ ci.plot <- function(obj, qi = "ev", var = NULL, ..., main = NULL, sub = NULL,
 
     ## Everything Else:
     }else{
-        d<-length(obj$sim.out$range)
+        d <- length(obj$sim.out$range)
 
-        if (d<1) {
+        if (d < 1) {
             return()  # Should add warning
         }
-
-        xmatrix<-matrix(NA,nrow=d, ncol=length( obj$setx.out$range[[1]]$mm[[1]] ))    # THAT IS A LONG PATH THAT MAYBE SHOULD BE CHANGED
-        for(i in 1:d){
-            xmatrix[i,]<-as.matrix( obj$setx.out$range[[i]]$mm[[1]] )   # THAT IS A LONG PATH THAT MAYBE SHOULD BE CHANGED
+        num_cols <- length(obj$setx.out$range[[1]]$mm[[1]] )
+        xmatrix <- matrix(NA,nrow = d, ncol = num_cols)    # THAT IS A LONG PATH THAT MAYBE SHOULD BE CHANGED
+        for (i in 1:d){
+            xmatrix[i,] <- matrix(obj$setx.out$range[[i]]$mm[[1]], 
+                                  ncol = num_cols)   # THAT IS A LONG PATH THAT MAYBE SHOULD BE CHANGED
         }
-
+        
         if (d == 1 && is.null(var)) {
             warning("Must specify the `var` parameter when plotting the confidence interval of an unvarying model. Plotting nothing.")
             return(invisible(FALSE))
         }
 
-        xvarnames<-names(as.data.frame( obj$setx.out$range[[1]]$mm[[1]]))  # MUST BE A BETTER WAY/PATH TO GET NAMES
+        xvarnames <- names(as.data.frame( obj$setx.out$range[[1]]$mm[[1]]))  # MUST BE A BETTER WAY/PATH TO GET NAMES
 
         if(is.character(var)){
             if( !(var %in% xvarnames   ) ){
@@ -610,23 +610,27 @@ ci.plot <- function(obj, qi = "ev", var = NULL, ..., main = NULL, sub = NULL,
                 return(invisible(FALSE))
             }
         }
-
+        
         if (is.null(var)) {
-            each.var <- apply(xmatrix,2,sd)
-            flag <- each.var>0
-            min.var<-min(each.var[flag])
-            var.seq<-1:ncol(xmatrix)
-            position<-var.seq[each.var==min.var]
+            # Determine x-axis variable based on variable with unique fitted values equal to the number of scenarios
+            length_unique <- function(x) length(unique(x))
+            var.unique <- apply(xmatrix, 2, length_unique)
+            var.seq <- 1:ncol(xmatrix)
+            position <- var.seq[var.unique == d]
+            if (length(position) > 1) {
+                position <- position[1] # arbitrarily pick the first variable if more than one
+                message(sprintf('%s chosen as the x-axis variable. Use the var argument to specify a different variable.', xvarnames[position]))
+            }
         } else {
             if(is.numeric(var)){
-                position<-var
+                position <- var
             }else if(is.character(var)){
-                position<-grep(var,xvarnames )
+                position <- grep(var,xvarnames)
             }
         }
-        position<-min(position)
-        xseq<-xmatrix[,position]
-        xname<-xvarnames[position]
+        position <- min(position)
+        xseq <- xmatrix[,position]
+        xname <- xvarnames[position]
         # Define xlabel
         if (is.null(xlab))
         xlab <- paste("Range of",xname)

@@ -1,18 +1,18 @@
 #' Compute the Statistical Mode of a Vector
 #' @aliases Mode mode
 #' @param x a vector of numeric, factor, or ordered values
-#' @return the statistical mode of the vector. If two modes exist, one is
-#'   randomly selected (by design)
+#' @return the statistical mode of the vector. If more than one mode exists, 
+#'  the last one in the factor order is arbitrarily chosen (by design)
 #' @export
-#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+#' @author Christopher Gandrud and Matt Owen
 
 Mode <- function (x) {
     # build a table of values of x
     tab <- table(as.factor(x))
-    # find the mode, then if there's more than one, select one randomly
-    v <- sample(names(which(tab == max(tab))), size = 1)
-    # if it came in as a factor, we need to re-cast it
-    # as a factor, with the same exact levels
+    # find the mode, if there is more than one arbitrarily pick the last
+    max_tab <- names(which(tab == max(tab)))
+    v <- max_tab[length(max_tab)]
+    # if it came in as a factor, we need to re-cast it as a factor, with the same exact levels
     if (is.factor(x))
         return(factor(v, levels = levels(x)))
     # re-cast as any other data-type
@@ -28,7 +28,8 @@ Mode <- function (x) {
 #' @param na.rm ignored
 #' @return the median of the vector
 #' @export
-#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+#' @author Matt Owen
+
 Median <- function (x, na.rm=NULL) {
   v <- ifelse(is.numeric(x),
               median(x),
@@ -47,7 +48,8 @@ Median <- function (x, na.rm=NULL) {
 #' @param levels a vector of levels
 #' @param ... parameters for table
 #' @return a table
-#' @author Matt Owen \email{mowen@@iq.harvard.edu}
+#' @author Matt Owen 
+
 table.levels <- function (x, levels, ...) {
   # if levels are not explicitly set, then
   # search inside of x
@@ -65,6 +67,7 @@ table.levels <- function (x, levels, ...) {
 #' @param val a vector of values
 #' @return a mean (if numeric) or a median (if ordered) or mode (otherwise)
 #' @export
+
 avg <- function(val) {
   if (is.numeric(val))
     mean(val)
@@ -96,51 +99,66 @@ setval <- function(val, newval) {
     newval
   else if (is.ordered(val))
     newval
+  else if (is.logical(val))
+    newval
   else {
     lev <- levels(val)
     if (!newval %in% lev)
-      stop("Wrong factor")
+      stop("Wrong factor", call. = FALSE)
     return(factor(newval, levels = lev))
   }
 }
+
 
 #' Calculate the reduced dataset to be used in \code{\link{setx}}
 #'
 #' #' This method is used internally
 #'
-#' @param dataset Zelig object data, possibly split to deal with \code{by} argument
+#' @param dataset Zelig object data, possibly split to deal with \code{by}
+#'   argument
 #' @param s list of variables and their tentative \code{setx} values
-#' @param formula a simplified version of the Zelig object formula (typically with 1 on the lhs)
+#' @param formula a simplified version of the Zelig object formula (typically
+#'   with 1 on the lhs)
 #' @param data Zelig object data
 #' @param avg function of data transformations
-#' @return a list of all the model variables either at their central tendancy or their \code{setx} value
-#' @export
+#' @return a list of all the model variables either at their central tendancy or
+#'   their \code{setx} value
+#'
 #' @keywords internal
-#' @author Christine Choirat
+#' @author Christine Choirat and Christopher Gandrud
+#' @export
+
 reduce = function(dataset, s, formula, data, avg = avg) {
-  pred <- try(terms(fit <- lm(formula, data), "predvars"), silent = TRUE)
-  if ("try-error" %in% class(pred)) # exp and weibull
-    pred <- try(terms(fit <- survreg(formula, data), "predvars"), silent = TRUE)
-  dataset <- model.frame(fit)
-  ldata <- lapply(dataset, avg)
-  if (length(s) > 0) {
-    n <- union(as.character(attr(pred, "predvars"))[-1],
-               names(dataset))
-    if (is.list(s[[1]]))
-      s <- s[[1]]
-    m <- match(names(s), n)
-    ma <- m[!is.na(m)]
-    if (!all(complete.cases(m))) {
-      w <- paste("Variable '", names(s[is.na(m)]),
-                 "' not in data set.\n", sep = "")
-      warning(w)
+    pred <- try(terms(fit <- lm(formula, data), "predvars"), silent = TRUE)
+    if ("try-error" %in% class(pred)) # exp and weibull
+        pred <- try(terms(fit <- survreg(formula, data), "predvars"), silent = TRUE)
+
+# browser()
+    dataset <- model.frame(fit)
+    test <- dataset
+
+
+
+    ldata <- lapply(dataset, avg)
+    if (length(s) > 0) {
+        n <- union(as.character(attr(pred, "predvars"))[-1], names(dataset))
+        if (is.list(s[[1]])) s <- s[[1]]
+        m <- match(names(s), n)
+        ma <- m[!is.na(m)]
+        if (!all(complete.cases(m))) {
+            w <- paste("Variable '", names(s[is.na(m)]), "' not in data set.\n",
+                     sep = "")
+            stop(w, call. = FALSE)
+        }
+        for (i in seq(n[ma])) {
+            ldata[n[ma]][i][[1]] <- setval(dataset[n[ma]][i][[1]],
+                                           s[n[ma]][i][[1]])
+        }
     }
-    for (i in seq(n[ma]))
-      ldata[n[ma]][i][[1]] <- setval(dataset[n[ma]][i][[1]],
-                                     s[n[ma]][i][[1]])
-  }
-  return(ldata)
+    return(ldata)
 }
+
+
 
 #' Describe Here
 #' @param qi quantity of interest in the discrete case
@@ -160,18 +178,19 @@ statmat <- function(qi) {
 #' Describe Here
 #' @param qi quantity of interest in the discrete case
 #' @param num number of simulations
-#' @return a formatted qi
+#' @return a formatted quantity of interest
 #' @keywords internal
 #' @author Christine Choirat
 statlevel <- function(qi, num) {
     if (is.matrix(qi)){
         #m <- t(apply(qi, 2, table)) / num
         all.levels <- levels(qi)
-        m <- t(apply(qi, 2, function(x) table(factor(x, levels=all.levels)))) / num
-    }else{
+        m <- t(apply(qi, 2, function(x)
+            table(factor(x, levels=all.levels)))) / num
+    } else {
         m <- table(qi) / num
     }
-  return(m)
+    return(m)
 }
 
 #' Pass Quantities of Interest to Appropriate Summary Function
@@ -244,7 +263,7 @@ expand_grid_setrange <- function(x) {
 #'   \code{zelig}.
 #' @note This function creates a list of \code{data.frame} objects, which
 #'   resembles the storage of imputed data sets in the \code{amelia} object.
-#' @param ... a set of \code{data.frame}'s
+#' @param ... a set of \code{data.frame}'s or a single list of \code{data.frame}'s
 #' @return an \code{mi} object composed of a list of data frames.
 #' @author Matt Owen, James Honaker, and Christopher Gandrud
 #' @export
@@ -268,9 +287,16 @@ to_zelig_mi <- function (...) {
 
     # Get arguments as list
     imputations <- list(...)
-    names(imputations) <- paste("imp", 1:length(imputations), sep = "")
 
-      # Ensure that everything is data.frame
+    # If user passes a list of data.frames rather than several data.frames as separate arguments
+    if((class(imputations[[1]]) == 'list') & (length(imputations) == 1)){
+        imputations = imputations[[1]]
+    }   
+
+    # Labelling
+    names(imputations) <- paste0("imp", 1:length(imputations))
+
+    # Ensure that everything is data.frame
     for (k in length(imputations):1) {
         if (!is.data.frame(imputations[[k]])){
             imputations[[k]] <- NULL
@@ -300,37 +326,45 @@ to_zelig_mi <- function (...) {
 #' @return an \code{mi} object composed of a list of data frames.
 mi <- to_zelig_mi
 
-#' Convert \code{as.factor}s called inside a \code{zelig} call
+#' Conduct variable transformations called inside a \code{zelig} call
 #'
 #' @param formula model formulae
 #' @param data data frame used in \code{formula}
-#' @param check logical whether to just check if a formula contains internally
-#'   called factors and return \code{TRUE} or \code{FALSE}
+#' @param FUN character string of the transformation function
+#' @param check logical whether to just check if a formula contains an
+#'   internally called transformation and return \code{TRUE} or \code{FALSE}
 #' @param f_out logical whether to return the converted formula
 #' @param d_out logical whether to return the converted data frame. Note:
 #'   \code{f_out} must be missing
+#'
 #' @author Christopher Gandrud
+#' @internal
 
-factorize <- function(formula, data, check, f_out, d_out) {
+transformer <- function(formula, data, FUN = 'log', check, f_out, d_out) {
+
+    if (FUN == 'as.factor') FUN_temp <- 'as\\.factor'
+    else FUN_temp <- FUN
+    FUN_str <- sprintf('%s\\(', FUN_temp)
+
     f <- as.character(formula)[3]
     f_split <- unlist(strsplit(f, split = ' '))
-    to_factor <- grep(pattern = 'as.factor', f_split)
+    to_transform <- grep(pattern = FUN_str, f_split)
 
     if (!missing(check)) {
-        if (length(to_factor) > 0) return(TRUE)
+        if (length(to_transform) > 0) return(TRUE)
         else return(FALSE)
     }
 
-    if (length(to_factor) > 0) {
-        to_factor_raw <- f_split[to_factor]
-        to_factor_raw <- gsub('as\\.factor\\(', '', to_factor_raw)
-        to_factor_plain <- gsub('\\)', '', to_factor_raw)
+    if (length(to_transform) > 0) {
+        to_transform_raw <- f_split[to_transform]
+        to_transform_plain <- gsub(FUN_str, '', to_transform_raw)
+        to_transform_plain <- gsub('\\)', '', to_transform_plain)
 
-        if (!all(to_factor_plain %in% names(data)))
-            stop('Unable to find variable to convert to factor.')
+        if (!all(to_transform_plain %in% names(data)))
+            stop('Unable to find variable to transform.')
 
         if (!missing(f_out)) {
-            f_split[to_factor] <- to_factor_plain
+            f_split[to_transform] <- to_transform_plain
             f_comb <- paste(f_split, collapse = ' ')
             dv <- gsub('\\(\\)', '', formula[2])
             f_new <- paste(dv, '~', f_comb, collapse = ' ')
@@ -338,24 +372,67 @@ factorize <- function(formula, data, check, f_out, d_out) {
             return(f_out)
         }
         else if (d_out) {
-            for (i in to_factor_plain) data[, i] <- as.factor(data[, i])
+            for (i in to_transform_plain)
+              data[, i] <- eval(parse(text = sprintf('%s(data[, i])',
+                                                     FUN)))
             return(data)
         }
     }
-    else if (length(to_factor) == 0) {
-          if (!missing(f_out)) return(formula)
-          else if (d_out) return(data)
+    else if (length(to_transform) == 0) {
+        if (!missing(f_out)) return(formula)
+        else if (d_out) return(data)
     }
 }
+
+
 
 #' Remove package names from fitted model object calls.
 #'
 #' Enables \code{\link{from_zelig_model}} output to work with stargazer.
 #' @param x a fitted model object result
+#' @internal
 
 strip_package_name <- function(x) {
     call_temp <- gsub('^.*(?=(::))', '', x$call[1], perl = TRUE)
     call_temp <- gsub('::', '', call_temp, perl = TRUE)
     x$call[1] <- as.call(list(as.symbol(call_temp)))
+    return(x)
+}
+
+#' Extract p-values from a fitted model object
+#' @param x a fitted Zelig object
+#' @internal
+
+p_pull <- function(x) {
+    p_values <- summary(x)$coefficients
+    if('Pr(>|t|)' %in% colnames(p_values)){
+        p_values <- p_values[, 'Pr(>|t|)']
+    }else{
+        p_values <- p_values[, 'Pr(>|z|)']
+    }
+    return(p_values)
+}
+
+#' Extract standard errors from a fitted model object
+#' @param x a fitted Zelig object
+#' @internal
+
+se_pull <- function(x) {
+  se <- summary(x)$coefficients[, "Std. Error"]
+  return(se)
+}
+
+#' Drop intercept columns from a data frame of fitted values
+#'
+#' @param x a data frame
+#' @internal
+
+rm_intercept <- function(x) {
+    intercept_names <- c('(Intercept)', 'X.Intercept.')
+    names_x <- names(x)
+    if (any(intercept_names %in% names(x))) {
+        keep <- !(names(x) %in% intercept_names)
+        x <- x[, names_x[keep]]
+    }
     return(x)
 }

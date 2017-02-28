@@ -5,22 +5,25 @@
 is_zelig <- function(x, fail = TRUE) {
     is_it <- inherits(x, "Zelig")
     if (isTRUE(fail)) {
-        if(!isTRUE(is_it)) stop('Not a Zelig object.',
-                                call. = FALSE)
+        if(!isTRUE(is_it)) stop('Not a Zelig object.', call. = FALSE)
     } else return(is_it)
 }
 
 #' Check if uninitializedField
 #' @param x a zelig.out method
+#' @param msg character string with the error message to return if
+#'   \code{fail = TRUE}.
 #' @param fail logical whether to return an error if x uninitialzed.
 
-is_uninitializedField <- function(x, fail = TRUE) {
+is_uninitializedField <- function(x,
+                                  msg = 'Zelig model has not been estimated.',
+                                  fail = TRUE) {
     passes <- FALSE
     if (length(x) == 1) passes <- inherits(x, "uninitializedField")
 
     if (isTRUE(fail)) {
         if (isTRUE(passes))
-            stop('Zelig model has not been estimated.', call. = FALSE)
+            stop(msg, call. = FALSE)
     } else return(passes)
 }
 
@@ -31,6 +34,7 @@ is_uninitializedField <- function(x, fail = TRUE) {
 is_sims_present <- function(x, fail = TRUE) {
     passes <- TRUE
     if (is.null(x$x) & is.null(x$range)) passes <- FALSE
+    if (length(x) > 0) passes <- TRUE
     if (isTRUE(fail)) {
         if (!isTRUE(passes))
             stop('No simulated quantities of interest found.', call. = FALSE)
@@ -52,6 +56,22 @@ is_simsx <- function(x, fail = TRUE) {
     } else return(passes)
 }
 
+#' Check if simulations for individual values for x1 are present
+#'   in sim.out
+#' @param x a sim.out method
+#' @param fail logical whether to return an error if simulation range is not
+#'   present.
+
+is_simsx1 <- function(x, fail = TRUE) {
+    passes <- TRUE
+    if (is.null(x$x1)) passes <- FALSE
+    if (isTRUE(fail)) {
+        if (!isTRUE(passes))
+            stop('Simulations for individual fitted values are not present.',
+                call. = FALSE)
+    } else return(passes)
+}
+
 #' Check if simulations for a range of fitted values are present in sim.out
 #' @param x a sim.out method
 #' @param fail logical whether to return an error if simulation range is not
@@ -60,6 +80,21 @@ is_simsx <- function(x, fail = TRUE) {
 is_simsrange <- function(x, fail = TRUE) {
     passes <- TRUE
     if (is.null(x$range)) passes <- FALSE
+    if (isTRUE(fail)) {
+        if (!isTRUE(passes))
+            stop('Simulations for a range of fitted values are not present.',
+                call. = FALSE)
+    } else return(passes)
+}
+
+#' Check if simulations for a range1 of fitted values are present in sim.out
+#' @param x a sim.out method
+#' @param fail logical whether to return an error if simulation range is not
+#'   present.
+
+is_simsrange1 <- function(x, fail = TRUE) {
+    passes <- TRUE
+    if (is.null(x$range1)) passes <- FALSE
     if (isTRUE(fail)) {
         if (!isTRUE(passes))
             stop('Simulations for a range of fitted values are not present.',
@@ -102,7 +137,7 @@ is_varying <- function(x, msg = 'Vector does not vary.', fail = TRUE) {
 }
 
 #' Check if a zelig object contains a time series model
-#' 
+#'
 #' @param x a zelig object
 #' @param msg character string with the error message to return if
 #'   \code{fail = TRUE}.

@@ -13,18 +13,22 @@ test_that('REQUIRE TEST ls continuous covar -- quickstart (Zelig 5 syntax)', {
     z5$zelig(Fertility ~ Education, data = swiss)
 
     # extract education coefficient parameter estimate and compare to reference
-    expect_equivalent(round(as.numeric(z5$getcoef()[[1]][2]), 7), -0.8623503)
+    expect_equivalent(round(as.numeric(z5$get_coef()[[1]][2]), 7), -0.8623503)
 })
 
 
 # REQUIRE TEST ls with by -------------------------------------------------------
 
 test_that('REQUIRE TEST ls with by', {
-    # Majority Catholic dummy
-    swiss$maj_catholic <- cut(swiss$Catholic, breaks = c(0, 51, 100))
-
-    z5 <- zls$new()
-    z5$zelig(Fertility ~ Education, data = swiss, by = 'maj_catholic')
+  # Majority Catholic dummy
+  swiss$maj_catholic <- cut(swiss$Catholic, breaks = c(0, 51, 100))
+  
+  z5by <- zls$new()
+  z5by$zelig(Fertility ~ Education, data = swiss, by = 'maj_catholic')
+  z5by$setx()    
+#  z5by$sim()
+#  sims_df <- zelig_qi_to_df(z5)
+  #    expect_equal(length(unique(sims_df$by)), 2)
 })
 
 # gim method tests -------------------------------------------------------------
@@ -63,4 +67,38 @@ test_that('REQUIRE TEST for set with ls models including factors set within zeli
     expect_equal(setUS1$setx.out$x$mm[[1]][[16]], 1)
     expect_equal(setUS1$setx.out$x$mm[[1]][[16]], 
                  setUS2$setx.out$x$mm[[1]][[16]])
+})
+
+# REQUIRE TEST for set with ls models including natural logs set within zelig call --
+test_that('REQUIRE TEST for set with ls models including natural logs set within zelig call', {
+#  z1 <- zelig(speed ~ log(dist, base = 10), data = cars, model = 'ls')
+  z1 <- zelig(speed ~ log(dist), data = cars, model = 'ls')
+  setd1 <- setx(z1, dist = log(15))
+  
+  cars$dist <- log(cars$dist)
+  z2 <- zelig(speed ~ dist, data = cars, model = 'ls')
+  setd2 <- setx(z1, dist = log(15))
+  
+  expect_equal(round(setd1$setx.out$x$mm[[1]][[2]], digits = 5), 2.70805)
+  expect_equal(setd1$setx.out$x$mm[[1]][[2]], 
+               setd2$setx.out$x$mm[[1]][[2]])
+})
+
+# REQUIRE TEST for ls with interactions ----------------------------------------
+test_that('REQUIRE TEST for ls with interactions', {
+    states <- as.data.frame(state.x77)
+    z <- zelig(Murder ~ Income * Population, data = states, model = 'ls')
+    s1 <- setx(z, Population = 1500:1600, Income = 3098)
+    s2 <- setx(z, Population = 1500:1600, Income = 6315)
+    
+    expect_equal(length(s1$setx.out$range), 101)
+    expect_equal(length(s2$setx.out$range), 101)
+})
+
+# REQUIRE TEST for ls with unrecognised variable name --------------------------
+test_that('REQUIRE TEST for ls with unrecognised variable name', {
+  states <- as.data.frame(state.x77)
+  z <- zelig(Murder ~ Income * Population, data = states, model = 'ls')
+  expect_error(setx(z, population = 1500:1600, Income = 3098),
+               "Variable 'population' not in data set.")
 })

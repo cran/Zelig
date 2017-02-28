@@ -20,7 +20,24 @@ test_that('REQUIRE TEST for to_zelig_mi', {
     mi.out <- to_zelig_mi(data.1, data.2)
     z.out <- zelig(y ~ x, model = "ls", data = mi.out)
     
-    expect_equivalent(round(as.numeric(z.out$getcoef()[[1]][2]), 3), 0.1)
+    expect_equivalent(round(as.numeric(z.out$get_coef()[[1]][2]), 3), 0.1)
+})
+
+# REQUIRE TEST for to_zelig_mi -------------------------------------------------
+test_that('REQUIRE TEST for to_zelig_mi -- with list of data.frames', {
+    set.seed(123)
+    n <- 100
+    x1 <- runif(n)
+    x2 <- runif(n)
+    y <- rnorm(n)
+    data.1 <- data.frame(y = y, x = x1)
+    data.2 <- data.frame(y = y, x = x2)
+    data_mi = list(data.1, data.2)
+    
+    mi.out <- to_zelig_mi(data_mi)
+    z.out <- zelig(y ~ x, model = "ls", data = mi.out)
+    
+    expect_equivalent(round(as.numeric(z.out$get_coef()[[1]][2]), 3), 0.1)
 })
 
 # FAIL TESTS for to_zelig_mi ----------------------------------------------------
