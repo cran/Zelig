@@ -234,19 +234,19 @@ z$methods(
     }
 
     .self$formula <- formula
-    
+
     # Convert factors converted internally to the zelig call
     if (transformer(formula, FUN = 'as.factor', check = TRUE)) {
-      localformula <- transformer(formula, data, FUN = 'as.factor', 
+      localformula <- transformer(formula, data, FUN = 'as.factor',
                                   f_out = TRUE)
       localdata <- transformer(formula, data, FUN = 'as.factor', d_out = TRUE)
       .self$formula <- localformula
       .self$data <- localdata
     }
-    
+
     # Convert natural logs converted internally to the zelig call
     if (transformer(formula, FUN = 'log', check = TRUE)) {
-      localformula <- transformer(formula, data, FUN = 'log', 
+      localformula <- transformer(formula, data, FUN = 'log',
                                   f_out = TRUE)
       localdata <- transformer(formula, data, FUN = 'log', d_out = TRUE)
       .self$formula <- localformula
@@ -758,7 +758,6 @@ z$methods(
     "Display a Zelig object"
 
     is_uninitializedField(.self$zelig.out)
-
     .self$signif.stars <- signif.stars
     .self$signif.stars.default <- getOption("show.signif.stars")
     options(show.signif.stars = .self$signif.stars)
@@ -783,111 +782,51 @@ z$methods(
       }
       #############################################################################
 
-      if((.self$mi) & is.null(subset)){
-        cat("Model: Combined Imputations \n")
-        vcovlist <-.self$get_vcov()
-        coeflist <-.self$get_coef()
-        am.m<-length(coeflist)
-        am.k<-length(coeflist[[1]])
-        q <- matrix(unlist(coeflist), nrow=am.m, ncol=am.k, byrow=TRUE)
-        se <- matrix(NA, nrow=am.m, ncol=am.k)
-        for(i in 1:am.m){
-          se[i,]<-sqrt(diag(vcovlist[[i]]))
-        }
-        ones <- matrix(1, nrow = 1, ncol = am.m)
-        imp.q <- (ones %*% q)/am.m        # Slightly faster than "apply(b,2,mean)"
-        ave.se2 <- (ones %*% (se^2))/am.m # Similarly, faster than "apply(se^2,2,mean)"
-        diff <- q - matrix(1, nrow = am.m, ncol = 1) %*% imp.q
-        sq2 <- (ones %*% (diff^2))/(am.m - 1)
-        imp.se <- sqrt(ave.se2 + sq2 * (1 + 1/am.m))
+    if((.self$mi || .self$bootstrap)  & is.null(subset)){
+        if (.self$mi)
+            cat("Model: Combined Imputations \n\n")
+        else
+            cat("Model: Combined Bootstraps \n\n")
 
-        Estimate<-as.vector(imp.q)
-        Std.Error<-as.vector(imp.se)
-        zvalue<-Estimate/Std.Error
-        Pr.z<-2*(1-pnorm(abs(zvalue)))
-        stars<-rep("",am.k)
-        stars[Pr.z<.05]<-"."
-        stars[Pr.z<.01]<-"*"
-        stars[Pr.z<.001]<-"**"
-        stars[Pr.z<.0001]<-"***"
-
-        results<-data.frame(Estimate,Std.Error,zvalue,Pr.z,stars,row.names=names(coeflist[[1]]))
-        names(results)<-c("Estimate","Std.Error","z value","Pr(>|z|)","")
-        print(results, digits=max(3, getOption("digits") - 3))
-        cat("---\nSignif. codes:  '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n")
+        mi_combined <- combine_coef_se(.self, messages = FALSE)
+        printCoefmat(mi_combined, P.values = TRUE, has.Pvalue = TRUE,
+                     digits = max(2, getOption("digits") - 4))
         cat("\n")
-        cat("For results from individual imputed datasets, use summary(x, subset = i:j)\n")
-      }else if ((.self$mi) & !is.null(subset)) {
+
+        if (.self$mi)
+            cat("For results from individual imputed datasets, use summary(x, subset = i:j)\n")
+        else
+            cat("For results from individual bootstrapped datasets, use summary(x, subset = i:j)\n")
+    } else if ((.self$mi) & !is.null(subset)) {
+            for(i in subset){
+                cat("Imputed Dataset ", i, sep = "")
+                print(base::summary(.self$zelig.out$z.out[[i]]))
+            }
+    } else if ((.self$bootstrap) & !is.null(subset)) {
         for(i in subset){
-          cat("Imputed Dataset ",i,sep="")
-          print(base::summary(.self$zelig.out$z.out[[i]]))
+            cat("Bootstrapped Dataset ", i, sep = "")
+            print(base::summary(.self$zelig.out$z.out[[i]]))
         }
-      }else if ((.self$bootstrap) & is.null(subset)) {
-        # Much reuse of Rubin's Rules from above.  Probably able to better generalize across these two cases:
-        cat("Model: Combined Bootstraps \n")
-        vcovlist <-.self$get_vcov()
-        coeflist <-.self$get_coef()
-        am.m<-length(coeflist) - 1
-        am.k<-length(coeflist[[1]])
-        q <- matrix(unlist(coeflist[-(am.m+1)]), nrow=am.m, ncol=am.k, byrow=TRUE)
-        #se <- matrix(NA, nrow=am.m, ncol=am.k)
-        #for(i in 1:am.m){
-        #  se[i,]<-sqrt(diag(vcovlist[[i]]))
-        #}
-        ones <- matrix(1, nrow = 1, ncol = am.m)
-        imp.q <- (ones %*% q)/am.m        # Slightly faster than "apply(b,2,mean)"
-        #ave.se2 <- (ones %*% (se^2))/am.m # Similarly, faster than "apply(se^2,2,mean)"
-        diff <- q - matrix(1, nrow = am.m, ncol = 1) %*% imp.q
-        sq2 <- (ones %*% (diff^2))/(am.m - 1)
-        #imp.se <- sqrt(ave.se2 + sq2 * (1 + 1/am.m))
-        imp.se <- sqrt(sq2 * (1 + 1/am.m))  # Note departure from Rubin's rules here.
-
-        if(bagging){
-          Estimate<-as.vector(imp.q)
-        }else{
-          Estimate<-coeflist[[am.m+1]]
-        }
-        Std.Error<-as.vector(imp.se)
-        zvalue<-Estimate/Std.Error
-        Pr.z<-2*(1-pnorm(abs(zvalue)))
-        stars<-rep("",am.k)
-        stars[Pr.z<.05]<-"."
-        stars[Pr.z<.01]<-"*"
-        stars[Pr.z<.001]<-"**"
-        stars[Pr.z<.0001]<-"***"
-
-        results<-data.frame(Estimate,Std.Error,zvalue,Pr.z,stars,row.names=names(coeflist[[1]]))
-        names(results)<-c("Estimate","Std.Error","z value","Pr(>|z|)","")
-        print(results, digits=max(3, getOption("digits") - 3))
-        cat("---\nSignif. codes:  '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n")
-        cat("\n")
-        cat("For results from individual bootstrapped datasets, use summary(x, subset = i:j)\n")
-
-      }else if ((.self$bootstrap) & !is.null(subset)) {
-        for(i in subset){
-          cat("Bootstrapped Dataset ",i,sep="")
-          print(base::summary(.self$zelig.out$z.out[[i]]))
-        }
-      }else{
+    } else {
         summ <- .self$zelig.out %>%
-          do(summ = {cat("Model: \n")
-            if (length(.self$by) == 1) {
-              if (.self$by == "by") {
-                cat()
-              }
-              else {
-                print(.[.self$by])
-              }
-            } else {
-              print(.[.self$by])
-            }
-            if("S4" %in% typeof(.$z.out)){  # Need to change summary method here for some classes
-              print(summary(.$z.out))
-            }else{
-              print(base::summary(.$z.out))
-            }
-          })
-      }
+            do(summ = {cat("Model: \n")
+                if (length(.self$by) == 1) {
+                    if (.self$by == "by") {
+                    cat()
+                    }
+                    else {
+                        print(.[.self$by])
+                    }
+                } else {
+                    print(.[.self$by])
+                }
+                if("S4" %in% typeof(.$z.out)){  # Need to change summary method here for some classes
+                    print(summary(.$z.out))
+                } else {
+                    print(base::summary(.$z.out))
+                }
+            })
+    }
 
 
       if("gim.criteria" %in% names(.self$test.statistics)){
@@ -908,12 +847,12 @@ z$methods(
       niceprint <- function(obj, name){
         if(!is.null(obj[[1]])){
           cat(name, ":\n", sep = "")
-          if (is.data.frame(obj)) 
+          if (is.data.frame(obj))
               screenoutput <- obj
           else
               screenoutput <- obj[[1]]
           attr(screenoutput,"assign") <- NULL
-          print(screenoutput, digits = max(3, getOption("digits") - 3))
+          print(screenoutput, digits = max(2, getOption("digits") - 4))
         }
       }
       range_out <- function(x, which_range = 'range') {
@@ -923,7 +862,7 @@ z$methods(
             num_cols <- length(x$setx.out[[which_range]][[1]]$mm[[1]] )
             xmatrix <- matrix(NA, nrow = d, ncol = num_cols)
             for (i in 1:d){
-                xmatrix[i,] <- matrix(x$setx.out[[which_range]][[i]]$mm[[1]], 
+                xmatrix[i,] <- matrix(x$setx.out[[which_range]][[i]]$mm[[1]],
                                       ncol = num_cols)
             }
             xdf <- data.frame(xmatrix)
@@ -931,7 +870,7 @@ z$methods(
             return(xdf)
           }
       }
-      
+
       niceprint(obj=.self$setx.out$x$mm, name="setx")
       niceprint(obj=.self$setx.out$x1$mm, name="setx1")
       niceprint(obj = range_out(.self), name = "range")
@@ -980,14 +919,14 @@ z$methods(
 )
 
 z$methods(
-  graph = function() {
+  graph = function(...) {
     "Plot the quantities of interest"
 
     is_uninitializedField(.self$zelig.out)
     is_sims_present(.self$sim.out)
 
-    if (is_simsx(.self$sim.out, fail = FALSE)) qi.plot(.self)
-    if (is_simsrange(.self$sim.out, fail = FALSE)) ci.plot(.self)
+    if (is_simsx(.self$sim.out, fail = FALSE)) qi.plot(.self, ...)
+    if (is_simsrange(.self$sim.out, fail = FALSE)) ci.plot(.self, ...)
   }
 )
 
@@ -1040,19 +979,38 @@ z$methods(
   })
 
 #' Method for extracting estimated coefficients from Zelig objects
-#' @param object an object of class Zelig
+#' @param nonlist logical whethe to \code{unlist} the result if there are only
+#'   one set of coefficients. Enables backwards compatibility.
 
 z$methods(
-  get_coef = function() {
+  get_coef = function(nonlist = FALSE) {
     "Get estimated model coefficients"
 
     is_uninitializedField(.self$zelig.out)
     result <- try(lapply(.self$zelig.out$z.out, coef), silent = TRUE)
     if ("try-error" %in% class(result))
       stop("'coef' method' not implemented for model '", .self$name, "'")
-    else
-      return(result)
+    else {
+        if (nonlist & length(result) == 1) result <- unlist(result)
+        return(result)
+    }
   }
+)
+
+#' Method for extracting estimated variance covariance matrix from Zelig objects
+#' @param nonlist logical whethe to \code{unlist} the result if there are only
+#'   one set of coefficients. Enables backwards compatibility.
+
+z$methods(
+    get_vcov = function() {
+        "Get estimated model variance-covariance matrix"
+        is_uninitializedField(.self$zelig.out)
+        result <- lapply(.self$zelig.out$z.out, vcov)
+        if ("try-error" %in% class(result))
+            stop("'vcov' method' not implemented for model '", .self$name, "'")
+        else
+            return(result)
+    }
 )
 
 #' Method for extracting p-values from Zelig objects
@@ -1077,24 +1035,11 @@ z$methods(
 z$methods(
   get_se = function() {
     "Get estimated model standard errors"
-    
+
     is_uninitializedField(.self$zelig.out)
     result <- try(lapply(.self$zelig.out$z.out, se_pull), silent = TRUE)
     if ("try-error" %in% class(result))
       stop("'get_se' method' not implemented for model '", .self$name, "'")
-    else
-      return(result)
-  }
-)
-
-
-z$methods(
-  get_vcov = function() {
-    "Get estimated model variance-covariance matrix"
-    is_uninitializedField(.self$zelig.out)
-    result <- lapply(.self$zelig.out$z.out, vcov)
-    if ("try-error" %in% class(result))
-      stop("'vcov' method' not implemented for model '", .self$name, "'")
     else
       return(result)
   }
@@ -1441,7 +1386,7 @@ setMethod("summary", "Zelig",
 #' @param ... Additional parameters to be passed to plot
 setMethod("plot", "Zelig",
           function(x, ...) {
-            x$graph()
+            x$graph(...)
           }
 )
 
@@ -1453,20 +1398,32 @@ setMethod("names", "Zelig",
           }
 )
 
+setGeneric("vcov")
 #' Variance-covariance method for Zelig objects
 #' @param object An Object of Class Zelig
-#' @param ... Additional parameters to be passed to vcov
+
 setMethod("vcov", "Zelig",
-          function(object, ...) {
+          function(object) {
             object$get_vcov()
           }
 )
 
 #' Method for extracting estimated coefficients from Zelig objects
 #' @param object An Object of Class Zelig
+
+setMethod("coefficients", "Zelig",
+          function(object) {
+              object$get_coef(nonlist = TRUE)
+          }
+)
+
+setGeneric("coef")
+#' Method for extracting estimated coefficients from Zelig objects
+#' @param object An Object of Class Zelig
+
 setMethod("coef", "Zelig",
           function(object) {
-            object$get_coef()
+            object$get_coef(nonlist = TRUE)
           }
 )
 
@@ -1486,20 +1443,22 @@ setMethod("df.residual", "Zelig",
           }
 )
 
+setGeneric("fitted")
 #' Method for extracting estimated fitted values from Zelig objects
 #' @param object An Object of Class Zelig
 #' @param ... Additional parameters to be passed to fitted
 setMethod("fitted", "Zelig",
           function(object, ...) {
-            object$get_fitted()
+            object$get_fitted(...)
           }
 )
 
+setGeneric("predict")
 #' Method for getting predicted values from Zelig objects
 #' @param object An Object of Class Zelig
 #' @param ... Additional parameters to be passed to predict
 setMethod("predict", "Zelig",
           function(object, ...) {
-            object$get_predict()
+            object$get_predict(...)
           }
 )

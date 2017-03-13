@@ -1,7 +1,47 @@
 > All changes to Zelig are documented here. GitHub issue numbers are given after
-each change note when relevant. See <https://github.com/IQSS/Zelig/issues>/. 
+each change note when relevant. See <https://github.com/IQSS/Zelig/issues>. 
 External contributors are referenced with their GitHub usernames when 
 applicable.
+
+
+Zelig version 5.0-17
+==============================
+
+## Major changes
+
+- New function `combine_coef_se` takes as input a `zelig` model estimated 
+using multiply imputed data or bootstrapping and returns a list of coefficients,
+standard errors, z-values, and p-values combined across the estimations. Thanks
+to @vincentarelbundock for prompting. #229 
+
+- The following changes were primarily made to re-established Zelig integration 
+with WhatIf. #236
+
+    + Added `zelig_setx_to_df` for extracted fitted values created by `setx`.
+Originally intended to re-enable WhatIf integration.
+
+    + Fitted factor level variable values are returned in a single column (not
+by parameter level) by `zelig_qi_to_df`.
+
+- `setrange` (including `setx` used with a range of fitted values) now creates
+scenarios based on matches of equal length set ranges. This enables `setx` to 
+work with polynomials, splines, etc. (currently only when these are created 
+outside of the `zelig` call. #238
+
+## Minor changes and bug fixes
+
+- Resolve a bug where appropriate `plot`s were not created for `mlogitbayes`. #206
+
+- Arguments (such as `xlab`) can now be passed to `plot`. #237
+
+- `zelig_qi_to_df` and `qi_slimmer` bug with multinomial response models 
+resolved. #235
+
+- Resolved a bug where `coef`, `coefficients`, `vcov`, `fitted`, and `predict`
+returned errors. Thanks to @vincentarelbundock for initially reporting. #231
+
+- Reduced number of digits show from `summary` for fitted model objects.
+
 
 
 Zelig version 5.0-16
@@ -45,7 +85,7 @@ natural logarithm inside of the call. #225
 x-axis variable when plotting a range of simulations. #226
 
 - If a factor level variable's fitted value is not specified in `setx` and
-it is multi-modal, the last factor in the factor list is arbitarily chosen. 
+it is multi-modal, the last factor in the factor list is arbitrarily chosen. 
 This replaces previous behavior where the level was randomly chosen, causing
 unuseful quantity of interest range plots. #226
 
@@ -99,7 +139,7 @@ Zelig version 5.0-14
 - `mode` has been deprecated. Please use `Mode`. #152
 
 - The Zelig 4 `sim` wrapper now intelligently looks for fitted values from the
-reference class object if not supplied via the \code{x} argument.
+reference class object if not supplied via the x argument.
 
 - New `to_zelig_mi` utility function for combining multiply imputed data sets 
 for passing to `zelig`. `mi` will also work to enable backwards compatibility. #178
