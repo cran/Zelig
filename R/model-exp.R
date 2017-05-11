@@ -1,6 +1,6 @@
 #' Exponential Regression for Duration Dependent Variables
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zelig-exp.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zelig_exp.html}
 #' @import methods
 #' @export Zelig-exp
 #' @exportClass Zelig-exp
@@ -30,7 +30,8 @@ zexp$methods(
 )
 
 zexp$methods(
-  zelig = function(formula, ..., robust = FALSE, cluster = NULL, data, weights = NULL, by = NULL, bootstrap = FALSE) {
+  zelig = function(formula, ..., robust = FALSE, cluster = NULL, data,
+                   weights = NULL, by = NULL, bootstrap = FALSE) {
 
     localFormula <- formula # avoids CRAN warning about deep assignment from formula existing separately as argument and field
     .self$zelig.call <- match.call(expand.dots = TRUE)
@@ -44,8 +45,8 @@ zexp$methods(
     .self$model.call$model <- FALSE
     callSuper(formula = localFormula, data = data, ..., robust = robust,
               cluster = cluster,  weights = weights, by = by, bootstrap = bootstrap)
-    rse<- lapply(.self$zelig.out$z.out, (function(x) vcovHC(x, type = "HC0")))
-    .self$test.statistics<- list(robust.se = rse)
+    rse <- lapply(.self$zelig.out$z.out, (function(x) vcovHC(x, type = "HC0")))
+    .self$test.statistics <- list(robust.se = rse)
   }
 )
 
@@ -60,7 +61,7 @@ zexp$methods(
 
 zexp$methods(
   mcfun = function(x, b0=0, b1=1, alpha=1, sim=TRUE){
-    .self$mcformula <- as.formula("Surv(y.sim, event) ~ x.sim")
+    .self$mcformula <- as.Formula("Surv(y.sim, event) ~ x.sim")
 
     lambda <-exp(b0 + b1 * x)
     event <- rep(1, length(x))

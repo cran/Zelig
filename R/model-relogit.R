@@ -1,6 +1,6 @@
 #' Rare Events Logistic Regression for Dichotomous Dependent Variables
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zelig-relogit.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zelig_relogit.html}
 #' @import methods
 #' @export Zelig-relogit
 #' @exportClass Zelig-relogit
@@ -54,7 +54,13 @@ zrelogit$methods(
 )
 
 zrelogit$methods(
-  zelig = function(formula, ..., tau = NULL, bias.correct = NULL, case.control = NULL, data, by = NULL, bootstrap = FALSE) {
+  zelig = function(formula, ..., tau = NULL, bias.correct = NULL,
+                   case.control = NULL, data, by = NULL, bootstrap = FALSE) {
+     if (!is.null(tau)) {
+         if (any(tau <= 0))
+             stop("tau is the population proportion of 1's for the response variable.\nIt must be > 0.",
+                  call. = FALSE)
+     }
     .self$zelig.call <- match.call(expand.dots = TRUE)
     .self$model.call <- .self$zelig.call
     # Catch NULL case.control
@@ -66,13 +72,26 @@ zrelogit$methods(
     # Construct formula. Relogit models have the structure:
     #   cbind(y, 1-y) ~ x1 + x2 + x3 + ... + xN
     # Where y is the response.
-    form <- update(formula, cbind(., 1 - .) ~ .)
-    .self$model.call$formula <- form
+#    form <- update(formula, cbind(., 1 - .) ~ .)
+#    .self$model.call$formula <- form
     .self$model.call$case.control <- case.control
     .self$model.call$bias.correct <- bias.correct
     .self$model.call$tau <- tau
-    callSuper(formula = formula, data = data, ..., weights = NULL, by = by, bootstrap = bootstrap)
+    callSuper(formula = formula, data = data, ..., weights = NULL, by = by,
+              bootstrap = bootstrap)
   }
+)
+
+zrelogit$methods(
+    modcall_formula_transformer = function() {
+        "Transform model call formula."
+
+        # Construct formula. Relogit models have the structure:
+        #   cbind(y, 1-y) ~ x1 + x2 + x3 + ... + xN
+        # Where y is the response.
+        relogit_form <- update(.self$formula, cbind(., 1 - .) ~ .)
+        .self$model.call$formula <- relogit_form
+    }
 )
 
 zrelogit$methods(
@@ -113,27 +132,30 @@ relogit <- function(formula,
            "or case.control = \"weighting\"")
     if (length(ck2) == 0)
       weighting <- FALSE
-    else 
+    else
       weighting <- TRUE
   }
   else
     weighting <- FALSE
-  if (length(tau) > 2)
-    stop("tau must be a vector of length less than or equal to 2")
-  else if (length(tau) == 2) {
-    mf[[1]] <- relogit
-    res <- list()
-    mf$tau <- min(tau)
-    res$lower.estimate <- eval(as.call(mf), parent.frame())
-    mf$tau <- max(tau)
-    res$upper.estimate <- eval(as.call(mf), parent.frame())
-    res$formula <- formula
-    class(res) <- c("Relogit2", "Relogit")
-    return(res)
+  if (length(tau) >= 2) {
+    stop("tau must be a vector of length less than or equal to 1. For multiple taus, estimate models individually.")
+#  else if (length(tau) == 2) {
+
+# The following is not currently supported due to issue with summary
+#    mf[[1]] <- relogit
+#    res <- list()
+#    mf$tau <- min(tau)
+#    res$lower.estimate <- eval(as.call(mf), parent.frame())
+#    mf$tau <- max(tau)
+#    res$upper.estimate <- eval(as.call(mf), parent.frame())
+#    res$formula <- formula
+#    class(res) <- c("Relogit2", "Relogit")
+#    return(res)
   }
   else {
     mf[[1]] <- glm
     mf$family <- binomial(link = "logit")
+
     y2 <- model.response(model.frame(mf$formula, data))
     if (is.matrix(y2))
       y <- y2[,1]
@@ -155,7 +177,7 @@ relogit <- function(formula,
       pihat <- fitted(res)
       if (is.null(tau)) # w_i = 1
         wi <- rep(1, length(y))
-      else if (weighting) 
+      else if (weighting)
         res$weighting <- TRUE
       else {
         w1 <- tau/ybar
@@ -176,11 +198,11 @@ relogit <- function(formula,
     }
     else
       res$bias.correct <- FALSE
-    ## prior correction 
-    if (!is.null(tau) & !weighting){      
-      if (tau <= 0 || tau >= 1) 
-        stop("\ntau needs to be between 0 and 1.\n") 
-      res$coefficients["(Intercept)"] <- res$coefficients["(Intercept)"] - 
+    ## prior correction
+    if (!is.null(tau) & !weighting){
+      if (tau <= 0 || tau >= 1)
+        stop("\ntau needs to be between 0 and 1.\n")
+      res$coefficients["(Intercept)"] <- res$coefficients["(Intercept)"] -
         log(((1 - tau) / tau) * (ybar / (1 - ybar)))
       res$prior.correct <- TRUE
       res$weighting <- FALSE
@@ -189,8 +211,8 @@ relogit <- function(formula,
       res$prior.correct <- FALSE
     if (is.null(res$weighting))
       res$weighting <- FALSE
-    
-    res$linear.predictors <- t(res$coefficients) %*% t(X) 
+
+    res$linear.predictors <- t(res$coefficients) %*% t(X)
     res$fitted.values <- 1 / (1 + exp(-res$linear.predictors))
     res$zelig <- "Relogit"
     class(res) <- c("Relogit", "glm")

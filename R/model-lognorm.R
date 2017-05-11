@@ -1,6 +1,6 @@
 #' Log-Normal Regression for Duration Dependent Variables
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zelig-lognorm.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zelig_lognorm.html}
 #' @import methods
 #' @export Zelig-lognorm
 #' @exportClass Zelig-lognorm
@@ -94,7 +94,7 @@ zlognorm$methods(
 
 zlognorm$methods(
   mcfun = function(x, b0=0, b1=1, alpha=1, sim=TRUE){
-    .self$mcformula <- as.formula("Surv(y.sim, event) ~ x.sim")
+    .self$mcformula <- as.Formula("Surv(y.sim, event) ~ x.sim")
     
     mu <- b0 + b1 * x
     event <- rep(1, length(x))

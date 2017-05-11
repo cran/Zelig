@@ -1,6 +1,6 @@
 #' Weibull Regression for Duration Dependent Variables
 #'
-#' Vignette: \url{http://docs.zeligproject.org/en/latest/zelig-weibull.html}
+#' Vignette: \url{http://docs.zeligproject.org/articles/zelig_weibull.html}
 #' @import methods
 #' @export Zelig-tobit-bayes
 #' @exportClass Zelig-tobit-bayes
@@ -92,7 +92,7 @@ zweibull$methods(
 
 zweibull$methods(
   mcfun = function(x, b0=0, b1=1, alpha=1, sim=TRUE){
-    .self$mcformula <- as.formula("Surv(y.sim, event) ~ x.sim")
+    .self$mcformula <- as.Formula("Surv(y.sim, event) ~ x.sim")
     
     
     mylambda <-exp(b0 + b1 * x)

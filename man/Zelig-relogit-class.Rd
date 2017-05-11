@@ -6,11 +6,13 @@
 \alias{zrelogit}
 \title{Rare Events Logistic Regression for Dichotomous Dependent Variables}
 \description{
-Vignette: \url{http://docs.zeligproject.org/en/latest/zelig-relogit.html}
+Vignette: \url{http://docs.zeligproject.org/articles/zelig_relogit.html}
 }
 \section{Methods}{
 
 \describe{
+\item{\code{modcall_formula_transformer()}}{Transform model call formula.}
+
 \item{\code{zelig(formula, data, model = NULL, ..., weights = NULL, by,
   bootstrap = FALSE)}}{The zelig function estimates a variety of statistical models}
 }}

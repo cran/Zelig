@@ -22,7 +22,7 @@
 #'   \code{I(x1^2)}
 #' @param model the name of a statistical model.
 #'   For a list of supported models visit:
-#'   \url{http://docs.zeligproject.org/en/latest/}.
+#'   \url{http://docs.zeligproject.org/articles/}.
 #' @param data the name of a data frame containing the variables
 #'   referenced in the formula, or a list of multiply imputed data frames
 #'   each having the same variable names and row numbers (created by
@@ -152,7 +152,7 @@ zelig <- function(formula, model, data, ..., by = NULL, cite = TRUE) {
 #'
 #' @author Matt Owen, Olivia Lau and Kosuke Imai
 #' @seealso The full Zelig manual may be accessed online at
-#'   \url{http://docs.zeligproject.org/en/latest/}
+#'   \url{http://docs.zeligproject.org/articles/}
 #' @keywords file
 #' @export
 
@@ -224,7 +224,7 @@ setx <- function(obj, fn = NULL, data = NULL, cond = FALSE, ...) {
 #'
 #' @author Christopher Gandrud, Matt Owen, Olivia Lau, Kosuke Imai
 #' @seealso The full Zelig manual may be accessed online at
-#'   \url{http://docs.zeligproject.org/en/latest/}
+#'   \url{http://docs.zeligproject.org/articles/}
 #' @keywords file
 #' @export
 
@@ -364,4 +364,51 @@ sim <- function(obj, x, x1, y = NULL, num = 1000, bootstrap = F,
 
     s5$sim(num = num)
     return(s5)
+}
+
+#' Extract quantities of interest from a Zelig simulation
+#'
+#' @param object an object of class Zelig
+#' @param qi character string with the name of quantity of interest desired:
+#'   `"ev"` for expected values, `"pv"` for predicted values or
+#'   `"fd"` for first differences.
+#' @param xvalue chracter string stating which of the set of values of `x`
+#'    should be used for getting the quantity of interest.
+#' @param subset subset for multiply imputed data (only relevant if multiply
+#'    imputed data is supplied in the original call.)
+#' @author Christopher Gandrud
+#' @md
+#' @exmport
+
+get_qi <- function(object, qi = "ev", xvalue = "x", subset = NULL) {
+    is_zelig(object)
+    out <- object$get_qi(qi = qi, xvalue = xvalue, subset = subset)
+    return(out)
+}
+
+#' Compute simulated (sample) average treatment effects on the treated from
+#' a Zelig model estimation
+#'
+#' @param object an object of class Zelig
+#' @param treatment character string naming the variable that denotes the
+#'   treatment and non-treated groups.
+#' @param treated value of `treatment` variable indicating treatment
+#' @param num number of simulations to run. Default is 1000.
+#' @examples
+#' library(dplyr)
+#' data(sanction)
+#' z.att <- zelig(num ~ target + coop + mil, model = "poisson",
+#'                  data = sanction) %>%
+#'              ATT(treatment = "mil") %>%
+#'              get_qi(qi = "ATT", xvalue = "TE")
+#'
+#' @author Christopher Gandrud
+#' @md
+#' @export
+
+ATT <- function(object, treatment, treated = 1, num = NULL) {
+    is_zelig(object)
+    object$ATT(treatment = treatment, treated = treated,
+               quietly = TRUE, num = num)
+    return(object)
 }
