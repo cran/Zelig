@@ -465,9 +465,15 @@ transformer <- function(formula, data, FUN = 'log', check, f_out, d_out) {
 #' @keywords internal
 
 strip_package_name <- function(x) {
-    call_temp <- gsub('^.*(?=(::))', '', x$call[1], perl = TRUE)
+    if ("vglm" %in% class(x)) # maybe generalise to all s4?
+        call_temp <- gsub('^.*(?=(::))', '', x@call[1], perl = TRUE)
+    else
+        call_temp <- gsub('^.*(?=(::))', '', x$call[1], perl = TRUE)
     call_temp <- gsub('::', '', call_temp, perl = TRUE)
-    x$call[1] <- as.call(list(as.symbol(call_temp)))
+    if ("vglm" %in% class(x))
+        x@call[1] <- as.call(list(as.symbol(call_temp)))
+    else
+        x$call[1] <- as.call(list(as.symbol(call_temp)))
     return(x)
 }
 
@@ -476,12 +482,18 @@ strip_package_name <- function(x) {
 #' @keywords internal
 
 p_pull <- function(x) {
-    p_values <- summary(x)$coefficients
-    if ('Pr(>|t|)' %in% colnames(p_values)) {
-        p_values <- p_values[, 'Pr(>|t|)']
-    } else {
-        p_values <- p_values[, 'Pr(>|z|)']
+    if ("vglm" %in% class(x)) { # maybe generalise to all s4?
+        p_values <- summary(x)@coef3[, 'Pr(>|z|)']
     }
+    else {
+        p_values <- summary(x)$coefficients
+        if ('Pr(>|t|)' %in% colnames(p_values)) {
+            p_values <- p_values[, 'Pr(>|t|)']
+        } else {
+            p_values <- p_values[, 'Pr(>|z|)']
+        }
+    }
+
     return(p_values)
 }
 
@@ -490,7 +502,10 @@ p_pull <- function(x) {
 #' @keywords internal
 
 se_pull <- function(x) {
-    se <- summary(x)$coefficients[, "Std. Error"]
+    if ("vglm" %in% class(x)) # maybe generalise to all s4?
+        se <- summary(x)@coef3[, "Std. Error"]
+    else
+        se <- summary(x)$coefficients[, "Std. Error"]
     return(se)
 }
 
@@ -626,9 +641,15 @@ combine_coef_se <- function(obj, out_type = 'matrix', bagging = FALSE,
         }
         return(out)
     }
-    else if (!(obj$mi || obj$bootstrap))
-        stop('No multiply imputed or bootstrapped estimates found. So no need to combine.',
-             call. = FALSE)
+    else if (!(obj$mi || obj$bootstrap)) {
+    message('No multiply imputed or bootstrapped estimates found.\nReturning untransformed list of coefficients and standard errors.')
+        out <- list(coef = coef(obj),
+                          se = get_se(obj),
+                          pvalue = get_pvalue(obj)
+                          )
+
+        return(out)
+    }
 }
 
 #' Find vcov for GEE models
@@ -641,3 +662,4 @@ vcov_gee <- function(obj) {
     out <- obj$geese$vbeta
     return(out)
 }
+

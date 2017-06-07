@@ -39,9 +39,9 @@ using four simple functions:
 
 Zelig 5 introduced [reference classes](http://adv-r.had.co.nz/R5.html).
 These enable a different way of working with Zelig that is detailed in
-[a separate vignette](docs/articles/zelig5_vs_zelig5.html). Examples
-throughout the package documentation use both the ways of interacting
-with Zelig.
+[a separate
+vignette](http://docs.zeligproject.org/articles/zelig5_vs_zelig4.html).Directly
+using the reference class architecture is optional.
 
 Zelig Quickstart Guide
 ----------------------
@@ -83,32 +83,43 @@ function with three two arguments: equation, model type, and data:
     data(swiss)
 
     # estimate ls model
-    z5_1 <- zelig(Fertility ~ Education, model = "ls", data = swiss)
-
-    ## How to cite this model in Zelig:
-    ##   R Core Team. 2007.
-    ##   ls: Least Squares Regression for Continuous Dependent Variables
-    ##   in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
-    ##   "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+    z5_1 <- zelig(Fertility ~ Education, model = "ls", data = swiss, cite = FALSE)
 
     # model summary
     summary(z5_1)
 
-    ##   Length    Class     Mode 
-    ##        1 Zelig-ls       S4
+    ## Model: 
+    ## 
+    ## Call:
+    ## z5$zelig(formula = Fertility ~ Education, data = swiss)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -17.036  -6.711  -1.011   9.526  19.689 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept)  79.6101     2.1041  37.836  < 2e-16
+    ## Education    -0.8624     0.1448  -5.954 3.66e-07
+    ## 
+    ## Residual standard error: 9.446 on 45 degrees of freedom
+    ## Multiple R-squared:  0.4406, Adjusted R-squared:  0.4282 
+    ## F-statistic: 35.45 on 1 and 45 DF,  p-value: 3.659e-07
+    ## 
+    ## Next step: Use 'setx' method
 
-The NA coefficient on education suggests a negative relationship between
-the education of a province and its fertility rate. More precisely, for
-every one percent increase in draftees educated beyond primary school,
-the fertility rate of the province decreases NA units. To help us better
-interpret this finding, we may want other quantities of interest, such
-as expected values or first differences. Zelig makes this simple by
-automating the translation of model estimates into interpretable
-quantities of interest using Monte Carlo simulation methods (see King,
-Tomz, and Wittenberg (2000) for more information). For example, let’s
-say we want to examine the effect of increasing the percent of draftees
-educated from 5 to 15. To do so, we set our predictor value using the
-`setx()` and `setx1()` functions:
+The -0.86 coefficient on education suggests a negative relationship
+between the education of a province and its fertility rate. More
+precisely, for every one percent increase in draftees educated beyond
+primary school, the fertility rate of the province decreases 0.86 units.
+To help us better interpret this finding, we may want other quantities
+of interest, such as expected values or first differences. Zelig makes
+this simple by automating the translation of model estimates into
+interpretable quantities of interest using Monte Carlo simulation
+methods (see King, Tomz, and Wittenberg (2000) for more information).
+For example, let’s say we want to examine the effect of increasing the
+percent of draftees educated from 5 to 15. To do so, we set our
+predictor value using the `setx()` and `setx1()` functions:
 
     # set education to 5 and 15
     z5_1 <- setx(z5_1, Education = 5)
@@ -117,8 +128,14 @@ educated from 5 to 15. To do so, we set our predictor value using the
     # model summary
     summary(z5_1)
 
-    ##   Length    Class     Mode 
-    ##        1 Zelig-ls       S4
+    ## setx:
+    ##   (Intercept) Education
+    ## 1           1         5
+    ## setx1:
+    ##   (Intercept) Education
+    ## 1           1        15
+    ## 
+    ## Next step: Use 'sim' method
 
 After setting our predictor value, we simulate using the `sim()` method:
 
@@ -128,8 +145,27 @@ After setting our predictor value, we simulate using the `sim()` method:
     # model summary
     summary(z5_1)
 
-    ##   Length    Class     Mode 
-    ##        1 Zelig-ls       S4
+    ## 
+    ##  sim x :
+    ##  -----
+    ## ev
+    ##       mean      sd      50%     2.5%    97.5%
+    ## 1 75.26968 1.63758 75.26433 71.94417 78.37313
+    ## pv
+    ##          mean       sd      50%     2.5%    97.5%
+    ## [1,] 75.30607 9.550589 75.39573 56.35069 94.72933
+    ## 
+    ##  sim x1 :
+    ##  -----
+    ## ev
+    ##       mean       sd      50%     2.5%    97.5%
+    ## 1 66.65888 1.528937 66.61505 63.75947 69.71423
+    ## pv
+    ##          mean       sd      50%     2.5%    97.5%
+    ## [1,] 66.28331 9.275512 66.53786 48.03818 83.93964
+    ## fd
+    ##        mean       sd       50%      2.5%     97.5%
+    ## 1 -8.610797 1.455565 -8.618433 -11.44455 -5.799213
 
 At this point, we’ve estimated a model, set the predictor value, and
 estimated easily interpretable quantities of interest. The `summary()`
@@ -150,13 +186,7 @@ Zelig’s `plot()` function plots the estimated quantities of interest:
 We can also simulate and plot simulations from ranges of simulated
 values:
 
-    z5_2 <- zelig(Fertility ~ Education, model = "ls", data = swiss)
-
-    ## How to cite this model in Zelig:
-    ##   R Core Team. 2007.
-    ##   ls: Least Squares Regression for Continuous Dependent Variables
-    ##   in Christine Choirat, Christopher Gandrud, James Honaker, Kosuke Imai, Gary King, and Olivia Lau,
-    ##   "Zelig: Everyone's Statistical Software," http://zeligproject.org/
+    z5_2 <- zelig(Fertility ~ Education, model = "ls", data = swiss, cite = FALSE)
 
     # set Education to range from 5 to 15 at single integer increments
     z5_2 <- setx(z5_2, Education = 5:15)
@@ -181,7 +211,7 @@ e.g.:
 
     ?setx
 
-If you are looking for details on particlar estimation model methods,
+If you are looking for details on particular estimation model methods,
 you can also use the `?` function. Simply place a `z` before the model
 name. For example, to access details about the `logit` model use:
 

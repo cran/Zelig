@@ -46,7 +46,7 @@ zpipe <- zelig(Fertility ~ Education, data = swiss, model = 'ls') %>%
 
 # FAIL TEST non-zelig objects --------------------------------------------------
 test_that('setx and sim non-zelig object fail', {
-    expect_error(setx('TEST'), 'Not a Zelig object.')
+    expect_error(setx('TEST'), 'Not a Zelig object and not convertible to one.')
     expect_error(sim('TEST'), 'Not a Zelig object.')
 })
 
@@ -69,7 +69,8 @@ test_that('REQUIRE TEST sim wraper minimal working', {
 test_that('REQUIRE TEST ATT wrapper', {
     data(sanction)
     # no wrapper
-    zqi.out <- zelig(num ~ target + coop + mil, model = "poisson", data = sanction)
+    zqi.out <- zelig(num ~ target + coop + mil, model = "poisson",
+                     data = sanction)
     zqi.out$ATT(treatment = "mil")
     my.att <- zqi.out$get_qi(qi = "ATT", xvalue = "TE")
 

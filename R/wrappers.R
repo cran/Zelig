@@ -158,7 +158,9 @@ zelig <- function(formula, model, data, ..., by = NULL, cite = TRUE) {
 
 setx <- function(obj, fn = NULL, data = NULL, cond = FALSE, ...) {
     # .Deprecated('\nz$new() \nz$zelig(...) \nz$setx() or z$setx1 or z$setrange')
-    is_zelig(obj)
+
+    if(!is_zelig(obj, fail = FALSE))
+        obj <- to_zelig(obj)
 
     x5 <- obj$copy()
     # This is the length of each argument in '...'s
@@ -366,6 +368,30 @@ sim <- function(obj, x, x1, y = NULL, num = 1000, bootstrap = F,
     return(s5)
 }
 
+#' Extract standard errors from a Zelig estimated model
+#'
+#' @param object an object of class Zelig
+#' @author Christopher Gandrud
+#' @export
+
+get_se <- function(object) {
+    is_zelig(object)
+    out <- object$get_se()
+    return(out)
+}
+
+#' Extract p-values from a Zelig estimated model
+#'
+#' @param object an object of class Zelig
+#' @author Christopher Gandrud
+#' @export
+
+get_pvalue <- function(object) {
+    is_zelig(object)
+    out <- object$get_pvalue()
+    return(out)
+}
+
 #' Extract quantities of interest from a Zelig simulation
 #'
 #' @param object an object of class Zelig
@@ -378,7 +404,7 @@ sim <- function(obj, x, x1, y = NULL, num = 1000, bootstrap = F,
 #'    imputed data is supplied in the original call.)
 #' @author Christopher Gandrud
 #' @md
-#' @exmport
+#' @export
 
 get_qi <- function(object, qi = "ev", xvalue = "x", subset = NULL) {
     is_zelig(object)

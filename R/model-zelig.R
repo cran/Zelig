@@ -230,8 +230,8 @@ z$methods(
 
 
 z$methods(
-  zelig = function(formula, data, model = NULL, ..., weights = NULL, by,
-                   bootstrap = FALSE) {
+  zelig = function(formula, data, model = NULL, ...,
+                   weights = NULL, by, bootstrap = FALSE) {
     "The zelig function estimates a variety of statistical models"
 
     fn2 <- function(fc, data) {
@@ -257,7 +257,8 @@ z$methods(
     # Without dots for single and multiple equations
     temp_formula <- as.Formula(formula)
     if (sum(length(temp_formula)) <= 2)
-        .self$formula <- as.Formula(terms(temp_formula, data = localdata))
+        .self$formula <- as.Formula(terms(temp_formula,
+                                    data = localdata))
     else if (sum(length(temp_formula)) > 2) {
         f_dots <- attr(terms(temp_formula, data = localdata), "Formula_without_dot")
         if (!is.null(f_dots))
@@ -284,10 +285,10 @@ z$methods(
             if (.self$name == 'ivreg')
                 stop('logging values in the zelig call is not currently supported for ivreg models.',
                      call. = FALSE)
-            localformula <- transformer(formula, data = localdata, FUN = 'log',
-                                        f_out = TRUE)
-            localdata <- transformer(formula, data = localdata, FUN = 'log',
-                                     d_out = TRUE)
+            localformula <- transformer(formula, data = localdata,
+                                        FUN = 'log', f_out = TRUE)
+            localdata <- transformer(formula, data = localdata,
+                                     FUN = 'log', d_out = TRUE)
             .self$formula <- localformula
             .self$data <- localdata
         }
@@ -493,7 +494,8 @@ z$methods(
     #.self$zelig.out <- eval(fn2(.self$model.call, data = data)) # shortened test version that bypasses "by"
     .self$zelig.out <- .self$data %>%
         group_by_(.self$by) %>%
-        do(z.out = eval(fn2(.self$model.call, quote(as.data.frame(.)))))
+        do(z.out = eval(fn2(.self$model.call,
+            quote(as.data.frame(.)))))
     }
 )
 
@@ -501,6 +503,7 @@ z$methods(
   set = function(..., fn = list(numeric = mean, ordered = Median)) {
     "Setting Explanatory Variable Values"
     is_uninitializedField(.self$zelig.out)
+    is_zeligei(.self)
 
     # Find variable transformations in formula call
 #    coef_names <- names(rm_intercept(unlist(.self$get_coef())))
@@ -516,11 +519,12 @@ z$methods(
     s <- list(...)
 
     # This eliminates warning messages when factor rhs passed to lm() model in reduce() utility function
-    if(.self$category=="multinomial"){  # Perhaps find more robust way to test if dep.var. is factor
+    if(.self$category == "multinomial"){  # Perhaps find more robust way to test if dep.var. is factor
       f2 <- update(.self$formula, as.numeric(.) ~ .)
     } else {
       f2 <- .self$formula
     }
+
     f <- update(.self$formula, 1 ~ .)
     # update <- na.omit(.self$data) %>% # remove missing values
 
@@ -558,6 +562,7 @@ z$methods(
   setx = function(..., fn = list(numeric = mean, ordered = Median,
                                  other = Mode)) {
     is_uninitializedField(.self$zelig.out)
+    is_zeligei(.self)
 
     .self$bsetx <- TRUE
     .self$setx.out$x  <- .self$set(..., fn = fn)
@@ -565,14 +570,16 @@ z$methods(
 )
 
 z$methods(
-  setx1 = function(..., fn = list(numeric = mean, ordered = Median, other = Mode)) {
+  setx1 = function(..., fn = list(numeric = mean, ordered = Median,
+                                  other = Mode)) {
     .self$bsetx1 <- TRUE
     .self$setx.out$x1 <- .self$set(...)
   }
 )
 
 z$methods(
-  setrange = function(..., fn = list(numeric = mean, ordered = Median, other = Mode)) {
+  setrange = function(..., fn = list(numeric = mean, ordered = Median,
+                                     other = Mode)) {
     is_uninitializedField(.self$zelig.out)
 
     .self$bsetrange <- TRUE
@@ -590,7 +597,8 @@ z$methods(
 )
 
 z$methods(
-  setrange1 = function(..., fn = list(numeric = mean, ordered = Median, other = Mode)) {
+  setrange1 = function(..., fn = list(numeric = mean, ordered = Median,
+                                      other = Mode)) {
     .self$bsetrange1 <- TRUE
     rng <- list()
     s <- list(...)
@@ -606,7 +614,7 @@ z$methods(
 )
 
 z$methods(
-  param = function(z.out, method="mvn") {
+  param = function(z.out, method = "mvn") {
     if(identical(method,"mvn")){
       return(mvrnorm(.self$num, coef(z.out), vcov(z.out)))
     } else if(identical(method,"point")){
@@ -622,6 +630,7 @@ z$methods(
     "Generic Method for Computing and Organizing Simulated Quantities of Interest"
     is_zelig(.self)
     is_uninitializedField(.self$zelig.out)
+    is_zeligei(.self)
 
     ## If num is defined by user, it overrides the value stored in the .self$num field.
     ## If num is not defined by user, but is also not yet defined in .self$num, then it defaults to 1000.
@@ -910,7 +919,7 @@ z$methods(
         }
       }
 
-      cat("Next step: Use 'setx' method\n")
+      if (!is_zeligei(.self, fail = FALSE)) cat("Next step: Use 'setx' method\n")
     } else if (length(.self$setx.out) != 0 & length(.self$sim.out) == 0) {
       niceprint <- function(obj, name){
         if(!is.null(obj[[1]])){
@@ -1023,28 +1032,29 @@ z$methods(
 z$methods(
   from_zelig_model = function() {
     "Extract the original fitted model object from a zelig call. Note only works for models using directly wrapped functions."
+
     is_uninitializedField(.self$zelig.out)
     result <- try(.self$zelig.out$z.out, silent = TRUE)
 
     if ("try-error" %in% class(result)) {
-      stop("from_zelig_model not available for this fitted model.")
+        stop("from_zelig_model not available for this fitted model.")
     } else {
-      if (length(result) == 1) {
-        result <- result[[1]]
-        result <- strip_package_name(result)
-      } else if (length(result) > 1) {
-        if (.self$mi) {
-          message("Returning fitted model objects for each imputed data set in a list.")
-        } else if (.self$bootstrap) {
-          message("Returning fitted model objects for each bootstrapped data set in a list.")
-        } else {
-          message("Returning fitted model objects for each subset of the data created from the 'by' argument, in a list.")
+        if (length(result) == 1) {
+            result <- result[[1]]
+            result <- strip_package_name(result)
+        } else if (length(result) > 1) {
+            if (.self$mi) {
+                message("Returning fitted model objects for each imputed data set in a list.")
+            } else if (.self$bootstrap) {
+            message("Returning fitted model objects for each bootstrapped data set in a list.")
+            } else {
+                message("Returning fitted model objects for each subset of the data created from the 'by' argument, in a list.")
+            }
+            result <- lapply(result, strip_package_name)
         }
-        result <- lapply(result, strip_package_name)
-      }
-      return(result)
+        return(result)
     }
-  })
+})
 
 #' Method for extracting estimated coefficients from Zelig objects
 #' @param nonlist logical whethe to \code{unlist} the result if there are only
@@ -1438,13 +1448,14 @@ z$methods(
       iweights <- .self$weights
       n.w   <- sum(iweights)
       iweights <- iweights/n.w
-    }else{
+    } else {
       iweights <- NULL
     }
 
     windex <- bootstrapIndex <- NULL
-    for(i in 1:n.boot){
-      windex <- c(windex, sample(x=1:n.obs, size=n.obs, replace=TRUE, prob=iweights))
+    for(i in 1:n.boot) {
+      windex <- c(windex, sample(x=1:n.obs, size=n.obs,
+                  replace = TRUE, prob = iweights))
       bootstrapIndex <- c(bootstrapIndex, rep(i,n.obs))
     }
     # Last dataset is original data

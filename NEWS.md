@@ -3,6 +3,45 @@ each change note when relevant. See <https://github.com/IQSS/Zelig/issues>.
 External contributors are referenced with their GitHub usernames when
 applicable.
 
+Zelig version 5.1-2
+==============================
+
+## Major changes
+
+-   !EXPERIMENTAL! interface function `to_zelig` allows users to convert fitted model
+objects fitted outside of Zelig to a Zelig object. The function is called 
+within the `setx` wrapper if a non-Zelig object is supplied. Currently 
+only works for models fitted with `lm` and many estimated with `glm` and
+`svyglm`. #189
+
+-   `get_se` and `get_pvalue` function wrappers created for `get_se` and
+`get_pvalue` methods, respectively. #269
+
+-   If `combine_coef_se` is given a model estimated without multiply imputed 
+data or bootstraps, an error is no longer returned. Instead a list of the 
+models' untransformed coefficients, standard errors, and p-values is returned. #268
+
+-   `summary` for `logit` models now accepts the argument `odds_ratios`. When
+`TRUE` odds ratio estimates are returned rather than coefficient estimates.
+Thanks to Adam Obeng. PR/#270.
+
+- `setx` and `sim` fail informatively when passed ZeligEI objects. #271
+
+## Minor changes and bug fixes
+
+-   Resolved a bug where `weights` were not being passed to `svydesign`
+in survey models. #258
+
+-   Due to limited functionality and instability, zelig survey estimations 
+no return a warining and a link to documentation on how to use `to_survey`
+via `setx` to bipass `zelig`. #273
+
+-   Resolved a bug where `from_zelig_model` would not extract fitted model 
+objects for models estiamted using `vglm`. #265
+
+-   `get_pvalue` and `get_se` now work for models estimated using `vglm`. #267
+
+-   Improved `ivreg`, `mlogit`, and getter (#266) documentation.
 
 Zelig version 5.1-1
 ==============================
@@ -12,7 +51,7 @@ Zelig version 5.1-1
 -   Average Treatment Effect on the Treated (ATT) vignette added to the online
 documentation <http://docs.zeligproject.org/articles/att.html>
 
-- Corrected vignette URLs.
+-   Corrected vignette URLs.
 
 
 Zelig version 5.1-0
