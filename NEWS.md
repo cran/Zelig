@@ -3,6 +3,26 @@ each change note when relevant. See <https://github.com/IQSS/Zelig/issues>.
 External contributors are referenced with their GitHub usernames when
 applicable.
 
+Zelig version 5.1-3
+==============================
+
+## Major changes
+
+-   Roxygen documentation improvements.
+
+## Minor changes and bug fixes
+
+-   `zquantile` with Amelia imputed data now working. #277
+
+-   `vcov` now works with `rq` quantile regression models.
+
+-   More informative error handling for conflicting `timeseries` model 
+arguments. #283
+
+-   Resolved and issue with `relogit` that produced a warning when the fitted 
+model object was passed to `predict`. #291 
+
+
 Zelig version 5.1-2
 ==============================
 
@@ -33,11 +53,11 @@ Thanks to Adam Obeng. PR/#270.
 in survey models. #258
 
 -   Due to limited functionality and instability, zelig survey estimations 
-no return a warining and a link to documentation on how to use `to_survey`
+no return a warning and a link to documentation on how to use `to_survey`
 via `setx` to bipass `zelig`. #273
 
 -   Resolved a bug where `from_zelig_model` would not extract fitted model 
-objects for models estiamted using `vglm`. #265
+objects for models estimated using `vglm`. #265
 
 -   `get_pvalue` and `get_se` now work for models estimated using `vglm`. #267
 

@@ -228,6 +228,8 @@ z$methods(
     }
 )
 
+#' Zelig method
+#' @param formula TEST
 
 z$methods(
   zelig = function(formula, data, model = NULL, ...,
@@ -1086,8 +1088,11 @@ z$methods(
 
         if ("geeglm" %in% class(.self$zelig.out$z.out[[1]]))
             result <- lapply(.self$zelig.out$z.out, vcov_gee)
+        else if ("rq" %in% class(.self$zelig.out$z.out[[1]]))
+            result <- lapply(.self$zelig.out$z.out, vcov_rq)
         else
             result <- lapply(.self$zelig.out$z.out, vcov)
+
         if ("try-error" %in% class(result))
             stop("'vcov' method' not implemented for model '", .self$name, "'")
         else
