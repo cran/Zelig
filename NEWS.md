@@ -3,6 +3,20 @@ each change note when relevant. See <https://github.com/IQSS/Zelig/issues>.
 External contributors are referenced with their GitHub usernames when
 applicable.
 
+Zelig version 5.1-4
+==============================
+
+## Major changes
+
+-   Speed improvements made to `relogit`. Thanks to @retrography. #88
+
+-   Returns `relogit` weighted case control method to that described in
+King and Langche (2001, eq. 11) and used in the Stata `relogit` implementation.
+#295
+
+-   Odds ratios now returned from `summary` with `relogit` models via the 
+`odds_ratios = TRUE` argument. #302 
+
 Zelig version 5.1-3
 ==============================
 
@@ -16,11 +30,11 @@ Zelig version 5.1-3
 
 -   `vcov` now works with `rq` quantile regression models.
 
--   More informative error handling for conflicting `timeseries` model 
+-   More informative error handling for conflicting `timeseries` model
 arguments. #283
 
--   Resolved and issue with `relogit` that produced a warning when the fitted 
-model object was passed to `predict`. #291 
+-   Resolved and issue with `relogit` that produced a warning when the fitted
+model object was passed to `predict`. #291
 
 
 Zelig version 5.1-2
@@ -29,16 +43,16 @@ Zelig version 5.1-2
 ## Major changes
 
 -   !EXPERIMENTAL! interface function `to_zelig` allows users to convert fitted model
-objects fitted outside of Zelig to a Zelig object. The function is called 
-within the `setx` wrapper if a non-Zelig object is supplied. Currently 
+objects fitted outside of Zelig to a Zelig object. The function is called
+within the `setx` wrapper if a non-Zelig object is supplied. Currently
 only works for models fitted with `lm` and many estimated with `glm` and
 `svyglm`. #189
 
 -   `get_se` and `get_pvalue` function wrappers created for `get_se` and
 `get_pvalue` methods, respectively. #269
 
--   If `combine_coef_se` is given a model estimated without multiply imputed 
-data or bootstraps, an error is no longer returned. Instead a list of the 
+-   If `combine_coef_se` is given a model estimated without multiply imputed
+data or bootstraps, an error is no longer returned. Instead a list of the
 models' untransformed coefficients, standard errors, and p-values is returned. #268
 
 -   `summary` for `logit` models now accepts the argument `odds_ratios`. When
@@ -52,11 +66,11 @@ Thanks to Adam Obeng. PR/#270.
 -   Resolved a bug where `weights` were not being passed to `svydesign`
 in survey models. #258
 
--   Due to limited functionality and instability, zelig survey estimations 
+-   Due to limited functionality and instability, zelig survey estimations
 no return a warning and a link to documentation on how to use `to_survey`
 via `setx` to bipass `zelig`. #273
 
--   Resolved a bug where `from_zelig_model` would not extract fitted model 
+-   Resolved a bug where `from_zelig_model` would not extract fitted model
 objects for models estimated using `vglm`. #265
 
 -   `get_pvalue` and `get_se` now work for models estimated using `vglm`. #267

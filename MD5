@@ -1,6 +1,6 @@
-6f2d3a74900ed4854bdddef6d907507e *DESCRIPTION
-b6ef7b9bcf36c4ff9e67e0167b1b95e8 *NAMESPACE
-a60bfb1bf2ded39ff2ea08c8dcb2e442 *NEWS.md
+215ffc035985d5ab3ce070ae18b183f2 *DESCRIPTION
+e1271f2559ab23440ab394d7d7888dfc *NAMESPACE
+c9aff5819f52659c3cca10956a460854 *NEWS.md
 730ab0cfd1a65d32bffc31dc9faa3cea *R/assertions.R
 d6ef085ccf0851cf45daa5ade58e4666 *R/create-json.R
 e3856971ba3777ebc380d91f5998f26e *R/datasets.R
@@ -22,7 +22,7 @@ b4eb6d7fea8fdc7a4fa49856c8c8c354 *R/model-gamma.R
 f0081bead3ac50ea4b4297fed17425be *R/model-logit-bayes.R
 dec59f27c07e98029bfe23399d0474d8 *R/model-logit-gee.R
 59fcf9b753323af83423923062877aaf *R/model-logit-survey.R
-9c848aa033c426786d96fa724714d806 *R/model-logit.R
+e1015437fcff5a0a6bf33d97d980344d *R/model-logit.R
 03c28f3f11a25de113b9e81089fe9e98 *R/model-lognorm.R
 c5e79fc9667e6c8490634454bdfdf28e *R/model-ls.R
 ddd102cc0cb8b71c467f344f73e370a4 *R/model-ma.R
@@ -42,15 +42,15 @@ ee3bd7275201e8b64f6564470053122c *R/model-probit-gee.R
 203a5584212c675cc8b11e19f5757487 *R/model-probit-survey.R
 1429a685e824beb21bad0683a3c5d446 *R/model-probit.R
 f6cc92aa02b250c2c1eff594a3edf84c *R/model-quantile.R
-28beab5d87d8bc82db6f85894c986fd9 *R/model-relogit.R
+250d6f3c23539cec3032d195b956eefb *R/model-relogit.R
 a3757b9586b6df589dc4dbb88b547ddf *R/model-survey.R
 d00108e9d1a52b9103e2ade8ad08ada3 *R/model-timeseries.R
 cff2612a2388afaef910b090fc75c933 *R/model-tobit-bayes.R
 ea91ed288001b4fee780f35f4690b37e *R/model-tobit.R
 93b036e1e972171320a42d532517c647 *R/model-weibull.R
-64d914bbe8b6dc20d9c002ef4a6fe764 *R/model-zelig.R
+a4d5f4a43da0078cc2373a1932161c55 *R/model-zelig.R
 1f19d0d19b98c38852d8310151455287 *R/plots.R
-a25e0e3d5c267c2776bb7628e088277d *R/utils.R
+9e469f2af28e98f3f3fedf6cf5aed569 *R/utils.R
 23e6baa451254a1fe65ee3bfdd8b001d *R/wrappers.R
 93d0c2b41a8f2ee662e24a2254f529d0 *README.md
 67be5faec3e099c46cde08b439dd8da1 *data/CigarettesSW.tab
@@ -107,7 +107,7 @@ dba84d0dfccdae1cd08e02e57e3d8cd6 *man/Zelig-bayes-class.Rd
 f00cb4b7c0b1269a0bcf3fcda1ff6c9b *man/Zelig-binchoice-class.Rd
 adcc9bafd98950ad536552665d2427ac *man/Zelig-binchoice-gee-class.Rd
 c2b68fcdf0e3ec8ce12a63f8976fde74 *man/Zelig-binchoice-survey-class.Rd
-94963463ff44d2fc9ee8b6a7227ecaaf *man/Zelig-class.Rd
+e457665313c62101e9f39877cb9db956 *man/Zelig-class.Rd
 da91c99e8bc365829c553f9d34e5de04 *man/Zelig-exp-class.Rd
 7643a86feb8215c4bb5611d63e6d0a32 *man/Zelig-factor-bayes-class.Rd
 ee76e603891841729916911b25aa85d3 *man/Zelig-gamma-class.Rd
@@ -117,7 +117,7 @@ f12ce468d6a4a2552bc765da7126e316 *man/Zelig-gee-class.Rd
 541483dd01a6e0997b7fd53af58dd0ed *man/Zelig-glm-class.Rd
 1afd99f810e9117a95630082dbc1b46a *man/Zelig-ivreg-class.Rd
 a6fca9e9136e0be089c655929e287db5 *man/Zelig-logit-bayes-class.Rd
-b90d84887119b564e10a9c4078ebfc46 *man/Zelig-logit-class.Rd
+07cb9206960dc7ffbd803607d54688d9 *man/Zelig-logit-class.Rd
 66a6767f7c650c453111f7744b35a9f6 *man/Zelig-logit-gee-class.Rd
 0f257151126627b4813b5246b21d3d02 *man/Zelig-logit-survey-class.Rd
 e0e62b241529e739b444ead492e13566 *man/Zelig-lognorm-class.Rd
@@ -139,7 +139,7 @@ dd418034db233d42bc9c5b24125e6d5c *man/Zelig-poisson-gee-class.Rd
 8d24a583a287ae56170cb81a6a1e76d8 *man/Zelig-probit-gee-class.Rd
 5ecdc1dbea34bb4f4becec49dbfc999a *man/Zelig-probit-survey-class.Rd
 cd132d1111f55ae3b54f3db9772ab85f *man/Zelig-quantile-class.Rd
-ac6b74bd3a3a2d0587fa837acbaa941e *man/Zelig-relogit-class.Rd
+0f07de9b044efb6caa694ac1d7e6c0d7 *man/Zelig-relogit-class.Rd
 32f11c9014e70ecaa8735a15313dc212 *man/Zelig-survey-class.Rd
 28befa6c3c6be2f7d0f2ca1015f149e6 *man/Zelig-timeseries-class.Rd
 12adbafd4965874fbaae540171969ecb *man/Zelig-tobit-bayes-class.Rd
@@ -201,6 +201,7 @@ cf4104be98d25488ab2e01af44917568 *man/mi.Rd
 2b566cd8c8432fe7fdaaea014ee7bfaf *man/model_lookup_df.Rd
 89edab38f604a9075e095f5c0b5bbae9 *man/names-Zelig-method.Rd
 d7905236f8793559d3c452facbc3ea4c *man/newpainters.Rd
+f7416f61d8414811598c4c18bc285000 *man/or_summary.Rd
 d5e28f4b5801a4b36e5e9d63fbe791b8 *man/p_pull.Rd
 5cf00c09efa952ce607b4faa7aa2f80c *man/plot-Zelig-ANY-method.Rd
 1fea5947a9bf8a0a1d10e83b7c9efdbd *man/predict-Zelig-method.Rd
@@ -250,7 +251,7 @@ f455135fe3b67b227edf5b6375e755c1 *man/zeligARMAbreakforecaster.Rd
 fca90c07adc91e4a81adf8202ded266c *man/zelig_setx_to_df.Rd
 6eb2a229e7381f5a97386c84d13a26d5 *tests/testthat.R
 33bbc413841f9c2441a339e50ac8e9e1 *tests/testthat/test-amelia.R
-5cdbb3c750d4e395d6f0126d266f7d4d *tests/testthat/test-arima.R
+9fddc7e1f7ee9b66986a128c66619ab6 *tests/testthat/test-arima.R
 de67b02afc8f07c05cbe608b027d6c0f *tests/testthat/test-assertions.R
 7a4d0e0a06f8787b721c4266aad8cd94 *tests/testthat/test-bayesdiagnostics.R
 152bd88b896ddbdfb62e62fbe1a4da0b *tests/testthat/test-createJSON.R
@@ -279,11 +280,11 @@ af5d9e5678536a97b15c8696bf9e32e4 *tests/testthat/test-probit.R
 14a4f73fe26f0153bd991d237746c48e *tests/testthat/test-probitsurvey.R
 23a9905bc7b09bdd931f727fbc7b581c *tests/testthat/test-qislimmer.R
 6c34b0993dd9f30b177d7a3b0b0f4227 *tests/testthat/test-quantile.R
-e9dfcc3f63ff69a76b9a0c78103040f8 *tests/testthat/test-relogit.R
+c8f03b61b1eaedbcaceff9a85e5ac7c1 *tests/testthat/test-relogit.R
 44f3a02578b94eb950885db9782cd27b *tests/testthat/test-survey.R
 99190c093bc2b35dd3362eb57140d777 *tests/testthat/test-tobit.R
 e8b1d1f6618b931ad4c7b1510b952ad2 *tests/testthat/test-tobitbayes.R
-47a599b31762c75637e645385333b2d2 *tests/testthat/test-utils.R
+5ae9afe4dcd1535b81e454436a2faaa5 *tests/testthat/test-utils.R
 5899f0b0f78d3d0d6465caaacb025388 *tests/testthat/test-weibull.R
 d1cd3bd62d9bf4e8935d35ea3b2a45ac *tests/testthat/test-weights.R
 590f47b47c83e232881268465b2545b2 *tests/testthat/test-wrappers.R
