@@ -3,6 +3,40 @@ each change note when relevant. See <https://github.com/IQSS/Zelig/issues>.
 External contributors are referenced with their GitHub usernames when
 applicable.
 
+Zelig version 5.1.5
+==============================
+
+++++ All Zelig time series models will be deprecated on 1 February 2018 ++++
+
+
+## Bug fixes
+
+-   Resolved an issue where `odds_ratios` standard errors were not correctly
+returned for `logit` and `relogit` models. Thanks to @retrography. #302
+
+-   Zelig 4 compatability wrappers now work for `arima` models. Thanks to
+@mbsabath. #280
+
+-   Resolved an error when only `setx` was called with `arima` models Thanks to
+@mbsabath. #299
+
+-   Resolved an error when `summary` was called after `sim` for `arima` models.
+#305
+
+-   Resolved an error when `sim` is used with differenced first-order
+autoregressive models. #307
+
+-   `arima` models return informative error when `data` is not found. #308
+
+## Minor
+
+-   Compatibility with testthat 2.0.0
+
+-   Documentation updated to correctly reflect that `tobit` wraps `AER::tobit`.
+#315
+
+-   Package terminology in documentation corrected. #316
+
 Zelig version 5.1-4
 ==============================
 
@@ -14,8 +48,8 @@ Zelig version 5.1-4
 King and Langche (2001, eq. 11) and used in the Stata `relogit` implementation.
 #295
 
--   Odds ratios now returned from `summary` with `relogit` models via the 
-`odds_ratios = TRUE` argument. #302 
+-   Odds ratios now returned from `summary` with `relogit` models via the
+`odds_ratios = TRUE` argument. #302
 
 Zelig version 5.1-3
 ==============================

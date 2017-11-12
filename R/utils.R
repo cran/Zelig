@@ -157,12 +157,14 @@ reduce = function(dataset, s, formula, data, avg = avg) {
 
 
 
-#' Describe Here
+#' Create QI summary matrix
 #' @param qi quantity of interest in the discrete case
 #' @return a formatted qi
 #' @keywords internal
 #' @author Christine Choirat
 statmat <- function(qi) {
+    if (!is.matrix(qi))
+        qi <- as.matrix(qi, ncol = 1)
     m <- t(apply(qi, 2, quantile, c(.5, .025, .975), na.rm = TRUE))
     n <- matrix(apply(qi, 2, mean, na.rm = TRUE))
     colnames(n) <- "mean"
@@ -689,8 +691,13 @@ or_summary <- function(obj, label_mod_coef = "(OR)",
         stop("obj must be of summary.glm class.",
              call. = FALSE)
 
-        obj$coefficients[, c(1, 2)] <- exp(obj$coefficients[, c(1, 2)])
+        obj$coefficients[, 1] <- exp(obj$coefficients[, 1])
+
+        var_diag = diag(vcov(obj))
+        obj$coefficients[, 2] <- sqrt(obj$coefficients[, 1] ^ 2 * var_diag)
+
         colnames(obj$coefficients)[c(1, 2)] <- paste(
-                                colnames(obj$coefficients)[c(1, 2)], c(label_mod_coef, label_mod_se))
+                                colnames(obj$coefficients)[c(1, 2)],
+                                c(label_mod_coef, label_mod_se))
         return(obj)
 }
