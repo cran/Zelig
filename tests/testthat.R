@@ -5,5 +5,6 @@ library(survey)
 library(testthat)
 library(zeligverse)
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(123)
 test_check("Zelig")

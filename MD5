@@ -1,4 +1,4 @@
-488c81c97943fff3cb95bb2fddf6dd47 *DESCRIPTION
+d2dfab643f67be5c5f54d7fae1049e5f *DESCRIPTION
 e1271f2559ab23440ab394d7d7888dfc *NAMESPACE
 942b5cf18863345c7bec7c3fba1b6aca *NEWS.md
 730ab0cfd1a65d32bffc31dc9faa3cea *R/assertions.R
@@ -53,7 +53,7 @@ e9a87c8e51730b022171e92a01fbb4c0 *R/plots.R
 5a94e8d8b23d1c5d2ddfbf887168f597 *R/utils.R
 23e6baa451254a1fe65ee3bfdd8b001d *R/wrappers.R
 93d0c2b41a8f2ee662e24a2254f529d0 *README.md
-67be5faec3e099c46cde08b439dd8da1 *data/CigarettesSW.tab
+39ef73926d0b63476cdddce1806a6413 *data/CigarettesSW.tab.gz
 d8568ae5389248b670f8c744a6393bc5 *data/MatchIt.url.tab.gz
 a6f9d73b7928a4b1b3098db3f47e5daa *data/PErisk.txt.gz
 92a23a476e24f1cd6d24d0da91400dfd *data/SupremeCourt.txt.gz
@@ -247,7 +247,7 @@ f455135fe3b67b227edf5b6375e755c1 *man/zeligARMAbreakforecaster.Rd
 24c9ec13a8b559c25a112c32942aa404 *man/zelig_mutate.Rd
 530525b72d95fd0fff940145b03b26ad *man/zelig_qi_to_df.Rd
 fca90c07adc91e4a81adf8202ded266c *man/zelig_setx_to_df.Rd
-6eb2a229e7381f5a97386c84d13a26d5 *tests/testthat.R
+d37d7b70b380b85f4ca7b727572a4d8f *tests/testthat.R
 33bbc413841f9c2441a339e50ac8e9e1 *tests/testthat/test-amelia.R
 3b16f1b151b8022a851e5308335f73a5 *tests/testthat/test-arima.R
 de67b02afc8f07c05cbe608b027d6c0f *tests/testthat/test-assertions.R
