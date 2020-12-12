@@ -4,6 +4,7 @@
 
 # REQUIRE TEST arima successful estimation -------------------------------------
 test_that('REQUIRE TEST arima successful estimation', {
+    skip_on_cran()
     data(seatshare)
     ts <- zarima$new()
 
@@ -16,6 +17,7 @@ test_that('REQUIRE TEST arima successful estimation', {
 
 # FAIL TEST arima fails if DV does not vary ------------------------------------
 test_that('FAIL TEST arima fails if DV does not vary', {
+    skip_on_cran()
     no_vary_df <- data.frame(country = c(rep("A", 5), rep("B", 5)),
                              year = c(1:5, 1:5),
                              y = c(rep(1:5), rep(2, 5)),
@@ -32,6 +34,7 @@ test_that('FAIL TEST arima fails if DV does not vary', {
 
 # FAIL TEST arima models ------------------------------------
 test_that('REQUIRE TEST arima models', {
+    skip_on_cran()
 
     n.obs <- 2000
     x <- rnorm(n=n.obs)
@@ -100,6 +103,7 @@ test_that('REQUIRE TEST arima models', {
 # REQUIRE TEST ensure that the workflow can be completed using the
 # Zelig 5 wrappers
 test_that("REQUIRE TEST timeseries reference class wrappers", {
+    skip_on_cran()
     data(seatshare)
     subset <- seatshare[seatshare$country == "UNITED KINGDOM",]
     expect_error(ts.out <- zelig(unemp ~ leftseat, data = subset,
@@ -115,6 +119,7 @@ test_that("REQUIRE TEST timeseries reference class wrappers", {
 
 # REQUIRE TEST to ensure that summary works with arima with sim ----------------
 test_that("REQUIRE TEST to ensure that summary works with arima with sim", {
+    skip_on_cran()
     data(seatshare)
     subset <- seatshare[seatshare$country == "UNITED KINGDOM",]
     s.out <- zelig(unemp ~ leftseat, data = subset, model = "arima",
@@ -127,6 +132,7 @@ test_that("REQUIRE TEST to ensure that summary works with arima with sim", {
 
 # FAILURE TEST cs ts by with timeseries ----------------------------------------
 test_that("FAILURE TEST cs ts by with timeseries", {
+    skip_on_cran()
     data(seatshare)
     ts <- zarima$new()
 
@@ -146,7 +152,8 @@ test_that("FAILURE TEST cs ts by with timeseries", {
 
 # REQUIRE TEST arima with differenced first-order autoregressive ---------------
 test_that("REQUIRE TEST arima with differenced first-order autoregressive", {
-data(seatshare)
+    skip_on_cran()
+    data(seatshare)
 subset <- seatshare[seatshare$country == "UNITED KINGDOM",]
 
 s.out <- zelig(unemp ~ leftseat, data = subset, model = "arima",
@@ -157,6 +164,7 @@ s.out <- zelig(unemp ~ leftseat, data = subset, model = "arima",
 
 # FAIL TEST when data is not found (not exclusive to arima) --------------------
 test_that("FAIL TEST when data is not found (not exclusive to arima)", {
+    skip_on_cran()
     expect_error(zelig(formula = unemp ~ leftseat, model = "ma", ts = "year",
                        data = subset),
                  "data not found")
@@ -164,6 +172,7 @@ test_that("FAIL TEST when data is not found (not exclusive to arima)", {
 
 # REQUIRE TEST timeseries deprecation ------------------------------------------
 test_that("REQUIRE TEST timeseries deprecation", {
+    skip_on_cran()
     data(seatshare)
     subset <- seatshare[seatshare$country == "UNITED KINGDOM",]
     expect_warning(

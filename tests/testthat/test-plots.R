@@ -1,6 +1,7 @@
 
 # FAIL TEST ci.plot if simrange is not supplied --------------------------------
 test_that('FAIL TEST ci.plot if simrange is not supplied', {
+    skip_on_cran()
     z <- zls$new()
     z$zelig(Fertility ~ Education, data = swiss)
 
@@ -10,6 +11,7 @@ test_that('FAIL TEST ci.plot if simrange is not supplied', {
 
 # FAIL TEST ci.plot first difference setrange and setrange1 same length --------
 test_that('FAIL TEST ci.plot first difference setrange and setrange1 same length', {
+    skip_on_cran()
     z <- zls$new()
     z$zelig(Fertility ~ Education, data = swiss)
     z$setrange(Education = 5:15)
@@ -30,6 +32,7 @@ test_that('FAIL TEST ci.plot first difference setrange and setrange1 same length
 # REQUIRE TEST ordered plots ---------------------------------------------
 
 test_that('REQUIRE TEST ordered plots', {
+    skip_on_cran()
     data(sanction)
     sanction$ncost <- factor(sanction$ncost, ordered = TRUE, levels = c("net gain", "little effect", "modest loss", "major loss"))
     z.out <- zoprobitbayes$new()

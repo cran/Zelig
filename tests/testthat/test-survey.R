@@ -1,6 +1,7 @@
 # REQUIRE TEST survey weights correctly passed  --------------------------------
 
 test_that('REQUIRE TEST survey weights correctly passed', {
+    skip_on_cran()
     data(api, package = "survey")
 
     z.out1 <- zelig(api00 ~ meals + yr.rnd, model = "normal.survey",
@@ -27,6 +28,7 @@ test_that('REQUIRE TEST survey weights correctly passed', {
 # REQUIRE TEST survey weights correctly passed  --------------------------------
 
 test_that('REQUIRE TEST survey glm with no weights', {
+    skip_on_cran()
     data(api, package = "survey")
 
     z.out1_no_weights <- zelig(api00 ~ meals + yr.rnd, model = "normal.survey",
@@ -45,6 +47,7 @@ test_that('REQUIRE TEST survey glm with no weights', {
 # REQUIRE TEST repweights ------------------------------------------------------
 test_that('REQUIRE TEST repweights', {
     ### ----- NEED TO THINK OF A BETTER TEST ------ ##
+    skip_on_cran()
     data(scd, package = "survey")
 
     BRRrep <- 2*cbind(c(1,0,1,0,1,0), c(1,0,0,1,0,1),

@@ -128,7 +128,7 @@ Zelig version 5.1-1
 ## Minor changes
 
 -   Average Treatment Effect on the Treated (ATT) vignette added to the online
-documentation <http://docs.zeligproject.org/articles/att.html>
+documentation <https://docs.zeligproject.org/articles/att.html>
 
 -   Corrected vignette URLs.
 

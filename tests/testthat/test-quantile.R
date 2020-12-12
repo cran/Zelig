@@ -1,5 +1,6 @@
 # REQUIRE TEST quantile regression doc example ---------------------------------
 test_that("REQUIRE TEST quantile regression doc example", {
+    skip_on_cran()
     library(quantreg)
     library(dplyr)
     data("stackloss")

@@ -1,16 +1,16 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![zelig-logo](man/figures/zelig.png)](http://zeligproject.org)
+[![zelig-logo](man/figures/zelig.png)](https://zeligproject.org/)
 
 <!--- Badges ----->
 **Release:** [![CRAN
-Version](http://www.r-pkg.org/badges/version/Zelig)](http://cran.r-project.org/package=Zelig)
+Version](https://www.r-pkg.org/badges/version/Zelig)](https://CRAN.R-project.org/package=Zelig)
 ![CRAN Monthly
 Downloads](http://cranlogs.r-pkg.org/badges/last-month/Zelig) ![CRAN
 Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/Zelig)
 
 **Development:** [![Project Status: Active - The project has reached a
 stable, usable state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Travis (LINUX) Build
 Status](https://travis-ci.org/IQSS/Zelig.svg?branch=master)](https://travis-ci.org/IQSS/Zelig)
 [![AppVeyor (Windows) Build
@@ -216,9 +216,3 @@ name. For example, to access details about the `logit` model use:
 
     ?zlogit
 
-Building Zelig (for developers)
-===============================
-
-Zelig can be fully checked and build using the code in
-[check\_build\_zelig.R](check_build_zelig.R). Note that this can be time
-consuming due to the extensive test coverage.

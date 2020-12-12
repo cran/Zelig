@@ -3,12 +3,12 @@ License: GPL (>= 3)
 Title: Everyone's Statistical Software
 Authors@R: c(
     person("Christine", "Choirat", role = "aut"),
-    person("Christopher", "Gandrud", email = "zelig.zee@gmail.com",
-    role = c("aut", "cre")),
+    person("Christopher", "Gandrud", role = "aut"),
     person("James", "Honaker", role = "aut"),
     person("Kosuke", "Imai", role = "aut"),
     person("Gary", "King", role = "aut"),
     person("Olivia", "Lau", role = "aut"),
+    person("Robert", "Treacy", email = "zelig.zee@gmail.com", role = c("aut", "cre")),
     person("IQSS", "Harvard University", role = "cph")
     )
 Description: A framework that brings together an abundance of common
@@ -28,14 +28,13 @@ Description: A framework that brings together an abundance of common
     and visualize complex models.
 URL: https://cran.r-project.org/package=Zelig
 BugReports: https://github.com/IQSS/Zelig/issues
-Version: 5.1.6.1
-Date: 2018-02-27
+Version: 5.1.7
+Date: 2020-12-03
 Depends: survival
 Imports: AER, Amelia, coda, dplyr (>= 0.3.0.2), Formula, geepack,
         jsonlite, sandwich, MASS, MatchIt, maxLik, MCMCpack, methods,
         quantreg, survey, VGAM
-Suggests: ei, eiPack, knitr, networkD3, optmatch, rmarkdown, testthat,
-        tidyverse, ZeligChoice, ZeligEI, zeligverse
+Suggests: ei, eiPack, knitr, networkD3, optmatch, rmarkdown, testthat
 Collate: 'assertions.R' 'model-zelig.R' 'model-timeseries.R'
         'model-ma.R' 'model-ar.R' 'model-arima.R' 'model-weibull.R'
         'model-tobit.R' 'model-bayes.R' 'model-tobit-bayes.R'
@@ -55,16 +54,17 @@ Collate: 'assertions.R' 'model-zelig.R' 'model-timeseries.R'
         'model-logit-survey.R' 'model-normal-survey.R'
         'model-poisson-survey.R' 'model-probit-survey.R' 'plots.R'
         'wrappers.R'
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2019-04-21 08:03:55 UTC; ripley
+Packaged: 2020-12-11 19:30:26 UTC; roberttreacy
 Author: Christine Choirat [aut],
-  Christopher Gandrud [aut, cre],
+  Christopher Gandrud [aut],
   James Honaker [aut],
   Kosuke Imai [aut],
   Gary King [aut],
   Olivia Lau [aut],
+  Robert Treacy [aut, cre],
   IQSS Harvard University [cph]
-Maintainer: Christopher Gandrud <zelig.zee@gmail.com>
+Maintainer: Robert Treacy <zelig.zee@gmail.com>
 Repository: CRAN
-Date/Publication: 2019-04-22 06:55:01 UTC
+Date/Publication: 2020-12-12 15:20:06 UTC

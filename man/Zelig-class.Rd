@@ -6,7 +6,7 @@
 \alias{z}
 \title{Zelig reference class}
 \description{
-Zelig website: \url{http://zeligproject.org/}
+Zelig website: \url{https://zeligproject.org/}
 }
 \section{Fields}{
 
@@ -131,7 +131,7 @@ Zelig website: \url{http://zeligproject.org/}
 
 \item{\code{graph(...)}}{Plot the quantities of interest}
 
-\item{\code{help()}}{Open the model vignette from http://zeligproject.org/}
+\item{\code{help()}}{Open the model vignette from https://zeligproject.org/}
 
 \item{\code{packagename()}}{Automatically retrieve wrapped package name}
 
@@ -149,7 +149,6 @@ Zelig website: \url{http://zeligproject.org/}
 
 \item{\code{toJSON()}}{Convert Zelig object to JSON format}
 
-\item{\code{zelig(formula, data, model = NULL, ..., weights = NULL, by,
-  bootstrap = FALSE)}}{The zelig function estimates a variety of statistical models}
+\item{\code{zelig(formula, data, model = NULL, ..., weights = NULL, by, bootstrap = FALSE)}}{The zelig function estimates a variety of statistical models}
 }}
 
